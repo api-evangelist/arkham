@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: searched
+source: https://arkm.com/llms/guides/api-keys-authentication.md
+docs: https://arkm.com/llms/guides/api-keys-authentication.md
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  notes: >-
+    The published OpenAPI (openapi/arkham-openapi-original.json) does not declare securitySchemes; the
+    auth model is documented in the API Keys & Authentication guide. All REST requests require an
+    API-Key header. The x402 agent surface (api.arkm.com/x402) uses payment (USDC on Base) or a
+    Sign-In-With-X wallet signature as its auth instead of an API key.
+schemes:
+- name: ApiKeyHeader
+  type: apiKey
+  in: header
+  parameter: API-Key
+  description: >-
+    All API requests must include a valid API-Key header. Requests without it are rejected as
+    unauthorized (401 "error validating API key"). Keys are created in the Arkham UI (Settings -> API
+    Keys, or the API Dashboard) and shown once. Use the API-Key header, NOT Authorization.
+  sources:
+  - https://arkm.com/llms/guides/api-keys-authentication.md
+key_management:
+  create: https://arkm.com/api-dashboard?tab=api-keys
+  settings: https://arkm.com/settings
+  default_key_limit: 5
+  rotation: create-new -> deploy -> revoke-old
+  best_practice: separate keys per environment (prod/staging/dev) and per service
+x402_auth:
+  base_url: https://api.arkm.com/x402
+  model: payment-is-auth
+  payment_protocol: x402 v2 (EIP-3009 USDC transfer authorization on Base, eip155:8453)
+  free_discovery_auth: sign-in-with-x wallet signature (chains, networks/status, arkm/circulating)
