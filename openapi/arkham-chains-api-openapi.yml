@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Chains API
+  version: 1.1.0
+tags:
+- name: Chains
+paths:
+  /chains:
+    get:
+      summary: Get supported chains list
+      description: Retrieves a list of supported blockchain chains.
+      operationId: GetSupportedChains
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chain'
+                example:
+                - ethereum
+                - bitcoin
+                - tron
+                - polygon
+                - bsc
+        '500':
+          description: Internal Server Error
+      tags:
+      - Chains
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum

@@ -1,0 +1,2367 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Transfers API
+  version: 1.1.0
+tags:
+- name: Transfers
+paths:
+  /transfers:
+    get:
+      summary: Get transfers
+      description: 'Retrieves a list of transfers based on various query filters.
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.
+
+
+        **Filter parameters:**
+
+        - **base**: Filter by specific entity or address. For example, "0x123abc" or "binance".
+
+        - **chains**: Specify a comma-separated list of chains (e.g. "ethereum,bsc").
+
+        - **flow**: Direction of the transfer. Valid values are "in" (incoming), "out" (outgoing), "self" (self-transfers), or "all".
+
+        - **from**: Comma-separated list of addresses, entities, or deposit services for the ''from'' side of a transfer. You can also use special syntax like "type:cex" to filter on entity types or "deposit:binance" to filter on deposit addresses.
+
+        - **to**: Comma-separated list of addresses, entities, or deposit services for the ''to'' side.
+
+        - **tokens**: Comma-separated list of token addresses or token IDs. E.g. "ethereum", "usd-coin", or "0x...tokenAddress".
+
+        - **counterparties**: Comma-separated list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+
+        - **timeLast**: Filter transfers from a recent duration. For example, "24h" returns transfers from the last 24 hours.
+
+        - **timeGte/timeLte**: Filter from/to a specific timestamp in milliseconds.
+
+        - **valueGte/valueLte**: Numeric filters on the raw token amount (on-chain units).
+
+        - **usdGte/usdLte**: Numeric filters on the historical USD value of the transfer.
+
+        - **sortKey**: Field by which to sort the results. Options include "time", "value", or "usd".
+
+        - **sortDir**: Sorting direction. Use "asc" for ascending or "desc" for descending.
+
+        - **limit**: Maximum number of results to return (default is 20).
+
+        - **offset**: Pagination offset (default is 0).
+
+
+        **Real-time streaming:** For live transfer notifications instead of polling, use the WebSocket API. See GET /ws/transfers for real-time streaming with the same filtering capabilities.'
+      operationId: GetTransfers
+      parameters:
+      - name: base
+        in: query
+        description: Filter from or to any of a comma separated list of entities or addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from or to any of a comma separated list of entities or addresses.
+          example:
+          - binance
+          - '!wintermute'
+      - name: chains
+        in: query
+        description: List of chains to filter by.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: flow
+        in: query
+        description: Transfer direction.
+        schema:
+          $ref: '#/components/schemas/TransferFlow'
+      - name: from
+        in: query
+        description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: to
+        in: query
+        description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: counterparties
+        in: query
+        description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+        schema:
+          type: array
+          items:
+            type: string
+          description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+          example:
+          - binance
+      - name: tokens
+        in: query
+        description: Filter involving any of a comma separated list of token addresses or token IDs.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter involving any of a comma separated list of token addresses or token IDs.
+          example:
+          - ethereum
+          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      - name: timeGte
+        in: query
+        description: Filter after a specific time.
+        schema:
+          type: string
+          description: Filter after a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLte
+        in: query
+        description: Filter before a specific time.
+        schema:
+          type: string
+          description: Filter before a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLast
+        in: query
+        description: Filter using a duration string.
+        schema:
+          type: string
+          description: Filter using a duration string.
+          example: 24h
+      - name: valueGte
+        in: query
+        description: Filter above a minimum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum token value.
+          nullable: true
+          example: '100.23'
+      - name: valueLte
+        in: query
+        description: Filter below a maximum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum token value.
+          nullable: true
+          example: '100.23'
+      - name: usdGte
+        in: query
+        description: Filter above a minimum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum USD value.
+          nullable: true
+          example: '100.23'
+      - name: usdLte
+        in: query
+        description: Filter below a maximum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum USD value.
+          nullable: true
+          example: '100.23'
+      - name: sortKey
+        in: query
+        description: Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending.
+        schema:
+          $ref: '#/components/schemas/TransferSortKey'
+      - name: sortDir
+        in: query
+        description: Direction for sorting results.
+        schema:
+          $ref: '#/components/schemas/SortDir'
+      - name: limit
+        in: query
+        description: 'Maximum number of results to return. Default: 20. Max: 1650.'
+        schema:
+          type: integer
+          description: 'Maximum number of results to return. Default: 20. Max: 1650.'
+          example: 10
+      - name: offset
+        in: query
+        description: Pagination offset. offset + limit must not exceed 10000.
+        schema:
+          type: integer
+          description: Pagination offset. offset + limit must not exceed 10000.
+          example: 0
+      - name: includeCursors
+        in: query
+        description: 'Include per-chain as-of cursors in the response. Default: false.'
+        schema:
+          type: boolean
+          description: 'Include per-chain as-of cursors in the response. Default: false.'
+          example: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedTransfers'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Transfers
+  /transfers/histogram:
+    get:
+      summary: Get a detailed histogram of transfers (API Only)
+      description: 'Returns an aggregated histogram of transfers over time (count and USD values) based on the same filter parameters used in /transfers.
+
+
+        **Requires an API key** (browser-session and anonymous access are not permitted).
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.
+
+
+        **Additional parameter**:
+
+        - **granularity**: "1h" or "1d" (if the range exceeds 30 days, "1h" is invalid).
+
+
+        **Filter parameters** (same as /transfers, minus pagination/sorting):
+
+        - **base**: Filter by specific entity or address. For example, "0x123abc" or "binance".
+
+        - **chains**: Specify a comma-separated list of chains (e.g. "ethereum,bsc").
+
+        - **flow**: Direction of the transfer. Valid values are "in", "out", "self", or "all".
+
+        - **timeLast**: Filter from a recent duration (e.g. "24h", "7d", "30d", etc.).
+
+        - **timeGte/timeLte**: Filter from/to a specific timestamp in milliseconds.
+
+        - **valueGte/valueLte**: Numeric filters on the raw token amount.
+
+        - **usdGte/usdLte**: Numeric filters on the historical USD value of the transfer.
+
+        - **from**: Comma-separated list of addresses, entities, or deposit services for the ''from'' side.
+
+        - **to**: Comma-separated list of addresses, entities, or deposit services for the ''to'' side.
+
+        - **tokens**: Comma-separated list of token addresses or token IDs.
+
+        - **counterparties**: Comma-separated list of addresses or entities to treat strictly as counterparties.'
+      operationId: GetTransfersHistogram
+      parameters:
+      - name: base
+        in: query
+        description: Filter from or to any of a comma separated list of entities or addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from or to any of a comma separated list of entities or addresses.
+          example:
+          - binance
+          - '!wintermute'
+      - name: chains
+        in: query
+        description: List of chains to filter by.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: flow
+        in: query
+        description: Transfer direction.
+        schema:
+          $ref: '#/components/schemas/TransferFlow'
+      - name: from
+        in: query
+        description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: to
+        in: query
+        description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: counterparties
+        in: query
+        description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+        schema:
+          type: array
+          items:
+            type: string
+          description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+          example:
+          - binance
+      - name: tokens
+        in: query
+        description: Filter involving any of a comma separated list of token addresses or token IDs.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter involving any of a comma separated list of token addresses or token IDs.
+          example:
+          - ethereum
+          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      - name: timeGte
+        in: query
+        description: Filter after a specific time.
+        schema:
+          type: string
+          description: Filter after a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLte
+        in: query
+        description: Filter before a specific time.
+        schema:
+          type: string
+          description: Filter before a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLast
+        in: query
+        description: Filter using a duration string.
+        schema:
+          type: string
+          description: Filter using a duration string.
+          example: 24h
+      - name: valueGte
+        in: query
+        description: Filter above a minimum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum token value.
+          nullable: true
+          example: '100.23'
+      - name: valueLte
+        in: query
+        description: Filter below a maximum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum token value.
+          nullable: true
+          example: '100.23'
+      - name: usdGte
+        in: query
+        description: Filter above a minimum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum USD value.
+          nullable: true
+          example: '100.23'
+      - name: usdLte
+        in: query
+        description: Filter below a maximum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum USD value.
+          nullable: true
+          example: '100.23'
+      - name: granularity
+        in: query
+        description: Granularity of histogram buckets. For time ranges over 30 days, only '1d' is valid.
+        schema:
+          $ref: '#/components/schemas/Granularity'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountSnapshot'
+                example:
+                - count: 1
+                  time: '2024-01-01T00:00:00Z'
+                  usd: 1.23
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Transfers
+  /transfers/histogram/simple:
+    get:
+      summary: Get a simple histogram of transfers
+      description: 'Returns a simplified aggregated histogram of transfers over time.
+
+
+        **Note**: For the full-featured histogram endpoint with all filter options, use /transfers/histogram which requires API authentication.'
+      operationId: GetTransfersHistogramSimple
+      parameters:
+      - name: base
+        in: query
+        description: Filter from or to any of a comma separated list of entities or addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from or to any of a comma separated list of entities or addresses.
+          example:
+          - binance
+          - '!wintermute'
+      - name: chains
+        in: query
+        description: List of chains to filter by.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: flow
+        in: query
+        description: Transfer direction.
+        schema:
+          $ref: '#/components/schemas/TransferFlow'
+      - name: from
+        in: query
+        description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: to
+        in: query
+        description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: counterparties
+        in: query
+        description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+        schema:
+          type: array
+          items:
+            type: string
+          description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+          example:
+          - binance
+      - name: tokens
+        in: query
+        description: Filter involving any of a comma separated list of token addresses or token IDs.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter involving any of a comma separated list of token addresses or token IDs.
+          example:
+          - ethereum
+          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      - name: timeGte
+        in: query
+        description: Filter after a specific time.
+        schema:
+          type: string
+          description: Filter after a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLte
+        in: query
+        description: Filter before a specific time.
+        schema:
+          type: string
+          description: Filter before a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLast
+        in: query
+        description: Filter using a duration string.
+        schema:
+          type: string
+          description: Filter using a duration string.
+          example: 24h
+      - name: valueGte
+        in: query
+        description: Filter above a minimum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum token value.
+          nullable: true
+          example: '100.23'
+      - name: valueLte
+        in: query
+        description: Filter below a maximum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum token value.
+          nullable: true
+          example: '100.23'
+      - name: usdGte
+        in: query
+        description: Filter above a minimum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum USD value.
+          nullable: true
+          example: '100.23'
+      - name: usdLte
+        in: query
+        description: Filter below a maximum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum USD value.
+          nullable: true
+          example: '100.23'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountSnapshot'
+                example:
+                - count: 1
+                  time: '2024-01-01T00:00:00Z'
+                  usd: 1.23
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Transfers
+  /transfers/tx/{hash}:
+    get:
+      summary: Get transfers for a transaction
+      description: Returns the transfers of a given type (external, internal, or token) within a single transaction, identified by its hash. Supported on EVM chains and Tron; other chains return an empty list. For Solana and other non-EVM transactions, use GET /tx/{hash} to retrieve the transaction's details instead.
+      operationId: GetTransfersForTransaction
+      parameters:
+      - name: transferType
+        in: query
+        description: Type of transfers to return. 'external' = native value transfers, 'internal' = trace calls, 'token' = ERC-20/TRC-20 transfers.
+        required: true
+        schema:
+          enum:
+          - external
+          - internal
+          - token
+          type: string
+          description: Type of transfers to return. 'external' = native value transfers, 'internal' = trace calls, 'token' = ERC-20/TRC-20 transfers.
+          example: token
+      - name: chain
+        in: query
+        description: The blockchain network the transaction is on.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: hash
+        in: path
+        description: The transaction hash to retrieve transfers for.
+        required: true
+        schema:
+          type: string
+          description: The transaction hash to retrieve transfers for.
+          example: '0xf141a777ec5211657989b167d137dbc74f1a97984ba8ce3925bd640b78702587'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EnrichedTransfer'
+                example:
+                - blockHash: '0x3dac10e206e1da667c23f11ed8e2bca60bcc3bfc63890ae01c28c011ded90dda'
+                  blockNumber: 25294069
+                  blockTimestamp: '2026-06-11T11:58:35Z'
+                  chain: ethereum
+                  fromAddress:
+                    address: '0x628E97b796c7186a16d372d2a0717De2d1DB1Cf9'
+                    arkhamLabel:
+                      address: '0x628E97b796c7186a16d372d2a0717De2d1DB1Cf9'
+                      chainType: evm
+                      name: Bitget Deposit
+                    chain: ethereum
+                    contract: false
+                    depositServiceID: bitget
+                    isUserAddress: false
+                  fromIsContract: false
+                  historicalUSD: 100
+                  id: '0xf141a777ec5211657989b167d137dbc74f1a97984ba8ce3925bd640b78702587_472'
+                  toAddress:
+                    address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                    arkhamEntity:
+                      id: binance
+                      name: Binance
+                      note: ''
+                      service: null
+                      twitter: https://twitter.com/binance
+                      type: cex
+                      website: https://binance.com
+                    arkhamLabel:
+                      address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                      chainType: evm
+                      name: Hot Wallet
+                    chain: ethereum
+                    contract: false
+                    isUserAddress: false
+                  toIsContract: false
+                  tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                  tokenDecimals: 6
+                  tokenId: usd-coin
+                  tokenName: USD Coin
+                  tokenSymbol: USDC
+                  transactionHash: '0xf141a777ec5211657989b167d137dbc74f1a97984ba8ce3925bd640b78702587'
+                  type: token
+                  unitValue: 100
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Transfers
+  /transfers/unenriched:
+    get:
+      summary: Get unenriched transfers
+      description: 'Retrieves a list of transfers based on the same query filters as GET /transfers, but returns raw addresses without Arkham address intelligence.
+
+
+        This endpoint uses the transfer search index and token/transaction metadata enrichment, but it does not enrich transfer counterparties with Arkham entities, labels, deposit services, or predicted entities.'
+      operationId: GetUnenrichedTransfers
+      parameters:
+      - name: base
+        in: query
+        description: Filter from or to any of a comma separated list of entities or addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from or to any of a comma separated list of entities or addresses.
+          example:
+          - binance
+          - '!wintermute'
+      - name: chains
+        in: query
+        description: List of chains to filter by.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: flow
+        in: query
+        description: Transfer direction.
+        schema:
+          $ref: '#/components/schemas/TransferFlow'
+      - name: from
+        in: query
+        description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: to
+        in: query
+        description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses.
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+      - name: counterparties
+        in: query
+        description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+        schema:
+          type: array
+          items:
+            type: string
+          description: list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).
+          example:
+          - binance
+      - name: tokens
+        in: query
+        description: Filter involving any of a comma separated list of token addresses or token IDs.
+        schema:
+          type: array
+          items:
+            type: string
+          description: Filter involving any of a comma separated list of token addresses or token IDs.
+          example:
+          - ethereum
+          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      - name: timeGte
+        in: query
+        description: Filter after a specific time.
+        schema:
+          type: string
+          description: Filter after a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLte
+        in: query
+        description: Filter before a specific time.
+        schema:
+          type: string
+          description: Filter before a specific time.
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+      - name: timeLast
+        in: query
+        description: Filter using a duration string.
+        schema:
+          type: string
+          description: Filter using a duration string.
+          example: 24h
+      - name: valueGte
+        in: query
+        description: Filter above a minimum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum token value.
+          nullable: true
+          example: '100.23'
+      - name: valueLte
+        in: query
+        description: Filter below a maximum token value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum token value.
+          nullable: true
+          example: '100.23'
+      - name: usdGte
+        in: query
+        description: Filter above a minimum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter above a minimum USD value.
+          nullable: true
+          example: '100.23'
+      - name: usdLte
+        in: query
+        description: Filter below a maximum USD value.
+        style: deepObject
+        explode: true
+        schema:
+          type: string
+          description: Filter below a maximum USD value.
+          nullable: true
+          example: '100.23'
+      - name: sortKey
+        in: query
+        description: Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending.
+        schema:
+          $ref: '#/components/schemas/TransferSortKey'
+      - name: sortDir
+        in: query
+        description: Direction for sorting results.
+        schema:
+          $ref: '#/components/schemas/SortDir'
+      - name: limit
+        in: query
+        description: 'Maximum number of results to return. Default: 20. Max: 1650.'
+        schema:
+          type: integer
+          description: 'Maximum number of results to return. Default: 20. Max: 1650.'
+          example: 10
+      - name: offset
+        in: query
+        description: Pagination offset. offset + limit must not exceed 10000.
+        schema:
+          type: integer
+          description: Pagination offset. offset + limit must not exceed 10000.
+          example: 0
+      - name: includeCursors
+        in: query
+        description: 'Include per-chain as-of cursors in the response. Default: false.'
+        schema:
+          type: boolean
+          description: 'Include per-chain as-of cursors in the response. Default: false.'
+          example: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichedTransfers'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Transfers
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    SolanaEnrichedAnyTransfer:
+      required:
+      - id
+      - blockTimestamp
+      - blockNumber
+      - blockHash
+      - transactionHash
+      - fromAddress
+      - fromAddressOwner
+      - toAddress
+      - toAddressOwner
+      - tokenAddress
+      - tokenName
+      - tokenSymbol
+      - tokenDecimals
+      - unitValue
+      - tokenId
+      - historicalUSD
+      - instruction
+      - instructionIndex
+      - parentInstructionIndex
+      - program
+      - chain
+      - type
+      type: object
+      properties:
+        blockHash:
+          type: string
+        blockNumber:
+          minimum: 0
+          type: integer
+        blockTimestamp:
+          type: string
+          format: date-time
+        chain:
+          $ref: '#/components/schemas/Chain'
+        fromAddress:
+          $ref: '#/components/schemas/Address'
+        fromAddressOwner:
+          $ref: '#/components/schemas/Address'
+        historicalUSD:
+          type: number
+        id:
+          type: string
+        instruction:
+          type: string
+          nullable: true
+        instructionIndex:
+          type: integer
+        parentInstructionIndex:
+          type: integer
+          nullable: true
+        program:
+          $ref: '#/components/schemas/Address'
+        toAddress:
+          $ref: '#/components/schemas/Address'
+        toAddressOwner:
+          $ref: '#/components/schemas/Address'
+        tokenAddress:
+          $ref: '#/components/schemas/Address'
+        tokenDecimals:
+          minimum: 0
+          type: integer
+          nullable: true
+        tokenId:
+          type: string
+          nullable: true
+        tokenName:
+          type: string
+          nullable: true
+        tokenSymbol:
+          type: string
+          nullable: true
+        transactionHash:
+          type: string
+        type:
+          type: string
+        unitValue:
+          type: number
+    Label:
+      required:
+      - name
+      - address
+      - chainType
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
+          type: string
+          example: evm
+        name:
+          type: string
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
+    SortDir:
+      enum:
+      - asc
+      - desc
+      type: string
+      example: asc
+    Granularity:
+      enum:
+      - 1h
+      - 1d
+      type: string
+      example: 1h
+    EnrichedTransfer:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/TronEnrichedAnyTransfer'
+      - $ref: '#/components/schemas/EvmEnrichedAnyTransfer'
+      - $ref: '#/components/schemas/SolanaEnrichedAnyTransfer'
+      example:
+        assetId: usd-coin
+        blockID: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        blockNumber: 1
+        blockTimestamp: '2024-01-01T00:00:00Z'
+        chain: ethereum
+        fromAddress:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        fromIsContract: true
+        historicalUSD: 1.23
+        id: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        toAddress:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        toIsContract: true
+        tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        tokenDecimals: 1
+        tokenId: usd-coin
+        tokenName: USD Coin
+        tokenSymbol: USDC
+        transactionHash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        unitValue: 1.23
+    TronEnrichedAnyTransfer:
+      required:
+      - id
+      - transactionHash
+      - fromAddress
+      - fromIsContract
+      - toAddress
+      - toIsContract
+      - tokenAddress
+      - blockTimestamp
+      - blockNumber
+      - blockID
+      - tokenName
+      - tokenSymbol
+      - tokenDecimals
+      - unitValue
+      - tokenId
+      - historicalUSD
+      - assetId
+      - chain
+      type: object
+      properties:
+        assetId:
+          type: string
+          nullable: true
+          example: usd-coin
+        blockID:
+          type: string
+          example: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        blockNumber:
+          minimum: 0
+          type: integer
+          example: 1
+        blockTimestamp:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        fromAddress:
+          $ref: '#/components/schemas/Address'
+        fromIsContract:
+          type: boolean
+          example: true
+        historicalUSD:
+          type: number
+          example: 1.23
+        id:
+          type: string
+          example: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        toAddress:
+          $ref: '#/components/schemas/Address'
+        toIsContract:
+          type: boolean
+          example: true
+        tokenAddress:
+          type: string
+          nullable: true
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        tokenDecimals:
+          minimum: 0
+          type: integer
+          nullable: true
+          example: 1
+        tokenId:
+          type: string
+          nullable: true
+          example: usd-coin
+        tokenName:
+          type: string
+          nullable: true
+          example: USD Coin
+        tokenSymbol:
+          type: string
+          nullable: true
+          example: USDC
+        transactionHash:
+          type: string
+          example: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        unitValue:
+          type: number
+          example: 1.23
+      example:
+        assetId: usd-coin
+        blockID: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        blockNumber: 1
+        blockTimestamp: '2024-01-01T00:00:00Z'
+        chain: ethereum
+        fromAddress:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        fromIsContract: true
+        historicalUSD: 1.23
+        id: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        toAddress:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        toIsContract: true
+        tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        tokenDecimals: 1
+        tokenId: usd-coin
+        tokenName: USD Coin
+        tokenSymbol: USDC
+        transactionHash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+        unitValue: 1.23
+    Entity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    TransferFlow:
+      enum:
+      - in
+      - out
+      - self
+      - all
+      type: string
+      example: in
+    TransferSortKey:
+      enum:
+      - time
+      - value
+      - usd
+      type: string
+      example: time
+    CountSnapshot:
+      required:
+      - time
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 1
+        time:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        usd:
+          type: number
+          example: 1.23
+      example:
+        count: 1
+        time: '2024-01-01T00:00:00Z'
+        usd: 1.23
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type: string
+          description: The specific parameter value for this tag instance.
+          nullable: true
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance
+    EvmEnrichedAnyTransfer:
+      required:
+      - id
+      - transactionHash
+      - fromAddress
+      - fromIsContract
+      - toAddress
+      - toIsContract
+      - tokenAddress
+      - type
+      - blockTimestamp
+      - blockNumber
+      - blockHash
+      - tokenName
+      - tokenSymbol
+      - tokenDecimals
+      - unitValue
+      - tokenId
+      - historicalUSD
+      - chain
+      type: object
+      properties:
+        blockHash:
+          type: string
+          example: '0xb73b329bad7428bdace6623dcd18743fca05b136116c261b63224176d831d'
+        blockNumber:
+          minimum: 0
+          type: integer
+          example: 22630280
+        blockTimestamp:
+          type: string
+          format: date-time
+          example: '2025-06-04T09:07:47Z'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        fromAddress:
+          $ref: '#/components/schemas/Address'
+        fromIsContract:
+          type: boolean
+          example: false
+        historicalUSD:
+          type: number
+          example: 685673.692
+        id:
+          type: string
+          example: '0xded143b3e5dd3c9f6987783d0f0f2af1cec746553113a015a23f1213038b3972'
+        toAddress:
+          $ref: '#/components/schemas/Address'
+        toIsContract:
+          type: boolean
+          example: false
+        tokenAddress:
+          type: string
+          nullable: true
+          example: 'null'
+        tokenDecimals:
+          minimum: 0
+          type: integer
+          nullable: true
+          example: 18
+        tokenId:
+          type: string
+          nullable: true
+          example: ethereum
+        tokenName:
+          type: string
+          nullable: true
+          example: Ethereum
+        tokenSymbol:
+          type: string
+          nullable: true
+          example: ETH
+        transactionHash:
+          type: string
+          example: '0xded143b3e5dd3c9f6987783d0f0f2af1cec746553113a015a23f121'
+        type:
+          type: string
+          example: external
+        unitValue:
+          type: number
+          example: 259.6
+    EnrichedTransfers:
+      required:
+      - transfers
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 10
+        cursors:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Last durably committed and searchable enriched-transfer cursor for each chain in the query scope. Values may be slightly stale.
+          example:
+            ethereum: 454726633
+        transfers:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichedTransfer'
+          nullable: true
+          example:
+          - assetId: usd-coin
+            blockID: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+            blockNumber: 1
+            blockTimestamp: '2024-01-01T00:00:00Z'
+            chain: ethereum
+            fromAddress:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              arkhamEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              arkhamLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+              chain: ethereum
+              contract: false
+              depositServiceID: binance
+              isShielded: true
+              isUserAddress: false
+              ownerAddress: {}
+              predictedEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              program: true
+              service: true
+              userEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              userLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+            fromIsContract: true
+            historicalUSD: 1.23
+            id: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+            toAddress:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              arkhamEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              arkhamLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+              chain: ethereum
+              contract: false
+              depositServiceID: binance
+              isShielded: true
+              isUserAddress: false
+              ownerAddress: {}
+              predictedEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              program: true
+              service: true
+              userEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              userLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+            toIsContract: true
+            tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            tokenDecimals: 1
+            tokenId: usd-coin
+            tokenName: USD Coin
+            tokenSymbol: USDC
+            transactionHash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+            unitValue: 1.23
+      example:
+        count: 10
+        cursors:
+          ethereum: 454726633
+        transfers:
+        - assetId: usd-coin
+          blockID: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+          blockNumber: 1
+          blockTimestamp: '2024-01-01T00:00:00Z'
+          chain: ethereum
+          fromAddress:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            arkhamEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            arkhamLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+            chain: ethereum
+            contract: false
+            depositServiceID: binance
+            isShielded: true
+            isUserAddress: false
+            ownerAddress: {}
+            predictedEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            program: true
+            service: true
+            userEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            userLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+          fromIsContract: true
+          historicalUSD: 1.23
+          id: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+          toAddress:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            arkhamEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            arkhamLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+            chain: ethereum
+            contract: false
+            depositServiceID: binance
+            isShielded: true
+            isUserAddress: false
+            ownerAddress: {}
+            predictedEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            program: true
+            service: true
+            userEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            userLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+          toIsContract: true
+          tokenAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+          tokenDecimals: 1
+          tokenId: usd-coin
+          tokenName: USD Coin
+          tokenSymbol: USDC
+          transactionHash: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+          unitValue: 1.23
+    Address:
+      required:
+      - address
+      - chain
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          $ref: '#/components/schemas/Entity'
+        arkhamLabel:
+          $ref: '#/components/schemas/Label'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        contract:
+          type: boolean
+          nullable: true
+          example: false
+        depositServiceID:
+          type: string
+          nullable: true
+          example: binance
+        isShielded:
+          type: boolean
+          nullable: true
+          example: true
+        isUserAddress:
+          type: boolean
+          nullable: true
+          example: false
+        ownerAddress:
+          $ref: '#/components/schemas/Address'
+        predictedEntity:
+          $ref: '#/components/schemas/Entity'
+        program:
+          type: boolean
+          nullable: true
+          example: true
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        userEntity:
+          $ref: '#/components/schemas/Entity'
+        userLabel:
+          $ref: '#/components/schemas/Label'
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        arkhamLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+        chain: ethereum
+        contract: false
+        depositServiceID: binance
+        isShielded: true
+        isUserAddress: false
+        ownerAddress: {}
+        predictedEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        program: true
+        service: true
+        userEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        userLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''

@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Cluster API
+  version: 1.1.0
+tags:
+- name: Cluster
+paths:
+  /cluster/{id}/summary:
+    get:
+      summary: Get cluster summary statistics
+      description: 'Returns summary statistics for the specified cluster, including:
+
+        - Total number of unique addresses in the cluster
+
+        - Total balance in USD
+
+        - Total transaction volume in USD
+
+        - First and last transaction timestamps
+
+
+        Clusters are groups of addresses that have been linked together through on-chain heuristics (e.g., Bitcoin input clustering).
+
+
+        To find a cluster ID, look up an address with GET /intelligence/address_enriched/{address} and read its clusterIds field.'
+      operationId: GetClusterSummary
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the cluster to summarize.
+        required: true
+        schema:
+          type: string
+          description: The ID of the cluster to summarize.
+          example: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterSummary'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Cluster
+components:
+  schemas:
+    ClusterSummary:
+      required:
+      - clusterId
+      - numAddresses
+      - volumeUsd
+      - balanceUsd
+      - firstTx
+      - lastTx
+      type: object
+      properties:
+        balanceUsd:
+          type: number
+          example: 270448104.02
+        clusterId:
+          type: string
+          example: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
+        firstTx:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2018-11-12T14:22:37Z'
+        lastTx:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2026-06-19T00:58:41Z'
+        numAddresses:
+          type: integer
+          example: 1894908
+        volumeUsd:
+          type: number
+          example: 1782634995673.44
+      example:
+        balanceUsd: 270448104.02
+        clusterId: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
+        firstTx: '2018-11-12T14:22:37Z'
+        lastTx: '2026-06-19T00:58:41Z'
+        numAddresses: 1894908
+        volumeUsd: 1782634995673.44

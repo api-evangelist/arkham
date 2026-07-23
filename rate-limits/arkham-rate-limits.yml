@@ -1,0 +1,61 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+generated: '2026-07-18'
+method: searched
+provider: Arkham
+providerId: arkham
+source: https://arkm.com/llms/guides/rate-limits.md
+tags:
+- Rate Limiting
+- Blockchain Intelligence
+description: >-
+  Arkham enforces per-second request rate limits (Standard 20 rps, Heavy 1 rps on resource-intensive
+  endpoints) plus per-billing-period Intel label lookup limits that cap unique labeled addresses. Both
+  scale up on custom plans. x402 limits are enforced per paying wallet.
+sources:
+- https://arkm.com/llms/guides/rate-limits.md
+- https://arkm.com/llms/guides/errors-http-codes.md
+headers:
+  requestId: null
+  intelUsage: X-Intel-Datapoints-Usage
+  intelLimit: X-Intel-Datapoints-Limit
+  intelRemaining: X-Intel-Datapoints-Remaining
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+- name: Standard endpoints
+  scope: plan
+  metric: requests_per_second
+  limit: 20
+  timeFrame: second
+  note: Most endpoints, with small burst allowance.
+- name: Heavy endpoints
+  scope: plan
+  metric: requests_per_second
+  limit: 1
+  timeFrame: second
+  note: >-
+    Resource-intensive endpoints: transfers, transfers/unenriched, transfers/histogram, swaps,
+    token/top, token/top_flow, token/volume, intelligence/search, counterparties, flow.
+- name: Intel label lookups — Trial
+  scope: account
+  metric: unique_labeled_addresses
+  limit: 10000
+  timeFrame: billing_period
+- name: Intel label lookups — Individual (paid)
+  scope: account
+  metric: unique_labeled_addresses
+  limit: 1000000
+  timeFrame: billing_period
+- name: Intel label lookups — Organization (paid, per seat)
+  scope: seat
+  metric: unique_labeled_addresses
+  limit: 10000000
+  timeFrame: billing_period
+x402_limits:
+  scope: paying_wallet
+  standard_rps: 20
+  heavy_rps: 1
+increase_contact: api@arkm.com
+usage_endpoint: GET /subscription/intel-usage

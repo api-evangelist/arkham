@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Volume API
+  version: 1.1.0
+tags:
+- name: Volume
+paths:
+  /volume/address/{address}:
+    get:
+      summary: Get transfer volume for an address
+      description: Returns transfer volume snapshots for the specified address, broken down by chain.
+      operationId: GetAddressVolume
+      parameters:
+      - name: chains
+        in: query
+        description: List of chains to filter by. If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query transfer volume for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query transfer volume for.
+          example: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/VolumeSnapshot'
+                  example:
+                  - time: '2024-01-01T00:00:00Z'
+                    volumes:
+                    - depositedUSD: 1.23
+                      exchangeID: binance
+                      exchangeName: binance
+                      withdrawnUSD: 1.23
+                example:
+                  abc123:
+                  - time: '2024-01-01T00:00:00Z'
+                    volumes:
+                    - depositedUSD: 1.23
+                      exchangeID: binance
+                      exchangeName: binance
+                      withdrawnUSD: 1.23
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Volume
+  /volume/entity/{entity}:
+    get:
+      summary: Get transfer volume for an entity
+      description: Returns transfer volume snapshots for the specified entity, broken down by chain.
+      operationId: GetEntityVolume
+      parameters:
+      - name: chains
+        in: query
+        description: List of chains to filter by. If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query transfer volume for.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query transfer volume for.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/VolumeSnapshot'
+                  example:
+                  - time: '2024-01-01T00:00:00Z'
+                    volumes:
+                    - depositedUSD: 1.23
+                      exchangeID: binance
+                      exchangeName: binance
+                      withdrawnUSD: 1.23
+                example:
+                  abc123:
+                  - time: '2024-01-01T00:00:00Z'
+                    volumes:
+                    - depositedUSD: 1.23
+                      exchangeID: binance
+                      exchangeName: binance
+                      withdrawnUSD: 1.23
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Volume
+components:
+  schemas:
+    VolumeSnapshot:
+      required:
+      - time
+      - volumes
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+          nullable: true
+          example:
+          - depositedUSD: 1.23
+            exchangeID: binance
+            exchangeName: binance
+            withdrawnUSD: 1.23
+      example:
+        time: '2024-01-01T00:00:00Z'
+        volumes:
+        - depositedUSD: 1.23
+          exchangeID: binance
+          exchangeName: binance
+          withdrawnUSD: 1.23
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
+    Volume:
+      required:
+      - exchangeID
+      - exchangeName
+      - withdrawnUSD
+      - depositedUSD
+      type: object
+      properties:
+        depositedUSD:
+          type: number
+          example: 1.23
+        exchangeID:
+          type: string
+          example: binance
+        exchangeName:
+          type: string
+          example: binance
+        withdrawnUSD:
+          type: number
+          example: 1.23
+      example:
+        depositedUSD: 1.23
+        exchangeID: binance
+        exchangeName: binance
+        withdrawnUSD: 1.23

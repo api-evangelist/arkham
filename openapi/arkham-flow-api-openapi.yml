@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Flow API
+  version: 1.1.0
+tags:
+- name: Flow
+paths:
+  /flow/address/{address}:
+    get:
+      summary: Get historical USD flows for an address
+      description: Returns historical USD inflows, outflows, and cumulative totals for the specified address across supported chains.
+      operationId: GetAddressFlow
+      parameters:
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query flow data for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query flow data for.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FlowSnapshot'
+                  example:
+                  - cumulativeInflow: 1.23
+                    cumulativeOutflow: 1.23
+                    inflow: 1.23
+                    outflow: 1.23
+                    time: '2024-01-01T00:00:00Z'
+                example:
+                  bsc:
+                  - cumulativeInflow: 91579540.89000003
+                    cumulativeOutflow: 92789860.85
+                    inflow: 99.71
+                    outflow: 0
+                    time: '2023-10-31T00:00:00Z'
+                  - cumulativeInflow: 91579640.60000002
+                    cumulativeOutflow: 92789860.85
+                    inflow: 2493652.26
+                    outflow: 0
+                    time: '2023-12-08T00:00:00Z'
+                  ethereum:
+                  - cumulativeInflow: 1027355003822.2888
+                    cumulativeOutflow: 1023262378331.2817
+                    inflow: 523882897.43
+                    outflow: 554928524.09
+                    time: '2023-12-03T00:00:00Z'
+                  - cumulativeInflow: 1027878886719.7189
+                    cumulativeOutflow: 1023817306855.3717
+                    inflow: 1312623236.01
+                    outflow: 1204741283.07
+                    time: '2023-12-04T00:00:00Z'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Flow
+  /flow/entity/{entity}:
+    get:
+      summary: Get historical USD flows for an entity
+      description: Returns historical USD inflows, outflows, and cumulative totals for the specified entity across supported chains.
+      operationId: GetEntityFlow
+      parameters:
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query flow data for.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query flow data for.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FlowSnapshot'
+                  example:
+                  - cumulativeInflow: 1.23
+                    cumulativeOutflow: 1.23
+                    inflow: 1.23
+                    outflow: 1.23
+                    time: '2024-01-01T00:00:00Z'
+                example:
+                  bitcoin:
+                  - cumulativeInflow: 905891016225.6693
+                    cumulativeOutflow: 889779478783.3397
+                    inflow: 6565472523.45
+                    outflow: 6632247150.18
+                    time: '2022-01-21T00:00:00Z'
+                  - cumulativeInflow: 912456488749.1193
+                    cumulativeOutflow: 896411725933.5198
+                    inflow: 528887137.66
+                    outflow: 660515462.75
+                    time: '2022-01-22T00:00:00Z'
+                  ethereum:
+                  - cumulativeInflow: 1425833420702.8699
+                    cumulativeOutflow: 1396841791568.5383
+                    inflow: 1588990961.6
+                    outflow: 1499520350.86
+                    time: '2022-01-08T00:00:00Z'
+                  - cumulativeInflow: 1427422411664.47
+                    cumulativeOutflow: 1398341311919.3984
+                    inflow: 1370833866.45
+                    outflow: 1438004592.65
+                    time: '2022-01-09T00:00:00Z'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Flow
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    FlowSnapshot:
+      required:
+      - time
+      - inflow
+      - outflow
+      - cumulativeInflow
+      - cumulativeOutflow
+      type: object
+      properties:
+        cumulativeInflow:
+          type: number
+          example: 1.23
+        cumulativeOutflow:
+          type: number
+          example: 1.23
+        inflow:
+          type: number
+          example: 1.23
+        outflow:
+          type: number
+          example: 1.23
+        time:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+      example:
+        cumulativeInflow: 1.23
+        cumulativeOutflow: 1.23
+        inflow: 1.23
+        outflow: 1.23
+        time: '2024-01-01T00:00:00Z'
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon

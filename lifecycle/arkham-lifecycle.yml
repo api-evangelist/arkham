@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+source: https://arkm.com/llms.txt
+docs: https://arkm.com/api/docs
+versioning:
+  scheme: version-in-info
+  current: '1.1.0'
+  note: >-
+    The OpenAPI info.version is 1.1.0. Base paths under api.arkm.com are unversioned; the guide states
+    the API is continuously updated as it expands ("Last updated: January 2026").
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/sunset policy or RFC 8594 headers were found in the docs.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  external: null
+  network_status_endpoint: https://api.arkm.com/networks/status
+  note: >-
+    No public availability status page (status.arkm.com does not resolve). The API exposes a
+    GET /networks/status endpoint reporting current status per blockchain network, and
+    GET /networks/history/{chain} for historical network data — these report chain health, not API uptime.
+support:
+  api: api@arkm.com
+  general: support@arkm.com
+deprecated_operations: []

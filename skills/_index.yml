@@ -1,0 +1,17 @@
+generated: '2026-07-18'
+method: generated
+api: openapi/arkham-openapi-original.json
+skills:
+- file: arkham-x402-agent-skill.md
+  name: Arkham Intelligence API (x402 pay-per-request)
+  method: searched
+  source: https://api.arkm.com/x402/skill.md
+  description: >-
+    Provider-published agent skill — pay per request in USDC on Base for Arkham wallet intelligence and
+    market data, no account or API key required.
+- file: arkham-address-investigation.md
+  name: Investigate an address or entity with Arkham
+  method: generated
+  api: openapi/arkham-openapi-original.json
+  operations: [IntelligenceSearchHandler, GetAddressIntelligence, GetAllAddressIntelligence, GetAddressBalances, GetAddressCounterParty, GetAddressFlow, GetRiskScoreAddress]
+  description: Attribute an address, size the wallet, map counterparties, trace flows, and score risk.

@@ -1,0 +1,259 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Networks API
+  version: 1.1.0
+tags:
+- name: Networks
+paths:
+  /networks/history/{chain}:
+    get:
+      summary: Get historical data for a blockchain network
+      description: Retrieves the full daily price, volume, and market-cap history of a blockchain network's native token, from the token's launch to the latest available snapshot.
+      operationId: GetNetworkHistory
+      parameters:
+      - name: chain
+        in: path
+        description: The blockchain network identifier.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenHistoricalQuote'
+                example:
+                - marketCap: 15091573435.25
+                  time: '2019-03-30T00:00:00Z'
+                  usd: 143.15
+                  volume24h: 6309182468.75
+                - marketCap: 146718573462
+                  time: '2022-11-17T00:04:43.16Z'
+                  usd: 1217.98
+                  volume24h: 8857864433
+                - marketCap: 215157394830
+                  time: '2026-07-06T00:00:30.587Z'
+                  usd: 1783.55
+                  volume24h: 10802375225
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Networks
+  /networks/status:
+    get:
+      summary: Get current status for all blockchain networks
+      description: Retrieves the current status for all supported blockchain networks, including price, 24h price change, volume, market cap, latest block (tip), total transfers, and gas/fee information. Each network includes an "asOf" object giving the time each piece of data was last read; values are served from a cache refreshed about once per minute.
+      operationId: GetAllNetworkStatus
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/NetworkStatus'
+                example:
+                  bitcoin:
+                    active: true
+                    asOf:
+                      fee: '2026-07-06T14:00:37.216437394Z'
+                      price: '2026-07-06T14:00:37.212573416Z'
+                      tip: '2026-07-06T14:00:37.214465232Z'
+                      transfers: '2026-07-06T14:00:37.239063539Z'
+                    chain: bitcoin
+                    gasFee: null
+                    marketCap: 1239738051993
+                    price: 61828
+                    priceChange24h: -910
+                    priceChange24hPercent: -1.45
+                    satFee: 506
+                    tip: 956923
+                    tps: 0
+                    transfers: 7215875738
+                    volume: 27395894777
+                  ethereum:
+                    active: true
+                    asOf:
+                      fee: '2026-07-06T14:00:37.214666903Z'
+                      price: '2026-07-06T14:00:37.212834121Z'
+                      tip: '2026-07-06T14:00:37.214097043Z'
+                      transfers: '2026-07-06T14:00:37.241411754Z'
+                    chain: ethereum
+                    gasFee: 1.13
+                    marketCap: 210742916805
+                    price: 1745.84
+                    priceChange24h: -18.71
+                    priceChange24hPercent: -1.06
+                    satFee: null
+                    tip: 25473954
+                    tps: 0
+                    transfers: 6082358603
+                    volume: 10129176757
+        '500':
+          description: Internal Server Error
+      tags:
+      - Networks
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    TokenHistoricalQuote:
+      required:
+      - time
+      - usd
+      - volume24h
+      - marketCap
+      type: object
+      properties:
+        marketCap:
+          type: number
+          description: Market capitalization in USD.
+          example: 75000000.5
+        time:
+          type: string
+          description: Snapshot timestamp.
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        usd:
+          type: number
+          description: Price in USD.
+          example: 1.05
+        volume24h:
+          type: number
+          description: 24-hour trading volume in USD.
+          example: 1250000.5
+      example:
+        marketCap: 75000000.5
+        time: '2024-01-01T00:00:00Z'
+        usd: 1.05
+        volume24h: 1250000.5
+    NetworkStatusAsOf:
+      required:
+      - price
+      - tip
+      - transfers
+      type: object
+      properties:
+        fee:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2024-01-01T00:00:00Z'
+        price:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        tip:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        transfers:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+      example:
+        fee: '2024-01-01T00:00:00Z'
+        price: '2024-01-01T00:00:00Z'
+        tip: '2024-01-01T00:00:00Z'
+        transfers: '2024-01-01T00:00:00Z'
+    NetworkStatus:
+      required:
+      - chain
+      - active
+      - price
+      - priceChange24h
+      - priceChange24hPercent
+      - volume
+      - marketCap
+      - tip
+      - tps
+      - transfers
+      - gasFee
+      - satFee
+      - asOf
+      type: object
+      properties:
+        active:
+          type: boolean
+          example: true
+        asOf:
+          $ref: '#/components/schemas/NetworkStatusAsOf'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        gasFee:
+          type: number
+          description: Current gas fee. Populated for EVM chains only; null for non-EVM chains.
+          nullable: true
+          example: 0.79
+        marketCap:
+          type: number
+          example: 203611334984
+        price:
+          type: number
+          example: 1686.97
+        priceChange24h:
+          type: number
+          example: -52.71
+        priceChange24hPercent:
+          type: number
+          example: -3.03
+        satFee:
+          type: integer
+          description: Current fee rate in satoshis per byte. Populated only for Bitcoin-family (UTXO) chains — Bitcoin, Dogecoin, and Zcash; null for all other chains.
+          nullable: true
+          example: 1
+        tip:
+          minimum: 0
+          type: integer
+          example: 25351093
+        tps:
+          type: number
+          example: 0
+        transfers:
+          type: integer
+          example: 5988140415
+        volume:
+          type: number
+          example: 11859071343
+      example:
+        active: true
+        asOf:
+          fee: '2024-01-01T00:00:00Z'
+          price: '2024-01-01T00:00:00Z'
+          tip: '2024-01-01T00:00:00Z'
+          transfers: '2024-01-01T00:00:00Z'
+        chain: ethereum
+        gasFee: 0.79
+        marketCap: 203611334984
+        price: 1686.97
+        priceChange24h: -52.71
+        priceChange24hPercent: -3.03
+        satFee: 1
+        tip: 25351093
+        tps: 0
+        transfers: 5988140415
+        volume: 11859071343

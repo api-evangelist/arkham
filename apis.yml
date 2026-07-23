@@ -1,23 +1,656 @@
 aid: arkham
+accessModel:
+  pricing: paid
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Paid (free trial) · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/arkham.png
 name: Arkham
-description: 'Arkham is a company surfaced as a portfolio company of anthemis and added to the API Evangelist
-  network as a stub for enrichment. Sector: crypto. This profile is a lead awaiting the enrichment pipeline.'
+description: >-
+  Arkham Intelligence operates a production-grade blockchain intelligence platform and REST API that
+  provides entity attribution, address labels, wallet and entity intelligence, transfer and swap tracking,
+  token and market data, portfolio and PnL history, DeFi loan positions, HyperCore and Polymarket analytics,
+  and risk scoring across 20+ chains. The Arkham Intel API (v1.1.0) exposes 135 operations over 128 REST
+  paths plus a WebSocket streaming surface for real-time transfers, authenticated with an API-Key header
+  and billed by a usage-based credit model. Arkham also ships an agent-native x402 pay-per-request surface
+  that lets AI agents buy individual API responses in USDC on Base with no account or key. Arkham was
+  surfaced as a portfolio company of Anthemis and is a crypto / on-chain analytics provider.
 url: https://raw.githubusercontent.com/api-evangelist/arkham/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - anthemis
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: live-api-enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
 - Crypto
-apis: []
+- Blockchain
+- Blockchain Intelligence
+- On-Chain Analytics
+- Entity Attribution
+- Wallet Intelligence
+- Market Data
+- DeFi
+- Risk Scoring
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: arkham:arkham-analytics-api
+  name: Arkham Analytics API
+  description: The Analytics API from Arkham — 2 operation(s) for analytics.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-analytics-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-arkm-api
+  name: Arkham Arkm API
+  description: The Arkm API from Arkham — 1 operation(s) for arkm.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Arkm
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-arkm-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-balances-api
+  name: Arkham Balances API
+  description: The Balances API from Arkham — 4 operation(s) for balances.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-balances-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-chains-api
+  name: Arkham Chains API
+  description: The Chains API from Arkham — 1 operation(s) for chains.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Chains
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-chains-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-cluster-api
+  name: Arkham Cluster API
+  description: The Cluster API from Arkham — 1 operation(s) for cluster.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Cluster
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-cluster-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-counterparties-api
+  name: Arkham Counterparties API
+  description: The Counterparties API from Arkham — 2 operation(s) for counterparties.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Counterparties
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-counterparties-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-flow-api
+  name: Arkham Flow API
+  description: The Flow API from Arkham — 2 operation(s) for flow.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Flow
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-flow-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-history-api
+  name: Arkham History API
+  description: The History API from Arkham — 2 operation(s) for history.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-history-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-hypercore-api
+  name: Arkham Hypercore API
+  description: The Hypercore API from Arkham — 15 operation(s) for hypercore.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Hypercore
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-hypercore-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-intelligence-api
+  name: Arkham Intelligence API
+  description: The Intelligence API from Arkham — 21 operation(s) for intelligence.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Intelligence
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-intelligence-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-loans-api
+  name: Arkham Loans API
+  description: The Loans API from Arkham — 2 operation(s) for loans.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Loans
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-loans-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-marketdata-api
+  name: Arkham Marketdata API
+  description: The Marketdata API from Arkham — 1 operation(s) for marketdata.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Marketdata
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-marketdata-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-networks-api
+  name: Arkham Networks API
+  description: The Networks API from Arkham — 2 operation(s) for networks.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Networks
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-networks-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-polymarket-api
+  name: Arkham Polymarket API
+  description: The Polymarket API from Arkham — 20 operation(s) for polymarket.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Polymarket
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-polymarket-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-portfolio-api
+  name: Arkham Portfolio API
+  description: The Portfolio API from Arkham — 4 operation(s) for portfolio.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Portfolio
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-portfolio-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-risk-api
+  name: Arkham Risk API
+  description: The Risk API from Arkham — 5 operation(s) for risk.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Risk
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-risk-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-subscription-api
+  name: Arkham Subscription API
+  description: The Subscription API from Arkham — 1 operation(s) for subscription.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Subscription
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-subscription-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-swaps-api
+  name: Arkham Swaps API
+  description: The Swaps API from Arkham — 1 operation(s) for swaps.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Swaps
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-swaps-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-tag-api
+  name: Arkham Tag API
+  description: The Tag API from Arkham — 2 operation(s) for tag.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-tag-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-token-api
+  name: Arkham Token API
+  description: The Token API from Arkham — 17 operation(s) for token.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-token-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-transfers-api
+  name: Arkham Transfers API
+  description: The Transfers API from Arkham — 5 operation(s) for transfers.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-transfers-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-tx-api
+  name: Arkham Tx API
+  description: The Tx API from Arkham — 1 operation(s) for tx.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Tx
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-tx-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-user-api
+  name: Arkham User API
+  description: The User API from Arkham — 6 operation(s) for user.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-user-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-volume-api
+  name: Arkham Volume API
+  description: The Volume API from Arkham — 2 operation(s) for volume.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Volume
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-volume-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-ws-api
+  name: Arkham Ws API
+  description: The Ws API from Arkham — 8 operation(s) for ws.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Ws
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-ws-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+common:
+- type: DeveloperPortal
+  url: https://arkm.com/api-dashboard
+- type: Documentation
+  url: https://arkm.com/api/docs
+- type: APIReference
+  url: https://arkm.com/api/docs
+- type: GettingStarted
+  url: https://arkm.com/llms/guides/getting-access.md
+- type: OpenAPI
+  url: openapi/arkham-openapi-original.json
+- type: Authentication
+  url: authentication/arkham-authentication.yml
+- type: RateLimits
+  url: rate-limits/arkham-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/arkham-error-codes.yml
+- type: Conventions
+  url: conventions/arkham-conventions.yml
+- type: DataModel
+  url: data-model/arkham-data-model.yml
+- type: Conformance
+  url: conformance/arkham-conformance.yml
+- type: Lifecycle
+  url: lifecycle/arkham-lifecycle.yml
+- type: DomainSecurity
+  url: security/arkham-domain-security.yml
+- type: LLMsTxt
+  url: llms/arkham-llms.txt
+- type: MCPServer
+  url: mcp/arkham-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/arkham-websocket-webhooks.yml
+- type: AgenticAccess
+  url: skills/arkham-x402-agent-skill.md
+- type: Plans
+  url: plans/arkham-plans.yml
+- type: FinOps
+  url: finops/arkham-finops.yml
+- type: Pricing
+  url: https://arkm.com/api
+- type: SignUp
+  url: https://arkm.com
+- type: Support
+  url: mailto:api@arkm.com
+- type: Blog
+  url: https://info.arkm.com/research
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

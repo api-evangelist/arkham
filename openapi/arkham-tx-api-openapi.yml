@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Tx API
+  version: 1.1.0
+tags:
+- name: Tx
+paths:
+  /tx/{hash}:
+    get:
+      summary: Get transaction details
+      description: 'Retrieves detailed information about a specific blockchain transaction using its hash.
+
+
+        The endpoint searches across all supported chains to find the transaction. If it is not found in confirmed transactions, it also checks the mempool for pending transactions.
+
+
+        **Response shape.** The response body is a JSON object keyed by chain identifier (for example "ethereum"). Because the same hash format can appear on more than one chain, the object may contain more than one entry, one per chain on which the transaction was found. Each value holds that chain''s transaction details. The exact set of fields varies by chain, but consumers can generally expect:
+
+
+        - the block number and block timestamp the transaction was included in,
+
+        - the sender and recipient addresses,
+
+        - gas used and gas-related fields, along with the transaction fee,
+
+        - the value transferred in native units and its USD value at the time,
+
+        - token details for any tokens involved in the transfer.
+
+
+        **Not found.** If the hash is not found on any supported chain (neither confirmed nor pending), the endpoint returns 404.'
+      operationId: GetTransaction
+      parameters:
+      - name: hash
+        in: path
+        description: The transaction hash to look up.
+        required: true
+        schema:
+          type: string
+          description: The transaction hash to look up.
+          example: '0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/TxInfo'
+                example: {}
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Tx
+components:
+  schemas:
+    TxInfo: {}

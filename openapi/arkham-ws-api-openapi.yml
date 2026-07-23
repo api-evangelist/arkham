@@ -1,0 +1,683 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Ws API
+  version: 1.1.0
+tags:
+- name: Ws
+paths:
+  /ws/active_connections:
+    get:
+      summary: Get active WebSocket connections (deprecated — use v2)
+      description: '**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).
+
+
+        Returns the number of active WebSocket connections for the authenticated user.'
+      operationId: GetActiveWebSocketConnections
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetActiveWebSocketConnectionsResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/session-info:
+    get:
+      summary: Get WebSocket pricing info (deprecated — use v2)
+      description: '**Deprecated:** v1 session pricing. Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams) — v2 has no per-session fee.
+
+
+        Returns the current pricing information for WebSocket sessions, including the credit cost per session creation and per transfer received.'
+      operationId: GetWebSocketSessionInfo
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebSocketSessionInfoResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/sessions:
+    get:
+      summary: List WebSocket sessions (deprecated — use v2)
+      description: '**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).
+
+
+        Returns all WebSocket sessions for the authenticated user, including usage statistics and connection status.'
+      operationId: GetWebSocketSessions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebSocketSessionResponse'
+                example:
+                - createdAt: '2026-07-14T09:12:43Z'
+                  isActive: true
+                  isConnected: true
+                  sessionId: ws_Ab3xK9pQ_1782149114960780310
+                  transfersUsed: 1
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+    post:
+      summary: Create WebSocket session (deprecated — use v2)
+      description: '**Deprecated:** Use the v2 WebSocket stream endpoints instead. See GET /ws/v2/streams for details. V2 offers lower cost (no session creation fee) and better performance.
+
+
+        Creates a new WebSocket session for real-time transfer streaming.
+
+
+        You must create a session before connecting to the WebSocket stream. The returned sessionId should be passed as a query parameter when connecting: wss://api.arkm.com/ws/transfers?session_id=<sessionId>
+
+
+        **Billing:** Session creation costs API credits. Check GET /ws/session-info for current pricing.'
+      operationId: CreateWebSocketSession
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWebSocketSessionResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/sessions/{id}:
+    delete:
+      summary: Delete WebSocket session (deprecated — use v2)
+      description: '**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).
+
+
+        Deletes a WebSocket session. Any active connection using this session will be disconnected.'
+      operationId: DeleteWebSocketSession
+      parameters:
+      - name: id
+        in: path
+        description: The session ID to delete
+        required: true
+        schema:
+          type: string
+          description: The session ID to delete
+          example: ws_Ab3xK9pQ_1782149114960780310
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                  example: abc123
+                example:
+                  message: session deleted successfully
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+    get:
+      summary: Get WebSocket session status (deprecated — use v2)
+      description: '**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).
+
+
+        Returns the status and usage details for a specific WebSocket session, including transfer count and connection status.'
+      operationId: GetWebSocketSessionStatus
+      parameters:
+      - name: id
+        in: path
+        description: The session ID to retrieve
+        required: true
+        schema:
+          type: string
+          description: The session ID to retrieve
+          example: ws_Ab3xK9pQ_1782149114960780310
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebSocketSessionResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/transfers:
+    get:
+      summary: WebSocket transfer streaming (deprecated — use v2)
+      description: '**Deprecated:** This is the v1 WebSocket endpoint. Use the v2 WebSocket stream endpoints for improved cost and performance. See GET /ws/v2/streams for details.
+
+
+        WebSocket endpoint for streaming real-time blockchain transfers.
+
+
+        **Getting Started:**
+
+        1. Create a session by calling POST /ws/sessions - this returns a sessionId
+
+        2. Connect to wss://api.arkm.com/ws/transfers?session_id=<your-session-id> with your API-Key header
+
+        3. Send a subscribe message with your transfer filters to start receiving data
+
+
+        **Query Parameters:**
+
+        - session_id (required) - Your session ID from POST /ws/sessions
+
+        - fresh (optional) - Set to true to clear pending notifications from a previous connection
+
+
+        **Client Messages:**
+
+        - subscribe: Create a filter to receive matching transfers (1 per session)
+
+        - unsubscribe: Remove your filter by ID
+
+
+        **Server Messages:**
+
+        - transfer: Real-time transfer notification matching your filters
+
+        - ack: Acknowledgment for successful operations
+
+        - error: Error notifications (codes: INVALID_PAYLOAD, INVALID_FILTER, FILTER_EXISTS, NO_SESSION, INTERNAL_ERROR)
+
+
+        Each message is a JSON envelope of the form {"type":"transfer","payload":{"transfer":{...},"alertId":123}}. Read payload.transfer for the transfer object; its fields match a GET /transfers row and vary by chain (UTXO chains such as bitcoin omit tokenSymbol and use fromAddresses).
+
+
+        **Filter Requirements:**
+
+        - Must include at least one of: base, from, to, tokens, or usdGte >= 250,000
+
+
+        **Billing:** Each transfer received consumes API credits.'
+      operationId: HandleWebSocketTransfers
+      responses:
+        '101':
+          description: Switching Protocols
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/v2/streams:
+    get:
+      summary: List WebSocket v2 streams
+      description: 'Returns all WebSocket v2 streams for the authenticated user.
+
+
+        **How v2 works (3 steps):**
+
+        1. **Create** a stream with your transfer filter via POST /ws/v2/streams — the filter uses the same fields as GET /transfers, sent as a JSON request body
+
+        2. **Connect** via WebSocket: wss://api.arkm.com/ws/v2/transfers?stream_id=<streamId> with your API-Key header
+
+        3. **Receive** transfers automatically — no subscribe/unsubscribe messages needed
+
+
+        **Key differences from v1:** In v2, each stream has exactly one filter set at creation time via a JSON request body on POST /ws/v2/streams. There is no need to send subscribe/unsubscribe messages over the WebSocket — transfers are delivered automatically as soon as you connect. The filter fields are the same as GET /transfers (base, from, to, chains, tokens, usdGte, etc.).
+
+
+        **Reconnection:** Streams expire after 10 minutes of inactivity. Reconnecting within 10 minutes reactivates the stream and delivers any transfers that occurred while disconnected.
+
+
+        **Limits:** Maximum 10 active streams per user (contact sales for higher limits).
+
+
+        **Billing:** 2 credits per transfer delivered. Stream creation, listing, and deletion are free.'
+      operationId: GetWebSocketStreamsV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamV2Response'
+                example:
+                - createdAt: '2026-07-14T09:12:43Z'
+                  id: 173943
+                  isConnected: true
+                  lastActive: '2026-07-15T10:16:35Z'
+                  streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+                  transfersUsed: 1
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+    post:
+      summary: Create a WebSocket v2 stream
+      description: 'Creates a new WebSocket v2 stream with the given transfer filter, sent as a JSON request body.
+
+
+        The filter is set at creation time and cannot be changed. To use a different filter, delete this stream and create a new one.
+
+
+        **Filter requirements:** Must include at least one of: base, from, to, tokens, or usdGte >= 250,000.
+
+
+        **Filter parameters:**
+
+        - **base** — Entity name or wallet address to monitor. Shows transfers where this appears as sender or receiver. E.g. "binance" or "0x123abc".
+
+        - **chains** — List of blockchains to filter by. E.g. ["ethereum", "bsc"]. Omit to include all chains.
+
+        - **flow** — Transfer direction relative to the base. Values: "in" (incoming), "out" (outgoing), "self" (self-transfers), "all" (default).
+
+        - **from** — List of addresses, entities, or deposit services for the sender side. Supports special syntax: "type:cex" for all CEX addresses, "deposit:binance" for Binance deposit addresses.
+
+        - **to** — List of addresses, entities, or deposit services for the receiver side. Same syntax as from.
+
+        - **tokens** — List of token symbols or contract addresses. E.g. ["ethereum", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"].
+
+        - **counterparties** — List of addresses or entities to treat strictly as counterparties. When set with base, only delivers transfers that flow directly between base and counterparty (base→counterparty or counterparty→base).
+
+        - **usdGte** / **usdLte** — Minimum/maximum USD value of the transfer. usdGte can satisfy the filter requirement on its own if >= 250,000.
+
+        - **valueGte** / **valueLte** — Minimum/maximum raw token amount (not USD).
+
+
+        All address/entity parameters (base, from, to, counterparties) accept both raw wallet addresses and Arkham entity names. You do not need to use labeled entities — any wallet address works.
+
+
+        **Billing:** Free. You are only charged when transfers are delivered (2 credits per transfer).'
+      operationId: CreateWebSocketStreamV2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferFilter'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateStreamV2Response'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/v2/streams/{id}:
+    delete:
+      summary: Delete a WebSocket v2 stream
+      description: 'Deletes a WebSocket v2 stream. Any active connection using this stream will be disconnected.
+
+
+        **Billing:** Free.'
+      operationId: DeleteWebSocketStreamV2
+      parameters:
+      - name: id
+        in: path
+        description: The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here.
+        required: true
+        schema:
+          type: string
+          description: The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here.
+          example: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteStreamV2Response'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+  /ws/v2/transfers:
+    get:
+      summary: WebSocket v2 transfer streaming
+      description: 'Connect to a v2 stream to receive real-time transfer notifications.
+
+
+        **Query Parameters:**
+
+        - stream_id (required) — The stream ID from POST /ws/v2/streams
+
+
+        Transfers matching the stream''s filter are delivered automatically — no subscribe/unsubscribe messages needed. Each message is a JSON envelope: {"type":"transfer","payload":{"transfer":{...},"alertId":N}}. The payload.transfer object has the same schema as GET /transfers responses.
+
+
+        **Reconnection and replay:** Streams expire after 10 minutes of inactivity. If you reconnect within 10 minutes, the stream reactivates and any transfers that matched your filter while disconnected are delivered immediately. After 10 minutes of inactivity the stream is cleaned up and you must create a new one.
+
+
+        **Billing:** 2 credits per transfer delivered.'
+      operationId: HandleWebSocketTransfersV2
+      responses:
+        '101':
+          description: Switching Protocols
+        '500':
+          description: Internal Server Error
+      tags:
+      - Ws
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    GetActiveWebSocketConnectionsResponse:
+      required:
+      - activeConnections
+      type: object
+      properties:
+        activeConnections:
+          type: integer
+          description: Number of currently active WebSocket connections
+          example: 1
+      example:
+        activeConnections: 1
+    WebSocketSessionResponse:
+      required:
+      - sessionId
+      - transfersUsed
+      - createdAt
+      - isActive
+      - isConnected
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the session was created
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        isActive:
+          type: boolean
+          description: Whether the session is active
+          example: true
+        isConnected:
+          type: boolean
+          description: Whether a WebSocket client is currently connected to this session
+          example: true
+        sessionId:
+          type: string
+          description: Unique session identifier
+          example: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed:
+          type: integer
+          description: Number of transfers received in this session
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        isActive: true
+        isConnected: true
+        sessionId: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed: 1
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
+    StreamV2Response:
+      required:
+      - streamId
+      - id
+      - createdAt
+      - lastActive
+      - transfersUsed
+      - isConnected
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Timestamp when the stream was created.
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        id:
+          type: integer
+          description: Internal database identifier for the stream. No endpoint accepts it — use streamId to connect to the WebSocket or to delete the stream.
+          example: 173943
+        isConnected:
+          type: boolean
+          description: Whether a client is currently connected to the stream.
+          example: true
+        lastActive:
+          type: string
+          description: Timestamp of the last activity on the stream, or null if it has never been connected.
+          format: date-time
+          nullable: true
+          example: '2026-07-15T10:16:35Z'
+        streamId:
+          type: string
+          description: Identifier for the stream. Pass it as the stream_id query parameter on wss://api.arkm.com/ws/v2/transfers to connect, and as the path parameter on DELETE /ws/v2/streams/{id} to delete.
+          example: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+        transfersUsed:
+          type: integer
+          description: Number of transfers delivered on this stream so far.
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        id: 173943
+        isConnected: true
+        lastActive: '2026-07-15T10:16:35Z'
+        streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+        transfersUsed: 1
+    CreateWebSocketSessionResponse:
+      required:
+      - sessionId
+      - transfersUsed
+      - createdAt
+      - isActive
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the session was created
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        isActive:
+          type: boolean
+          description: Whether the session is active
+          example: true
+        sessionId:
+          type: string
+          description: Unique session identifier to use with the WebSocket connection
+          example: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed:
+          type: integer
+          description: Number of transfers received in this session
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        isActive: true
+        sessionId: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed: 1
+    CreateStreamV2Response:
+      required:
+      - streamId
+      - id
+      - createdAt
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Timestamp when the stream was created.
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        id:
+          type: integer
+          description: Internal database identifier for the stream. No endpoint accepts it — use streamId to connect to the WebSocket or to delete the stream.
+          example: 173943
+        streamId:
+          type: string
+          description: Identifier for the stream. Pass it as the stream_id query parameter on wss://api.arkm.com/ws/v2/transfers to connect, and as the path parameter on DELETE /ws/v2/streams/{id} to delete.
+          example: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        id: 173943
+        streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+    WebSocketSessionInfoResponse:
+      required:
+      - creditPerTransfer
+      - creditPerSession
+      type: object
+      properties:
+        creditPerSession:
+          type: integer
+          description: API credits consumed when creating a session
+          example: 500
+        creditPerTransfer:
+          type: integer
+          description: API credits consumed per transfer received
+          example: 2
+        nextRenewalDate:
+          type: string
+          description: Next monthly session renewal charge date
+          format: date-time
+          nullable: true
+          example: '2026-08-14T00:00:00Z'
+      example:
+        creditPerSession: 500
+        creditPerTransfer: 2
+        nextRenewalDate: '2026-08-14T00:00:00Z'
+    DeleteStreamV2Response:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Confirmation message indicating the stream was deleted.
+          example: stream deleted
+      example:
+        message: stream deleted
+    TransferFilter:
+      type: object
+      properties:
+        base:
+          type: array
+          items:
+            type: string
+          description: Entity names or wallet addresses to monitor. Shows transfers where any of these appear as sender or receiver. Accepts the same values as the base parameter on GET /transfers — entity names, wallet addresses, or '!' prefix to exclude.
+          example:
+          - binance
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        chains:
+          $ref: '#/components/schemas/Chains'
+        counterparties:
+          type: array
+          items:
+            type: string
+          description: Strict counterparty filter — only delivers transfers between base and these counterparties (base→counterparty or counterparty→base). Requires base to be set. Accepts entity names or wallet addresses.
+          example:
+          - binance
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        flow:
+          $ref: '#/components/schemas/TransferFlow'
+        from:
+          type: array
+          items:
+            type: string
+          description: 'Filter by sender. Accepts wallet addresses, entity names, or special syntax: ''type:cex'' for all CEX addresses, ''deposit:binance'' for Binance deposit addresses. Same syntax as GET /transfers.'
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - type:cex
+          - deposit:binance
+        to:
+          type: array
+          items:
+            type: string
+          description: 'Filter by receiver. Accepts wallet addresses, entity names, or special syntax: ''type:cex'' for all CEX addresses, ''deposit:binance'' for Binance deposit addresses. Same syntax as GET /transfers.'
+          example:
+          - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+          - deposit:binance
+        tokens:
+          type: array
+          items:
+            type: string
+          description: Filter by token. Accepts token symbols or contract addresses.
+          example:
+          - ethereum
+          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        usdGte:
+          type: string
+          description: Minimum USD value of the transfer. Can be used alone as a filter requirement if >= 250,000.
+          example: '250000'
+        usdLte:
+          type: string
+          description: Maximum USD value of the transfer.
+          example: '1000000'
+        valueGte:
+          type: string
+          description: Minimum raw token amount (not USD). For example, '100' means at least 100 units of the token.
+          example: '100'
+        valueLte:
+          type: string
+          description: Maximum raw token amount (not USD).
+          example: '10000'
+      example:
+        base:
+        - binance
+        - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        chains:
+        - ethereum
+        - bsc
+        - polygon
+        counterparties:
+        - binance
+        - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        flow: in
+        from:
+        - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        - type:cex
+        - deposit:binance
+        to:
+        - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+        - deposit:binance
+        tokens:
+        - ethereum
+        - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        usdGte: '250000'
+        usdLte: '1000000'
+        valueGte: '100'
+        valueLte: '10000'
+    TransferFlow:
+      enum:
+      - in
+      - out
+      - self
+      - all
+      type: string
+      example: in

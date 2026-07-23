@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Subscription API
+  version: 1.1.0
+tags:
+- name: Subscription
+paths:
+  /subscription/intel-usage:
+    get:
+      summary: Get intel data usage for the current billing period
+      description: 'Returns your intel-data consumption for the current billing period, broken down by chain.
+
+
+        Usage is tracked per seat (the calling user), not account-wide: `totalLimit` is the limit for your seat and `totalCount` is the data points your seat has consumed. The response also includes the start of the current period and the per-chain breakdown of usage.
+
+
+        Returns 503 when usage tracking is unavailable.'
+      operationId: GetIntelUsage
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntelUsageResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Subscription
+components:
+  schemas:
+    IntelUsageResponse:
+      required:
+      - totalCount
+      - totalLimit
+      - chainUsage
+      - periodStart
+      type: object
+      properties:
+        chainUsage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AdminIntelUsageChainResult'
+          description: Per-chain-type breakdown of intel data points consumed. Keys are chain types; all EVM chains are grouped under "evm".
+          nullable: true
+          example:
+            bitcoin:
+              count: 86
+            dogecoin:
+              count: 0
+            evm:
+              count: 11113
+            solana:
+              count: 1020
+            tron:
+              count: 154
+            zcash:
+              count: 0
+        periodStart:
+          type: string
+          description: Start of the current billing period (UTC). Null if no period is active.
+          format: date-time
+          nullable: true
+          example: '2026-06-01T00:00:00Z'
+        totalCount:
+          type: integer
+          description: Total intel data points consumed in the current billing period across all chains.
+          example: 12373
+        totalLimit:
+          type: integer
+          description: Per-seat intel data point limit for the current billing period.
+          example: 1000000
+      example:
+        chainUsage:
+          bitcoin:
+            count: 86
+          dogecoin:
+            count: 0
+          evm:
+            count: 11113
+          solana:
+            count: 1020
+          tron:
+            count: 154
+          zcash:
+            count: 0
+        periodStart: '2026-06-01T00:00:00Z'
+        totalCount: 12373
+        totalLimit: 1000000
+    AdminIntelUsageChainResult:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Intel data points consumed on this chain during the current billing period.
+          example: 1284

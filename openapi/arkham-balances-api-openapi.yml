@@ -1,0 +1,1430 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Balances API
+  version: 1.1.0
+tags:
+- name: Balances
+paths:
+  /balances/address/{address}:
+    get:
+      summary: Get token balances for an address
+      description: Returns token balances for the specified address, optionally filtered by chains.
+      operationId: GetAddressBalances
+      parameters:
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query balances for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query balances for.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAddressBalancesResponse'
+              example:
+                addresses:
+                  bsc:
+                    '0x28C6c06298d514Db089934071355E5743bf21d60':
+                      address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/binance
+                        id: binance
+                        linkedin: https://www.linkedin.com/company/binance
+                        name: Binance
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/binance
+                        type: cex
+                        website: https://binance.com
+                      arkhamLabel:
+                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                        chainType: evm
+                        name: Hot Wallet
+                      chain: bsc
+                      contract: false
+                      isUserAddress: false
+                  ethereum:
+                    '0x28C6c06298d514Db089934071355E5743bf21d60':
+                      address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/binance
+                        id: binance
+                        linkedin: https://www.linkedin.com/company/binance
+                        name: Binance
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/binance
+                        type: cex
+                        website: https://binance.com
+                      arkhamLabel:
+                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                        chainType: evm
+                        name: Hot Wallet
+                      chain: ethereum
+                      contract: false
+                      isUserAddress: false
+                balances:
+                  bsc:
+                  - balance: 3734.2858510100004
+                    balanceExact: '3734285851010000000000'
+                    ethereumAddress: '0x55d398326f99059fF775485246999027B3197955'
+                    id: binance-bridged-usdt-bnb-smart-chain
+                    name: Tether USD
+                    price: 1
+                    priceChange24h: 0
+                    priceChange24hPercent: 0
+                    quoteTime: '2026-07-06T08:56:06.003Z'
+                    symbol: USDT
+                    usd: 3734.2858510100004
+                  ethereum:
+                  - balance: 933180509.069545
+                    balanceExact: '933180509069545'
+                    ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+                    id: tether
+                    name: Tether USD
+                    price: 1
+                    priceChange24h: 0
+                    priceChange24hPercent: 0
+                    quoteTime: '2026-07-06T08:56:21.074Z'
+                    symbol: USDT
+                    usd: 933180509.069545
+                  - balance: 264229.89222968067
+                    balanceExact: '264229892229680683921876'
+                    id: ethereum
+                    name: Ethereum
+                    price: 1764.02
+                    priceChange24h: -2.2200000000000273
+                    priceChange24hPercent: -0.12569073285623852
+                    quoteTime: '2026-07-06T08:56:12.855Z'
+                    symbol: ETH
+                    usd: 466106814.4910013
+                totalBalance:
+                  bsc: 4958.963746508313
+                  ethereum: 1851859770.8709288
+                totalBalance24hAgo:
+                  bsc: 4962.53510092634
+                  ethereum: 1855389918.2681246
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Balances
+  /balances/entity/{entity}:
+    get:
+      summary: Get token balances for an entity
+      description: Returns token balances for the specified entity, optionally filtered by chains.
+      operationId: GetEntityBalances
+      parameters:
+      - name: cheap
+        in: query
+        description: If 'true', uses a faster but less real-time balance query (up to 24 hours delayed).
+        schema:
+          type: string
+          description: If 'true', uses a faster but less real-time balance query (up to 24 hours delayed).
+          example: 'true'
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query balances for.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query balances for.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityBalancesResponse'
+              example:
+                balances:
+                  bsc:
+                  - balance: 40881.77844727871
+                    id: binance-bitcoin
+                    name: Binance Bitcoin
+                    price: 65027
+                    priceChange24h: 950
+                    priceChange24hPercent: 1.4825912573934485
+                    quoteTime: '2026-06-22T13:23:37.62Z'
+                    symbol: BTCB
+                    usd: 2658419407.0911927
+                  ethereum:
+                  - balance: 40046128192.73723
+                    id: tether
+                    name: Tether
+                    price: 1
+                    priceChange24h: 0
+                    priceChange24hPercent: 0
+                    quoteTime: '2026-06-22T13:24:28.299Z'
+                    symbol: USDT
+                    usd: 40046128192.73723
+                  - balance: 7422685972.66057
+                    id: usd-coin
+                    name: USDC
+                    price: 1
+                    priceChange24h: 0
+                    priceChange24hPercent: 0
+                    quoteTime: '2026-06-22T13:24:30.156Z'
+                    symbol: USDC
+                    usd: 7422685972.66057
+                entities:
+                  binance:
+                    crunchbase: https://www.crunchbase.com/organization/binance
+                    description: ''
+                    id: binance
+                    linkedin: https://www.linkedin.com/company/binance
+                    name: Binance
+                    note: ''
+                    populatedTags:
+                    - disablePage: false
+                      excludeEntities: false
+                      id: proof-of-reserves
+                      label: Binance Proof of Reserves
+                      rank: 20
+                      tagParams: Binance
+                    service: null
+                    twitter: https://twitter.com/binance
+                    type: cex
+                    website: https://binance.com
+                totalBalance:
+                  bsc: 11662208524.033506
+                  ethereum: 66276809360.97472
+                totalBalance24hAgo:
+                  bsc: 11595187303.045288
+                  ethereum: 65932976474.17882
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Balances
+  /balances/solana/subaccounts/address/{addresses}:
+    get:
+      summary: Get Solana subaccount balances for addresses
+      description: Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified addresses.
+      operationId: GetSolanaAddressSubaccountBalances
+      parameters:
+      - name: pricingID
+        in: query
+        description: The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token.
+          example: jito-staked-sol
+      - name: limit
+        in: query
+        description: 'Maximum number of subaccount balance entries to return. Default: 1000.'
+        schema:
+          type: string
+          description: 'Maximum number of subaccount balance entries to return. Default: 1000.'
+          example: '1000'
+      - name: addresses
+        in: path
+        description: Comma-separated list of Solana addresses to query subaccount balances for.
+        required: true
+        schema:
+          type: string
+          description: Comma-separated list of Solana addresses to query subaccount balances for.
+          example: GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubaccountBalances'
+                example:
+                - address: BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy
+                  balance: 508628.141646117
+                  balanceExact: '508628141646117'
+                  id: jito-staked-sol
+                  name: Jito Staked SOL
+                  ownerAddress: GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4
+                  price: 87.73
+                  symbol: JitoSOL
+                  usd: 44621946.86661385
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Balances
+  /balances/solana/subaccounts/entity/{entities}:
+    get:
+      summary: Get Solana subaccount balances for entities
+      description: Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified entities.
+      operationId: GetSolanaEntitySubaccountBalances
+      parameters:
+      - name: pricingID
+        in: query
+        description: The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token.
+          example: tensor
+      - name: limit
+        in: query
+        description: 'Maximum number of subaccount balance entries to return. Default: 1000.'
+        schema:
+          type: string
+          description: 'Maximum number of subaccount balance entries to return. Default: 1000.'
+          example: '1000'
+      - name: entities
+        in: path
+        description: Comma-separated list of entity IDs to query subaccount balances for.
+        required: true
+        schema:
+          type: string
+          description: Comma-separated list of entity IDs to query subaccount balances for.
+          example: binance,coinbase
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubaccountBalances'
+                example:
+                - address: BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy
+                  balance: 508628.141646117
+                  balanceExact: '508628141646117'
+                  id: jito-staked-sol
+                  name: Jito Staked SOL
+                  ownerAddress: GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4
+                  price: 87.73
+                  symbol: JitoSOL
+                  usd: 44621946.86661385
+              example:
+              - address: GugV3a7dGm2n5SDmsoiWKgaPGjwkoMBuz1wQaDCAftKb
+                balance: 73296943.94763146
+                balanceExact: '73296943947631461'
+                id: tensor
+                name: Tensor
+                ownerAddress: 5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9
+                price: 0.04028654
+                symbol: TNSR
+                usd: 2952880.2642240124
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Balances
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    Label:
+      required:
+      - name
+      - address
+      - chainType
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
+          type: string
+          example: evm
+        name:
+          type: string
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
+    GetAddressBalancesResponse:
+      required:
+      - addresses
+      - totalBalance
+      - totalBalance24hAgo
+      - balances
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/Address'
+            example:
+              abc123:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                arkhamEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                arkhamLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+                chain: ethereum
+                contract: false
+                depositServiceID: binance
+                isShielded: true
+                isUserAddress: false
+                ownerAddress: {}
+                predictedEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                program: true
+                service: true
+                userEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                userLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+          nullable: true
+          example:
+            abc123:
+              abc123:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                arkhamEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                arkhamLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+                chain: ethereum
+                contract: false
+                depositServiceID: binance
+                isShielded: true
+                isUserAddress: false
+                ownerAddress: {}
+                predictedEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                program: true
+                service: true
+                userEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                userLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+        balances:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Balance'
+            example:
+            - balance: 1250.75
+              balanceExact: abc123
+              ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+              id: tether
+              name: Tether
+              price: 1
+              priceChange24h: 1.23
+              priceChange24hPercent: 1.23
+              quoteTime: '2024-01-01T00:00:00Z'
+              symbol: USDT
+              usd: 1250.75
+          nullable: true
+          example:
+            abc123:
+            - balance: 1250.75
+              balanceExact: abc123
+              ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+              id: tether
+              name: Tether
+              price: 1
+              priceChange24h: 1.23
+              priceChange24hPercent: 1.23
+              quoteTime: '2024-01-01T00:00:00Z'
+              symbol: USDT
+              usd: 1250.75
+        totalBalance:
+          type: object
+          additionalProperties:
+            type: number
+            example: 1.23
+          nullable: true
+          example:
+            abc123: 1.23
+        totalBalance24hAgo:
+          type: object
+          additionalProperties:
+            type: number
+            example: 1.23
+          nullable: true
+          example:
+            abc123: 1.23
+      example:
+        addresses:
+          abc123:
+            abc123:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              arkhamEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              arkhamLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+              chain: ethereum
+              contract: false
+              depositServiceID: binance
+              isShielded: true
+              isUserAddress: false
+              ownerAddress: {}
+              predictedEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              program: true
+              service: true
+              userEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              userLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+        balances:
+          abc123:
+          - balance: 1250.75
+            balanceExact: abc123
+            ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+            id: tether
+            name: Tether
+            price: 1
+            priceChange24h: 1.23
+            priceChange24hPercent: 1.23
+            quoteTime: '2024-01-01T00:00:00Z'
+            symbol: USDT
+            usd: 1250.75
+        totalBalance:
+          abc123: 1.23
+        totalBalance24hAgo:
+          abc123: 1.23
+    Entity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    ArkhamEntity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      - description
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        description:
+          type: string
+          example: Binance is a global cryptocurrency exchange.
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        description: Binance is a global cryptocurrency exchange.
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    EntityBalancesResponse:
+      required:
+      - entities
+      - totalBalance
+      - totalBalance24hAgo
+      - balances
+      type: object
+      properties:
+        balances:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Balance'
+            example:
+            - balance: 1250.75
+              balanceExact: abc123
+              ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+              id: tether
+              name: Tether
+              price: 1
+              priceChange24h: 1.23
+              priceChange24hPercent: 1.23
+              quoteTime: '2024-01-01T00:00:00Z'
+              symbol: USDT
+              usd: 1250.75
+          nullable: true
+          example:
+            abc123:
+            - balance: 1250.75
+              balanceExact: abc123
+              ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+              id: tether
+              name: Tether
+              price: 1
+              priceChange24h: 1.23
+              priceChange24hPercent: 1.23
+              quoteTime: '2024-01-01T00:00:00Z'
+              symbol: USDT
+              usd: 1250.75
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ArkhamEntity'
+          nullable: true
+          example:
+            abc123:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              description: Binance is a global cryptocurrency exchange.
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+        totalBalance:
+          type: object
+          additionalProperties:
+            type: number
+            example: 1.23
+          nullable: true
+          example:
+            abc123: 1.23
+        totalBalance24hAgo:
+          type: object
+          additionalProperties:
+            type: number
+            example: 1.23
+          nullable: true
+          example:
+            abc123: 1.23
+      example:
+        balances:
+          abc123:
+          - balance: 1250.75
+            balanceExact: abc123
+            ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+            id: tether
+            name: Tether
+            price: 1
+            priceChange24h: 1.23
+            priceChange24hPercent: 1.23
+            quoteTime: '2024-01-01T00:00:00Z'
+            symbol: USDT
+            usd: 1250.75
+        entities:
+          abc123:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            description: Binance is a global cryptocurrency exchange.
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+        totalBalance:
+          abc123: 1.23
+        totalBalance24hAgo:
+          abc123: 1.23
+    SubaccountBalances:
+      required:
+      - address
+      - ownerAddress
+      - name
+      - symbol
+      - id
+      - balance
+      - usd
+      - price
+      type: object
+      properties:
+        address:
+          type: string
+          example: BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy
+        balance:
+          type: number
+          example: 508628.141646117
+        balanceExact:
+          type: string
+          nullable: true
+          example: '508628141646117'
+        id:
+          type: string
+          example: jito-staked-sol
+        name:
+          type: string
+          example: Jito Staked SOL
+        ownerAddress:
+          type: string
+          example: GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4
+        price:
+          type: number
+          example: 87.73
+        symbol:
+          type: string
+          example: JitoSOL
+        usd:
+          type: number
+          example: 44621946.86661385
+      example:
+        address: BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy
+        balance: 508628.141646117
+        balanceExact: '508628141646117'
+        id: jito-staked-sol
+        name: Jito Staked SOL
+        ownerAddress: GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4
+        price: 87.73
+        symbol: JitoSOL
+        usd: 44621946.86661385
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type: string
+          description: The specific parameter value for this tag instance.
+          nullable: true
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance
+    Balance:
+      required:
+      - name
+      - symbol
+      - id
+      - balance
+      - usd
+      - price
+      - quoteTime
+      - priceChange24hPercent
+      - priceChange24h
+      type: object
+      properties:
+        balance:
+          type: number
+          example: 1250.75
+        balanceExact:
+          type: string
+          nullable: true
+          example: abc123
+        ethereumAddress:
+          type: string
+          nullable: true
+          example: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+        id:
+          type: string
+          example: tether
+        name:
+          type: string
+          example: Tether
+        price:
+          type: number
+          example: 1
+        priceChange24h:
+          type: number
+          example: 1.23
+        priceChange24hPercent:
+          type: number
+          example: 1.23
+        quoteTime:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        symbol:
+          type: string
+          example: USDT
+        usd:
+          type: number
+          example: 1250.75
+      example:
+        balance: 1250.75
+        balanceExact: abc123
+        ethereumAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+        id: tether
+        name: Tether
+        price: 1
+        priceChange24h: 1.23
+        priceChange24hPercent: 1.23
+        quoteTime: '2024-01-01T00:00:00Z'
+        symbol: USDT
+        usd: 1250.75
+    Address:
+      required:
+      - address
+      - chain
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          $ref: '#/components/schemas/Entity'
+        arkhamLabel:
+          $ref: '#/components/schemas/Label'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        contract:
+          type: boolean
+          nullable: true
+          example: false
+        depositServiceID:
+          type: string
+          nullable: true
+          example: binance
+        isShielded:
+          type: boolean
+          nullable: true
+          example: true
+        isUserAddress:
+          type: boolean
+          nullable: true
+          example: false
+        ownerAddress:
+          $ref: '#/components/schemas/Address'
+        predictedEntity:
+          $ref: '#/components/schemas/Entity'
+        program:
+          type: boolean
+          nullable: true
+          example: true
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        userEntity:
+          $ref: '#/components/schemas/Entity'
+        userLabel:
+          $ref: '#/components/schemas/Label'
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        arkhamLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+        chain: ethereum
+        contract: false
+        depositServiceID: binance
+        isShielded: true
+        isUserAddress: false
+        ownerAddress: {}
+        predictedEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        program: true
+        service: true
+        userEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        userLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''

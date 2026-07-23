@@ -1,0 +1,308 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics API
+  version: 1.1.0
+tags:
+- name: Analytics
+paths:
+  /analytics/credit-periods:
+    get:
+      summary: Get historical credit usage by billing period
+      description: 'Returns the last 12 billing periods of credit usage for your billing entity.
+
+
+        Each period includes the period boundaries, plan credits included, extra (overage) credits, and total credits consumed.
+
+
+        Only available to organization admins (returning their org''s usage) and individual API subscribers (returning their own usage). Other callers receive `403`.'
+      operationId: GetCreditPeriods
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditUsagePeriod'
+                example:
+                - computedAt: '2026-05-01T00:05:12Z'
+                  creditsIncluded: 500000
+                  creditsUsed: 482350
+                  entityId: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
+                  entityType: org
+                  extraCredits: 0
+                  periodEnd: '2026-05-01T00:00:00Z'
+                  periodStart: '2026-04-01T00:00:00Z'
+                  status: closed
+        '500':
+          description: Internal Server Error
+      tags:
+      - Analytics
+  /analytics/endpoint-calls:
+    get:
+      summary: Get API endpoint call analytics
+      description: 'Returns your API usage broken down by endpoint, including call counts and credits consumed.
+
+
+        If your API key belongs to an organization member, results are scoped to your usage within that org. Otherwise, results cover your individual subscription usage.'
+      operationId: GetAnalyticsData
+      parameters:
+      - name: period
+        in: query
+        description: 'Time window: "24h", "7d", or "30d". Defaults to "24h". Ignored when both start_date and end_date are provided.'
+        schema:
+          enum:
+          - 24h
+          - 7d
+          - 30d
+          type: string
+          description: 'Time window: "24h", "7d", or "30d". Defaults to "24h". Ignored when both start_date and end_date are provided.'
+          example: 7d
+      - name: end_date
+        in: query
+        description: RFC3339 timestamp. Historical cutoff for the period-based window, or the upper bound of a custom range.
+        schema:
+          type: string
+          description: RFC3339 timestamp. Historical cutoff for the period-based window, or the upper bound of a custom range.
+          example: '2026-05-26T00:00:00Z'
+      - name: start_date
+        in: query
+        description: RFC3339 timestamp. Lower bound of a custom date range. Only takes effect together with end_date — a custom range requires both; start_date supplied on its own is ignored. Max range 366 days.
+        schema:
+          type: string
+          description: RFC3339 timestamp. Lower bound of a custom date range. Only takes effect together with end_date — a custom range requires both; start_date supplied on its own is ignored. Max range 366 days.
+          example: '2026-04-26T00:00:00Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Analytics
+components:
+  schemas:
+    CreditUsagePeriod:
+      required:
+      - entityType
+      - entityId
+      - periodStart
+      - periodEnd
+      - creditsUsed
+      - creditsIncluded
+      - extraCredits
+      - status
+      - computedAt
+      type: object
+      properties:
+        computedAt:
+          type: string
+          description: When this usage snapshot was computed.
+          format: date-time
+          example: '2026-05-01T00:05:12Z'
+        creditsIncluded:
+          type: integer
+          description: Plan credits included in the period.
+          example: 500000
+        creditsUsed:
+          type: integer
+          description: Total credits consumed during the period.
+          example: 482350
+        entityId:
+          type: string
+          description: Identifier of the billing entity (org ID or Firebase UID).
+          example: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
+        entityType:
+          type: string
+          description: 'Billing entity type: "org" or "individual".'
+          example: org
+        extraCredits:
+          type: integer
+          description: Overage credits purchased or accrued during the period.
+          example: 0
+        periodEnd:
+          type: string
+          description: Exclusive end of the billing period.
+          format: date-time
+          example: '2026-05-01T00:00:00Z'
+        periodStart:
+          type: string
+          description: Inclusive start of the billing period.
+          format: date-time
+          example: '2026-04-01T00:00:00Z'
+        status:
+          type: string
+          description: 'Period status: "current" or "closed".'
+          example: closed
+      example:
+        computedAt: '2026-05-01T00:05:12Z'
+        creditsIncluded: 500000
+        creditsUsed: 482350
+        entityId: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
+        entityType: org
+        extraCredits: 0
+        periodEnd: '2026-05-01T00:00:00Z'
+        periodStart: '2026-04-01T00:00:00Z'
+        status: closed
+    EndpointInfo:
+      required:
+      - pattern
+      - color
+      - weight
+      - unitType
+      type: object
+      properties:
+        color:
+          type: string
+          description: Color used to render this endpoint in stacked-bar visualizations.
+          example: '#4f46e5'
+        pattern:
+          type: string
+          description: Endpoint path pattern.
+          example: /transfers
+        unitType:
+          type: string
+          description: 'Billing unit type: "call" (charged per request) or "row" (charged per returned row).'
+          example: call
+        weight:
+          type: integer
+          description: Credit weight per call for this endpoint.
+          example: 5
+      example:
+        color: '#4f46e5'
+        pattern: /transfers
+        unitType: call
+        weight: 5
+    AnalyticsResponse:
+      required:
+      - period
+      - startTime
+      - endTime
+      - dataPoints
+      - endpointInfos
+      type: object
+      properties:
+        dataPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsDataPoint'
+          description: Hourly data points covering the window.
+          nullable: true
+          example:
+          - callBreakdown:
+              /intelligence/address/{address}: 864
+              /transfers: 420
+            creditBreakdown:
+              /intelligence/address/{address}: 5220
+              /transfers: 2100
+            hour: '2026-05-26T14:00:00Z'
+            totalCalls: 1284
+            totalCostUnits: 7320
+            totalCredits: 7320
+        endTime:
+          type: string
+          description: End of the returned window (UTC).
+          format: date-time
+          example: '2026-05-26T00:00:00Z'
+        endpointInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointInfo'
+          description: Metadata for each endpoint referenced in the breakdowns (display color, credit weight, billing unit).
+          nullable: true
+          example:
+          - color: '#4f46e5'
+            pattern: /transfers
+            unitType: call
+            weight: 5
+        period:
+          type: string
+          description: Time window the response covers. One of "24h", "7d", or "30d".
+          example: 7d
+        startTime:
+          type: string
+          description: Start of the returned window (UTC).
+          format: date-time
+          example: '2026-05-19T00:00:00Z'
+      example:
+        dataPoints:
+        - callBreakdown:
+            /intelligence/address/{address}: 864
+            /transfers: 420
+          creditBreakdown:
+            /intelligence/address/{address}: 5220
+            /transfers: 2100
+          hour: '2026-05-26T14:00:00Z'
+          totalCalls: 1284
+          totalCostUnits: 7320
+          totalCredits: 7320
+        endTime: '2026-05-26T00:00:00Z'
+        endpointInfos:
+        - color: '#4f46e5'
+          pattern: /transfers
+          unitType: call
+          weight: 5
+        period: 7d
+        startTime: '2026-05-19T00:00:00Z'
+    AnalyticsDataPoint:
+      required:
+      - hour
+      - totalCalls
+      - totalCredits
+      - totalCostUnits
+      - callBreakdown
+      - creditBreakdown
+      type: object
+      properties:
+        callBreakdown:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Per-endpoint call counts for this hour.
+          nullable: true
+          example:
+            /intelligence/address/{address}: 864
+            /transfers: 420
+        creditBreakdown:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Per-endpoint credits consumed for this hour.
+          nullable: true
+          example:
+            /intelligence/address/{address}: 5220
+            /transfers: 2100
+        hour:
+          type: string
+          description: Bucket start time (UTC, truncated to the hour).
+          format: date-time
+          example: '2026-05-26T14:00:00Z'
+        totalCalls:
+          type: integer
+          description: Total API calls made in this hour.
+          example: 1284
+        totalCostUnits:
+          type: integer
+          description: Total cost units in this hour (calls + row-billed units).
+          example: 7320
+        totalCredits:
+          type: integer
+          description: Total credits consumed in this hour.
+          example: 7320
+      example:
+        callBreakdown:
+          /intelligence/address/{address}: 864
+          /transfers: 420
+        creditBreakdown:
+          /intelligence/address/{address}: 5220
+          /transfers: 2100
+        hour: '2026-05-26T14:00:00Z'
+        totalCalls: 1284
+        totalCostUnits: 7320
+        totalCredits: 7320

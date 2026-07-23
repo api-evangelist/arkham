@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Arkham Intel API
+  version: 1.0.0
+extends: openapi/arkham-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: arkham
+    x-apievangelist-review-date: '2026-07-18'
+    x-api-base-url: https://api.arkm.com
+    x-auth: API-Key header
+    x-billing: usage-based credits ($0.20 per credit; from $900/mo)
+    x-agent-surface: https://api.arkm.com/x402
+- target: $.servers
+  update:
+  - url: https://api.arkm.com
+    description: Arkham Intel API production
+- target: $.components.securitySchemes
+  update:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: API-Key
+      description: >-
+        Documented in the API Keys & Authentication guide; the published spec omits securitySchemes.
+        AE overlay adds it so downstream tooling can model auth.

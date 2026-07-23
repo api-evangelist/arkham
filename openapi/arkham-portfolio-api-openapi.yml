@@ -1,0 +1,402 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Portfolio API
+  version: 1.1.0
+tags:
+- name: Portfolio
+paths:
+  /portfolio/address/{address}:
+    get:
+      summary: Get address portfolio history
+      description: Retrieves historical portfolio snapshots for the specified address across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.
+      operationId: GetAddressPortfolioHistory
+      parameters:
+      - name: time
+        in: query
+        description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+        required: true
+        schema:
+          type: string
+          description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+          example: '1704067200000'
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query portfolio history for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query portfolio history for.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/PortfolioEntry'
+                  example:
+                    abc123:
+                      balance: 1500.5
+                      id: usd-coin
+                      name: USD Coin
+                      price: 1
+                      symbol: USDC
+                      usd: 1500.5
+                example:
+                  bsc:
+                    1inch:
+                      balance: 1112.6200000000001
+                      id: 1inch
+                      name: 1INCH
+                      price: 0.45496
+                      symbol: 1inch
+                      usd: 506.1975952
+                    alchemy-pay:
+                      balance: 10
+                      id: alchemy-pay
+                      name: Alchemy Pay
+                      price: 0.02132812
+                      symbol: ach
+                      usd: 0.2132812
+                  ethereum:
+                    0x:
+                      balance: 10032515.845947504
+                      id: 0x
+                      name: 0x Protocol
+                      price: 0.369874
+                      symbol: zrx
+                      usd: 3710766.766003987
+                    1inch:
+                      balance: 6065867.718795477
+                      id: 1inch
+                      name: 1INCH
+                      price: 0.45496
+                      symbol: 1inch
+                      usd: 2759727.17734319
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Portfolio
+  /portfolio/entity/{entity}:
+    get:
+      summary: Get entity portfolio history
+      description: Retrieves historical portfolio snapshots for the specified entity across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.
+      operationId: GetEntityPortfolioHistory
+      parameters:
+      - name: time
+        in: query
+        description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+        required: true
+        schema:
+          type: string
+          description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+          example: '1704067200000'
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/PortfolioEntry'
+                  example:
+                    abc123:
+                      balance: 1500.5
+                      id: usd-coin
+                      name: USD Coin
+                      price: 1
+                      symbol: USDC
+                      usd: 1500.5
+                example:
+                  bsc:
+                    '2049':
+                      balance: 120000
+                      id: '2049'
+                      name: '2049'
+                      price: 0.01338244
+                      symbol: '2049'
+                      usd: 1605.8928
+                    aave:
+                      balance: 311773.5865450922
+                      id: aave
+                      name: Aave
+                      price: 109.13
+                      symbol: aave
+                      usd: 34023851.499665916
+                  ethereum:
+                    0x:
+                      balance: 72450011.27241233
+                      id: 0x
+                      name: 0x Protocol
+                      price: 0.369874
+                      symbol: zrx
+                      usd: 26797375.469372235
+                    1inch:
+                      balance: 134991020.98849133
+                      id: 1inch
+                      name: 1INCH
+                      price: 0.45496
+                      symbol: 1inch
+                      usd: 61415514.90892401
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Portfolio
+  /portfolio/timeSeries/address/{address}:
+    get:
+      summary: Get daily time series data for an address's token
+      description: Returns daily snapshots (in UTC) of the specified address's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.
+      operationId: GetAddressPortfolioHistoryTimeSeries
+      parameters:
+      - name: pricingId
+        in: query
+        description: The CoinGecko pricing ID of the token to track.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token to track.
+          example: ethereum
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query time series data for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query time series data for.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/PortfolioEntry'
+                    example:
+                      abc123:
+                        balance: 1500.5
+                        id: usd-coin
+                        name: USD Coin
+                        price: 1
+                        symbol: USDC
+                        usd: 1500.5
+                  example:
+                    abc123:
+                      abc123:
+                        balance: 1500.5
+                        id: usd-coin
+                        name: USD Coin
+                        price: 1
+                        symbol: USDC
+                        usd: 1500.5
+                example:
+                  '2024-11-06T00:00:00Z':
+                    arbitrum_one:
+                      ethereum:
+                        balance: 0.157982385858176
+                        id: ethereum
+                        name: Ethereum
+                        price: 2423.42
+                        symbol: eth
+                        usd: 382.8576735364209
+                    ethereum:
+                      ethereum:
+                        balance: 75113.401952444
+                        id: ethereum
+                        name: Ethereum
+                        price: 2423.42
+                        symbol: eth
+                        usd: 182031320.55959183
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Portfolio
+  /portfolio/timeSeries/entity/{entity}:
+    get:
+      summary: Get daily time series data for an entity's token
+      description: Returns daily snapshots (in UTC) of the specified entity's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.
+      operationId: GetEntityPortfolioHistoryTimeSeries
+      parameters:
+      - name: pricingId
+        in: query
+        description: The CoinGecko pricing ID of the token to track.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token to track.
+          example: ethereum
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/PortfolioEntry'
+                    example:
+                      abc123:
+                        balance: 1500.5
+                        id: usd-coin
+                        name: USD Coin
+                        price: 1
+                        symbol: USDC
+                        usd: 1500.5
+                  example:
+                    abc123:
+                      abc123:
+                        balance: 1500.5
+                        id: usd-coin
+                        name: USD Coin
+                        price: 1
+                        symbol: USDC
+                        usd: 1500.5
+                example:
+                  '2023-07-19T00:00:00Z':
+                    arbitrum_one:
+                      ethereum:
+                        balance: 111662.52500999894
+                        id: ethereum
+                        name: Ethereum
+                        price: 1897.72
+                        symbol: eth
+                        usd: 211904206.9619752
+                    ethereum:
+                      ethereum:
+                        balance: 3974214.8732396006
+                        id: ethereum
+                        name: Ethereum
+                        price: 1897.72
+                        symbol: eth
+                        usd: 7541947049.244255
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Portfolio
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    PortfolioEntry:
+      required:
+      - id
+      - name
+      - symbol
+      - balance
+      - price
+      - usd
+      type: object
+      properties:
+        balance:
+          type: number
+          description: Token balance in whole units.
+          example: 1500.5
+        id:
+          type: string
+          example: usd-coin
+        name:
+          type: string
+          example: USD Coin
+        price:
+          type: number
+          description: Token price in USD.
+          example: 1
+        symbol:
+          type: string
+          example: USDC
+        usd:
+          type: number
+          description: Balance value in USD.
+          example: 1500.5
+      example:
+        balance: 1500.5
+        id: usd-coin
+        name: USD Coin
+        price: 1
+        symbol: USDC
+        usd: 1500.5
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon

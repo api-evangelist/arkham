@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Tag API
+  version: 1.1.0
+tags:
+- name: Tag
+paths:
+  /tag/{id}/params:
+    get:
+      summary: Get tag parameters
+      description: Returns a list of all unique tag parameter combinations for the specified tag.
+      operationId: GetAllTagParams
+      parameters:
+      - name: limit
+        in: query
+        description: Number of items to return per page (1-1000, default 100).
+        schema:
+          type: string
+          description: Number of items to return per page (1-1000, default 100).
+          example: '100'
+      - name: offset
+        in: query
+        description: Number of items to skip from the beginning (must be >= 0, default 0).
+        schema:
+          type: string
+          description: Number of items to skip from the beginning (must be >= 0, default 0).
+          example: '0'
+      - name: id
+        in: path
+        description: The tag identifier to retrieve parameters for.
+        required: true
+        schema:
+          type: string
+          description: The tag identifier to retrieve parameters for.
+          example: proof-of-reserves
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PopulatedTag'
+                example:
+                - disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Tag
+  /tag/{id}/summary:
+    get:
+      summary: Get tag summary statistics
+      description: Returns summary statistics for the specified tag, including total counts of addresses, entities, and unique tag parameters.
+      operationId: GetTagSummary
+      parameters:
+      - name: id
+        in: path
+        description: The tag identifier to retrieve summary statistics for.
+        required: true
+        schema:
+          type: string
+          description: The tag identifier to retrieve summary statistics for.
+          example: proof-of-reserves
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagSummary'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Tag
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type: string
+          description: The specific parameter value for this tag instance.
+          nullable: true
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance
+    TagSummary:
+      required:
+      - tagId
+      - numAddresses
+      - numEntities
+      - numUniqueTagParams
+      type: object
+      properties:
+        numAddresses:
+          type: integer
+          description: Total number of addresses carrying this tag.
+          example: 1436136
+        numEntities:
+          type: integer
+          description: Total number of entities carrying this tag.
+          example: 41
+        numUniqueTagParams:
+          type: integer
+          description: Number of unique tag parameter combinations for this tag.
+          example: 38
+        tagId:
+          type: string
+          description: The tag identifier these statistics describe.
+          example: proof-of-reserves
+      example:
+        numAddresses: 1436136
+        numEntities: 41
+        numUniqueTagParams: 38
+        tagId: proof-of-reserves

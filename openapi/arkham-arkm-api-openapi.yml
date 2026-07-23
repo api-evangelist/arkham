@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Arkm API
+  version: 1.1.0
+tags:
+- name: Arkm
+paths:
+  /arkm/circulating:
+    get:
+      summary: Get ARKM circulating supply
+      description: Returns the current circulating supply of ARKM tokens.
+      operationId: GetARKMCirculating
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetARKMCirculatingResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Arkm
+components:
+  schemas:
+    GetARKMCirculatingResponse:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          type: integer
+          description: Circulating supply, in whole ARKM tokens.
+          example: 658912429
+      example:
+        amount: 658912429

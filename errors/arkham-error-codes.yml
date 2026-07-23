@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: searched
+source: https://arkm.com/llms/guides/errors-http-codes.md
+format: simple-json
+envelope:
+  rest: '{ "error": "description" }'
+  websocket: '{ "type": "error", "payload": { "code": "...", "message": "..." } }'
+note: >-
+  Arkham returns a simple { "error": string } envelope (NOT RFC 9457 problem+json). Failed requests
+  (4xx/5xx) are never charged credits. WebSocket errors use a typed { type: error, payload } envelope.
+http_codes:
+- status: 200
+  meaning: Success
+- status: 400
+  meaning: Bad request (invalid params)
+- status: 401
+  meaning: Unauthorized (API key issue)
+- status: 402
+  meaning: Payment required
+- status: 403
+  meaning: Forbidden (endpoint not in plan)
+- status: 404
+  meaning: Not found
+- status: 429
+  meaning: Rate limit exceeded (per-second or Intel label limit)
+- status: 500
+  meaning: Server error
+common_errors:
+- message: error validating API key
+  status: 401
+  remediation: Check key; use the API-Key header (not Authorization).
+- message: not allowed to access endpoint
+  status: 403
+  remediation: Endpoint not in plan — contact api@arkm.com for a plan upgrade.
+- message: cannot use timeLast and timeGte together
+  status: 400
+  remediation: Use one time parameter or the other, not both.
+- message: limit must be between 1 and 1000
+  status: 400
+  remediation: Reduce limit (counterparties max is 1000).
+- message: Intelligence label lookup limit reached for this billing period.
+  status: 429
+  remediation: Request a label-limit increase via api@arkm.com or the API Dashboard.
+websocket_codes:
+- code: INVALID_PAYLOAD
+  meaning: Malformed request
+- code: INVALID_FILTER
+  meaning: Invalid filter parameters
+- code: INSUFFICIENT_CREDITS
+  meaning: Out of credits (payload carries limitType minutely|hourly|monthly and resetIn seconds)
+- code: TIER_RATE_LIMITED
+  meaning: Rate limit for your tier

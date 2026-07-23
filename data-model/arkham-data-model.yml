@@ -1,0 +1,96 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/arkham-openapi-original.json
+docs: https://arkm.com/llms/guides/addresses-entities-labels.md
+note: >-
+  Entity-relationship graph derived from the Arkham Intel API OpenAPI (195 component schemas, 128 paths)
+  and the "Addresses, Entities, Labels" guide. Arkham is entity-first: real-world actors (entities) are
+  the primary object, addresses attribute to entities, and labels/tags annotate addresses and entities
+  with confidence-scored intelligence.
+entities:
+- name: Entity
+  description: A real-world actor (exchange, fund, protocol, individual) — the primary object.
+  schema: Entity
+  id_field: entity
+  relationships:
+  - {type: has_many, target: Address, via: addresses}
+  - {type: has_many, target: Label, via: labels}
+  - {type: has_one, target: EntitySummary, via: entity}
+  - {type: has_many, target: Counterparty, via: entity}
+- name: Address
+  description: An on-chain address, attributed (probabilistically) to an entity and annotated with labels/tags.
+  schema: Address
+  id_field: address
+  relationships:
+  - {type: belongs_to, target: Entity, via: arkhamEntity}
+  - {type: has_many, target: Label, via: arkhamLabel}
+  - {type: has_many, target: Balance, via: balances}
+  - {type: has_many, target: Counterparty, via: address}
+- name: AddressEnriched
+  description: Address intelligence with additional address information.
+  schema: AddressEnriched
+  relationships:
+  - {type: belongs_to, target: Address, via: address}
+- name: Label
+  description: A confidence-scored annotation attributing an address/entity to a real-world identity.
+  schema: Label
+  relationships:
+  - {type: belongs_to, target: Address, via: address}
+  - {type: belongs_to, target: Tag, via: tag}
+- name: Tag
+  description: A reusable tag definition applied to addresses and entities.
+  schema: AddressTagUpdate
+  relationships:
+  - {type: has_many, target: Address, via: address}
+- name: Token
+  description: A token identified by CoinGecko pricing id or chain/contract address.
+  schema: ArkhamTokensResponse
+  id_field: id
+  relationships:
+  - {type: has_many, target: AddressTopHolder, via: holders}
+  - {type: has_many, target: Balance, via: token}
+- name: Transfer
+  description: A value transfer between addresses (enriched or unenriched).
+  schema: EnrichedTransfer
+  relationships:
+  - {type: belongs_to, target: Address, via: fromAddress}
+  - {type: belongs_to, target: Address, via: toAddress}
+  - {type: belongs_to, target: Token, via: tokenAddress}
+  - {type: belongs_to, target: Chain, via: chain}
+- name: Swap
+  description: A token swap event.
+  schema: EnrichedSwap
+  relationships:
+  - {type: belongs_to, target: Address, via: address}
+  - {type: belongs_to, target: Chain, via: chain}
+- name: Counterparty
+  description: A top counterparty of an address or entity, with USD flow.
+  schema: Counterparty
+  relationships:
+  - {type: belongs_to, target: Entity, via: entity}
+  - {type: has_one, target: CounterpartyFlow, via: flow}
+- name: Chain
+  description: A supported blockchain network (20+ chains).
+  schema: Chain
+  id_field: chain
+- name: Balance
+  description: A token balance for an address or entity.
+  schema: Balance
+  relationships:
+  - {type: belongs_to, target: Token, via: token}
+- name: EntityPrediction
+  description: A predicted attribution/behaviour signal for an entity.
+  schema: EntityPrediction
+  relationships:
+  - {type: belongs_to, target: Entity, via: entity}
+domains:
+- name: Intelligence
+  objects: [Entity, Address, AddressEnriched, Label, Tag, EntityPrediction]
+- name: Movement
+  objects: [Transfer, Swap, Counterparty, Balance]
+- name: Markets
+  objects: [Token, Chain]
+- name: HyperCore
+  note: Perp/spot positions, portfolio history and trades for HyperCore accounts and entities.
+- name: Polymarket
+  note: Events, positions, prices, leaderboards, and wallet analytics for Polymarket.

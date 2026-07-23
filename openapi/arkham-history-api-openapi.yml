@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics History API
+  version: 1.1.0
+tags:
+- name: History
+paths:
+  /history/address/{address}:
+    get:
+      summary: Get historical data for an address
+      description: Returns a daily USD value time series for the specified address.
+      operationId: GetAddressHistory
+      parameters:
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: address
+        in: path
+        description: The blockchain address to query historical data for.
+        required: true
+        schema:
+          type: string
+          description: The blockchain address to query historical data for.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/HistorySnapshot'
+                  example:
+                  - time: '2024-01-01T00:00:00Z'
+                    usd: 1.23
+                example:
+                  bsc:
+                  - time: '2023-12-13T00:00:00Z'
+                    usd: 2844820.37
+                  - time: '2023-12-14T00:00:00Z'
+                    usd: 3174696.58
+                  ethereum:
+                  - time: '2023-11-29T00:00:00Z'
+                    usd: 2524608983.37
+                  - time: '2023-11-30T00:00:00Z'
+                    usd: 2535428111.78
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - History
+  /history/entity/{entity}:
+    get:
+      summary: Get historical data for an entity
+      description: Returns a daily USD value time series for the specified entity.
+      operationId: GetEntityHistory
+      parameters:
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: entity
+        in: path
+        description: The entity ID to query historical data for.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to query historical data for.
+          example: binance
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/HistorySnapshot'
+                  example:
+                  - time: '2024-01-01T00:00:00Z'
+                    usd: 1.23
+                example:
+                  bitcoin:
+                  - time: '2022-01-22T00:00:00Z'
+                    usd: 19480915256.37
+                  - time: '2022-01-23T00:00:00Z'
+                    usd: 18645267553.47
+                  ethereum:
+                  - time: '2021-12-31T00:00:00Z'
+                    usd: 51606841219.03
+                  - time: '2022-01-01T00:00:00Z'
+                    usd: 51120113947.47
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - History
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    HistorySnapshot:
+      required:
+      - time
+      - usd
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        usd:
+          type: number
+          example: 1.23
+      example:
+        time: '2024-01-01T00:00:00Z'
+        usd: 1.23
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon

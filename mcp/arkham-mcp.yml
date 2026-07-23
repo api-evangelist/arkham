@@ -1,0 +1,56 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/arkham-openapi-original.json
+note: >-
+  No official hosted Arkham MCP server was found. Arkham's "Using with Coding Agents" guide instructs
+  users to build their own local MCP server (pip install mcp requests) against the REST API, and ships
+  an agent-native x402 pay-per-request surface (api.arkm.com/x402 with /skill.md and /openapi.json).
+  This is a DERIVED candidate tool list mapping marquee read operations to MCP tools; not an official
+  server. The x402 skill (skills/arkham-x402-agent-skill.md) is the provider-published agent surface.
+agent_surfaces:
+  x402_base_url: https://api.arkm.com/x402
+  x402_skill: https://api.arkm.com/x402/skill.md
+  x402_catalog: https://api.arkm.com/x402/openapi.json
+  llms_txt: https://arkm.com/llms.txt
+server:
+  name: arkham-intel
+  transport: stdio
+  url: null
+tools:
+- name: get_address_intelligence
+  description: Get intelligence about an address.
+  source_operation: openapi/arkham-openapi-original.json#GetAddressIntelligence
+- name: get_all_address_intelligence
+  description: Get all intelligence about an address across chains.
+  source_operation: openapi/arkham-openapi-original.json#GetAllAddressIntelligence
+- name: get_entity_intelligence
+  description: Get intelligence about an entity.
+  source_operation: openapi/arkham-openapi-original.json#GetEntityIntelligence
+- name: get_entity_summary
+  description: Get entity summary statistics.
+  source_operation: openapi/arkham-openapi-original.json#GetEntitySummary
+- name: intelligence_search
+  description: Search addresses, entities, tokens, and pools.
+  source_operation: openapi/arkham-openapi-original.json#IntelligenceSearchHandler
+- name: get_address_balances
+  description: Get token balances for an address.
+  source_operation: openapi/arkham-openapi-original.json#GetAddressBalances
+- name: get_address_counterparties
+  description: Get top counterparties for an address.
+  source_operation: openapi/arkham-openapi-original.json#GetAddressCounterParty
+- name: get_address_flow
+  description: Get historical USD flows for an address.
+  source_operation: openapi/arkham-openapi-original.json#GetAddressFlow
+- name: get_transfers
+  description: List transfers.
+  source_operation: openapi/arkham-openapi-original.json#GetTransfers
+- name: get_supported_chains
+  description: Get supported chains list.
+  source_operation: openapi/arkham-openapi-original.json#GetSupportedChains
+- name: get_token_intelligence
+  description: Get intelligence on a token by pricing id.
+  source_operation: openapi/arkham-openapi-original.json#GetTokenIntelligenceById
+- name: get_risk_score_address
+  description: Get the risk score for an address (beta).
+  source_operation: openapi/arkham-openapi-original.json#GetRiskScoreAddress

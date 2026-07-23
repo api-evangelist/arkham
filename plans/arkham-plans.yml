@@ -1,0 +1,55 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+generated: '2026-07-18'
+method: searched
+provider: Arkham
+providerId: arkham
+source: https://arkm.com/llms/guides/getting-access.md
+tags:
+- Blockchain Intelligence
+- Crypto
+- Usage-Based
+description: >-
+  Arkham API plans are custom-built (usage-based, credits per month) and start at $900/mo, with bespoke
+  enterprise plans. Free trial access is available (Individual 1,000,000 credits; Organization 10,000,000
+  credits). Credits are consumed per endpoint; failed requests are not charged. The x402 agent surface
+  prices every request at $0.20 per credit in USDC on Base with no subscription.
+sources:
+- https://arkm.com/llms/guides/getting-access.md
+- https://arkm.com/llms/guides/credit-pricing.md
+- https://arkm.com/llms/guides/x402-pay-per-request-for-agents.md
+- https://arkm.com/api
+plans:
+- id: arkham-trial-individual
+  name: Individual Trial
+  type: trial
+  description: Free trial on an individual account.
+  entries:
+  - {label: Credit allowance, value: '1,000,000 credits (increase on request)'}
+  - {label: Intel label lookups, value: 10,000 per billing period}
+- id: arkham-trial-organization
+  name: Organization Trial
+  type: trial
+  description: Free trial on an organization account.
+  entries:
+  - {label: Credit allowance, value: '10,000,000 credits (increase on request)'}
+- id: arkham-subscription
+  name: Paid Subscription
+  type: usage-based
+  description: Custom usage-based plan, credits per month; no credit cap.
+  entries:
+  - {label: Starting price, value: from $900/mo}
+  - {label: Credit allowance, value: no limit (usage-based)}
+  - {label: Intel label lookups (Individual), value: 1,000,000 per billing period}
+  - {label: Intel label lookups (Organization), value: 10,000,000 per period per seat}
+  - {label: Billing, value: usage-based credits; bespoke plans available}
+- id: arkham-x402
+  name: x402 Pay-per-Request
+  type: pay-per-use
+  description: Per-request USDC settlement on Base for the public read catalog (~90 endpoints).
+  entries:
+  - {label: Price, value: $0.20 per credit (mirrors classic API credit weights)}
+  - {label: Per-call endpoints, value: credits x $0.20}
+  - {label: Per-row endpoints, value: credits x limit x $0.20}
+  - {label: Free discovery, value: 'chains, networks/status, arkm/circulating (sign-in-with-x, no payment)'}
+contact: api@arkm.com

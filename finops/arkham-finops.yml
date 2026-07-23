@@ -1,0 +1,48 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+generated: '2026-07-18'
+method: searched
+provider: Arkham
+providerId: arkham
+tags:
+- FinOps
+- Cost Management
+- Blockchain Intelligence
+description: >-
+  Arkham API billing is a usage-based credit model. Every request consumes credits from a monthly
+  allowance; cost is per-call (credits = endpoint weight) or per-row (credits = weight x rows returned).
+  Failed 4xx/5xx requests are not charged. The x402 surface prices the same credit weights at $0.20 per
+  credit in USDC on Base.
+sources:
+- https://arkm.com/llms/guides/credit-pricing.md
+- https://arkm.com/llms/guides/rate-limits.md
+- https://arkm.com/llms/guides/x402-pay-per-request-for-agents.md
+publisherName: Arkham Intelligence
+serviceCategory: Blockchain Intelligence
+billingModel:
+  type: usage-based-credits
+  unit: credit
+  monetary_rate: $0.20 per credit (x402)
+  charge_on_failure: false
+  metering:
+    per_call: credits = endpoint weight
+    per_row: credits = weight x rows returned
+credit_weights_examples:
+- {endpoint: 'GET /intelligence/address/{address}', credits: 1, type: per-call}
+- {endpoint: 'GET /intelligence/address/{address}/all', credits: 2, type: per-call}
+- {endpoint: 'GET /intelligence/address_enriched/{address}/all', credits: 4, type: per-call}
+- {endpoint: 'POST /intelligence/address/batch', credits: 250, type: per-call}
+- {endpoint: 'POST /intelligence/address_enriched/batch/all', credits: 1000, type: per-call}
+- {endpoint: 'GET /intelligence/search', credits: 30, type: per-call}
+- {endpoint: 'GET /transfers', credits: 2, type: per-row}
+- {endpoint: 'GET /transfers/unenriched', credits: 1, type: per-row}
+- {endpoint: 'GET /swaps', credits: 2, type: per-row}
+- {endpoint: 'GET /token/top', credits: 10, type: per-call}
+- {endpoint: 'GET /token/holders/{id}', credits: 30, type: per-call}
+- {endpoint: 'POST /ws/sessions', credits: 500, type: per-call}
+- {endpoint: 'GET /ws/transfers', credits: 2, type: per-row}
+cost_controls:
+- Use the limit parameter to cap per-row cost.
+- Cache responses; paginate correctly; use batch/bulk endpoints.
+- Repeated lookups of the same labeled address within a period count once (label limits).

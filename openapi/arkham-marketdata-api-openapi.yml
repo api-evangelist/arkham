@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Marketdata API
+  version: 1.1.0
+tags:
+- name: Marketdata
+paths:
+  /marketdata/altcoin_index:
+    get:
+      summary: Get Altcoin Index
+      description: Returns the current Altcoin Index value, which measures altcoin performance relative to Bitcoin.
+      operationId: GetAltcoinIndexAPI
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAltcoinIndexResponse'
+        '500':
+          description: Internal Server Error
+      tags:
+      - Marketdata
+components:
+  schemas:
+    GetAltcoinIndexResponse:
+      required:
+      - altcoinIndex
+      type: object
+      properties:
+        altcoinIndex:
+          type: integer
+          description: Altcoin Index value from 0 to 100. Higher values indicate altcoins are outperforming Bitcoin.
+          example: 63
+      example:
+        altcoinIndex: 63

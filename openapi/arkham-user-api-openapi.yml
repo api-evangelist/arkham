@@ -1,0 +1,1151 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics User API
+  version: 1.1.0
+tags:
+- name: User
+paths:
+  /user/alerts:
+    get:
+      summary: List your alerts
+      description: Returns every alert owned by the authenticated caller as a list of `AlertParam` objects. Results are unpaginated and in no particular order.
+      operationId: GetAlerts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlertParam'
+                example:
+                - activelyFeatured: true
+                  alertMethodId: 1
+                  base:
+                  - abc123
+                  chains:
+                  - ethereum
+                  createdAt: '2024-01-01T00:00:00Z'
+                  description: abc123
+                  enabled: true
+                  from:
+                  - abc123
+                  id: 1
+                  name: abc123
+                  ownerUID: abc123
+                  shareable: true
+                  to:
+                  - abc123
+                  tokens:
+                  - abc123
+                  usdGte: 1.23
+                  usdLte: 1.23
+                  valueGte: 1.23
+                  valueLte: 1.23
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+    post:
+      summary: Create an alert
+      description: 'Creates a new alert that notifies the caller when on-chain transfers match the supplied filter.
+
+
+        **Request body** (`AlertRequest`):
+
+        - **name**: Human-readable alert name.
+
+        - **enabled**: Whether the alert delivers notifications. Disabled alerts are stored but do not notify.
+
+        - **base / from / to**: Comma-separated address, entity, or deposit selectors in the same syntax as `GET /transfers`. Pass `["all"]` on `base` to match every transfer (Pro only).
+
+        - **tokens**: Token IDs or chain:address pairs to filter on.
+
+        - **valueGte / valueLte**: Raw token amount bounds (on-chain units).
+
+        - **usdGte / usdLte**: Historical USD value bounds.
+
+        - **chains**: Optional subset of supported chains to scope the alert to.
+
+        - **alertMethodId**: Required. ID of the notification channel that delivers this alert (see `GET /user/alertmethods`). Must be one of your own alert methods.
+
+        - **description**: Optional free-form note.
+
+
+        **Validation:** `alertMethodId` is required and must reference one of your own alert methods; omitting it or pointing it at a method you do not own returns `400`. Non-Pro users must supply at least one of a non-`"all"` `base`, a `from`, a `to`, a `tokens` filter, or a `usdGte >= 10000000`. Pro users may create fully open alerts. Users are hard-capped at 1000 alerts.
+
+
+        **Response:** The numeric ID of the new alert.'
+      operationId: CreateAlert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 1
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+  /user/alerts/{id}:
+    delete:
+      summary: Delete an alert
+      description: 'Permanently deletes an alert owned by the caller.
+
+
+        **Path parameter:**
+
+        - **id**: The numeric ID of the alert to delete.
+
+
+        **Response:** `204 No Content` on success.'
+      operationId: DeleteAlert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+    get:
+      summary: Get a single alert
+      description: 'Returns the `AlertParam` for one alert owned by the caller.
+
+
+        **Path parameter:**
+
+        - **id**: The numeric ID of the alert.
+
+
+        **Response:** `404 Not Found` if the alert does not exist or is owned by a different user.'
+      operationId: GetAlert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertParam'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+    put:
+      summary: Update an alert
+      description: 'Replaces the configuration of an existing alert. The caller must own the alert — 404 is returned otherwise.
+
+
+        **Path parameter:**
+
+        - **id**: The numeric ID of the alert to update.
+
+
+        **Request body:** An `AlertRequest` with the desired new configuration — same shape as `POST /user/alerts`.
+
+
+        **Validation:** Same Pro / non-Pro rules as `POST /user/alerts` — non-Pro users must still supply a restrictive filter or `usdGte >= 10000000`.
+
+
+        **Response:** `204 No Content` on success.'
+      operationId: UpdateAlert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAlertRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+  /user/entities:
+    get:
+      summary: List all private entities
+      description: 'Retrieves all private entities for the authenticated user. Returns both user-created private entities and customized Arkham entities.
+
+
+        Use the includeAddresses parameter to control whether address lists are included in the response (default: true).'
+      operationId: ReadUserEntities
+      parameters:
+      - name: includeAddresses
+        in: query
+        description: Whether to include address lists in the response. Accepts 'true' or 'false'. Defaults to 'true'.
+        schema:
+          type: string
+          description: Whether to include address lists in the response. Accepts 'true' or 'false'. Defaults to 'true'.
+          example: abc123
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  oneOf:
+                  - $ref: '#/components/schemas/UserEntity'
+                  - $ref: '#/components/schemas/ArkhamEntity'
+                  example:
+                    addresses:
+                      abc123:
+                      - abc123
+                    createdAt: '2024-01-01T00:00:00Z'
+                    crunchbase: https://www.crunchbase.com/organization/binance
+                    customImageSlug: binance
+                    customized: true
+                    id: binance
+                    instagram: https://www.instagram.com/binance
+                    linkShareable: true
+                    linkedin: https://www.linkedin.com/company/binance
+                    name: Binance
+                    note: ''
+                    ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                    populatedTags:
+                    - chain: ethereum
+                      disablePage: false
+                      excludeEntities: false
+                      id: proof-of-reserves
+                      label: Binance Proof of Reserves
+                      rank: 20
+                      tagParams: Binance
+                    service: true
+                    twitter: https://twitter.com/binance
+                    type: cex
+                    updatedAt: '2024-01-01T00:00:00Z'
+                    website: https://binance.com
+                example:
+                - addresses:
+                    abc123:
+                    - abc123
+                  createdAt: '2024-01-01T00:00:00Z'
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  updatedAt: '2024-01-01T00:00:00Z'
+                  website: https://binance.com
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+  /user/entities/only_add/{id}:
+    put:
+      summary: Update a private entity
+      description: 'Updates an existing private entity. Allows modification of the entity name, note, and associated addresses.
+
+
+        For user-created entities, the full entity is updated. For Arkham entities, only the user''s custom address associations are updated. Maximum of 5000 addresses can be updated at once.'
+      operationId: UpdateUserEntityOnlyAddAddresses
+      parameters:
+      - name: id
+        in: path
+        description: The entity ID to update. Can be a user-created entity ID or an Arkham entity ID.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to update. Can be a user-created entity ID or an Arkham entity ID.
+          example: abc123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserEntityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+  /user/entities/{id}:
+    get:
+      summary: Get a private entity by ID
+      description: 'Retrieves a specific private entity by its ID. Returns the entity details including name, note, and associated addresses.
+
+
+        Supports both user-created private entities and customized Arkham entities.'
+      operationId: ReadUserEntity
+      parameters:
+      - name: id
+        in: path
+        description: The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID.
+        required: true
+        schema:
+          type: string
+          description: The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID.
+          example: binance
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+  /user/labels:
+    get:
+      summary: Get user labels
+      description: Retrieves a list of labels for the authenticated user.
+      operationId: GetLabels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Label'
+                example:
+                - address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+    post:
+      summary: Create labels
+      description: Creates one or more labels for the authenticated user.
+      operationId: PostLabels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Label'
+              nullable: true
+              example:
+              - address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Label'
+                example:
+                - address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - User
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    UpdateUserEntityRequest:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    Label:
+      required:
+      - name
+      - address
+      - chainType
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
+          type: string
+          example: evm
+        name:
+          type: string
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    AlertRequest:
+      required:
+      - name
+      - enabled
+      - base
+      - alertMethodId
+      type: object
+      properties:
+        alertMethodId:
+          type: integer
+          example: 1
+        base:
+          type: array
+          items:
+            type: string
+            example: abc123
+          nullable: true
+          example:
+          - abc123
+        chains:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chain'
+          nullable: true
+          example:
+          - ethereum
+        description:
+          type: string
+          nullable: true
+          example: abc123
+        enabled:
+          type: boolean
+          example: true
+        from:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        name:
+          type: string
+          example: abc123
+        to:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        tokens:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        usdGte:
+          type: number
+          nullable: true
+          example: 1.23
+        usdLte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueGte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueLte:
+          type: number
+          nullable: true
+          example: 1.23
+      example:
+        alertMethodId: 1
+        base:
+        - abc123
+        chains:
+        - ethereum
+        description: abc123
+        enabled: true
+        from:
+        - abc123
+        name: abc123
+        to:
+        - abc123
+        tokens:
+        - abc123
+        usdGte: 1.23
+        usdLte: 1.23
+        valueGte: 1.23
+        valueLte: 1.23
+    AlertParam:
+      required:
+      - id
+      - name
+      - enabled
+      - base
+      - createdAt
+      - shareable
+      type: object
+      properties:
+        activelyFeatured:
+          type: boolean
+          nullable: true
+          example: true
+        alertMethodId:
+          type: integer
+          nullable: true
+          example: 1
+        base:
+          type: array
+          items:
+            type: string
+            example: abc123
+          nullable: true
+          example:
+          - abc123
+        chains:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chain'
+          nullable: true
+          example:
+          - ethereum
+        createdAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        description:
+          type: string
+          nullable: true
+          example: abc123
+        enabled:
+          type: boolean
+          example: true
+        from:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: abc123
+        ownerUID:
+          type: string
+          nullable: true
+          example: abc123
+        shareable:
+          type: boolean
+          example: true
+        to:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        tokens:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        usdGte:
+          type: number
+          nullable: true
+          example: 1.23
+        usdLte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueGte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueLte:
+          type: number
+          nullable: true
+          example: 1.23
+      example:
+        activelyFeatured: true
+        alertMethodId: 1
+        base:
+        - abc123
+        chains:
+        - ethereum
+        createdAt: '2024-01-01T00:00:00Z'
+        description: abc123
+        enabled: true
+        from:
+        - abc123
+        id: 1
+        name: abc123
+        ownerUID: abc123
+        shareable: true
+        to:
+        - abc123
+        tokens:
+        - abc123
+        usdGte: 1.23
+        usdLte: 1.23
+        valueGte: 1.23
+        valueLte: 1.23
+    ArkhamEntity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      - description
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        description:
+          type: string
+          example: Binance is a global cryptocurrency exchange.
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        description: Binance is a global cryptocurrency exchange.
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    UpdateAlertRequest:
+      required:
+      - name
+      - enabled
+      - base
+      - alertMethodId
+      type: object
+      properties:
+        alertMethodId:
+          type: integer
+          example: 1
+        base:
+          type: array
+          items:
+            type: string
+            example: abc123
+          nullable: true
+          example:
+          - abc123
+        chains:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chain'
+          nullable: true
+          example:
+          - ethereum
+        description:
+          type: string
+          nullable: true
+          example: abc123
+        enabled:
+          type: boolean
+          example: true
+        from:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        name:
+          type: string
+          example: abc123
+        to:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        tokens:
+          type: array
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        usdGte:
+          type: number
+          nullable: true
+          example: 1.23
+        usdLte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueGte:
+          type: number
+          nullable: true
+          example: 1.23
+        valueLte:
+          type: number
+          nullable: true
+          example: 1.23
+      example:
+        alertMethodId: 1
+        base:
+        - abc123
+        chains:
+        - ethereum
+        description: abc123
+        enabled: true
+        from:
+        - abc123
+        name: abc123
+        to:
+        - abc123
+        tokens:
+        - abc123
+        usdGte: 1.23
+        usdLte: 1.23
+        valueGte: 1.23
+        valueLte: 1.23
+    UserEntity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      - createdAt
+      - updatedAt
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        createdAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        createdAt: '2024-01-01T00:00:00Z'
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        updatedAt: '2024-01-01T00:00:00Z'
+        website: https://binance.com
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type: string
+          description: The specific parameter value for this tag instance.
+          nullable: true
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance

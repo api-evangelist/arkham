@@ -1,0 +1,58 @@
+generated: '2026-07-18'
+method: searched
+source: https://arkm.com/llms/guides/api-keys-authentication.md
+spec_type: Webhooks
+note: >-
+  Arkham exposes a real-time event surface over WebSocket (streaming), not classic outbound webhooks and
+  not a published AsyncAPI document. The REST OpenAPI documents the session/stream management operations;
+  the live data flows over the WebSocket connection. Captured here as the provider's event/streaming
+  surface. No AsyncAPI spec is published, so none is fabricated.
+transport: websocket
+docs:
+- https://arkm.com/llms/guides/api-keys-authentication.md
+- https://arkm.com/api/docs
+management_operations:
+- operationId: CreateWebSocketSession
+  method: POST
+  path: /ws/sessions
+  summary: Create a WebSocket session (credits 500 per call).
+- operationId: GetWebSocketSessions
+  method: GET
+  path: /ws/sessions
+- operationId: GetWebSocketSessionInfo
+  method: GET
+  path: /ws/session-info
+- operationId: GetWebSocketSessionStatus
+  method: GET
+  path: /ws/sessions/{id}
+- operationId: DeleteWebSocketSession
+  method: DELETE
+  path: /ws/sessions/{id}
+- operationId: GetActiveWebSocketConnections
+  method: GET
+  path: /ws/active_connections
+- operationId: HandleWebSocketTransfers
+  method: GET
+  path: /ws/transfers
+  summary: Stream real-time transfers (credits 2 per row).
+- operationId: GetWebSocketStreamsV2
+  method: GET
+  path: /ws/v2/streams
+- operationId: CreateWebSocketStreamV2
+  method: POST
+  path: /ws/v2/streams
+- operationId: DeleteWebSocketStreamV2
+  method: DELETE
+  path: /ws/v2/streams/{id}
+- operationId: HandleWebSocketTransfersV2
+  method: GET
+  path: /ws/v2/transfers
+event_channels:
+- name: transfers
+  description: Real-time transfer events matching the session/stream filters.
+error_envelope:
+  format: '{ "type": "error", "payload": { "code": "...", "message": "..." } }'
+  codes: [INVALID_PAYLOAD, INVALID_FILTER, INSUFFICIENT_CREDITS, TIER_RATE_LIMITED]
+guidance: >-
+  Use WebSocket for low-latency, continuous streaming ("what's changing right now"); use REST for full
+  state and history. Credit exhaustion returns INSUFFICIENT_CREDITS with limitType and resetIn.

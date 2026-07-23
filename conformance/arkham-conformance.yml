@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/arkham-openapi-original.json
+docs: https://arkm.com/llms/guides/x402-pay-per-request-for-agents.md
+note: >-
+  Cross-cutting standards conformance for the Arkham Intel API, derived from the OpenAPI and the
+  published guides. No published third-party compliance program (SOC 2 / ISO 27001 / etc.) was found,
+  so no Compliance pointer is emitted.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/arkham-openapi-original.json declares openapi 3.0.0 (128 paths, 135 operations)
+- id: x402
+  conforms: true
+  evidence: >-
+    api.arkm.com/x402 implements the x402 protocol v2 (HTTP 402 Payment Required, signed price quotes,
+    EIP-3009 USDC settlement on Base); catalog at api.arkm.com/x402/openapi.json (OpenAPI 3.1.0).
+- id: eip-3009
+  conforms: true
+  evidence: x402 payment uses EIP-3009 transferWithAuthorization for gasless USDC transfers.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'errors use a simple { "error": string } envelope, not application/problem+json.'
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securitySchemes; auth is an API-Key header.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404.
+- id: pagination-offset
+  conforms: true
+  evidence: offset/limit pagination documented across list endpoints (pagination guide).
+- id: unique-operation-ids
+  conforms: true
+  evidence: all 135 operations carry a unique operationId.

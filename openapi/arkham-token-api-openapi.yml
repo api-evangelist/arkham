@@ -1,0 +1,2820 @@
+openapi: 3.0.0
+info:
+  title: Arkham Intel Analytics Token API
+  version: 1.1.0
+tags:
+- name: Token
+paths:
+  /token/addresses/{id}:
+    get:
+      summary: Get chain addresses for a token
+      description: Returns all known chain/address pairs for a token identified by its pricing ID.
+      operationId: GetTokenAddresses
+      parameters:
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                  nullable: true
+                  example: abc123
+                example:
+                  base: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+                  ethereum: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                  solana: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/arkham_exchange_tokens:
+    get:
+      summary: Get Arkham Exchange tokens
+      description: Returns the tokens listed on Arkham Exchange, split into `spotTokens` and `perpTokens` arrays. Each entry identifies a token by its CoinGecko pricing ID.
+      operationId: GetArkhamExchangeTokens
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArkhamTokensResponse'
+              example:
+                perpTokens:
+                - identifier:
+                    pricingID: ethereum
+                - identifier:
+                    pricingID: solana
+                spotTokens:
+                - identifier:
+                    pricingID: bitcoin
+                - identifier:
+                    pricingID: ethereum
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/balance/{chain}/{address}:
+    get:
+      summary: Get token balance for an entity or address, for a specific chain/address
+      description: Returns the balance of a specific token contract (identified by the `chain` and `address` path params) held by an entity or address. The `address` query param is the holder wallet(s); the path `address` is the token contract.
+      operationId: GetTokenBalanceOfByChainAddress
+      parameters:
+      - name: entityID
+        in: query
+        description: Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0.
+        schema:
+          type: string
+          description: Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0.
+          example: binance
+      - name: address
+        in: query
+        description: Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0.
+        schema:
+          type: string
+          description: Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      - name: chain
+        in: path
+        description: Blockchain network where the token is deployed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: address
+        in: path
+        description: The token contract address.
+        required: true
+        schema:
+          type: string
+          description: The token contract address.
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenBalance'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/balance/{id}:
+    get:
+      summary: Get token balance (all chains) for an entity or address
+      description: Returns the aggregated token balance for either an entity or address, across all chains.
+      operationId: GetTokenBalanceOfByID
+      parameters:
+      - name: entityID
+        in: query
+        description: Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0.
+        schema:
+          type: string
+          description: Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0.
+          example: binance
+      - name: address
+        in: query
+        description: Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0.
+        schema:
+          type: string
+          description: Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0.
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenBalance'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/holders/{chain}/{address}:
+    get:
+      summary: Get top token holders by chain and address
+      description: 'Returns the top token holders for a specific token contract on a given chain. Results are sorted by balance in descending order.
+
+
+        Only chains with token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/holders/{id}).
+
+
+        **Response fields:**
+
+        - **token**: Token metadata (name, symbol, pricing info).
+
+        - **totalSupply**: Total supply for the chain.
+
+        - **addressTopHolders**: Top holders by individual address.
+
+        - **entityTopHolders**: Top holders grouped by entity (only present when groupByEntity=true).
+
+
+        **Note:** Entity objects in the response do not include `populatedTags`. Use `GET /intelligence/entity/{id}` to retrieve tags for individual entities.'
+      operationId: GetTopTokenHoldersByChainAddress
+      parameters:
+      - name: groupByEntity
+        in: query
+        description: If 'true', groups holdings by entity rather than individual addresses.
+        schema:
+          type: string
+          description: If 'true', groups holdings by entity rather than individual addresses.
+          example: 'true'
+      - name: limit
+        in: query
+        description: Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000.
+        schema:
+          type: integer
+          description: Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000.
+          example: 100
+      - name: offset
+        in: query
+        description: Number of holders to skip for pagination (default 0).
+        schema:
+          type: integer
+          description: Number of holders to skip for pagination (default 0).
+          example: 0
+      - name: poolAddress
+        in: query
+        description: Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only.
+        schema:
+          type: string
+          description: Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only.
+          example: CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn
+      - name: chain
+        in: path
+        description: Blockchain network where the token is deployed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: address
+        in: path
+        description: The token contract address to query.
+        required: true
+        schema:
+          type: string
+          description: The token contract address to query.
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopHolderResponse'
+              example:
+                addressTopHolders:
+                  ethereum:
+                  - address:
+                      address: '0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/makerdao
+                        id: makerdao
+                        linkedin: https://www.linkedin.com/company/makerdao/
+                        name: Sky (MakerDAO)
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/MakerDAO
+                        type: cdp
+                        website: https://makerdao.com
+                      arkhamLabel:
+                        address: '0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341'
+                        chainType: evm
+                        name: LITE PSM USDC A POCKET
+                      chain: ethereum
+                      contract: false
+                      isUserAddress: false
+                    balance: 4453872464.461215
+                    pctOfCap: 0.06071662849686393
+                    usd: 4453872464.461215
+                  - address:
+                      address: '0xe1940f578743367F38D3f25c2D2d32D6636929B6'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/binance
+                        id: binance
+                        linkedin: https://www.linkedin.com/company/binance
+                        name: Binance
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/binance
+                        type: cex
+                        website: https://binance.com
+                      arkhamLabel:
+                        address: '0xe1940f578743367F38D3f25c2D2d32D6636929B6'
+                        chainType: evm
+                        name: SingleOwnerMSCA (Proxy)
+                      chain: ethereum
+                      contract: true
+                      isUserAddress: false
+                    balance: 1699999999.039577
+                    pctOfCap: 0.02317494926268423
+                    usd: 1699999999.039577
+                entityTopHolders: {}
+                token:
+                  identifier:
+                    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+                    chain: ethereum
+                    pricingID: usd-coin
+                  name: USD Coin
+                  symbol: USDC
+                totalSupply:
+                  ethereum: 50539998661.70982
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/holders/{id}:
+    get:
+      summary: Get top token holders by pricing ID
+      description: 'Returns the top token holders for a token identified by its CoinGecko pricing ID (e.g. "bitcoin", "ethereum", "usd-coin"). Results are sorted by balance in descending order.
+
+
+        **Response fields:**
+
+        - **token**: Token metadata (name, symbol, pricing info).
+
+        - **totalSupply**: Total supply per chain.
+
+        - **addressTopHolders**: Top holders by individual address, keyed by chain.
+
+        - **entityTopHolders**: Top holders grouped by entity (only present when groupByEntity=true), keyed by chain.
+
+
+        **Note:** Entity objects in the response do not include `populatedTags`. Use `GET /intelligence/entity/{id}` to retrieve tags for individual entities.'
+      operationId: GetTopTokenHoldersByID
+      parameters:
+      - name: groupByEntity
+        in: query
+        description: If 'true', groups holdings by entity rather than individual addresses.
+        schema:
+          type: string
+          description: If 'true', groups holdings by entity rather than individual addresses.
+          example: 'true'
+      - name: limit
+        in: query
+        description: Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000.
+        schema:
+          type: integer
+          description: Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000.
+          example: 100
+      - name: offset
+        in: query
+        description: Number of holders to skip for pagination (default 0).
+        schema:
+          type: integer
+          description: Number of holders to skip for pagination (default 0).
+          example: 0
+      - name: poolAddress
+        in: query
+        description: Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only.
+        schema:
+          type: string
+          description: Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only.
+          example: CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopHolderResponse'
+              example:
+                addressTopHolders:
+                  ethereum:
+                  - address:
+                      address: '0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/makerdao
+                        id: makerdao
+                        linkedin: https://www.linkedin.com/company/makerdao/
+                        name: Sky (MakerDAO)
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/MakerDAO
+                        type: cdp
+                        website: https://makerdao.com
+                      arkhamLabel:
+                        address: '0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341'
+                        chainType: evm
+                        name: LITE PSM USDC A POCKET
+                      chain: ethereum
+                      contract: false
+                      isUserAddress: false
+                    balance: 4453872464.461215
+                    pctOfCap: 0.06071662849686393
+                    usd: 4453872464.461215
+                  - address:
+                      address: '0xe1940f578743367F38D3f25c2D2d32D6636929B6'
+                      arkhamEntity:
+                        crunchbase: https://www.crunchbase.com/organization/binance
+                        id: binance
+                        linkedin: https://www.linkedin.com/company/binance
+                        name: Binance
+                        note: ''
+                        service: null
+                        twitter: https://twitter.com/binance
+                        type: cex
+                        website: https://binance.com
+                      arkhamLabel:
+                        address: '0xe1940f578743367F38D3f25c2D2d32D6636929B6'
+                        chainType: evm
+                        name: SingleOwnerMSCA (Proxy)
+                      chain: ethereum
+                      contract: true
+                      isUserAddress: false
+                    balance: 1699999999.039577
+                    pctOfCap: 0.02317494926268423
+                    usd: 1699999999.039577
+                entityTopHolders: {}
+                token:
+                  identifier:
+                    pricingID: usd-coin
+                  name: USDC
+                  price: 0.999831
+                  price24hAgo: 0.999825
+                  symbol: usdc
+                totalSupply:
+                  ethereum: 50539998661.70982
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/market/{id}:
+    get:
+      summary: Get current market data for a token
+      description: Returns current market data for a token including price, market cap, volume, and supply information.
+      operationId: GetTokenCurrentMarketData
+      parameters:
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenMarketData'
+              example:
+                allTimeHigh: 1.043
+                allTimeLow: 0.877647
+                circulatingSupply: 73354602419.50252
+                fullyDilutedValue: 73342671855.44943
+                marketCap: 73340976893
+                maxPrice24h: 0.999979
+                minPrice24h: 0.999745
+                price: 0.999831
+                price180dAgo: 0.999812
+                price24hAgo: 0.999797
+                price30dAgo: 0.999724
+                price7dAgo: 0.999852
+                totalSupply: 73355068862.08713
+                totalVolume: 7539296441
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/price/history/{chain}/{address}:
+    get:
+      summary: Get token price history by chain and address
+      description: 'Returns historical price data for a token identified by its chain and contract address.
+
+
+        Only chains that have token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use `/token/price/history/{id}` with the token''s pricing ID (e.g. `bitcoin`).'
+      operationId: GetTokenHistory
+      parameters:
+      - name: daily
+        in: query
+        description: If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours.
+        schema:
+          type: string
+          description: If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours.
+          example: 'true'
+      - name: chain
+        in: path
+        description: Blockchain network where the token is deployed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: address
+        in: path
+        description: The token contract address.
+        required: true
+        schema:
+          type: string
+          description: The token contract address.
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenHistoricalQuote'
+                example:
+                - marketCap: 73287761995
+                  time: '2026-07-13T10:26:27.747Z'
+                  usd: 0.999798
+                  volume24h: 8228653724
+                - marketCap: 73290240682
+                  time: '2026-07-13T10:27:12.877Z'
+                  usd: 0.9998
+                  volume24h: 8232347779
+                - marketCap: 73286652112
+                  time: '2026-07-13T10:29:22.977Z'
+                  usd: 0.999766
+                  volume24h: 8252952310
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/price/history/{id}:
+    get:
+      summary: Get token price history by pricing ID
+      description: Returns historical price data for a token identified by its pricing ID (e.g., 'bitcoin', 'ethereum'). Returns an array of timestamped price quotes.
+      operationId: GetTokenHistoryFromPricingID
+      parameters:
+      - name: daily
+        in: query
+        description: If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours.
+        schema:
+          type: string
+          description: If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours.
+          example: 'true'
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenHistoricalQuote'
+                example:
+                - marketCap: 73287761995
+                  time: '2026-07-13T10:26:27.747Z'
+                  usd: 0.999798
+                  volume24h: 8228653724
+                - marketCap: 73290240682
+                  time: '2026-07-13T10:27:12.877Z'
+                  usd: 0.9998
+                  volume24h: 8232347779
+                - marketCap: 73286652112
+                  time: '2026-07-13T10:29:22.977Z'
+                  usd: 0.999766
+                  volume24h: 8252952310
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/price_change/{id}:
+    get:
+      summary: Get token price change since a timestamp
+      description: Returns the token's current price and its historical price at the requested past timestamp. The absolute or percentage change can be computed from the two values.
+      operationId: GetTokenPriceChangeSinceHandler
+      parameters:
+      - name: pastTime
+        in: query
+        description: Past timestamp in RFC3339 format to calculate price change from.
+        required: true
+        schema:
+          type: string
+          description: Past timestamp in RFC3339 format to calculate price change from.
+          example: '2024-01-01T00:00:00Z'
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPriceChange'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/top:
+    get:
+      summary: Get top tokens by exchange activity
+      description: 'Analyzes token activity across centralized and decentralized exchanges. Ranks tokens by volume, inflows, outflows, netflows, and other metrics over customizable time intervals.
+
+
+        Supports filtering by chain, market cap, and specific tokens.
+
+
+        Each result reports ''current'' (metrics over the selected timeframe) and ''previous'' (the same metrics averaged across the numReferencePeriods prior windows, each the length of the timeframe); the two are compared to produce the change and percentage rankings.'
+      operationId: GetTopTokens
+      parameters:
+      - name: timeframe
+        in: query
+        description: Time interval for aggregation.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TopTokenTimeFrame'
+      - name: orderByAgg
+        in: query
+        description: Metric to sort by.
+        required: true
+        schema:
+          $ref: '#/components/schemas/TopTokensOrderByAgg'
+      - name: orderByDesc
+        in: query
+        description: Sort order. Use 'true' for descending, 'false' for ascending.
+        required: true
+        schema:
+          type: boolean
+          description: Sort order. Use 'true' for descending, 'false' for ascending.
+          nullable: true
+          example: true
+      - name: orderByPercent
+        in: query
+        description: If 'true', sort by percentage change rather than absolute values.
+        required: true
+        schema:
+          type: boolean
+          description: If 'true', sort by percentage change rather than absolute values.
+          nullable: true
+          example: true
+      - name: from
+        in: query
+        description: Pagination offset (starting index).
+        required: true
+        schema:
+          type: string
+          description: Pagination offset (starting index).
+          example: '0'
+      - name: size
+        in: query
+        description: Number of results to return per page.
+        required: true
+        schema:
+          type: string
+          description: Number of results to return per page.
+          example: '50'
+      - name: minVolume
+        in: query
+        description: Minimum volume filter in USD.
+        schema:
+          type: string
+          description: Minimum volume filter in USD.
+          example: '1000000'
+      - name: maxVolume
+        in: query
+        description: Maximum volume filter in USD.
+        schema:
+          type: string
+          description: Maximum volume filter in USD.
+          example: '1000000000'
+      - name: minMarketCap
+        in: query
+        description: Minimum market cap filter in USD.
+        schema:
+          type: string
+          description: Minimum market cap filter in USD.
+          example: '1000000'
+      - name: maxMarketCap
+        in: query
+        description: Maximum market cap filter in USD.
+        schema:
+          type: string
+          description: Maximum market cap filter in USD.
+          example: '10000000000000'
+      - name: numReferencePeriods
+        in: query
+        description: 'Number of prior periods (each the length of the timeframe) used as the historical baseline the current period is compared against. Default: auto (6 periods for 1h, 1 for longer timeframes). Max: 10.'
+        schema:
+          type: string
+          description: 'Number of prior periods (each the length of the timeframe) used as the historical baseline the current period is compared against. Default: auto (6 periods for 1h, 1 for longer timeframes). Max: 10.'
+          example: auto
+      - name: tokenIds
+        in: query
+        description: Comma-separated list of CoinGecko token IDs to filter results.
+        schema:
+          type: string
+          description: Comma-separated list of CoinGecko token IDs to filter results.
+          example: usd-coin,tether
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTopTokensResponse'
+              example:
+                tokens:
+                - current:
+                    inflowCexVolume: 181200000
+                    inflowDexVolume: 152300000
+                    outflowCexVolume: 179400000
+                    outflowDexVolume: 151800000
+                    price: 0.999831
+                  previous:
+                    inflowCexVolume: 176500000
+                    inflowDexVolume: 148100000
+                    outflowCexVolume: 175300000
+                    outflowDexVolume: 149200000
+                    price: 0.999797
+                  token:
+                    id: usd-coin
+                    marketCap: 73340976893
+                    symbol: USDC
+                total: 8189
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/top_flow/{chain}/{address}:
+    get:
+      summary: Get top token flow
+      description: 'Retrieves the top token flow (in USD and value) for the specified chain and address over a given duration.
+
+
+        Only chains with token contracts (EVM chains, Solana, Tron) return token flows here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/top_flow/{id}) for native flows.
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
+      operationId: GetTopTokenFlowByChainAddress
+      parameters:
+      - name: timeLast
+        in: query
+        description: Time range filter using relative durations.
+        required: true
+        schema:
+          type: string
+          description: Time range filter using relative durations.
+          example: 24h
+      - name: limit
+        in: query
+        description: 'Maximum number of addresses to return per flow direction. Default: 50. Max: 100.'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: 'Maximum number of addresses to return per flow direction. Default: 50. Max: 100.'
+          default: 50
+          example: 5
+      - name: chains
+        in: query
+        description: Ignored on this endpoint form — the chain is already fixed by the path. Use the pricing-ID form of this endpoint to filter flows by chain.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: chain
+        in: path
+        description: Blockchain network where the token is deployed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: address
+        in: path
+        description: The token contract address.
+        required: true
+        schema:
+          type: string
+          description: The token contract address.
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TopFlow'
+                example:
+                - address:
+                    address: '0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb'
+                    arkhamEntity:
+                      crunchbase: https://www.crunchbase.com/organization/morpho-labs
+                      id: morpho
+                      linkedin: https://www.linkedin.com/company/morpho-labs
+                      name: Morpho
+                      note: ''
+                      service: null
+                      twitter: https://twitter.com/MorphoLabs
+                      type: lending-decentralized
+                      website: https://morpho.org
+                    arkhamLabel:
+                      address: '0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb'
+                      chainType: evm
+                      name: Morpho Blue
+                    chain: ethereum
+                    contract: true
+                    isUserAddress: false
+                  inUSD: 8464010273.634033
+                  inValue: 8464010259.6050005
+                  outUSD: 8467229188.141229
+                  outValue: 8467229174.00334
+                - address:
+                    address: '0x06CFf7088619C7178F5e14f0B119458d08d2f5ef'
+                    arkhamLabel:
+                      address: '0x06CFf7088619C7178F5e14f0B119458d08d2f5ef'
+                      chainType: evm
+                      name: MEV Bot
+                    chain: ethereum
+                    contract: true
+                    isUserAddress: false
+                  inUSD: 2757517313.9577456
+                  inValue: 2757517326.099296
+                  outUSD: 2757671412.9492354
+                  outValue: 2757671425.122005
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/top_flow/{id}:
+    get:
+      summary: Get top flow for a token by pricing ID
+      description: 'Returns the top inflows/outflows for the specified token ID, aggregated by address.
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
+      operationId: GetTopTokenFlowByPricingId
+      parameters:
+      - name: timeLast
+        in: query
+        description: Time range filter using relative durations.
+        required: true
+        schema:
+          type: string
+          description: Time range filter using relative durations.
+          example: 24h
+      - name: limit
+        in: query
+        description: 'Maximum number of addresses to return per flow direction. Default: 50. Max: 100.'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: 'Maximum number of addresses to return per flow direction. Default: 50. Max: 100.'
+          default: 50
+          example: 5
+      - name: chains
+        in: query
+        description: Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains.
+        schema:
+          $ref: '#/components/schemas/Chains'
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TopFlow'
+                example:
+                - address:
+                    address: '0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb'
+                    arkhamEntity:
+                      crunchbase: https://www.crunchbase.com/organization/morpho-labs
+                      id: morpho
+                      linkedin: https://www.linkedin.com/company/morpho-labs
+                      name: Morpho
+                      note: ''
+                      service: null
+                      twitter: https://twitter.com/MorphoLabs
+                      type: lending-decentralized
+                      website: https://morpho.org
+                    arkhamLabel:
+                      address: '0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb'
+                      chainType: evm
+                      name: Morpho Blue
+                    chain: ethereum
+                    contract: true
+                    isUserAddress: false
+                  inUSD: 12979047524.191177
+                  inValue: 12979047525.961317
+                  outUSD: 12971777421.736961
+                  outValue: 12971777423.626078
+                - address:
+                    address: '0x61040E143A77F165Ba44543AF4A079F2C809D14b'
+                    arkhamLabel:
+                      address: '0x61040E143A77F165Ba44543AF4A079F2C809D14b'
+                      chainType: evm
+                      name: Proxy (EIP-1967 Transparent)
+                    chain: base
+                    contract: true
+                    isUserAddress: false
+                  inUSD: 4866908061.438353
+                  inValue: 4866908062.542056
+                  outUSD: 4866351186.855593
+                  outValue: 4866351187.380329
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/trending:
+    get:
+      summary: Get trending tokens
+      description: Returns a list of currently trending tokens across multiple chains.
+      operationId: GetTrendingTokens
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+                example:
+                - identifier:
+                    pricingID: bitcoin
+                  name: Bitcoin
+                  symbol: btc
+                - identifier:
+                    pricingID: ethereum
+                  name: Ethereum
+                  symbol: eth
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/trending/{id}:
+    get:
+      summary: Get a single trending token by ID
+      description: Returns a single trending token, identified by a specific ID (e.g., "bitcoin", "ethereum").
+      operationId: GetTrendingToken
+      parameters:
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendingToken'
+              example:
+                allTimeHigh: 1.043
+                allTimeLow: 0.877647
+                circulatingSupply: 73354602419.50252
+                name: USDC
+                price: 0.999831
+                price24hAgo: 0.999825
+                pricingID: usd-coin
+                symbol: usdc
+                totalSupply: 73355068862.08713
+                volume24h: 7539296441
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/volume/{chain}/{address}:
+    get:
+      summary: Get volume for a token by chain/address
+      description: 'Returns exchange flow for the specified token contract on a given chain, bucketed by time.
+
+
+        Each bucket reports the token''s flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.
+
+
+        This form looks the token up by its contract address, so it only covers chains that have token contracts (EVM chains, Solana, Tron). UTXO assets such as Bitcoin and Dogecoin have no token contract and return no data here; use the pricing-ID form (/token/volume/{id}) for their native flows.
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
+      operationId: GetTokenVolumeByChainAddress
+      parameters:
+      - name: granularity
+        in: query
+        description: Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets.
+        required: true
+        schema:
+          type: string
+          description: Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets.
+          nullable: true
+          example: 1h
+      - name: timeLast
+        in: query
+        description: Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets.
+        schema:
+          type: string
+          description: Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets.
+          nullable: true
+          example: 24h
+      - name: chain
+        in: path
+        description: Blockchain network where the token is deployed.
+        required: true
+        schema:
+          $ref: '#/components/schemas/Chain'
+      - name: address
+        in: path
+        description: The token contract address.
+        required: true
+        schema:
+          type: string
+          description: The token contract address.
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenHistogramSnapshot'
+                example:
+                - inUSD: 968891.0319822108
+                  inValue: 968891.037339
+                  outUSD: 1233415.5464420319
+                  outValue: 1233415.563605
+                  time: '2026-07-12T16:00:00Z'
+                - inUSD: 1187226.4781189265
+                  inValue: 1187226.461162
+                  outUSD: 1275054.663351059
+                  outValue: 1275054.650006
+                  time: '2026-07-12T17:00:00Z'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+  /token/volume/{id}:
+    get:
+      summary: Get volume for a token by pricing ID
+      description: 'Returns exchange flow for the specified token, bucketed by time.
+
+
+        Each bucket reports the token''s flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.
+
+
+        This form resolves the token by pricing ID, so it also covers native assets such as Bitcoin and Dogecoin.
+
+
+        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
+      operationId: GetTokenVolumeByID
+      parameters:
+      - name: granularity
+        in: query
+        description: Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets.
+        required: true
+        schema:
+          type: string
+          description: Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets.
+          nullable: true
+          example: 1h
+      - name: timeLast
+        in: query
+        description: Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets.
+        schema:
+          type: string
+          description: Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets.
+          nullable: true
+          example: 24h
+      - name: id
+        in: path
+        description: The CoinGecko pricing ID of the token.
+        required: true
+        schema:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: bitcoin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TokenHistogramSnapshot'
+                example:
+                - inUSD: 2399721.9841460586
+                  inValue: 37.44615725
+                  outUSD: 6826024.15839386
+                  outValue: 106.51191897
+                  time: '2026-07-12T16:00:00Z'
+                - inUSD: 3211115.482628137
+                  inValue: 50.12274685
+                  outUSD: 4771902.633152008
+                  outValue: 74.42026910000001
+                  time: '2026-07-12T17:00:00Z'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      tags:
+      - Token
+components:
+  schemas:
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
+    TokenMarketData:
+      required:
+      - price
+      - totalVolume
+      - price24hAgo
+      - maxPrice24h
+      - minPrice24h
+      - circulatingSupply
+      - totalSupply
+      - price7dAgo
+      - price30dAgo
+      - price180dAgo
+      - allTimeHigh
+      - allTimeLow
+      - marketCap
+      - fullyDilutedValue
+      type: object
+      properties:
+        allTimeHigh:
+          type: number
+          example: 1.23
+        allTimeLow:
+          type: number
+          example: 1.23
+        circulatingSupply:
+          type: number
+          nullable: true
+          example: 1.23
+        fullyDilutedValue:
+          type: number
+          nullable: true
+          example: 1.23
+        marketCap:
+          type: number
+          nullable: true
+          example: 1.23
+        maxPrice24h:
+          type: number
+          example: 1.23
+        minPrice24h:
+          type: number
+          example: 1.23
+        price:
+          type: number
+          example: 1.23
+        price180dAgo:
+          type: number
+          example: 1.23
+        price24hAgo:
+          type: number
+          example: 1.23
+        price30dAgo:
+          type: number
+          example: 1.23
+        price7dAgo:
+          type: number
+          example: 1.23
+        totalSupply:
+          type: number
+          nullable: true
+          example: 1.23
+        totalVolume:
+          type: number
+          example: 1.23
+      example:
+        allTimeHigh: 1.23
+        allTimeLow: 1.23
+        circulatingSupply: 1.23
+        fullyDilutedValue: 1.23
+        marketCap: 1.23
+        maxPrice24h: 1.23
+        minPrice24h: 1.23
+        price: 1.23
+        price180dAgo: 1.23
+        price24hAgo: 1.23
+        price30dAgo: 1.23
+        price7dAgo: 1.23
+        totalSupply: 1.23
+        totalVolume: 1.23
+    TopHolderResponse:
+      required:
+      - token
+      - totalSupply
+      - addressTopHolders
+      - entityTopHolders
+      type: object
+      properties:
+        addressTopHolders:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/AddressTopHolder'
+            example:
+            - address:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                arkhamEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                arkhamLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+                chain: ethereum
+                contract: false
+                depositServiceID: binance
+                isShielded: true
+                isUserAddress: false
+                ownerAddress: {}
+                predictedEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                program: true
+                service: true
+                userEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                userLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+              balance: 1500000000.5
+              pctOfCap: 0.025
+              unrealizedPnlUsd: 12345.67
+              usd: 1500000000.5
+          nullable: true
+          example:
+            abc123:
+            - address:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                arkhamEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                arkhamLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+                chain: ethereum
+                contract: false
+                depositServiceID: binance
+                isShielded: true
+                isUserAddress: false
+                ownerAddress: {}
+                predictedEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                program: true
+                service: true
+                userEntity:
+                  addresses:
+                    abc123:
+                    - abc123
+                  crunchbase: https://www.crunchbase.com/organization/binance
+                  customImageSlug: binance
+                  customized: true
+                  id: binance
+                  instagram: https://www.instagram.com/binance
+                  linkShareable: true
+                  linkedin: https://www.linkedin.com/company/binance
+                  name: Binance
+                  note: ''
+                  ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                  populatedTags:
+                  - chain: ethereum
+                    disablePage: false
+                    excludeEntities: false
+                    id: proof-of-reserves
+                    label: Binance Proof of Reserves
+                    rank: 20
+                    tagParams: Binance
+                  service: true
+                  twitter: https://twitter.com/binance
+                  type: cex
+                  website: https://binance.com
+                userLabel:
+                  address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                  chainType: evm
+                  name: Cold Wallet
+                  note: ''
+              balance: 1500000000.5
+              pctOfCap: 0.025
+              unrealizedPnlUsd: 12345.67
+              usd: 1500000000.5
+        entityTopHolders:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityTopHolder'
+            example:
+            - balance: 1500000000.5
+              entity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              pctOfCap: 0.025
+              usd: 1500000000.5
+          nullable: true
+          example:
+            abc123:
+            - balance: 1500000000.5
+              entity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              pctOfCap: 0.025
+              usd: 1500000000.5
+        token:
+          $ref: '#/components/schemas/Token'
+        totalSupply:
+          type: object
+          additionalProperties:
+            type: number
+            example: 1.23
+          nullable: true
+          example:
+            abc123: 1.23
+      example:
+        addressTopHolders:
+          abc123:
+          - address:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              arkhamEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              arkhamLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+              chain: ethereum
+              contract: false
+              depositServiceID: binance
+              isShielded: true
+              isUserAddress: false
+              ownerAddress: {}
+              predictedEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              program: true
+              service: true
+              userEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              userLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+            balance: 1500000000.5
+            pctOfCap: 0.025
+            unrealizedPnlUsd: 12345.67
+            usd: 1500000000.5
+        entityTopHolders:
+          abc123:
+          - balance: 1500000000.5
+            entity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            pctOfCap: 0.025
+            usd: 1500000000.5
+        token:
+          deployments:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+          identifier:
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            pricingID: usd-coin
+          name: USDC
+          price: 0.9998
+          price24hAgo: 0.9997
+          symbol: usdc
+          tvTicker: USDC
+        totalSupply:
+          abc123: 1.23
+    TopTokensOrderByAgg:
+      enum:
+      - volume
+      - inflow
+      - outflow
+      - volumeDex
+      - volumeCex
+      - inflowDex
+      - inflowCex
+      - outflowDex
+      - outflowCex
+      - netflowDex
+      - netflowCex
+      - netflow
+      - netflowVolumeRatio
+      - netflowVolumeRatioDex
+      - netflowVolumeRatioCex
+      - price
+      type: string
+      example: volume
+    TopTokenInterval:
+      required:
+      - price
+      - inflowDexVolume
+      - inflowCexVolume
+      - outflowDexVolume
+      - outflowCexVolume
+      type: object
+      properties:
+        inflowCexVolume:
+          type: number
+          example: 1.23
+        inflowDexVolume:
+          type: number
+          example: 1.23
+        outflowCexVolume:
+          type: number
+          example: 1.23
+        outflowDexVolume:
+          type: number
+          example: 1.23
+        price:
+          type: number
+          example: 1.23
+      example:
+        inflowCexVolume: 1.23
+        inflowDexVolume: 1.23
+        outflowCexVolume: 1.23
+        outflowDexVolume: 1.23
+        price: 1.23
+    Token:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDeployment'
+          example:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+        name:
+          type: string
+          nullable: true
+          example: USDC
+        price:
+          type: number
+          nullable: true
+          example: 0.9998
+        price24hAgo:
+          type: number
+          nullable: true
+          example: 0.9997
+        symbol:
+          type: string
+          nullable: true
+          example: usdc
+        tvTicker:
+          type: string
+          nullable: true
+          example: USDC
+      example:
+        deployments:
+        - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+          chain: ethereum
+          decimals: 6
+        identifier:
+          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+          chain: ethereum
+          pricingID: usd-coin
+        name: USDC
+        price: 0.9998
+        price24hAgo: 0.9997
+        symbol: usdc
+        tvTicker: USDC
+    GetTopTokensResponse:
+      required:
+      - tokens
+      - total
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopToken'
+          nullable: true
+          example:
+          - current:
+              inflowCexVolume: 1.23
+              inflowDexVolume: 1.23
+              outflowCexVolume: 1.23
+              outflowDexVolume: 1.23
+              price: 1.23
+            previous:
+              inflowCexVolume: 1.23
+              inflowDexVolume: 1.23
+              outflowCexVolume: 1.23
+              outflowDexVolume: 1.23
+              price: 1.23
+            token:
+              id: usd-coin
+              marketCap: 1.23
+              symbol: USDC
+        total:
+          type: integer
+          example: 1
+      example:
+        tokens:
+        - current:
+            inflowCexVolume: 1.23
+            inflowDexVolume: 1.23
+            outflowCexVolume: 1.23
+            outflowDexVolume: 1.23
+            price: 1.23
+          previous:
+            inflowCexVolume: 1.23
+            inflowDexVolume: 1.23
+            outflowCexVolume: 1.23
+            outflowDexVolume: 1.23
+            price: 1.23
+          token:
+            id: usd-coin
+            marketCap: 1.23
+            symbol: USDC
+        total: 1
+    TokenBalance:
+      required:
+      - pricingID
+      - name
+      - symbol
+      - balance
+      - price
+      - usd
+      type: object
+      properties:
+        balance:
+          type: number
+          description: Token balance in whole units.
+          example: 2128574.671908
+        name:
+          type: string
+          nullable: true
+          example: USD Coin
+        price:
+          type: number
+          description: Price in USD per token.
+          example: 0.99985
+        pricingID:
+          type: string
+          nullable: true
+          example: usd-coin
+        symbol:
+          type: string
+          nullable: true
+          example: USDC
+        usd:
+          type: number
+          description: USD value of the balance.
+          example: 2128254.36
+      example:
+        balance: 2128574.671908
+        name: USD Coin
+        price: 0.99985
+        pricingID: usd-coin
+        symbol: USDC
+        usd: 2128254.36
+    TokenHistoricalQuote:
+      required:
+      - time
+      - usd
+      - volume24h
+      - marketCap
+      type: object
+      properties:
+        marketCap:
+          type: number
+          description: Market capitalization in USD.
+          example: 75000000.5
+        time:
+          type: string
+          description: Snapshot timestamp.
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        usd:
+          type: number
+          description: Price in USD.
+          example: 1.05
+        volume24h:
+          type: number
+          description: 24-hour trading volume in USD.
+          example: 1250000.5
+      example:
+        marketCap: 75000000.5
+        time: '2024-01-01T00:00:00Z'
+        usd: 1.05
+        volume24h: 1250000.5
+    Address:
+      required:
+      - address
+      - chain
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          $ref: '#/components/schemas/Entity'
+        arkhamLabel:
+          $ref: '#/components/schemas/Label'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        contract:
+          type: boolean
+          nullable: true
+          example: false
+        depositServiceID:
+          type: string
+          nullable: true
+          example: binance
+        isShielded:
+          type: boolean
+          nullable: true
+          example: true
+        isUserAddress:
+          type: boolean
+          nullable: true
+          example: false
+        ownerAddress:
+          $ref: '#/components/schemas/Address'
+        predictedEntity:
+          $ref: '#/components/schemas/Entity'
+        program:
+          type: boolean
+          nullable: true
+          example: true
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        userEntity:
+          $ref: '#/components/schemas/Entity'
+        userLabel:
+          $ref: '#/components/schemas/Label'
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        arkhamLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+        chain: ethereum
+        contract: false
+        depositServiceID: binance
+        isShielded: true
+        isUserAddress: false
+        ownerAddress: {}
+        predictedEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        program: true
+        service: true
+        userEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        userLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+    EntityTopHolder:
+      required:
+      - entity
+      - balance
+      - usd
+      type: object
+      properties:
+        balance:
+          type: number
+          example: 1500000000.5
+        entity:
+          $ref: '#/components/schemas/Entity'
+        pctOfCap:
+          type: number
+          nullable: true
+          example: 0.025
+        usd:
+          type: number
+          example: 1500000000.5
+      example:
+        balance: 1500000000.5
+        entity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        pctOfCap: 0.025
+        usd: 1500000000.5
+    TokenPriceChange:
+      required:
+      - pricingID
+      - currentPrice
+      - historicalPrice
+      type: object
+      properties:
+        currentPrice:
+          type: number
+          description: Current price in USD.
+          example: 0.999831
+        historicalPrice:
+          type: number
+          description: Price in USD at the requested past timestamp.
+          example: 0.999357
+        pricingID:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      example:
+        currentPrice: 0.999831
+        historicalPrice: 0.999357
+        pricingID: usd-coin
+    ArkhamTokensResponse:
+      required:
+      - spotTokens
+      - perpTokens
+      type: object
+      properties:
+        perpTokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+          nullable: true
+          example:
+          - deployments:
+            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              decimals: 6
+            identifier:
+              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              pricingID: usd-coin
+            name: USDC
+            price: 0.9998
+            price24hAgo: 0.9997
+            symbol: usdc
+            tvTicker: USDC
+        spotTokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+          nullable: true
+          example:
+          - deployments:
+            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              decimals: 6
+            identifier:
+              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              pricingID: usd-coin
+            name: USDC
+            price: 0.9998
+            price24hAgo: 0.9997
+            symbol: usdc
+            tvTicker: USDC
+      example:
+        perpTokens:
+        - deployments:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+          identifier:
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            pricingID: usd-coin
+          name: USDC
+          price: 0.9998
+          price24hAgo: 0.9997
+          symbol: usdc
+          tvTicker: USDC
+        spotTokens:
+        - deployments:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+          identifier:
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            pricingID: usd-coin
+          name: USDC
+          price: 0.9998
+          price24hAgo: 0.9997
+          symbol: usdc
+          tvTicker: USDC
+    TokenHistogramSnapshot:
+      required:
+      - inUSD
+      - outUSD
+      - inValue
+      - outValue
+      - time
+      type: object
+      properties:
+        inUSD:
+          type: number
+          example: 1.23
+        inValue:
+          type: number
+          example: 1.23
+        outUSD:
+          type: number
+          example: 1.23
+        outValue:
+          type: number
+          example: 1.23
+        time:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+      example:
+        inUSD: 1.23
+        inValue: 1.23
+        outUSD: 1.23
+        outValue: 1.23
+        time: '2024-01-01T00:00:00Z'
+    Entity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type: string
+          nullable: true
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type: string
+          nullable: true
+          example: binance
+        customized:
+          type: boolean
+          nullable: true
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type: string
+          nullable: true
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type: boolean
+          nullable: true
+          example: true
+        linkedin:
+          type: string
+          nullable: true
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type: boolean
+          nullable: true
+          example: true
+        twitter:
+          type: string
+          nullable: true
+          example: https://twitter.com/binance
+        type:
+          type: string
+          nullable: true
+          example: cex
+        website:
+          type: string
+          nullable: true
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    Identifier:
+      type: object
+      properties:
+        address:
+          type: string
+          nullable: true
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        pricingID:
+          type: string
+          nullable: true
+          example: usd-coin
+      example:
+        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain: ethereum
+        pricingID: usd-coin
+    TopTokenTimeFrame:
+      enum:
+      - 1h
+      - 6h
+      - 12h
+      - 24h
+      - 7d
+      type: string
+      example: 1h
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type: string
+          description: The specific parameter value for this tag instance.
+          nullable: true
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance
+    TopFlow:
+      required:
+      - address
+      - inUSD
+      - outUSD
+      - inValue
+      - outValue
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        inUSD:
+          type: number
+          example: 1.23
+        inValue:
+          type: number
+          example: 1.23
+        outUSD:
+          type: number
+          example: 1.23
+        outValue:
+          type: number
+          example: 1.23
+      example:
+        address:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        inUSD: 1.23
+        inValue: 1.23
+        outUSD: 1.23
+        outValue: 1.23
+    TrendingToken:
+      required:
+      - pricingID
+      - price
+      - price24hAgo
+      - volume24h
+      - allTimeHigh
+      - allTimeLow
+      type: object
+      properties:
+        allTimeHigh:
+          type: number
+          description: All-time high price in USD.
+          example: 1.043
+        allTimeLow:
+          type: number
+          description: All-time low price in USD.
+          example: 0.877647
+        circulatingSupply:
+          type: number
+          description: Circulating supply in whole token units.
+          nullable: true
+          example: 73354602419.50252
+        name:
+          type: string
+          nullable: true
+          example: USD Coin
+        price:
+          type: number
+          description: Current price in USD.
+          example: 0.999831
+        price24hAgo:
+          type: number
+          description: Price in USD 24 hours ago.
+          example: 0.999825
+        pricingID:
+          type: string
+          example: usd-coin
+        symbol:
+          type: string
+          nullable: true
+          example: USDC
+        totalSupply:
+          type: number
+          description: Total supply in whole token units.
+          nullable: true
+          example: 73355068862.08713
+        volume24h:
+          type: number
+          description: 24-hour trading volume in USD.
+          example: 7539296441
+      example:
+        allTimeHigh: 1.043
+        allTimeLow: 0.877647
+        circulatingSupply: 73354602419.50252
+        name: USD Coin
+        price: 0.999831
+        price24hAgo: 0.999825
+        pricingID: usd-coin
+        symbol: USDC
+        totalSupply: 73355068862.08713
+        volume24h: 7539296441
+    Label:
+      required:
+      - name
+      - address
+      - chainType
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
+          type: string
+          example: evm
+        name:
+          type: string
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    AddressTopHolder:
+      required:
+      - balance
+      - usd
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        balance:
+          type: number
+          example: 1500000000.5
+        pctOfCap:
+          type: number
+          nullable: true
+          example: 0.025
+        unrealizedPnlUsd:
+          type: number
+          nullable: true
+          example: 12345.67
+        usd:
+          type: number
+          example: 1500000000.5
+      example:
+        address:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        balance: 1500000000.5
+        pctOfCap: 0.025
+        unrealizedPnlUsd: 12345.67
+        usd: 1500000000.5
+    TokenDeployment:
+      required:
+      - chain
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        decimals:
+          type: integer
+          nullable: true
+          example: 6
+      example:
+        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain: ethereum
+        decimals: 6
+    TopToken:
+      required:
+      - token
+      - current
+      - previous
+      type: object
+      properties:
+        current:
+          $ref: '#/components/schemas/TopTokenInterval'
+        previous:
+          $ref: '#/components/schemas/TopTokenInterval'
+        token:
+          required:
+          - id
+          - symbol
+          - marketCap
+          type: object
+          properties:
+            id:
+              type: string
+              example: usd-coin
+            marketCap:
+              type: number
+              nullable: true
+              example: 1.23
+            symbol:
+              type: string
+              example: USDC
+          example:
+            id: usd-coin
+            marketCap: 1.23
+            symbol: USDC
+      example:
+        current:
+          inflowCexVolume: 1.23
+          inflowDexVolume: 1.23
+          outflowCexVolume: 1.23
+          outflowDexVolume: 1.23
+          price: 1.23
+        previous:
+          inflowCexVolume: 1.23
+          inflowDexVolume: 1.23
+          outflowCexVolume: 1.23
+          outflowDexVolume: 1.23
+          price: 1.23
+        token:
+          id: usd-coin
+          marketCap: 1.23
+          symbol: USDC
