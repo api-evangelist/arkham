@@ -601,6 +601,8 @@ apis:
   - type: Webhooks
     url: asyncapi/arkham-websocket-webhooks.yml
 common:
+- type: Overlay
+  url: overlays/arkham-overlay.yaml
 - type: DeveloperPortal
   url: https://arkm.com/api-dashboard
 - type: Documentation
@@ -610,7 +612,7 @@ common:
 - type: GettingStarted
   url: https://arkm.com/llms/guides/getting-access.md
 - type: OpenAPI
-  url: openapi/arkham-openapi-original.json
+  url: openapi/_original/arkham-openapi-original.json
 - type: Authentication
   url: authentication/arkham-authentication.yml
 - type: RateLimits
