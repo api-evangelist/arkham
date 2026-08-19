@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Subscription API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscription",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get intel data usage for the current billing period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/subscription/intel-usage"
+          },
+          "docs": "Returns your intel-data consumption for the current billing period, broken down by chain.\n\nUsage is tracked per seat (the calling user), not account-wide: `totalLimit` is the limit for your seat and `totalCount` is the data points your seat has consumed. The response also includes the start of the current period and the per-chain breakdown of usage.\n\nReturns 503 when usage tracking is unavailable."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

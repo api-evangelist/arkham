@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Tag API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tag",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tag parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/tag/:id/params",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page (1-1000, default 100)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to skip from the beginning (must be >= 0, default 0)."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The tag identifier to retrieve parameters for."
+              }
+            ]
+          },
+          "docs": "Returns a list of all unique tag parameter combinations for the specified tag."
+        },
+        {
+          "info": {
+            "name": "Get tag summary statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/tag/:id/summary",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The tag identifier to retrieve summary statistics for."
+              }
+            ]
+          },
+          "docs": "Returns summary statistics for the specified tag, including total counts of addresses, entities, and unique tag parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,196 @@
+{
+  "item": [
+    {
+      "id": "5c05080a-3f7e-4b81-8df1-fb7a5131e0bb",
+      "name": "Tx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdff2d7f-7dbb-4d56-8c72-884f17175689",
+          "name": "Get transaction details",
+          "request": {
+            "name": "Get transaction details",
+            "description": {
+              "content": "Retrieves detailed information about a specific blockchain transaction using its hash.\n\nThe endpoint searches across all supported chains to find the transaction. If it is not found in confirmed transactions, it also checks the mempool for pending transactions.\n\n**Response shape.** The response body is a JSON object keyed by chain identifier (for example \"ethereum\"). Because the same hash format can appear on more than one chain, the object may contain more than one entry, one per chain on which the transaction was found. Each value holds that chain's transaction details. The exact set of fields varies by chain, but consumers can generally expect:\n\n- the block number and block timestamp the transaction was included in,\n- the sender and recipient addresses,\n- gas used and gas-related fields, along with the transaction fee,\n- the value transferred in native units and its USD value at the time,\n- token details for any tokens involved in the transfer.\n\n**Not found.** If the hash is not found on any supported chain (neither confirmed nor pending), the endpoint returns 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tx",
+                ":hash"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) The transaction hash to look up."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11a82e33-2ac9-4846-927f-5a0a996c3f26",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to look up."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81c5c146-54ca-420b-a82e-a5e7bcfdf78d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to look up."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1da14cc-f562-40c3-b726-759159421e77",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to look up."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d98fbf45-b062-41be-82ac-242b3db1dfde",
+    "name": "Arkham Intel Analytics Tx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

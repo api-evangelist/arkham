@@ -1,0 +1,953 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Polymarket API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Polymarket",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Polymarket activity feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/activity",
+            "params": [
+              {
+                "name": "userAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to specific Polymarket trade addresses."
+              },
+              {
+                "name": "conditionID",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to a single market condition ID (all of its outcome tokens)."
+              },
+              {
+                "name": "eventID",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to all markets and outcomes in a Polymarket event."
+              },
+              {
+                "name": "tokenAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to specific outcome token addresses. The conditionID, eventID, and tokenAddresses filters are intersected (a token must satisfy all provided)."
+              },
+              {
+                "name": "minUsd",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum notional (size * price) in whole USD."
+              },
+              {
+                "name": "maxUsd",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum notional (size * price) in whole USD."
+              },
+              {
+                "name": "minPrice",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum per-share price as a 0-1 fraction."
+              },
+              {
+                "name": "maxPrice",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum per-share price as a 0-1 fraction."
+              },
+              {
+                "name": "minSize",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum trade size in whole outcome-token shares."
+              },
+              {
+                "name": "maxSize",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum trade size in whole outcome-token shares."
+              },
+              {
+                "name": "actions",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to one or more actions: buy, sell, split, merge, convert. Cannot be combined with eventType or direction."
+              },
+              {
+                "name": "eventType",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by event class: trade, split, merge, or convert. Use direction to narrow trades to one side."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Narrow trades to one side: buy or sell. Only valid with eventType=trade (or no eventType)."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Unix timestamp in seconds for the start of the range (inclusive)."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Unix timestamp in seconds for the end of the range (exclusive)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max results (default 50, max 500)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination (default 0)."
+              },
+              {
+                "name": "fastPagination",
+                "value": "",
+                "type": "query",
+                "description": "Fast pagination defaults to true. When enabled, totalCount is only large enough to determine whether another page exists; set false to count matches up to 10,000."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Column to order by: time (default), size (outcome-token shares), price (cents-per-share), usd (notional)."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction: asc or desc (default)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated feed of Polymarket trade and lifecycle events (trades, splits, merges, converts), newest first. Use `actions`, `eventType`, or `direction` to scope which event types are returned (`actions` can't be combined with the other two)."
+        },
+        {
+          "info": {
+            "name": "Polymarket positions in a market",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/event-positions/:conditionId",
+            "params": [
+              {
+                "name": "tokenAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Explicit outcome token list; overrides condition-derived tokens and can span markets beyond the path conditionId."
+              },
+              {
+                "name": "userAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to specific Polymarket trade addresses."
+              },
+              {
+                "name": "outcome",
+                "value": "",
+                "type": "query",
+                "description": "Optional. 0 for Yes token, 1 for No token."
+              },
+              {
+                "name": "minShares",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum held shares (whole outcome-token shares)."
+              },
+              {
+                "name": "maxShares",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum held shares (whole outcome-token shares)."
+              },
+              {
+                "name": "minValue",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum current position value in whole USD."
+              },
+              {
+                "name": "maxValue",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum current position value in whole USD."
+              },
+              {
+                "name": "minPnl",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum PnL in whole USD (can be negative)."
+              },
+              {
+                "name": "maxPnl",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum PnL in whole USD (can be negative)."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Optional. \"pnl\" (default), \"shares\", or \"value\"."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Optional. \"asc\" or \"desc\" (default)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max results (default 50, max 1000)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination (default 0)."
+              },
+              {
+                "name": "conditionId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket condition ID."
+              }
+            ]
+          },
+          "docs": "Returns holders and their positions for a market's outcome tokens — one row per user and token, with shares, price, value, and PnL."
+        },
+        {
+          "info": {
+            "name": "List Polymarket events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/events",
+            "params": [
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by event tag. Matches lowercase Polymarket tags case-insensitively."
+              },
+              {
+                "name": "excludeTag",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Exclude events carrying this tag (case-insensitive)."
+              },
+              {
+                "name": "active",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to active events — not closed and not ended (true/false)."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Search event titles, market questions, and grouped-market titles."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Sort field: volume, endDate, or createdAt. Default: volume when no tag, endDate when tag is set."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: asc or desc. Default: desc."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max events to return (1-100). Default: 50."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. Default: 0."
+              }
+            ]
+          },
+          "docs": "Returns a filtered, paginated list of Polymarket events, each with a few top-market previews and current prices."
+        },
+        {
+          "info": {
+            "name": "Get a Polymarket event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/events/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket event ID."
+              }
+            ]
+          },
+          "docs": "Returns a single Polymarket event by its event ID, along with every active or resolved market in the event. Each market includes its outcomes, current Yes price, 24h volume, and resolution status. Returns 404 if the event does not exist."
+        },
+        {
+          "info": {
+            "name": "Polymarket PnL leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/leaderboard",
+            "params": [
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period: 1d, 1w, 1m, all. Default: 1d"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: desc (top traders) or asc (worst traders). Default: desc"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max entries (1-200). Default: 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. Default: 0"
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Optional trade address. If set, also returns this user's rank."
+              }
+            ]
+          },
+          "docs": "Returns the Polymarket total-PnL leaderboard (realized plus unrealized) for a period: 1d, 1w, 1m, or all (default 1d). Order desc for top traders or asc for worst. Pass an address to also receive that trader's rank."
+        },
+        {
+          "info": {
+            "name": "Polymarket order book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/order-book/:conditionId",
+            "params": [
+              {
+                "name": "conditionId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket condition ID for the market."
+              }
+            ]
+          },
+          "docs": "Returns the live CLOB order book for each of a market's outcome tokens: bids, asks, and last trade price per side. Returns 404 when the conditionID has no matching tokens."
+        },
+        {
+          "info": {
+            "name": "Polymarket PnL chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/pnl/chart",
+            "params": [
+              {
+                "name": "userAddress",
+                "value": "",
+                "type": "query",
+                "description": "Polymarket trade address (0x + 40 hex chars)."
+              },
+              {
+                "name": "conditionID",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Market condition ID (0x-prefixed bytes32 hex). Aggregates across all outcome tokens. Omit for portfolio-level PnL."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period: 24h, 7d, 30d, all. Presets auto-shrink to the wallet's available history; all is portfolio-only. Default: 30d"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional Unix timestamp in seconds for start of range. Not supported with period=all. Condition-level custom ranges must be 30 days or less; all condition-level fixed windows must start within the last 30 days."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional Unix timestamp in seconds for end of range. For conditionID requests, preset windows derived from endTime must start within the last 30 days."
+              }
+            ]
+          },
+          "docs": "Returns a time series of cumulative PnL for a trade address — portfolio-wide, or for a single market when `conditionID` is set. Window follows the `period` preset or an explicit `startTime`/`endTime` range."
+        },
+        {
+          "info": {
+            "name": "Polymarket user positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/positions/:addr",
+            "params": [
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Column to order by: trades (default), shares, value, pnl."
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction: asc or desc (default)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max results (default 50, max 1000)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination (default 0)."
+              },
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns a trade address's current open positions, one row per outcome token, with net position, net USDC flow, last price, and unrealized PnL. Sort by trades (default), shares, value, or pnl. Supports offset pagination."
+        },
+        {
+          "info": {
+            "name": "Polymarket price history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/prices",
+            "params": [
+              {
+                "name": "tokenAddress",
+                "value": "",
+                "type": "query",
+                "description": "Polymarket token address (0x-prefixed hex). Provide exactly one of tokenAddress or conditionID."
+              },
+              {
+                "name": "conditionID",
+                "value": "",
+                "type": "query",
+                "description": "Market condition ID (0x-prefixed bytes32 hex). Returns prices for the first outcome (outcome_index=0) token. Provide exactly one of tokenAddress or conditionID."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Price interval: 1s, 5s, 1m, 1h, 1d, auto. Default: 1h. 1s and 5s require startTime and endTime, with a maximum 2-hour span, and return a dense series carrying the last price forward across quiet periods."
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "Window selector anchored on the token's last bucket: 1d, 1w, 1m, all. Server picks the granularity. Overrides startTime, endTime and interval except interval=1s or interval=5s, which cannot be combined with range."
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional Unix timestamp in seconds for start of range. Ignored when range is set."
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Optional Unix timestamp in seconds for end of range. Ignored when range is set."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of price points to return (1-7500). Default: 500, or 7500 for interval=1s and interval=5s. When the requested window holds more points than limit, the newest points are returned."
+              }
+            ]
+          },
+          "docs": "Returns a midprice time series for a single Polymarket outcome token, identified by either `tokenAddress` or `conditionID` (not both)."
+        },
+        {
+          "info": {
+            "name": "Polymarket platform stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/stats"
+          },
+          "docs": "Returns global Polymarket platform statistics: total volume, 24h volume, total traders, active and resolved market counts, and total trades."
+        },
+        {
+          "info": {
+            "name": "Polymarket top events leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/top-events",
+            "params": [
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period: 1d, 1w, 1m, all. Default: 1d"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: desc (top wins) or asc (top losses). Default: desc"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max entries (1-200). Default: 100"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. Default: 0"
+              }
+            ]
+          },
+          "docs": "Returns the top (trader, event) entries by PnL for a period: 1d, 1w, 1m, or all (default 1d). Each entry sums a trader's PnL across every market within a single Polymarket event. Order desc for top wins or asc for top losses."
+        },
+        {
+          "info": {
+            "name": "Polymarket top event breakdown",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/top-events/:eventId/breakdown",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Polymarket trader address."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Period: 1d, 1w, 1m, all. Default: 1d."
+              },
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path",
+                "description": "Polymarket event ID."
+              }
+            ]
+          },
+          "docs": "Returns the per-market PnL breakdown for a single trader within one event over a period (1d, 1w, 1m, all; default 1d). Each row is one market in the event with its PnL and trade count; markets with exactly zero PnL are omitted. The address query parameter is required."
+        },
+        {
+          "info": {
+            "name": "Polymarket market top holders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/top-holders/:conditionId",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max entries to return (1-100). Default: 20."
+              },
+              {
+                "name": "outcome",
+                "value": "",
+                "type": "query",
+                "description": "Optional. 0 for Yes token, 1 for No token. Omit for all tokens."
+              },
+              {
+                "name": "conditionId",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket condition ID for the market."
+              }
+            ]
+          },
+          "docs": "Returns the largest position holders for a market, ranked by net position, each with their per-token positions and net USDC flow. Optionally narrow to a single outcome (0 for Yes, 1 for No). Returns 404 when the conditionID has no matching tokens."
+        },
+        {
+          "info": {
+            "name": "Polymarket prediction history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/prediction-history",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Results per page (1-100, default 20)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination (default 0)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field: value, volume, currentPrice, trades, pnl, shares, buyUsd, avgBuy, sellUsd, avgSell. Default: pnl. When status=closed, the value and currentPrice sort options are not available."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: asc or desc. Default: desc."
+              },
+              {
+                "name": "conditionID",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to a single market condition ID."
+              },
+              {
+                "name": "eventID",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to all markets and outcomes in a Polymarket event."
+              },
+              {
+                "name": "tokenAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter to specific outcome token addresses."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Search market question, group title, event title, or condition ID."
+              },
+              {
+                "name": "minTrades",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Minimum trade count."
+              },
+              {
+                "name": "maxTrades",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Maximum trade count."
+              },
+              {
+                "name": "minVolume",
+                "value": "",
+                "type": "query",
+                "description": "Minimum total volume in whole USD."
+              },
+              {
+                "name": "maxVolume",
+                "value": "",
+                "type": "query",
+                "description": "Maximum total volume in whole USD."
+              },
+              {
+                "name": "minValue",
+                "value": "",
+                "type": "query",
+                "description": "Minimum current held value in whole USD."
+              },
+              {
+                "name": "maxValue",
+                "value": "",
+                "type": "query",
+                "description": "Maximum current held value in whole USD."
+              },
+              {
+                "name": "minCurrentPrice",
+                "value": "",
+                "type": "query",
+                "description": "Minimum current price as a 0-1 fraction."
+              },
+              {
+                "name": "maxCurrentPrice",
+                "value": "",
+                "type": "query",
+                "description": "Maximum current price as a 0-1 fraction."
+              },
+              {
+                "name": "minPnl",
+                "value": "",
+                "type": "query",
+                "description": "Minimum PnL in whole USD (can be negative)."
+              },
+              {
+                "name": "maxPnl",
+                "value": "",
+                "type": "query",
+                "description": "Maximum PnL in whole USD (can be negative)."
+              },
+              {
+                "name": "minTotalBuyUsdc",
+                "value": "",
+                "type": "query",
+                "description": "Minimum total buy amount in whole USD."
+              },
+              {
+                "name": "maxTotalBuyUsdc",
+                "value": "",
+                "type": "query",
+                "description": "Maximum total buy amount in whole USD."
+              },
+              {
+                "name": "minAvgBuyPrice",
+                "value": "",
+                "type": "query",
+                "description": "Minimum average buy price as a 0-1 fraction."
+              },
+              {
+                "name": "maxAvgBuyPrice",
+                "value": "",
+                "type": "query",
+                "description": "Maximum average buy price as a 0-1 fraction."
+              },
+              {
+                "name": "minTotalSellUsdc",
+                "value": "",
+                "type": "query",
+                "description": "Minimum total sell amount in whole USD."
+              },
+              {
+                "name": "maxTotalSellUsdc",
+                "value": "",
+                "type": "query",
+                "description": "Maximum total sell amount in whole USD."
+              },
+              {
+                "name": "minAvgSellPrice",
+                "value": "",
+                "type": "query",
+                "description": "Minimum average sell price as a 0-1 fraction."
+              },
+              {
+                "name": "maxAvgSellPrice",
+                "value": "",
+                "type": "query",
+                "description": "Maximum average sell price as a 0-1 fraction."
+              },
+              {
+                "name": "minSharesHeld",
+                "value": "",
+                "type": "query",
+                "description": "Minimum remaining held shares in whole shares."
+              },
+              {
+                "name": "maxSharesHeld",
+                "value": "",
+                "type": "query",
+                "description": "Maximum remaining held shares in whole shares."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter by position state: open or closed."
+              },
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns every market a trade address has traded — one row per outcome token, with volume, value, buy/sell totals, PnL, shares, and resolution status."
+        },
+        {
+          "info": {
+            "name": "Polymarket wallet USDC balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/summary/balance",
+            "params": [
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns a trade address's current Polygon USDC cash balance (the collateral used for Polymarket trading)."
+        },
+        {
+          "info": {
+            "name": "Polymarket wallet biggest win",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/summary/biggest-win",
+            "params": [
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns a trade address's single largest realized win, in USDC, across all resolved Polymarket markets."
+        },
+        {
+          "info": {
+            "name": "Polymarket wallet PnL summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/summary/pnl",
+            "params": [
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns a trade address's total PnL (open-position plus all-time realized), realized PnL, and counts of unique, won, and total markets traded."
+        },
+        {
+          "info": {
+            "name": "Polymarket wallet portfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/summary/portfolio",
+            "params": [
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns live portfolio state for a trade address: unrealized PnL, total open-position value, and the number of open positions and markets."
+        },
+        {
+          "info": {
+            "name": "Polymarket wallet trading stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/summary/stats",
+            "params": [
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          },
+          "docs": "Returns lifetime trading stats for a trade address: total volume, total fees, total trades, total events, and the timestamp of first activity."
+        },
+        {
+          "info": {
+            "name": "GetPolymarketWalletTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/polymarket/wallet/:addr/tags",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max tags to return, ranked by gross volume. Default 10, max 50."
+              },
+              {
+                "name": "addr",
+                "value": "",
+                "type": "path",
+                "description": "Required. Polymarket trade address (0x + 40 hex chars)."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

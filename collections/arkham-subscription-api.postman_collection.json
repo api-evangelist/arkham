@@ -1,0 +1,134 @@
+{
+  "item": [
+    {
+      "id": "6e1a71fd-0a52-4448-aba4-b771b13b81ec",
+      "name": "Subscription",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8c10cda-fa1b-4f9b-ae6a-f0c5a3d0bc8a",
+          "name": "Get intel data usage for the current billing period",
+          "request": {
+            "name": "Get intel data usage for the current billing period",
+            "description": {
+              "content": "Returns your intel-data consumption for the current billing period, broken down by chain.\n\nUsage is tracked per seat (the calling user), not account-wide: `totalLimit` is the limit for your seat and `totalCount` is the data points your seat has consumed. The response also includes the start of the current period and the per-chain breakdown of usage.\n\nReturns 503 when usage tracking is unavailable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscription",
+                "intel-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21f69859-545f-4707-bce9-9f1329d94b43",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscription",
+                    "intel-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chainUsage\": {\n    \"bitcoin\": {\n      \"count\": 86\n    },\n    \"dogecoin\": {\n      \"count\": 0\n    },\n    \"evm\": {\n      \"count\": 11113\n    },\n    \"solana\": {\n      \"count\": 1020\n    },\n    \"tron\": {\n      \"count\": 154\n    },\n    \"zcash\": {\n      \"count\": 0\n    }\n  },\n  \"periodStart\": \"2026-06-01T00:00:00Z\",\n  \"totalCount\": 12373,\n  \"totalLimit\": 1000000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e68e44e-ffd4-4971-86e3-7921e526091c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscription",
+                    "intel-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc99de45-10c1-4bf6-ba30-25e7802fe9b0",
+    "name": "Arkham Intel Analytics Subscription API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

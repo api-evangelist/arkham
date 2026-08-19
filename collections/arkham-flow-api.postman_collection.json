@@ -1,0 +1,472 @@
+{
+  "item": [
+    {
+      "id": "42f685f5-2b9b-413f-9198-de0176f7969d",
+      "name": "Flow",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3f1c4b5-f24e-4412-bcbe-933d0e92f78a",
+          "name": "Get historical USD flows for an address",
+          "request": {
+            "name": "Get historical USD flows for an address",
+            "description": {
+              "content": "Returns historical USD inflows, outflows, and cumulative totals for the specified address across supported chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flow",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query flow data for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97a21a02-52f9-417f-88cd-aa0753d78f82",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query flow data for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bsc\": [\n    {\n      \"cumulativeInflow\": 91579540.89000003,\n      \"cumulativeOutflow\": 92789860.85,\n      \"inflow\": 99.71,\n      \"outflow\": 0,\n      \"time\": \"2023-10-31T00:00:00Z\"\n    },\n    {\n      \"cumulativeInflow\": 91579640.60000002,\n      \"cumulativeOutflow\": 92789860.85,\n      \"inflow\": 2493652.26,\n      \"outflow\": 0,\n      \"time\": \"2023-12-08T00:00:00Z\"\n    }\n  ],\n  \"ethereum\": [\n    {\n      \"cumulativeInflow\": 1027355003822.2888,\n      \"cumulativeOutflow\": 1023262378331.2817,\n      \"inflow\": 523882897.43,\n      \"outflow\": 554928524.09,\n      \"time\": \"2023-12-03T00:00:00Z\"\n    },\n    {\n      \"cumulativeInflow\": 1027878886719.7189,\n      \"cumulativeOutflow\": 1023817306855.3717,\n      \"inflow\": 1312623236.01,\n      \"outflow\": 1204741283.07,\n      \"time\": \"2023-12-04T00:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efa8fb81-2af2-4491-953d-1ec625244c67",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query flow data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7990f7c0-634e-4dc5-b594-7d584f160137",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query flow data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85ac0c6b-a0da-47bf-be0d-2fe68dc543ec",
+          "name": "Get historical USD flows for an entity",
+          "request": {
+            "name": "Get historical USD flows for an entity",
+            "description": {
+              "content": "Returns historical USD inflows, outflows, and cumulative totals for the specified entity across supported chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flow",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query flow data for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6cba8c2b-c102-4ddb-8442-27fcd7708aa3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query flow data for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bitcoin\": [\n    {\n      \"cumulativeInflow\": 905891016225.6693,\n      \"cumulativeOutflow\": 889779478783.3397,\n      \"inflow\": 6565472523.45,\n      \"outflow\": 6632247150.18,\n      \"time\": \"2022-01-21T00:00:00Z\"\n    },\n    {\n      \"cumulativeInflow\": 912456488749.1193,\n      \"cumulativeOutflow\": 896411725933.5198,\n      \"inflow\": 528887137.66,\n      \"outflow\": 660515462.75,\n      \"time\": \"2022-01-22T00:00:00Z\"\n    }\n  ],\n  \"ethereum\": [\n    {\n      \"cumulativeInflow\": 1425833420702.8699,\n      \"cumulativeOutflow\": 1396841791568.5383,\n      \"inflow\": 1588990961.6,\n      \"outflow\": 1499520350.86,\n      \"time\": \"2022-01-08T00:00:00Z\"\n    },\n    {\n      \"cumulativeInflow\": 1427422411664.47,\n      \"cumulativeOutflow\": 1398341311919.3984,\n      \"inflow\": 1370833866.45,\n      \"outflow\": 1438004592.65,\n      \"time\": \"2022-01-09T00:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8618af9d-11d2-41be-b209-0b97c8969898",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query flow data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a043352e-a7f8-47dc-8ff6-036f7f0b115a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flow",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query flow data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "74b8b958-d68a-475d-918f-bb979542db8d",
+    "name": "Arkham Intel Analytics Flow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,472 @@
+{
+  "item": [
+    {
+      "id": "67e8d678-ea55-4490-b7af-053c15a082c8",
+      "name": "History",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a3f4bf0-e9fa-4b65-9294-beace64565bf",
+          "name": "Get historical data for an address",
+          "request": {
+            "name": "Get historical data for an address",
+            "description": {
+              "content": "Returns a daily USD value time series for the specified address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "history",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query historical data for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d39cec2b-6317-483d-9f7b-c0990e6c0f7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query historical data for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bsc\": [\n    {\n      \"time\": \"2023-12-13T00:00:00Z\",\n      \"usd\": 2844820.37\n    },\n    {\n      \"time\": \"2023-12-14T00:00:00Z\",\n      \"usd\": 3174696.58\n    }\n  ],\n  \"ethereum\": [\n    {\n      \"time\": \"2023-11-29T00:00:00Z\",\n      \"usd\": 2524608983.37\n    },\n    {\n      \"time\": \"2023-11-30T00:00:00Z\",\n      \"usd\": 2535428111.78\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3d30dc5-6fd6-46ff-bd64-99cb3d70a1fb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query historical data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "96e9b000-31f3-4f25-91a9-18fefb998fa1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query historical data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f140dbb9-1e6d-4266-bb8e-0e5ec9ffaafb",
+          "name": "Get historical data for an entity",
+          "request": {
+            "name": "Get historical data for an entity",
+            "description": {
+              "content": "Returns a daily USD value time series for the specified entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "history",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query historical data for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cbb8c72-1180-4eaa-824f-ba074df17b37",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query historical data for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bitcoin\": [\n    {\n      \"time\": \"2022-01-22T00:00:00Z\",\n      \"usd\": 19480915256.37\n    },\n    {\n      \"time\": \"2022-01-23T00:00:00Z\",\n      \"usd\": 18645267553.47\n    }\n  ],\n  \"ethereum\": [\n    {\n      \"time\": \"2021-12-31T00:00:00Z\",\n      \"usd\": 51606841219.03\n    },\n    {\n      \"time\": \"2022-01-01T00:00:00Z\",\n      \"usd\": 51120113947.47\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84b98581-d2df-4d9f-9b32-fafe79e041d3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query historical data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e92d43e7-e9e2-4872-869d-9b800dd05cf1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "history",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query historical data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2df5e900-de23-4daf-a927-f415540c40ee",
+    "name": "Arkham Intel Analytics History API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

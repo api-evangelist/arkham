@@ -1,0 +1,200 @@
+{
+  "item": [
+    {
+      "id": "c030229e-6010-4ba1-a512-5070d77bf7fd",
+      "name": "Cluster",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a8291ff-3892-4c63-a682-ba79a9729c1b",
+          "name": "Get cluster summary statistics",
+          "request": {
+            "name": "Get cluster summary statistics",
+            "description": {
+              "content": "Returns summary statistics for the specified cluster, including:\n- Total number of unique addresses in the cluster\n- Total balance in USD\n- Total transaction volume in USD\n- First and last transaction timestamps\n\nClusters are groups of addresses that have been linked together through on-chain heuristics (e.g., Bitcoin input clustering).\n\nTo find a cluster ID, look up an address with GET /intelligence/address_enriched/{address} and read its clusterIds field.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                ":id",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the cluster to summarize."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47e242de-d588-43ab-8e66-94add9b4a1a5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the cluster to summarize."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balanceUsd\": 270448104.02,\n  \"clusterId\": \"00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca\",\n  \"firstTx\": \"2018-11-12T14:22:37Z\",\n  \"lastTx\": \"2026-06-19T00:58:41Z\",\n  \"numAddresses\": 1894908,\n  \"volumeUsd\": 1782634995673.44\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afc64d9c-5708-42fb-9b64-afc40ddac93d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the cluster to summarize."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6fa2d381-7856-410a-9d75-4d83110ae009",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    ":id",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the cluster to summarize."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9c8f8e9e-1bfd-4dea-a53c-ff5ac09fb1d0",
+    "name": "Arkham Intel Analytics Cluster API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

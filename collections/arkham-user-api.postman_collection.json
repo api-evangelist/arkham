@@ -1,0 +1,1602 @@
+{
+  "item": [
+    {
+      "id": "04d3bed0-0146-4c25-b829-cf3bc79dbd30",
+      "name": "User",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43c12d4b-d574-48ac-9351-e4520d06e0ce",
+          "name": "List your alerts",
+          "request": {
+            "name": "List your alerts",
+            "description": {
+              "content": "Returns every alert owned by the authenticated caller as a list of `AlertParam` objects. Results are unpaginated and in no particular order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f9eedb74-1eae-46a2-a571-8048a09f13a3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"activelyFeatured\": true,\n    \"alertMethodId\": 1,\n    \"base\": [\n      \"abc123\"\n    ],\n    \"chains\": [\n      \"ethereum\"\n    ],\n    \"createdAt\": \"2024-01-01T00:00:00Z\",\n    \"description\": \"abc123\",\n    \"enabled\": true,\n    \"from\": [\n      \"abc123\"\n    ],\n    \"id\": 1,\n    \"name\": \"abc123\",\n    \"ownerUID\": \"abc123\",\n    \"shareable\": true,\n    \"to\": [\n      \"abc123\"\n    ],\n    \"tokens\": [\n      \"abc123\"\n    ],\n    \"usdGte\": 1.23,\n    \"usdLte\": 1.23,\n    \"valueGte\": 1.23,\n    \"valueLte\": 1.23\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f282d0af-5e42-4214-871e-28f1bbc64672",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cdf6c15-c88c-41a8-a603-191a67b07fcf",
+          "name": "Create an alert",
+          "request": {
+            "name": "Create an alert",
+            "description": {
+              "content": "Creates a new alert that notifies the caller when on-chain transfers match the supplied filter.\n\n**Request body** (`AlertRequest`):\n- **name**: Human-readable alert name.\n- **enabled**: Whether the alert delivers notifications. Disabled alerts are stored but do not notify.\n- **base / from / to**: Comma-separated address, entity, or deposit selectors in the same syntax as `GET /transfers`. Pass `[\"all\"]` on `base` to match every transfer (Pro only).\n- **tokens**: Token IDs or chain:address pairs to filter on.\n- **valueGte / valueLte**: Raw token amount bounds (on-chain units).\n- **usdGte / usdLte**: Historical USD value bounds.\n- **chains**: Optional subset of supported chains to scope the alert to.\n- **alertMethodId**: Required. ID of the notification channel that delivers this alert (see `GET /user/alertmethods`). Must be one of your own alert methods.\n- **description**: Optional free-form note.\n\n**Validation:** `alertMethodId` is required and must reference one of your own alert methods; omitting it or pointing it at a method you do not own returns `400`. Non-Pro users must supply at least one of a non-`\"all\"` `base`, a `from`, a `to`, a `tokens` filter, or a `usdGte >= 10000000`. Pro users may create fully open alerts. Users are hard-capped at 1000 alerts.\n\n**Response:** The numeric ID of the new alert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"base\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alertMethodId\": \"<integer>\",\n  \"chains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"from\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"usdGte\": \"<number>\",\n  \"usdLte\": \"<number>\",\n  \"valueGte\": \"<number>\",\n  \"valueLte\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1503a042-cda6-4865-963b-67ef37c78403",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "1",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c56994a-c3af-4e49-92a2-b08da9285a44",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c3a6acc-3656-4554-a2a3-30561379f803",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1105b0bd-fd8e-4420-841f-0333146dfccb",
+          "name": "Delete an alert",
+          "request": {
+            "name": "Delete an alert",
+            "description": {
+              "content": "Permanently deletes an alert owned by the caller.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert to delete.\n\n**Response:** `204 No Content` on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "alerts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ad57cab-bf06-4ede-bb2f-932ded9b7e14",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba65d61a-4078-4da2-8fcc-794d80665376",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b6ed72fb-5872-46ca-88b6-010a16ac6855",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13fd1784-2c6b-4966-a111-9ba9f52d0ce1",
+          "name": "Get a single alert",
+          "request": {
+            "name": "Get a single alert",
+            "description": {
+              "content": "Returns the `AlertParam` for one alert owned by the caller.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert.\n\n**Response:** `404 Not Found` if the alert does not exist or is owned by a different user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "alerts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c08ef07d-c453-41fb-a11c-b9c03927d983",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"createdAt\": \"2024-01-01T00:00:00Z\",\n  \"shareable\": true,\n  \"activelyFeatured\": true,\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"ownerUID\": \"abc123\",\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cca64a67-7f0a-47fd-9086-8e0d08523284",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f829c17-bd8c-456b-af3b-0c38d7e0d4b6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1fbe184-20d6-4b4e-a168-8ad88f33cd9b",
+          "name": "Update an alert",
+          "request": {
+            "name": "Update an alert",
+            "description": {
+              "content": "Replaces the configuration of an existing alert. The caller must own the alert — 404 is returned otherwise.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert to update.\n\n**Request body:** An `AlertRequest` with the desired new configuration — same shape as `POST /user/alerts`.\n\n**Validation:** Same Pro / non-Pro rules as `POST /user/alerts` — non-Pro users must still supply a restrictive filter or `usdGte >= 10000000`.\n\n**Response:** `204 No Content` on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "alerts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"base\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"alertMethodId\": \"<integer>\",\n  \"chains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"from\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"usdGte\": \"<number>\",\n  \"usdLte\": \"<number>\",\n  \"valueGte\": \"<number>\",\n  \"valueLte\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0abf88b0-16af-49fb-94f0-13bc3f81137e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d1b7987-8ccf-49ef-9fe4-3fc6e8441168",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27931f2e-88c3-4755-b332-d5f7a3b749b8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "alerts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"abc123\",\n  \"enabled\": true,\n  \"base\": [\n    \"abc123\"\n  ],\n  \"alertMethodId\": 1,\n  \"chains\": [\n    \"ethereum\"\n  ],\n  \"description\": \"abc123\",\n  \"from\": [\n    \"abc123\"\n  ],\n  \"to\": [\n    \"abc123\"\n  ],\n  \"tokens\": [\n    \"abc123\"\n  ],\n  \"usdGte\": 1.23,\n  \"usdLte\": 1.23,\n  \"valueGte\": 1.23,\n  \"valueLte\": 1.23\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9722f0fc-92da-46e2-ba96-63775dcf602a",
+          "name": "List all private entities",
+          "request": {
+            "name": "List all private entities",
+            "description": {
+              "content": "Retrieves all private entities for the authenticated user. Returns both user-created private entities and customized Arkham entities.\n\nUse the includeAddresses parameter to control whether address lists are included in the response (default: true).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeAddresses",
+                  "value": "<string>",
+                  "description": "Whether to include address lists in the response. Accepts 'true' or 'false'. Defaults to 'true'."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48ecff01-fe29-4464-b122-cd36c902a61e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeAddresses",
+                      "value": "abc123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"Binance\",\n    \"note\": \"\",\n    \"id\": \"binance\",\n    \"type\": \"cex\",\n    \"service\": true,\n    \"createdAt\": \"2024-01-01T00:00:00Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00Z\",\n    \"addresses\": {\n      \"abc123\": [\n        \"abc123\"\n      ]\n    },\n    \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n    \"customImageSlug\": \"binance\",\n    \"customized\": true,\n    \"instagram\": \"https://www.instagram.com/binance\",\n    \"linkShareable\": true,\n    \"linkedin\": \"https://www.linkedin.com/company/binance\",\n    \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n    \"populatedTags\": [\n      {\n        \"id\": \"proof-of-reserves\",\n        \"label\": \"Binance Proof of Reserves\",\n        \"rank\": 20,\n        \"excludeEntities\": false,\n        \"disablePage\": false,\n        \"chain\": \"ethereum\",\n        \"tagParams\": \"Binance\"\n      },\n      {\n        \"id\": \"proof-of-reserves\",\n        \"label\": \"Binance Proof of Reserves\",\n        \"rank\": 20,\n        \"excludeEntities\": false,\n        \"disablePage\": false,\n        \"chain\": \"ethereum\",\n        \"tagParams\": \"Binance\"\n      }\n    ],\n    \"twitter\": \"https://twitter.com/binance\",\n    \"website\": \"https://binance.com\"\n  },\n  {\n    \"name\": \"Binance\",\n    \"note\": \"\",\n    \"id\": \"binance\",\n    \"type\": \"cex\",\n    \"service\": true,\n    \"createdAt\": \"2024-01-01T00:00:00Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00Z\",\n    \"addresses\": {\n      \"abc123\": [\n        \"abc123\"\n      ]\n    },\n    \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n    \"customImageSlug\": \"binance\",\n    \"customized\": true,\n    \"instagram\": \"https://www.instagram.com/binance\",\n    \"linkShareable\": true,\n    \"linkedin\": \"https://www.linkedin.com/company/binance\",\n    \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n    \"populatedTags\": [\n      {\n        \"id\": \"proof-of-reserves\",\n        \"label\": \"Binance Proof of Reserves\",\n        \"rank\": 20,\n        \"excludeEntities\": false,\n        \"disablePage\": false,\n        \"chain\": \"ethereum\",\n        \"tagParams\": \"Binance\"\n      },\n      {\n        \"id\": \"proof-of-reserves\",\n        \"label\": \"Binance Proof of Reserves\",\n        \"rank\": 20,\n        \"excludeEntities\": false,\n        \"disablePage\": false,\n        \"chain\": \"ethereum\",\n        \"tagParams\": \"Binance\"\n      }\n    ],\n    \"twitter\": \"https://twitter.com/binance\",\n    \"website\": \"https://binance.com\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19ca2d1c-5afb-4f84-bdc1-df74d224bab9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeAddresses",
+                      "value": "abc123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0c60deb-8c55-4142-8ca3-374b4644fa48",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeAddresses",
+                      "value": "abc123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b2c65ad-38ed-4fd7-91c9-982876d80640",
+          "name": "Update a private entity",
+          "request": {
+            "name": "Update a private entity",
+            "description": {
+              "content": "Updates an existing private entity. Allows modification of the entity name, note, and associated addresses.\n\nFor user-created entities, the full entity is updated. For Arkham entities, only the user's custom address associations are updated. Maximum of 5000 addresses can be updated at once.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "entities",
+                "only_add",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The entity ID to update. Can be a user-created entity ID or an Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"service\": \"<boolean>\",\n  \"addresses\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"crunchbase\": \"<string>\",\n  \"customImageSlug\": \"<string>\",\n  \"customized\": \"<boolean>\",\n  \"instagram\": \"<string>\",\n  \"linkShareable\": \"<boolean>\",\n  \"linkedin\": \"<string>\",\n  \"ownerUID\": \"<string>\",\n  \"populatedTags\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"rank\": \"<integer>\",\n      \"excludeEntities\": \"<boolean>\",\n      \"disablePage\": \"<boolean>\",\n      \"chain\": \"<string>\",\n      \"tagParams\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"rank\": \"<integer>\",\n      \"excludeEntities\": \"<boolean>\",\n      \"disablePage\": \"<boolean>\",\n      \"chain\": \"<string>\",\n      \"tagParams\": \"<string>\"\n    }\n  ],\n  \"twitter\": \"<string>\",\n  \"website\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ff9344e-f4a3-4ce9-a6ad-12ab072f80b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    "only_add",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to update. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Binance\",\n  \"note\": \"\",\n  \"id\": \"binance\",\n  \"type\": \"cex\",\n  \"service\": true,\n  \"addresses\": {\n    \"key_0\": [\n      \"abc123\"\n    ],\n    \"key_1\": [\n      \"abc123\"\n    ]\n  },\n  \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n  \"customImageSlug\": \"binance\",\n  \"customized\": true,\n  \"instagram\": \"https://www.instagram.com/binance\",\n  \"linkShareable\": true,\n  \"linkedin\": \"https://www.linkedin.com/company/binance\",\n  \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n  \"populatedTags\": [\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    },\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    }\n  ],\n  \"twitter\": \"https://twitter.com/binance\",\n  \"website\": \"https://binance.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "798679a6-f456-4c92-b1f6-962fde8f848c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    "only_add",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to update. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Binance\",\n  \"note\": \"\",\n  \"id\": \"binance\",\n  \"type\": \"cex\",\n  \"service\": true,\n  \"addresses\": {\n    \"key_0\": [\n      \"abc123\"\n    ],\n    \"key_1\": [\n      \"abc123\"\n    ]\n  },\n  \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n  \"customImageSlug\": \"binance\",\n  \"customized\": true,\n  \"instagram\": \"https://www.instagram.com/binance\",\n  \"linkShareable\": true,\n  \"linkedin\": \"https://www.linkedin.com/company/binance\",\n  \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n  \"populatedTags\": [\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    },\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    }\n  ],\n  \"twitter\": \"https://twitter.com/binance\",\n  \"website\": \"https://binance.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5eeb27f3-bb4f-4f8d-85b4-8395ae3f7be8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    "only_add",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to update. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Binance\",\n  \"note\": \"\",\n  \"id\": \"binance\",\n  \"type\": \"cex\",\n  \"service\": true,\n  \"addresses\": {\n    \"key_0\": [\n      \"abc123\"\n    ],\n    \"key_1\": [\n      \"abc123\"\n    ]\n  },\n  \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n  \"customImageSlug\": \"binance\",\n  \"customized\": true,\n  \"instagram\": \"https://www.instagram.com/binance\",\n  \"linkShareable\": true,\n  \"linkedin\": \"https://www.linkedin.com/company/binance\",\n  \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n  \"populatedTags\": [\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    },\n    {\n      \"id\": \"proof-of-reserves\",\n      \"label\": \"Binance Proof of Reserves\",\n      \"rank\": 20,\n      \"excludeEntities\": false,\n      \"disablePage\": false,\n      \"chain\": \"ethereum\",\n      \"tagParams\": \"Binance\"\n    }\n  ],\n  \"twitter\": \"https://twitter.com/binance\",\n  \"website\": \"https://binance.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97df441f-ad56-488b-ab61-f8f1e03576d7",
+          "name": "Get a private entity by ID",
+          "request": {
+            "name": "Get a private entity by ID",
+            "description": {
+              "content": "Retrieves a specific private entity by its ID. Returns the entity details including name, note, and associated addresses.\n\nSupports both user-created private entities and customized Arkham entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "entities",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fff607d-8bdc-4419-b53e-e4be76c8758c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6aa2168b-2545-4c22-84fe-e5e718b16be4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2bb4f03d-421a-493f-84c9-e7c0f70251ce",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "entities",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "078b2953-407b-439a-84de-0479c16f71b8",
+          "name": "Get user labels",
+          "request": {
+            "name": "Get user labels",
+            "description": {
+              "content": "Retrieves a list of labels for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0d47246-93a9-4a00-9781-5af4d55a813a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n    \"chainType\": \"evm\",\n    \"name\": \"Cold Wallet\",\n    \"note\": \"\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7559569-cf53-43ce-890b-b6a18b0e8f06",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0c3c827-5003-4336-a6ce-ba66d864d7d1",
+          "name": "Create labels",
+          "request": {
+            "name": "Create labels",
+            "description": {
+              "content": "Creates one or more labels for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"chainType\": \"<string>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"chainType\": \"<string>\",\n    \"note\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee9403dd-51c1-481f-a362-2f9feefe4515",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n    \"chainType\": \"evm\",\n    \"name\": \"Cold Wallet\",\n    \"note\": \"\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n    \"chainType\": \"evm\",\n    \"name\": \"Cold Wallet\",\n    \"note\": \"\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3007fa3-064a-4658-a311-502574af1d18",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n    \"chainType\": \"evm\",\n    \"name\": \"Cold Wallet\",\n    \"note\": \"\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc9606de-5593-45b4-9dcc-b60dfb62dc9f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n    \"chainType\": \"evm\",\n    \"name\": \"Cold Wallet\",\n    \"note\": \"\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2e9b0de2-66f2-45a9-a1d9-da82063800c6",
+    "name": "Arkham Intel Analytics User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Counterparties API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Counterparties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get top counterparties for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/counterparties/address/:address",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction. Only \"in\" or \"out\" are accepted (omit for both directions)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to counterparties whose aggregated USD volume is at least this value."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default: 20. Max: 1000."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "List of counterparty tags to filter by."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses)."
+              }
+            ]
+          },
+          "docs": "Returns aggregated counterparty activity by volume for the specified address.\n\nSupports filtering by transfer direction, chain, token, time range, and minimum USD volume.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        },
+        {
+          "info": {
+            "name": "Get top counterparties for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/counterparties/entity/:entity",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction. Only \"in\" or \"out\" are accepted (omit for both directions)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter to counterparties whose aggregated USD volume is at least this value."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default: 20. Max: 1000."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "List of counterparty tags to filter by."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query counterparties for."
+              }
+            ]
+          },
+          "docs": "Returns aggregated counterparty activity by volume for the specified entity.\n\nSupports filtering by transfer direction, chain, token, time range, and minimum USD volume.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

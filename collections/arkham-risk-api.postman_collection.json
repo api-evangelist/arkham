@@ -1,0 +1,886 @@
+{
+  "item": [
+    {
+      "id": "e241d4c4-cff6-47a7-bb04-df813846d467",
+      "name": "Risk",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cd7c5f5-6f1c-44eb-9774-fc9778fb8998",
+          "name": "Get risk scores for multiple addresses in one request",
+          "request": {
+            "name": "Get risk scores for multiple addresses in one request",
+            "description": {
+              "content": "Batched version of GET /risk/address/:address. Accepts up to 200 addresses and returns a map keyed by the address the caller sent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "address",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c306132b-84bd-4abd-b053-a9a6a000aa00",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"abc123\": {\n    \"address\": \"0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB\",\n    \"chain_type\": \"evm\",\n    \"darkweb_score\": 0,\n    \"gambling_score\": 0,\n    \"greatest_risk_category\": \"hacker\",\n    \"greatest_risk_category_backward\": \"abc123\",\n    \"greatest_risk_category_forward\": \"hacker\",\n    \"hacker_score\": 66,\n    \"hop_distance\": 1,\n    \"is_seed\": false,\n    \"max_hop_reached\": 1,\n    \"max_score\": 66,\n    \"max_score_backward\": 0,\n    \"max_score_forward\": 66,\n    \"mixed_kyc_service_score\": 0,\n    \"mixer_score\": 0,\n    \"non_kyc_service_score\": 0,\n    \"ponzi_score\": 0,\n    \"privacy_score\": 0,\n    \"ransomware_score\": 0,\n    \"risk_level\": \"HIGH\",\n    \"risk_weighted_incoming_usd\": 1503.02,\n    \"risk_weighted_outgoing_usd\": 0,\n    \"sanctioned_1hop_score\": 0,\n    \"sanctions_score\": 0,\n    \"scam_score\": 0,\n    \"token_blacklist_score\": 0,\n    \"top_sources\": [\n      {\n        \"contribution_pct\": 100,\n        \"contribution_usd\": 1503.02,\n        \"direction\": \"forward\",\n        \"first_ts\": \"2019-11-14T00:00:00Z\",\n        \"hop_distance\": 1,\n        \"last_ts\": \"2019-12-13T00:00:00Z\",\n        \"risk_category\": \"hacker\",\n        \"seed_address\": \"0x851d8fe098341d5592DbBC7bCd4388F73c16291b\"\n      }\n    ],\n    \"updated_at\": \"2025-12-16T03:06:14Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc570ae8-ee2a-45cb-8147-51f545e69e3e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "818c73e4-793f-4a1a-b9dc-646e3f2abd4a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae09dc62-b408-4e16-b812-0231ba5b2301",
+          "name": "Get risk score for an address",
+          "request": {
+            "name": "Get risk score for an address",
+            "description": {
+              "content": "Returns a compliance risk score for the specified blockchain address, including exposure categories and risk factors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a84e730-78fa-43b1-8742-11efd3061d8f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"chain_type\": \"evm\",\n  \"address\": \"0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB\",\n  \"risk_level\": \"HIGH\",\n  \"is_seed\": false,\n  \"darkweb_score\": 0,\n  \"gambling_score\": 0,\n  \"greatest_risk_category\": \"hacker\",\n  \"greatest_risk_category_backward\": \"abc123\",\n  \"greatest_risk_category_forward\": \"hacker\",\n  \"hacker_score\": 66,\n  \"hop_distance\": 1,\n  \"max_hop_reached\": 1,\n  \"max_score\": 66,\n  \"max_score_backward\": 0,\n  \"max_score_forward\": 66,\n  \"mixed_kyc_service_score\": 0,\n  \"mixer_score\": 0,\n  \"non_kyc_service_score\": 0,\n  \"ponzi_score\": 0,\n  \"privacy_score\": 0,\n  \"ransomware_score\": 0,\n  \"risk_weighted_incoming_usd\": 1503.02,\n  \"risk_weighted_outgoing_usd\": 0,\n  \"sanctioned_1hop_score\": 0,\n  \"sanctions_score\": 0,\n  \"scam_score\": 0,\n  \"token_blacklist_score\": 0,\n  \"top_sources\": [\n    {\n      \"contribution_pct\": 100,\n      \"contribution_usd\": 1503.02,\n      \"direction\": \"forward\",\n      \"first_ts\": \"2019-11-14T00:00:00Z\",\n      \"hop_distance\": 1,\n      \"last_ts\": \"2019-12-13T00:00:00Z\",\n      \"risk_category\": \"hacker\",\n      \"seed_address\": \"0x851d8fe098341d5592DbBC7bCd4388F73c16291b\"\n    }\n  ],\n  \"updated_at\": \"2025-12-16T03:06:14Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3de4a53-bde1-409e-8cf4-e9a6eda04c9f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a070bf4-9217-47e3-be0b-f26b8688f67b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33206109-ae28-4759-8a85-c3ba9df1d3e2",
+          "name": "Get seed-to-target paths for an address's risk score",
+          "request": {
+            "name": "Get seed-to-target paths for an address's risk score",
+            "description": {
+              "content": "Returns the dominant address chains linking the queried address back to each risky seed. Results are rolled up by chain_type (EVM chains collapse to 'evm').",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "address",
+                ":address",
+                "paths"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to trace."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95a59802-8980-4aef-95d4-62ea5e96c04c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address",
+                    "paths"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to trace."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB\",\n  \"paths\": [\n    {\n      \"chain_type\": \"evm\",\n      \"contribution_usd\": 1.23,\n      \"direction\": \"forward\",\n      \"hop_distance\": 1,\n      \"path_nodes\": [\n        {\n          \"address\": \"0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A\",\n          \"hop_distance\": 0\n        }\n      ],\n      \"risk_category\": \"hacker\",\n      \"score\": 1,\n      \"seed_address\": \"0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "749fcb14-897a-47ee-b614-4275a38e3450",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address",
+                    "paths"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to trace."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ceb581b-b315-4139-8029-7df7ad260c25",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "address",
+                    ":address",
+                    "paths"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to trace."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07e51f0e-160b-41f8-8330-4b6d0af93133",
+          "name": "Get risk scores for multiple entities in one request",
+          "request": {
+            "name": "Get risk scores for multiple entities in one request",
+            "description": {
+              "content": "Batched version of GET /risk/entity/:entity_id. Accepts up to 200 entity IDs and returns a map keyed by entity ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "entity",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec30ad1f-c0fa-4a5d-b121-c5927a6d6440",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"abc123\": {\n    \"darkweb_score\": 1,\n    \"entity_id\": \"binance\",\n    \"entity_name\": \"Binance\",\n    \"entity_type\": \"exchange\",\n    \"gambling_score\": 1,\n    \"greatest_risk_category\": \"hacker\",\n    \"greatest_risk_category_backward\": \"abc123\",\n    \"greatest_risk_category_forward\": \"abc123\",\n    \"hacker_score\": 1,\n    \"highest_risk_address\": \"abc123\",\n    \"max_score\": 66,\n    \"max_score_backward\": 1,\n    \"max_score_forward\": 1,\n    \"mixed_kyc_service_score\": 1,\n    \"mixer_score\": 1,\n    \"non_kyc_service_score\": 1,\n    \"ponzi_score\": 1,\n    \"privacy_score\": 1,\n    \"ransomware_score\": 1,\n    \"risk_level\": \"HIGH\",\n    \"risky_addresses\": 3,\n    \"risky_addresses_backward\": 1,\n    \"risky_addresses_forward\": 1,\n    \"sanctions_score\": 1,\n    \"scam_score\": 1,\n    \"seed_addresses\": 1,\n    \"token_blacklist_score\": 1,\n    \"top_seed_addresses\": [\n      {\n        \"address\": \"abc123\",\n        \"chain_type\": \"evm\",\n        \"risk_category\": \"mixed-kyc-service\",\n        \"seed_score\": 30\n      }\n    ],\n    \"top_sources\": [\n      {\n        \"contribution_usd\": 1.23,\n        \"direction\": \"forward\",\n        \"hop_distance\": 1,\n        \"risk_category\": \"hacker\",\n        \"seed_address\": \"abc123\"\n      }\n    ],\n    \"updated_at\": \"abc123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfec338c-590e-4e46-999f-0d083cbfa7a0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23d96f43-24ec-4802-ae01-7ffb4236f010",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"abc123\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc63a442-a3c1-47df-a7c6-20b08bde658a",
+          "name": "Get entity-level risk score",
+          "request": {
+            "name": "Get entity-level risk score",
+            "description": {
+              "content": "Returns the aggregated risk score for an entity, computed as the maximum across all of the entity's addresses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "entity",
+                ":entity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity_id",
+                  "description": "(Required) The entity identifier to query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b264148d-83ec-4dc0-a36c-36b4f066ba2a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id",
+                      "description": "(Required) The entity identifier to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entity_id\": \"binance\",\n  \"risk_level\": \"HIGH\",\n  \"darkweb_score\": 1,\n  \"entity_name\": \"Binance\",\n  \"entity_type\": \"exchange\",\n  \"gambling_score\": 1,\n  \"greatest_risk_category\": \"hacker\",\n  \"greatest_risk_category_backward\": \"abc123\",\n  \"greatest_risk_category_forward\": \"abc123\",\n  \"hacker_score\": 1,\n  \"highest_risk_address\": \"abc123\",\n  \"max_score\": 66,\n  \"max_score_backward\": 1,\n  \"max_score_forward\": 1,\n  \"mixed_kyc_service_score\": 1,\n  \"mixer_score\": 1,\n  \"non_kyc_service_score\": 1,\n  \"ponzi_score\": 1,\n  \"privacy_score\": 1,\n  \"ransomware_score\": 1,\n  \"risky_addresses\": 3,\n  \"risky_addresses_backward\": 1,\n  \"risky_addresses_forward\": 1,\n  \"sanctions_score\": 1,\n  \"scam_score\": 1,\n  \"seed_addresses\": 1,\n  \"token_blacklist_score\": 1,\n  \"top_seed_addresses\": [\n    {\n      \"address\": \"abc123\",\n      \"chain_type\": \"evm\",\n      \"risk_category\": \"mixed-kyc-service\",\n      \"seed_score\": 30\n    }\n  ],\n  \"top_sources\": [\n    {\n      \"contribution_usd\": 1.23,\n      \"direction\": \"forward\",\n      \"hop_distance\": 1,\n      \"risk_category\": \"hacker\",\n      \"seed_address\": \"abc123\"\n    }\n  ],\n  \"updated_at\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1e6203d-8f21-494d-a46f-e1747fe9f76c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id",
+                      "description": "(Required) The entity identifier to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6328aba4-f0e0-410f-967c-9d50763820fa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "entity",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity_id",
+                      "description": "(Required) The entity identifier to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c1b62373-37a4-431b-8779-3e789e7291b0",
+    "name": "Arkham Intel Analytics Risk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

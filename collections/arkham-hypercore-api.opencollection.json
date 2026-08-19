@@ -1,0 +1,463 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Hypercore API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hypercore",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check for HyperCore activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/active",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Whether a HyperCore address has any HyperCore activity: a spot balance, open perp position, margin, staking, or vault equity."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore perp positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/perp-positions",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Open perpetual positions for a HyperCore address (master + sub-accounts) with mark price, unrealized PnL, and per-DEX USDC margin."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore account value / PnL history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/portfolio-history",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Live account-value and PnL time series per timeframe (day, week, month, allTime) for a HyperCore address. Not aggregated across sub-accounts."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore spot balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/spot-balances",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Spot token balances for a HyperCore address (master + sub-accounts), each valued in USD at the spot mid price."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore sub-accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/subaccounts",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Sub-accounts (name, address, vault flag) indexed for a HyperCore master address."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore account value summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/summary",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Total account value (spot USD + perp equity + staked HYPE) for a HyperCore address. A master address aggregates across all of its sub-accounts; a sub-account returns only its own value."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore trade history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/account/:address/trades",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max fills to return (default 50, max 200)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset into the merged fill history. Default: 0."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "HyperCore master or sub-account address."
+              }
+            ]
+          },
+          "docs": "Merged spot and perp fills for a HyperCore address (master + sub-accounts), newest first, paginated via limit/offset."
+        },
+        {
+          "info": {
+            "name": "Check for HyperCore entity activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/entity/:entity/active",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Whether any address attributed to the entity has HyperCore activity: a spot balance, open perp position, margin, staking, or vault equity."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore entity perp positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/entity/:entity/perp-positions",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Open perpetual positions across every address attributed to the entity, with mark price, unrealized PnL, and per-DEX USDC margin."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore entity account value / PnL history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/entity/:entity/portfolio-history",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Combined account-value and PnL time series per timeframe (day, week, month, allTime) across an entity's HyperCore addresses, at daily resolution."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore entity spot balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/entity/:entity/spot-balances",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Spot token balances across every address attributed to the entity, each valued in USD at the spot mid price."
+        },
+        {
+          "info": {
+            "name": "Get HyperCore entity value summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/entity/:entity/summary",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Total HyperCore value (spot USD + perp equity + staked HYPE) aggregated across every address attributed to the entity, sub-accounts included."
+        },
+        {
+          "info": {
+            "name": "List HyperCore markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/markets"
+          },
+          "docs": "Every token that has a HyperCore spot or perpetual market. Returns each token's pricing id, symbol, and name."
+        },
+        {
+          "info": {
+            "name": "Get top HyperCore perp positions for a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/token/:pricingId/positions",
+            "params": [
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Filter to 'long' or 'short' positions; omit for both."
+              },
+              {
+                "name": "groupByEntity",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', nets positions per attributed entity."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort column: size, value, pnl, funding (default size)."
+              },
+              {
+                "name": "ascending",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', sorts ascending."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Rows per page (default 50, max 100)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (offset+limit capped at 1000). Default: 0."
+              },
+              {
+                "name": "pricingId",
+                "value": "",
+                "type": "path",
+                "description": "CoinGecko pricing id of the token."
+              }
+            ]
+          },
+          "docs": "Returns the largest open HyperCore perp positions on the token's canonical market, optionally netted per entity."
+        },
+        {
+          "info": {
+            "name": "Search HyperCore trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hypercore/trades",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter by trader: a comma-separated list of addresses and/or entity ids."
+              },
+              {
+                "name": "coins",
+                "value": "",
+                "type": "query",
+                "description": "Filter to these raw coin identifiers."
+              },
+              {
+                "name": "pricingIds",
+                "value": "",
+                "type": "query",
+                "description": "Filter by token: CoinGecko pricing ids, expanded to every coin that resolves to them."
+              },
+              {
+                "name": "side",
+                "value": "",
+                "type": "query",
+                "description": "Filter by side: 'buy' or 'sell'."
+              },
+              {
+                "name": "directions",
+                "value": "",
+                "type": "query",
+                "description": "Filter perp fills by direction label, for example 'Open Long'."
+              },
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Limit to 'perp' or 'spot'; empty returns both."
+              },
+              {
+                "name": "crossed",
+                "value": "",
+                "type": "query",
+                "description": "Filter by whether the fill crossed the book."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Filter by trader address tags."
+              },
+              {
+                "name": "valueGte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum notional value (price*size)."
+              },
+              {
+                "name": "valueLte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum notional value."
+              },
+              {
+                "name": "sizeGte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum fill size."
+              },
+              {
+                "name": "sizeLte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum fill size."
+              },
+              {
+                "name": "priceGte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum fill price."
+              },
+              {
+                "name": "priceLte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum fill price."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Only fills at or after this time."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Only fills at or before this time."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Relative window, e.g. '24h' or '7d' (mutually exclusive with timeGte/timeLte)."
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Sort by 'time', 'value', 'size', or 'price' (default 'time')."
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "'asc' or 'desc' (default 'desc')."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max trades to return (default 50, max 200)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (offset+limit must be <= 10000). Default: 0."
+              }
+            ]
+          },
+          "docs": "Filtered, sorted feed of HyperCore perp and spot fills merged under one limit, each enriched with the trader's entity and labels."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

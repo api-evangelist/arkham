@@ -1,0 +1,134 @@
+{
+  "item": [
+    {
+      "id": "835aa86f-df18-4173-a165-32311810dc4e",
+      "name": "Arkm",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e1be6b9-41a4-4e7d-90b7-02b0709094b5",
+          "name": "Get ARKM circulating supply",
+          "request": {
+            "name": "Get ARKM circulating supply",
+            "description": {
+              "content": "Returns the current circulating supply of ARKM tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "arkm",
+                "circulating"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec90051b-395c-41e4-80c5-26785a1b9ce1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "arkm",
+                    "circulating"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": 658912429\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "045aa270-a0fa-4f95-a71b-f89a307c8b5b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "arkm",
+                    "circulating"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a1b5a0c-8319-4d4a-b9fc-3a33edb1fc3d",
+    "name": "Arkham Intel Analytics Arkm API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

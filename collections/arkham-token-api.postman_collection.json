@@ -1,0 +1,3710 @@
+{
+  "item": [
+    {
+      "id": "0a84500a-5c4b-450f-9d15-7608e0f055b8",
+      "name": "Token",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28a205e6-cfc9-4ec3-ba20-950f11ddb0cc",
+          "name": "Get chain addresses for a token",
+          "request": {
+            "name": "Get chain addresses for a token",
+            "description": {
+              "content": "Returns all known chain/address pairs for a token identified by its pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "addresses",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80d45bee-b1d1-4076-9009-3bf42d262b2b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "addresses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"base\": \"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913\",\n  \"ethereum\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"solana\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9944d0dc-8b73-4c60-b601-4899861c363e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "addresses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1fcd9246-423b-4821-9ce5-1d953fbc7262",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "addresses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de8de81f-dc09-4a4f-9a72-af3d735ffdaa",
+          "name": "Get Arkham Exchange tokens",
+          "request": {
+            "name": "Get Arkham Exchange tokens",
+            "description": {
+              "content": "Returns the tokens listed on Arkham Exchange, split into `spotTokens` and `perpTokens` arrays. Each entry identifies a token by its CoinGecko pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "arkham_exchange_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "856aeffd-0a6c-4547-82ef-16aa05896c4b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "arkham_exchange_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"perpTokens\": [\n    {\n      \"identifier\": {\n        \"pricingID\": \"ethereum\"\n      }\n    },\n    {\n      \"identifier\": {\n        \"pricingID\": \"solana\"\n      }\n    }\n  ],\n  \"spotTokens\": [\n    {\n      \"identifier\": {\n        \"pricingID\": \"bitcoin\"\n      }\n    },\n    {\n      \"identifier\": {\n        \"pricingID\": \"ethereum\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "808d0c04-29eb-464e-b751-59e03579b949",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "arkham_exchange_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "143e9e3b-96b0-478d-9f8c-2f1cc5f9583c",
+          "name": "Get token balance for an entity or address, for a specific chain/address",
+          "request": {
+            "name": "Get token balance for an entity or address, for a specific chain/address",
+            "description": {
+              "content": "Returns the balance of a specific token contract (identified by the `chain` and `address` path params) held by an entity or address. The `address` query param is the holder wallet(s); the path `address` is the token contract.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "balance",
+                ":chain",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "entityID",
+                  "value": "<string>",
+                  "description": "Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) Blockchain network where the token is deployed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The token contract address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8010704c-5076-4d9f-9384-56b00ffd4f8c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance\": 2128574.671908,\n  \"name\": \"USD Coin\",\n  \"price\": 0.99985,\n  \"pricingID\": \"usd-coin\",\n  \"symbol\": \"USDC\",\n  \"usd\": 2128254.36\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dda0c7a7-370e-4863-8701-4d4a2db26ece",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b527e9aa-c650-4f04-af23-5b95d0c55033",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd6c7613-4f2b-442f-8899-c5ecaf3498ee",
+          "name": "Get token balance (all chains) for an entity or address",
+          "request": {
+            "name": "Get token balance (all chains) for an entity or address",
+            "description": {
+              "content": "Returns the aggregated token balance for either an entity or address, across all chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "balance",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "entityID",
+                  "value": "<string>",
+                  "description": "Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0."
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c44c50c1-fd1f-4fcd-8e97-2587806157be",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance\": 2128574.671908,\n  \"name\": \"USD Coin\",\n  \"price\": 0.99985,\n  \"pricingID\": \"usd-coin\",\n  \"symbol\": \"USDC\",\n  \"usd\": 2128254.36\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "569b6a30-b4f1-4de8-bea1-86d43c09d9a1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "915f4e97-9e89-4218-a6a3-0020d583682f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "balance",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityID",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2268f97c-711f-4191-9f1c-4ee7146cf47b",
+          "name": "Get top token holders by chain and address",
+          "request": {
+            "name": "Get top token holders by chain and address",
+            "description": {
+              "content": "Returns the top token holders for a specific token contract on a given chain. Results are sorted by balance in descending order.\n\nOnly chains with token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/holders/{id}).\n\n**Response fields:**\n- **token**: Token metadata (name, symbol, pricing info).\n- **totalSupply**: Total supply for the chain.\n- **addressTopHolders**: Top holders by individual address.\n- **entityTopHolders**: Top holders grouped by entity (only present when groupByEntity=true).\n\n**Note:** Entity objects in the response do not include `populatedTags`. Use `GET /intelligence/entity/{id}` to retrieve tags for individual entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "holders",
+                ":chain",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "groupByEntity",
+                  "value": "<string>",
+                  "description": "If 'true', groups holdings by entity rather than individual addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of holders to skip for pagination (default 0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "poolAddress",
+                  "value": "<string>",
+                  "description": "Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) Blockchain network where the token is deployed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The token contract address to query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56fdf7a7-8100-4059-a8fa-8144b8f1b6d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address to query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressTopHolders\": {\n    \"ethereum\": [\n      {\n        \"address\": {\n          \"address\": \"0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341\",\n          \"arkhamEntity\": {\n            \"crunchbase\": \"https://www.crunchbase.com/organization/makerdao\",\n            \"id\": \"makerdao\",\n            \"linkedin\": \"https://www.linkedin.com/company/makerdao/\",\n            \"name\": \"Sky (MakerDAO)\",\n            \"note\": \"\",\n            \"service\": null,\n            \"twitter\": \"https://twitter.com/MakerDAO\",\n            \"type\": \"cdp\",\n            \"website\": \"https://makerdao.com\"\n          },\n          \"arkhamLabel\": {\n            \"address\": \"0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341\",\n            \"chainType\": \"evm\",\n            \"name\": \"LITE PSM USDC A POCKET\"\n          },\n          \"chain\": \"ethereum\",\n          \"contract\": false,\n          \"isUserAddress\": false\n        },\n        \"balance\": 4453872464.461215,\n        \"pctOfCap\": 0.06071662849686393,\n        \"usd\": 4453872464.461215\n      },\n      {\n        \"address\": {\n          \"address\": \"0xe1940f578743367F38D3f25c2D2d32D6636929B6\",\n          \"arkhamEntity\": {\n            \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n            \"id\": \"binance\",\n            \"linkedin\": \"https://www.linkedin.com/company/binance\",\n            \"name\": \"Binance\",\n            \"note\": \"\",\n            \"service\": null,\n            \"twitter\": \"https://twitter.com/binance\",\n            \"type\": \"cex\",\n            \"website\": \"https://binance.com\"\n          },\n          \"arkhamLabel\": {\n            \"address\": \"0xe1940f578743367F38D3f25c2D2d32D6636929B6\",\n            \"chainType\": \"evm\",\n            \"name\": \"SingleOwnerMSCA (Proxy)\"\n          },\n          \"chain\": \"ethereum\",\n          \"contract\": true,\n          \"isUserAddress\": false\n        },\n        \"balance\": 1699999999.039577,\n        \"pctOfCap\": 0.02317494926268423,\n        \"usd\": 1699999999.039577\n      }\n    ]\n  },\n  \"entityTopHolders\": {},\n  \"token\": {\n    \"identifier\": {\n      \"address\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"chain\": \"ethereum\",\n      \"pricingID\": \"usd-coin\"\n    },\n    \"name\": \"USD Coin\",\n    \"symbol\": \"USDC\"\n  },\n  \"totalSupply\": {\n    \"ethereum\": 50539998661.70982\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f194d271-fe3f-4bd9-8d59-a75661be864f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "badbac34-f433-426d-ab3c-97c15158fceb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address to query."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41df2aa6-a40e-44a4-93ec-5541d958c076",
+          "name": "Get top token holders by pricing ID",
+          "request": {
+            "name": "Get top token holders by pricing ID",
+            "description": {
+              "content": "Returns the top token holders for a token identified by its CoinGecko pricing ID (e.g. \"bitcoin\", \"ethereum\", \"usd-coin\"). Results are sorted by balance in descending order.\n\n**Response fields:**\n- **token**: Token metadata (name, symbol, pricing info).\n- **totalSupply**: Total supply per chain.\n- **addressTopHolders**: Top holders by individual address, keyed by chain.\n- **entityTopHolders**: Top holders grouped by entity (only present when groupByEntity=true), keyed by chain.\n\n**Note:** Entity objects in the response do not include `populatedTags`. Use `GET /intelligence/entity/{id}` to retrieve tags for individual entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "holders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "groupByEntity",
+                  "value": "<string>",
+                  "description": "If 'true', groups holdings by entity rather than individual addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of holders to skip for pagination (default 0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "poolAddress",
+                  "value": "<string>",
+                  "description": "Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3d052ca-1aca-4b3a-80f7-94deb528c164",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressTopHolders\": {\n    \"ethereum\": [\n      {\n        \"address\": {\n          \"address\": \"0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341\",\n          \"arkhamEntity\": {\n            \"crunchbase\": \"https://www.crunchbase.com/organization/makerdao\",\n            \"id\": \"makerdao\",\n            \"linkedin\": \"https://www.linkedin.com/company/makerdao/\",\n            \"name\": \"Sky (MakerDAO)\",\n            \"note\": \"\",\n            \"service\": null,\n            \"twitter\": \"https://twitter.com/MakerDAO\",\n            \"type\": \"cdp\",\n            \"website\": \"https://makerdao.com\"\n          },\n          \"arkhamLabel\": {\n            \"address\": \"0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341\",\n            \"chainType\": \"evm\",\n            \"name\": \"LITE PSM USDC A POCKET\"\n          },\n          \"chain\": \"ethereum\",\n          \"contract\": false,\n          \"isUserAddress\": false\n        },\n        \"balance\": 4453872464.461215,\n        \"pctOfCap\": 0.06071662849686393,\n        \"usd\": 4453872464.461215\n      },\n      {\n        \"address\": {\n          \"address\": \"0xe1940f578743367F38D3f25c2D2d32D6636929B6\",\n          \"arkhamEntity\": {\n            \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n            \"id\": \"binance\",\n            \"linkedin\": \"https://www.linkedin.com/company/binance\",\n            \"name\": \"Binance\",\n            \"note\": \"\",\n            \"service\": null,\n            \"twitter\": \"https://twitter.com/binance\",\n            \"type\": \"cex\",\n            \"website\": \"https://binance.com\"\n          },\n          \"arkhamLabel\": {\n            \"address\": \"0xe1940f578743367F38D3f25c2D2d32D6636929B6\",\n            \"chainType\": \"evm\",\n            \"name\": \"SingleOwnerMSCA (Proxy)\"\n          },\n          \"chain\": \"ethereum\",\n          \"contract\": true,\n          \"isUserAddress\": false\n        },\n        \"balance\": 1699999999.039577,\n        \"pctOfCap\": 0.02317494926268423,\n        \"usd\": 1699999999.039577\n      }\n    ]\n  },\n  \"entityTopHolders\": {},\n  \"token\": {\n    \"identifier\": {\n      \"pricingID\": \"usd-coin\"\n    },\n    \"name\": \"USDC\",\n    \"price\": 0.999831,\n    \"price24hAgo\": 0.999825,\n    \"symbol\": \"usdc\"\n  },\n  \"totalSupply\": {\n    \"ethereum\": 50539998661.70982\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26f797b9-5f0a-4f05-9698-ab1d6955eaff",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69e967ff-fdac-486c-8350-cdc382701c35",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "holders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "poolAddress",
+                      "value": "CiLg83sX8nJQMPkRwGMZYcjbgcHxaXsL6XjZre5nmeKn"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c8fe2d2-c3bc-4a07-ad15-7761d50c7e7b",
+          "name": "Get current market data for a token",
+          "request": {
+            "name": "Get current market data for a token",
+            "description": {
+              "content": "Returns current market data for a token including price, market cap, volume, and supply information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "market",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "437b0d84-68ed-47b6-a043-56d59a876ffd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "market",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allTimeHigh\": 1.043,\n  \"allTimeLow\": 0.877647,\n  \"circulatingSupply\": 73354602419.50252,\n  \"fullyDilutedValue\": 73342671855.44943,\n  \"marketCap\": 73340976893,\n  \"maxPrice24h\": 0.999979,\n  \"minPrice24h\": 0.999745,\n  \"price\": 0.999831,\n  \"price180dAgo\": 0.999812,\n  \"price24hAgo\": 0.999797,\n  \"price30dAgo\": 0.999724,\n  \"price7dAgo\": 0.999852,\n  \"totalSupply\": 73355068862.08713,\n  \"totalVolume\": 7539296441\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c42d576-c6da-47b4-a1be-6066e447a43c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "market",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f8e6926-c35e-481d-9a3c-bdc8d0f90740",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "market",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b822b9b-ccc9-45ae-a7bd-7ac7d692c56c",
+          "name": "Get token price history by chain and address",
+          "request": {
+            "name": "Get token price history by chain and address",
+            "description": {
+              "content": "Returns historical price data for a token identified by its chain and contract address.\n\nOnly chains that have token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use `/token/price/history/{id}` with the token's pricing ID (e.g. `bitcoin`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "price",
+                "history",
+                ":chain",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "daily",
+                  "value": "<string>",
+                  "description": "If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) Blockchain network where the token is deployed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The token contract address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3907d5ac-2d6a-4709-b3b8-e3cf3057f809",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"marketCap\": 73287761995,\n    \"time\": \"2026-07-13T10:26:27.747Z\",\n    \"usd\": 0.999798,\n    \"volume24h\": 8228653724\n  },\n  {\n    \"marketCap\": 73290240682,\n    \"time\": \"2026-07-13T10:27:12.877Z\",\n    \"usd\": 0.9998,\n    \"volume24h\": 8232347779\n  },\n  {\n    \"marketCap\": 73286652112,\n    \"time\": \"2026-07-13T10:29:22.977Z\",\n    \"usd\": 0.999766,\n    \"volume24h\": 8252952310\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc1eb013-a73a-4d32-beab-86ce057a1b4f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4cb3cc1-ba80-469f-bd64-1d3d1e907e78",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d26ffa0f-1a1a-4489-9ad1-c4e5967aa376",
+          "name": "Get token price history by pricing ID",
+          "request": {
+            "name": "Get token price history by pricing ID",
+            "description": {
+              "content": "Returns historical price data for a token identified by its pricing ID (e.g., 'bitcoin', 'ethereum'). Returns an array of timestamped price quotes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "price",
+                "history",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "daily",
+                  "value": "<string>",
+                  "description": "If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c4c1148-c832-443d-b2ef-2cc083452692",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"marketCap\": 73287761995,\n    \"time\": \"2026-07-13T10:26:27.747Z\",\n    \"usd\": 0.999798,\n    \"volume24h\": 8228653724\n  },\n  {\n    \"marketCap\": 73290240682,\n    \"time\": \"2026-07-13T10:27:12.877Z\",\n    \"usd\": 0.9998,\n    \"volume24h\": 8232347779\n  },\n  {\n    \"marketCap\": 73286652112,\n    \"time\": \"2026-07-13T10:29:22.977Z\",\n    \"usd\": 0.999766,\n    \"volume24h\": 8252952310\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6be4c87c-f14e-4fac-9a39-3a88db54c431",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9595a21c-93b3-4dcf-9371-4b20bcb85ae2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price",
+                    "history",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "daily",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45a358fe-1010-48af-8ad0-8362d109849b",
+          "name": "Get token price change since a timestamp",
+          "request": {
+            "name": "Get token price change since a timestamp",
+            "description": {
+              "content": "Returns the token's current price and its historical price at the requested past timestamp. The absolute or percentage change can be computed from the two values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "price_change",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pastTime",
+                  "value": "<string>",
+                  "description": "(Required) Past timestamp in RFC3339 format to calculate price change from."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be8b9bc5-1460-48d8-951c-68d3f5f70fbb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price_change",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pastTime",
+                      "value": "2024-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currentPrice\": 0.999831,\n  \"historicalPrice\": 0.999357,\n  \"pricingID\": \"usd-coin\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e018bdb5-4efd-48c2-8634-16a6aba61875",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price_change",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pastTime",
+                      "value": "2024-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e93abbd-cb43-48a9-93a4-04b8811b2380",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "price_change",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pastTime",
+                      "value": "2024-01-01T00:00:00Z"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65103d57-67a1-4bcd-8cd4-ded5586cfa62",
+          "name": "Get top tokens by exchange activity",
+          "request": {
+            "name": "Get top tokens by exchange activity",
+            "description": {
+              "content": "Analyzes token activity across centralized and decentralized exchanges. Ranks tokens by volume, inflows, outflows, netflows, and other metrics over customizable time intervals.\n\nSupports filtering by chain, market cap, and specific tokens.\n\nEach result reports 'current' (metrics over the selected timeframe) and 'previous' (the same metrics averaged across the numReferencePeriods prior windows, each the length of the timeframe); the two are compared to produce the change and percentage rankings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "top"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe",
+                  "value": "<string>",
+                  "description": "(Required) Time interval for aggregation."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderByAgg",
+                  "value": "<string>",
+                  "description": "(Required) Metric to sort by."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderByDesc",
+                  "value": "<boolean>",
+                  "description": "(Required) Sort order. Use 'true' for descending, 'false' for ascending."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderByPercent",
+                  "value": "<boolean>",
+                  "description": "(Required) If 'true', sort by percentage change rather than absolute values."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) Pagination offset (starting index)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "(Required) Number of results to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "minVolume",
+                  "value": "<string>",
+                  "description": "Minimum volume filter in USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxVolume",
+                  "value": "<string>",
+                  "description": "Maximum volume filter in USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minMarketCap",
+                  "value": "<string>",
+                  "description": "Minimum market cap filter in USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxMarketCap",
+                  "value": "<string>",
+                  "description": "Maximum market cap filter in USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "numReferencePeriods",
+                  "value": "<string>",
+                  "description": "Number of prior periods (each the length of the timeframe) used as the historical baseline the current period is compared against. Default: auto (6 periods for 1h, 1 for longer timeframes). Max: 10."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenIds",
+                  "value": "<string>",
+                  "description": "Comma-separated list of CoinGecko token IDs to filter results."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef3c9bbb-2c5d-4b78-ba12-621f2fdf2cc4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "orderByAgg",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "orderByDesc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "orderByPercent",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "1000000000"
+                    },
+                    {
+                      "key": "minMarketCap",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxMarketCap",
+                      "value": "10000000000000"
+                    },
+                    {
+                      "key": "numReferencePeriods",
+                      "value": "auto"
+                    },
+                    {
+                      "key": "tokenIds",
+                      "value": "usd-coin,tether"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    {\n      \"current\": {\n        \"inflowCexVolume\": 181200000,\n        \"inflowDexVolume\": 152300000,\n        \"outflowCexVolume\": 179400000,\n        \"outflowDexVolume\": 151800000,\n        \"price\": 0.999831\n      },\n      \"previous\": {\n        \"inflowCexVolume\": 176500000,\n        \"inflowDexVolume\": 148100000,\n        \"outflowCexVolume\": 175300000,\n        \"outflowDexVolume\": 149200000,\n        \"price\": 0.999797\n      },\n      \"token\": {\n        \"id\": \"usd-coin\",\n        \"marketCap\": 73340976893,\n        \"symbol\": \"USDC\"\n      }\n    }\n  ],\n  \"total\": 8189\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1683f2a9-0e26-4bdc-a7bb-ac5aac11328d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "orderByAgg",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "orderByDesc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "orderByPercent",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "1000000000"
+                    },
+                    {
+                      "key": "minMarketCap",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxMarketCap",
+                      "value": "10000000000000"
+                    },
+                    {
+                      "key": "numReferencePeriods",
+                      "value": "auto"
+                    },
+                    {
+                      "key": "tokenIds",
+                      "value": "usd-coin,tether"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de47c6da-1924-48c8-9149-81e70405d89d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "orderByAgg",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "orderByDesc",
+                      "value": "true"
+                    },
+                    {
+                      "key": "orderByPercent",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "1000000000"
+                    },
+                    {
+                      "key": "minMarketCap",
+                      "value": "1000000"
+                    },
+                    {
+                      "key": "maxMarketCap",
+                      "value": "10000000000000"
+                    },
+                    {
+                      "key": "numReferencePeriods",
+                      "value": "auto"
+                    },
+                    {
+                      "key": "tokenIds",
+                      "value": "usd-coin,tether"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b207756-03c6-42f9-8586-a2cdb9de17b4",
+          "name": "Get top token flow",
+          "request": {
+            "name": "Get top token flow",
+            "description": {
+              "content": "Retrieves the top token flow (in USD and value) for the specified chain and address over a given duration.\n\nOnly chains with token contracts (EVM chains, Solana, Tron) return token flows here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/top_flow/{id}) for native flows.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "top_flow",
+                ":chain",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "(Required) Time range filter using relative durations."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of addresses to return per flow direction. Default: 50. Max: 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Ignored on this endpoint form — the chain is already fixed by the path. Use the pricing-ID form of this endpoint to filter flows by chain."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Ignored on this endpoint form — the chain is already fixed by the path. Use the pricing-ID form of this endpoint to filter flows by chain."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) Blockchain network where the token is deployed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The token contract address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fa689a8-a5f1-4182-a6d1-12d6a91b74f3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ],\n          \"key_1\": [\n            \"abc123\"\n          ],\n          \"key_2\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"inUSD\": 1.23,\n    \"outUSD\": 1.23,\n    \"inValue\": 1.23,\n    \"outValue\": 1.23\n  },\n  {\n    \"address\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"inUSD\": 1.23,\n    \"outUSD\": 1.23,\n    \"inValue\": 1.23,\n    \"outValue\": 1.23\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf1b77b5-7aa2-4ed3-ac90-59f6a6c6328c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6a7cc36-2b68-4118-b0bb-9742eb739949",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "069d7151-4ddb-4f59-b768-7d13c5d68a97",
+          "name": "Get top flow for a token by pricing ID",
+          "request": {
+            "name": "Get top flow for a token by pricing ID",
+            "description": {
+              "content": "Returns the top inflows/outflows for the specified token ID, aggregated by address.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "top_flow",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "(Required) Time range filter using relative durations."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Maximum number of addresses to return per flow direction. Default: 50. Max: 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "306dd025-7401-4fc8-b0c5-4bcc31a07dc8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ],\n          \"key_1\": [\n            \"abc123\"\n          ],\n          \"key_2\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ],\n          \"key_1\": [\n            \"abc123\"\n          ],\n          \"key_2\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"inUSD\": 1.23,\n    \"outUSD\": 1.23,\n    \"inValue\": 1.23,\n    \"outValue\": 1.23\n  },\n  {\n    \"address\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ],\n          \"key_1\": [\n            \"abc123\"\n          ],\n          \"key_2\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"key_0\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rank\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"excludeEntities\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"disablePage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"chain\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tagParams\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"inUSD\": 1.23,\n    \"outUSD\": 1.23,\n    \"inValue\": 1.23,\n    \"outValue\": 1.23\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c62476a-1c2d-4f04-98b8-25523cd5d75f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "da2e7788-cdf0-4ef8-80eb-930c13a387bb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "top_flow",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23ddbd84-125a-41c5-a0ab-144d2a3e729c",
+          "name": "Get trending tokens",
+          "request": {
+            "name": "Get trending tokens",
+            "description": {
+              "content": "Returns a list of currently trending tokens across multiple chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "trending"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9dc40db3-edc3-452e-9ea0-d0a6c431f39e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "trending"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"identifier\": {\n      \"pricingID\": \"bitcoin\"\n    },\n    \"name\": \"Bitcoin\",\n    \"symbol\": \"btc\"\n  },\n  {\n    \"identifier\": {\n      \"pricingID\": \"ethereum\"\n    },\n    \"name\": \"Ethereum\",\n    \"symbol\": \"eth\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b316525-dd27-4a47-9d5a-abaa38347904",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "trending"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df3530cb-26e0-4117-b76f-6bb51e561d2d",
+          "name": "Get a single trending token by ID",
+          "request": {
+            "name": "Get a single trending token by ID",
+            "description": {
+              "content": "Returns a single trending token, identified by a specific ID (e.g., \"bitcoin\", \"ethereum\").",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "trending",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2441f320-1ae6-4437-93b2-085bd34e8e2c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "trending",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allTimeHigh\": 1.043,\n  \"allTimeLow\": 0.877647,\n  \"circulatingSupply\": 73354602419.50252,\n  \"name\": \"USDC\",\n  \"price\": 0.999831,\n  \"price24hAgo\": 0.999825,\n  \"pricingID\": \"usd-coin\",\n  \"symbol\": \"usdc\",\n  \"totalSupply\": 73355068862.08713,\n  \"volume24h\": 7539296441\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f8c5efb-cd4b-48b9-8740-7f5e57c8a2e7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "trending",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "657119ba-fabc-4614-a197-80e7f6e8d0b5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "trending",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4cbc80e-4a3e-4529-93c5-308db4189d44",
+          "name": "Get volume for a token by chain/address",
+          "request": {
+            "name": "Get volume for a token by chain/address",
+            "description": {
+              "content": "Returns exchange flow for the specified token contract on a given chain, bucketed by time.\n\nEach bucket reports the token's flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.\n\nThis form looks the token up by its contract address, so it only covers chains that have token contracts (EVM chains, Solana, Tron). UTXO assets such as Bitcoin and Dogecoin have no token contract and return no data here; use the pricing-ID form (/token/volume/{id}) for their native flows.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "volume",
+                ":chain",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) Blockchain network where the token is deployed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The token contract address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "558941ba-e533-4456-bd8f-f1c9d52f739d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"inUSD\": 968891.0319822108,\n    \"inValue\": 968891.037339,\n    \"outUSD\": 1233415.5464420319,\n    \"outValue\": 1233415.563605,\n    \"time\": \"2026-07-12T16:00:00Z\"\n  },\n  {\n    \"inUSD\": 1187226.4781189265,\n    \"inValue\": 1187226.461162,\n    \"outUSD\": 1275054.663351059,\n    \"outValue\": 1275054.650006,\n    \"time\": \"2026-07-12T17:00:00Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b37f8039-e786-4fdb-8a70-31f8ee01729b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "119e9e69-c520-45e1-b4bd-6c21f8b49ef8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":chain",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) Blockchain network where the token is deployed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The token contract address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48698129-b321-4f01-9472-f96c25ad7183",
+          "name": "Get volume for a token by pricing ID",
+          "request": {
+            "name": "Get volume for a token by pricing ID",
+            "description": {
+              "content": "Returns exchange flow for the specified token, bucketed by time.\n\nEach bucket reports the token's flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.\n\nThis form resolves the token by pricing ID, so it also covers native assets such as Bitcoin and Dogecoin.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "volume",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The CoinGecko pricing ID of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9a885a0-5f96-44a3-9c5d-dd98a7148d75",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"inUSD\": 2399721.9841460586,\n    \"inValue\": 37.44615725,\n    \"outUSD\": 6826024.15839386,\n    \"outValue\": 106.51191897,\n    \"time\": \"2026-07-12T16:00:00Z\"\n  },\n  {\n    \"inUSD\": 3211115.482628137,\n    \"inValue\": 50.12274685,\n    \"outUSD\": 4771902.633152008,\n    \"outValue\": 74.42026910000001,\n    \"time\": \"2026-07-12T17:00:00Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fac11b32-41dd-46ea-a83e-790326992717",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9769e5e2-cd03-432c-8d43-6f0f5d308c16",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "volume",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The CoinGecko pricing ID of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "19b4b5a6-386c-4b1d-90fb-2848f5ee4549",
+    "name": "Arkham Intel Analytics Token API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

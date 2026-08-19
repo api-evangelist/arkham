@@ -1,0 +1,131 @@
+{
+  "item": [
+    {
+      "id": "96c8d1bc-d322-49aa-8d64-6f0b37bacb01",
+      "name": "Chains",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ce75474-d2ad-4d8c-be08-f3a7b7e5e1f8",
+          "name": "Get supported chains list",
+          "request": {
+            "name": "Get supported chains list",
+            "description": {
+              "content": "Retrieves a list of supported blockchain chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "105fb9e1-b7d7-4cfb-b0dd-2970825b82c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"ethereum\",\n  \"bitcoin\",\n  \"tron\",\n  \"polygon\",\n  \"bsc\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "437437f7-809e-42eb-8d8b-afdb3553d060",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c4ae1a0a-40c2-4aea-a093-4b53107accdb",
+    "name": "Arkham Intel Analytics Chains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

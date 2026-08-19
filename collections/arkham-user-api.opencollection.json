@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics User API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List your alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/alerts"
+          },
+          "docs": "Returns every alert owned by the authenticated caller as a list of `AlertParam` objects. Results are unpaginated and in no particular order."
+        },
+        {
+          "info": {
+            "name": "Create an alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/alerts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new alert that notifies the caller when on-chain transfers match the supplied filter.\n\n**Request body** (`AlertRequest`):\n- **name**: Human-readable alert name.\n- **enabled**: Whether the alert delivers notifications. Disabled alerts are stored but do not notify.\n- **base / from / to**: Comma-separated address, entity, or deposit selectors in the same syntax as `GET /transfers`. Pass `[\"all\"]` on `base` to match every transfer (Pro only).\n- **tokens**: Token IDs or chain:address pairs "
+        },
+        {
+          "info": {
+            "name": "Get a single alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/alerts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the `AlertParam` for one alert owned by the caller.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert.\n\n**Response:** `404 Not Found` if the alert does not exist or is owned by a different user."
+        },
+        {
+          "info": {
+            "name": "Update an alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/alerts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the configuration of an existing alert. The caller must own the alert — 404 is returned otherwise.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert to update.\n\n**Request body:** An `AlertRequest` with the desired new configuration — same shape as `POST /user/alerts`.\n\n**Validation:** Same Pro / non-Pro rules as `POST /user/alerts` — non-Pro users must still supply a restrictive filter or `usdGte >= 10000000`.\n\n**Response:** `204 No Content` on success."
+        },
+        {
+          "info": {
+            "name": "Delete an alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/alerts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an alert owned by the caller.\n\n**Path parameter:**\n- **id**: The numeric ID of the alert to delete.\n\n**Response:** `204 No Content` on success."
+        },
+        {
+          "info": {
+            "name": "List all private entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/entities",
+            "params": [
+              {
+                "name": "includeAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address lists in the response. Accepts 'true' or 'false'. Defaults to 'true'."
+              }
+            ]
+          },
+          "docs": "Retrieves all private entities for the authenticated user. Returns both user-created private entities and customized Arkham entities.\n\nUse the includeAddresses parameter to control whether address lists are included in the response (default: true)."
+        },
+        {
+          "info": {
+            "name": "Update a private entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/entities/only_add/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to update. Can be a user-created entity ID or an Arkham entity ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing private entity. Allows modification of the entity name, note, and associated addresses.\n\nFor user-created entities, the full entity is updated. For Arkham entities, only the user's custom address associations are updated. Maximum of 5000 addresses can be updated at once."
+        },
+        {
+          "info": {
+            "name": "Get a private entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/entities/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to retrieve. Can be a user-created entity ID or an Arkham entity ID."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific private entity by its ID. Returns the entity details including name, note, and associated addresses.\n\nSupports both user-created private entities and customized Arkham entities."
+        },
+        {
+          "info": {
+            "name": "Get user labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/labels"
+          },
+          "docs": "Retrieves a list of labels for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/labels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more labels for the authenticated user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

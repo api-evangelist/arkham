@@ -1,0 +1,1049 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Intelligence API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intelligence",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch lookup address intelligence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/intelligence/address/batch",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by. If omitted, auto-detects the best chain."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Single blockchain network to filter all addresses to. If omitted, auto-detects per address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns intelligence for up to 1000 addresses in a single request. Send a POST body with an `addresses` array of blockchain addresses. Optionally filter results with the `chain` query parameter (a single network) or `chains` (multiple networks). If neither is provided, the best chain is auto-detected per address."
+        },
+        {
+          "info": {
+            "name": "Batch lookup address intelligence across all chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/intelligence/address/batch/all",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by. If omitted, auto-detects the best chain."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Single blockchain network to filter all addresses to. If omitted, auto-detects per address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns intelligence for up to 1000 addresses across all supported chains. Send a JSON body with an \"addresses\" array of blockchain addresses."
+        },
+        {
+          "info": {
+            "name": "Get intelligence about an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/address/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain network to query. Only one network is used: if multiple values are provided, only the first applies. If omitted, the best chain is auto-detected across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query."
+              }
+            ]
+          },
+          "docs": "Returns intelligence data for the specified address, including entity associations, labels, and contract status."
+        },
+        {
+          "info": {
+            "name": "Get all intelligence about an address across chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/address/:address/all",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query across all compatible chains."
+              }
+            ]
+          },
+          "docs": "Returns multi-chain intelligence for the provided address, with data for each supported chain where the address format is valid."
+        },
+        {
+          "info": {
+            "name": "Batch lookup enriched address intelligence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/intelligence/address_enriched/batch",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "list of chains to filter by. If omitted, auto-detects the best chain."
+              },
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address tags in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeClusters",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include cluster IDs in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeEntityPredictions",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include entity predictions in the response. Defaults to 'true'."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Single blockchain network to filter all addresses to. If omitted, auto-detects per address."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns enriched intelligence (with tags, clusters, entity predictions) for up to 1000 addresses in a single request. Send a JSON body with an \"addresses\" array of blockchain addresses."
+        },
+        {
+          "info": {
+            "name": "Batch lookup enriched address intelligence across all chains",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/intelligence/address_enriched/batch/all",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "list of chains to filter by. If omitted, queries all supported chains."
+              },
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address tags in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeClusters",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include cluster IDs in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeEntityPredictions",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include entity predictions in the response. Defaults to 'true'."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns enriched intelligence (with tags, clusters, entity predictions) for up to 1000 addresses across all supported chains. Send a JSON body with an \"addresses\" array of blockchain addresses."
+        },
+        {
+          "info": {
+            "name": "Get intelligence about an address with additional address information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/address_enriched/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain network to query. Only one network is used: if multiple values are provided, only the first applies. If omitted, the best chain is auto-detected across all supported chains."
+              },
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address tags in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeClusters",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include cluster IDs in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeEntityPredictions",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include entity predictions in the response. Defaults to 'true'."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query."
+              }
+            ]
+          },
+          "docs": "Similar to /intelligence/address/{address}, but includes additional address information (tags, cluster IDs, entity predictions). By default, includes tags, entity predictions, and cluster IDs. Use query parameters to exclude specific enrichments."
+        },
+        {
+          "info": {
+            "name": "Get intelligence about an address on all chains with additional address information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/address_enriched/:address/all",
+            "params": [
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address tags in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeEntityPredictions",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include entity predictions in the response. Defaults to 'true'."
+              },
+              {
+                "name": "includeClusters",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include cluster IDs in the response. Defaults to 'true'."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query across all compatible chains."
+              }
+            ]
+          },
+          "docs": "Similar to /intelligence/address_enriched/{address}, but aggregates data across every supported chain. By default, includes tags, entity predictions, and cluster IDs. Use query parameters to exclude specific enrichments."
+        },
+        {
+          "info": {
+            "name": "Get address-tag association updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/address_tags/updates",
+            "params": [
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Returns changes since this time. Required unless both 'from' and 'to' are provided; mutually exclusive with 'from'/'to'."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window (use with 'to', max 7-day window). Provide together with 'to' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (use with 'from', max 7-day window). Provide together with 'from' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by change status. For address tags only 'new', 'deleted', and 'all' are valid (no 'updated')."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain networks to filter by."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain addresses to filter by. Max 100."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "query",
+                "description": "Tag IDs to filter by. Max 100."
+              },
+              {
+                "name": "tagParams",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag parameters (JSON string matching tag-specific params)."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "Entity IDs to filter by. Max 100."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Tag categories to filter by. Max 100."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'time' (asc) or 'rank' (desc). Default 'time'."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return (1-1000, default 100)."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Cursor token for pagination (from previous response)."
+              }
+            ]
+          },
+          "docs": "Returns a feed of address-tag association changes (new tags applied to addresses, removed tags) with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get address intelligence updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/addresses/updates",
+            "params": [
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Returns changes since this time. Required unless both 'from' and 'to' are provided; mutually exclusive with 'from'/'to'."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window (use with 'to', max 7-day window). Provide together with 'to' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (use with 'from', max 7-day window). Provide together with 'from' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by change status."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain addresses to filter by. Max 100."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain networks to filter by."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "Entity IDs to filter by. Max 100."
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query",
+                "description": "Entity types to filter by. Max 100."
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Filter by address label."
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Filter by service addresses."
+              },
+              {
+                "name": "depositExchangeId",
+                "value": "",
+                "type": "query",
+                "description": "Deposit exchange entity IDs to filter by. Max 100."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "query",
+                "description": "Tag IDs to filter by. Max 100."
+              },
+              {
+                "name": "tagParams",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag parameters (JSON string matching tag-specific params)."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'time' (asc), 'balance', 'volume', or 'transfers' (desc). Default 'time'."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return (1-1000, default 100)."
+              },
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include address tags in the response. Defaults to true."
+              },
+              {
+                "name": "includeEntityPredictions",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include entity predictions in the response. Defaults to true."
+              },
+              {
+                "name": "includeClusters",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include cluster data in the response. Defaults to true."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Cursor token for pagination (from previous response)."
+              }
+            ]
+          },
+          "docs": "Returns a feed of address label, entity, and tag changes with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get intelligence about a contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/contract/:chain/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the contract is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The contract address to query."
+              }
+            ]
+          },
+          "docs": "Returns contract metadata for the specified chain and address, including deployer information, proxy status, and block timestamp. Returns 404 if no contract is found at the given chain and address."
+        },
+        {
+          "info": {
+            "name": "Get entity intelligence updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entities/updates",
+            "params": [
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Returns changes since this time. Required unless both 'from' and 'to' are provided; mutually exclusive with 'from'/'to'."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window (use with 'to', max 7-day window). Provide together with 'to' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (use with 'from', max 7-day window). Provide together with 'from' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by change status."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "Entity IDs to filter by. Max 100."
+              },
+              {
+                "name": "entityType",
+                "value": "",
+                "type": "query",
+                "description": "Entity types to filter by. Max 100."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'time' (asc), 'balance', 'volume', or 'addressCount' (desc). Default 'time'."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return (1-1000, default 100)."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Cursor token for pagination (from previous response)."
+              }
+            ]
+          },
+          "docs": "Returns a feed of entity changes (new entities, name updates, type changes, deletions) with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get intelligence about an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entity/:entity",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query."
+              }
+            ]
+          },
+          "docs": "Returns top-level entity information, including associated tags, social links, and metadata."
+        },
+        {
+          "info": {
+            "name": "Get entity summary statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entity/:entity/summary",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to retrieve summary statistics for."
+              }
+            ]
+          },
+          "docs": "Returns summary statistics for the specified entity, including:\n- Total number of unique addresses (deduplicated across chains)\n- Total balance in USD across all chains\n- Total transfer volume in USD\n- First and last transfer timestamps\n\nSupports Arkham entities and user-created entities. When authenticated, user-added addresses are included for Arkham entities.\n\n**Shareable user entities:** If a user entity is marked as shareable, any authenticated or unauthenticated user can access the summary"
+        },
+        {
+          "info": {
+            "name": "Get entity balance changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entity_balance_changes",
+            "params": [
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by. One of: balanceUsd, balanceUsdChange, balanceUsdPctChange, balanceUnit, balanceUnitChange, balanceUnitPctChange."
+              },
+              {
+                "name": "orderDir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction: 'asc' for ascending or 'desc' for descending."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Time interval for balance change calculation. One of '7d', '14d', or '30d'."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by."
+              },
+              {
+                "name": "entityTypes",
+                "value": "",
+                "type": "query",
+                "description": "List of entity types to filter by."
+              },
+              {
+                "name": "entityIds",
+                "value": "",
+                "type": "query",
+                "description": "List of specific entity IDs to filter by."
+              },
+              {
+                "name": "entityTags",
+                "value": "",
+                "type": "query",
+                "description": "List of entity tags to include. Requires elevated access; requests using this parameter without it may return 403."
+              },
+              {
+                "name": "negatedEntityTags",
+                "value": "",
+                "type": "query",
+                "description": "List of entity tags to exclude. Requires elevated access; requests using this parameter without it may return 403."
+              },
+              {
+                "name": "pricingIds",
+                "value": "",
+                "type": "query",
+                "description": "List of CoinGecko pricing IDs to filter by."
+              },
+              {
+                "name": "balanceMin",
+                "value": "",
+                "type": "query",
+                "description": "Minimum balance threshold in USD to filter entities."
+              },
+              {
+                "name": "balanceMax",
+                "value": "",
+                "type": "query",
+                "description": "Maximum balance threshold in USD to filter entities."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page. Required; must be between 1 and 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to skip from the beginning."
+              }
+            ]
+          },
+          "docs": "Returns a ranked list of entities with their balance changes over a specified time interval. Filter by chain, entity type, token, and balance thresholds. Useful for tracking which entities are accumulating or distributing assets."
+        },
+        {
+          "info": {
+            "name": "Get predictions for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entity_predictions/:entity",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to retrieve address predictions for."
+              }
+            ]
+          },
+          "docs": "Returns predicted addresses for the specified entity. These predictions are generated using machine learning algorithms to identify addresses that may belong to the entity based on transaction patterns and other blockchain data. Returns up to 1000 predictions per entity, sorted by USD balance."
+        },
+        {
+          "info": {
+            "name": "Get all entity types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/entity_types"
+          },
+          "docs": "Returns the list of all entity type classifications (e.g., 'cex', 'dex', 'fund', 'individual'). Use these values to filter other intelligence endpoints by entity type."
+        },
+        {
+          "info": {
+            "name": "Search addresses, entities, tokens, and pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query string to match against entities, addresses, tokens, pools, ENS names, and more. An empty query returns no results."
+              },
+              {
+                "name": "arkhamEntities",
+                "value": "",
+                "type": "query",
+                "description": "Max Arkham-curated entities to return (0–50, default 5)."
+              },
+              {
+                "name": "arkhamAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Max Arkham-curated addresses with labels to return (0–50, default 5)."
+              },
+              {
+                "name": "userEntities",
+                "value": "",
+                "type": "query",
+                "description": "Max user-defined entities to return (0–50, default 5). Requires authentication."
+              },
+              {
+                "name": "userAddresses",
+                "value": "",
+                "type": "query",
+                "description": "Max user-defined addresses with labels to return (0–50, default 5). Requires authentication."
+              },
+              {
+                "name": "ens",
+                "value": "",
+                "type": "query",
+                "description": "Max ENS primary names to return (0–50, default 5)."
+              },
+              {
+                "name": "types",
+                "value": "",
+                "type": "query",
+                "description": "Max entity-type matches to return (0–50, default 5)."
+              },
+              {
+                "name": "services",
+                "value": "",
+                "type": "query",
+                "description": "Max CEX/VASP entities to return (0–50, default 5)."
+              },
+              {
+                "name": "twitter",
+                "value": "",
+                "type": "query",
+                "description": "Max Twitter-handle matches to return (0–50, default 5)."
+              },
+              {
+                "name": "opensea",
+                "value": "",
+                "type": "query",
+                "description": "Max OpenSea usernames to return (0–50, default 5)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Max tokens to return (0–50, default 5)."
+              },
+              {
+                "name": "pools",
+                "value": "",
+                "type": "query",
+                "description": "Max Solana pools to return (0–50, default 5)."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Max tag matches to return (0–50, default 0)."
+              },
+              {
+                "name": "polymarketEvents",
+                "value": "",
+                "type": "query",
+                "description": "Max Polymarket prediction events to return (0–50, default 0). Also enables the predictions-wallet match for address queries."
+              },
+              {
+                "name": "arkhamEntitiesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N Arkham entities (0–500, default 0)."
+              },
+              {
+                "name": "arkhamAddressesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N Arkham addresses with labels (0–500, default 0)."
+              },
+              {
+                "name": "userEntitiesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N user entities (0–500, default 0)."
+              },
+              {
+                "name": "userAddressesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N user addresses with labels (0–500, default 0)."
+              },
+              {
+                "name": "ensOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N ENS names (0–500, default 0)."
+              },
+              {
+                "name": "typesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N entity-type matches (0–500, default 0)."
+              },
+              {
+                "name": "servicesOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N CEX/VASP entities (0–500, default 0)."
+              },
+              {
+                "name": "twitterOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N Twitter matches (0–500, default 0)."
+              },
+              {
+                "name": "openseaOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N OpenSea usernames (0–500, default 0)."
+              },
+              {
+                "name": "tokensOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N tokens (0–500, default 0)."
+              },
+              {
+                "name": "poolsOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N pools (0–500, default 0)."
+              },
+              {
+                "name": "tagsOffset",
+                "value": "",
+                "type": "query",
+                "description": "Skip the first N tag matches (0–500, default 0)."
+              },
+              {
+                "name": "filterLimits",
+                "value": "",
+                "type": "query",
+                "description": "(Legacy. Prefer flat parameters such as arkhamAddresses=50.) URL-encoded JSON object specifying maximum results per category. Each value is capped at 50; defaults to 5 per category. Flat parameters, when provided, override values in this object."
+              },
+              {
+                "name": "filterOffsets",
+                "value": "",
+                "type": "query",
+                "description": "(Legacy. Prefer flat parameters such as arkhamAddressesOffset=10.) URL-encoded JSON object specifying pagination offset per category. Each value is capped at 500; defaults to 0 per category. Flat parameters, when provided, override values in this object."
+              }
+            ]
+          },
+          "docs": "Full-text search across addresses, entities, tokens, and Solana pools. Returns matching results ranked by relevance."
+        },
+        {
+          "info": {
+            "name": "Get tag definition updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/tags/updates",
+            "params": [
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Returns changes since this time. Required unless both 'from' and 'to' are provided; mutually exclusive with 'from'/'to'."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of time window (use with 'to', max 7-day window). Provide together with 'to' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (use with 'from', max 7-day window). Provide together with 'from' as an alternative to 'since'; mutually exclusive with 'since'."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by change status."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "query",
+                "description": "Tag IDs to filter by. Max 100."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Tag categories to filter by. Max 100."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: 'time' (asc), 'addressCount', or 'entityCount' (desc). Default 'time'."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return (1-1000, default 100)."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Cursor token for pagination (from previous response)."
+              }
+            ]
+          },
+          "docs": "Returns a feed of tag definition changes (new tags, updated descriptions, rank changes, deletions) with cursor-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get intelligence on a token by chain/address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/token/:chain/:address",
+            "params": [
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address to query."
+              }
+            ]
+          },
+          "docs": "Retrieve basic token info using chain and contract address."
+        },
+        {
+          "info": {
+            "name": "Get intelligence on a token by CoinGecko pricing ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/intelligence/token/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Retrieve basic token info using the CoinGecko pricing ID (e.g., \"bitcoin\", \"ethereum\")."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

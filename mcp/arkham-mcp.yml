@@ -2,12 +2,11 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/arkham-openapi-original.json
-note: >-
-  No official hosted Arkham MCP server was found. Arkham's "Using with Coding Agents" guide instructs
+note: No official hosted Arkham MCP server was found. Arkham's "Using with Coding Agents" guide instructs
   users to build their own local MCP server (pip install mcp requests) against the REST API, and ships
-  an agent-native x402 pay-per-request surface (api.arkm.com/x402 with /skill.md and /openapi.json).
-  This is a DERIVED candidate tool list mapping marquee read operations to MCP tools; not an official
-  server. The x402 skill (skills/arkham-x402-agent-skill.md) is the provider-published agent surface.
+  an agent-native x402 pay-per-request surface (api.arkm.com/x402 with /skill.md and /openapi.json). This
+  is a DERIVED candidate tool list mapping marquee read operations to MCP tools; not an official server.
+  The x402 skill (skills/arkham-x402-agent-skill.md) is the provider-published agent surface.
 agent_surfaces:
   x402_base_url: https://api.arkm.com/x402
   x402_skill: https://api.arkm.com/x402/skill.md
@@ -54,3 +53,9 @@ tools:
 - name: get_risk_score_address
   description: Get the risk score for an address (beta).
   source_operation: openapi/arkham-openapi-original.json#GetRiskScoreAddress
+deployment:
+  mode: none
+  verified: derived
+  tools: 12
+  checked: '2026-08-12'
+  source: catalog MCP census

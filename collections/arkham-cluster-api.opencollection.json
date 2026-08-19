@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Cluster API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get cluster summary statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/cluster/:id/summary",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the cluster to summarize."
+              }
+            ]
+          },
+          "docs": "Returns summary statistics for the specified cluster, including:\n- Total number of unique addresses in the cluster\n- Total balance in USD\n- Total transaction volume in USD\n- First and last transaction timestamps\n\nClusters are groups of addresses that have been linked together through on-chain heuristics (e.g., Bitcoin input clustering).\n\nTo find a cluster ID, look up an address with GET /intelligence/address_enriched/{address} and read its clusterIds field."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

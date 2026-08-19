@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Ws API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ws",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active WebSocket connections (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/active_connections"
+          },
+          "docs": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns the number of active WebSocket connections for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get WebSocket pricing info (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/session-info"
+          },
+          "docs": "**Deprecated:** v1 session pricing. Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams) — v2 has no per-session fee.\n\nReturns the current pricing information for WebSocket sessions, including the credit cost per session creation and per transfer received."
+        },
+        {
+          "info": {
+            "name": "List WebSocket sessions (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/sessions"
+          },
+          "docs": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns all WebSocket sessions for the authenticated user, including usage statistics and connection status."
+        },
+        {
+          "info": {
+            "name": "Create WebSocket session (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/ws/sessions"
+          },
+          "docs": "**Deprecated:** Use the v2 WebSocket stream endpoints instead. See GET /ws/v2/streams for details. V2 offers lower cost (no session creation fee) and better performance.\n\nCreates a new WebSocket session for real-time transfer streaming.\n\nYou must create a session before connecting to the WebSocket stream. The returned sessionId should be passed as a query parameter when connecting: wss://api.arkm.com/ws/transfers?session_id=<sessionId>\n\n**Billing:** Session creation costs API credits. Check GET "
+        },
+        {
+          "info": {
+            "name": "Get WebSocket session status (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The session ID to retrieve"
+              }
+            ]
+          },
+          "docs": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns the status and usage details for a specific WebSocket session, including transfer count and connection status."
+        },
+        {
+          "info": {
+            "name": "Delete WebSocket session (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/ws/sessions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The session ID to delete"
+              }
+            ]
+          },
+          "docs": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nDeletes a WebSocket session. Any active connection using this session will be disconnected."
+        },
+        {
+          "info": {
+            "name": "WebSocket transfer streaming (deprecated — use v2)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/transfers"
+          },
+          "docs": "**Deprecated:** This is the v1 WebSocket endpoint. Use the v2 WebSocket stream endpoints for improved cost and performance. See GET /ws/v2/streams for details.\n\nWebSocket endpoint for streaming real-time blockchain transfers.\n\n**Getting Started:**\n1. Create a session by calling POST /ws/sessions - this returns a sessionId\n2. Connect to wss://api.arkm.com/ws/transfers?session_id=<your-session-id> with your API-Key header\n3. Send a subscribe message with your transfer filters to start receiving da"
+        },
+        {
+          "info": {
+            "name": "List WebSocket v2 streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/v2/streams"
+          },
+          "docs": "Returns all WebSocket v2 streams for the authenticated user.\n\n**How v2 works (3 steps):**\n1. **Create** a stream with your transfer filter via POST /ws/v2/streams — the filter uses the same fields as GET /transfers, sent as a JSON request body\n2. **Connect** via WebSocket: wss://api.arkm.com/ws/v2/transfers?stream_id=<streamId> with your API-Key header\n3. **Receive** transfers automatically — no subscribe/unsubscribe messages needed\n\n**Key differences from v1:** In v2, each stream has exactly on"
+        },
+        {
+          "info": {
+            "name": "Create a WebSocket v2 stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/ws/v2/streams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new WebSocket v2 stream with the given transfer filter, sent as a JSON request body.\n\nThe filter is set at creation time and cannot be changed. To use a different filter, delete this stream and create a new one.\n\n**Filter requirements:** Must include at least one of: base, from, to, tokens, or usdGte >= 250,000.\n\n**Filter parameters:**\n- **base** — Entity name or wallet address to monitor. Shows transfers where this appears as sender or receiver. E.g. \"binance\" or \"0x123abc\".\n- **chain"
+        },
+        {
+          "info": {
+            "name": "Delete a WebSocket v2 stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/ws/v2/streams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here."
+              }
+            ]
+          },
+          "docs": "Deletes a WebSocket v2 stream. Any active connection using this stream will be disconnected.\n\n**Billing:** Free."
+        },
+        {
+          "info": {
+            "name": "WebSocket v2 transfer streaming",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ws/v2/transfers"
+          },
+          "docs": "Connect to a v2 stream to receive real-time transfer notifications.\n\n**Query Parameters:**\n- stream_id (required) — The stream ID from POST /ws/v2/streams\n\nTransfers matching the stream's filter are delivered automatically — no subscribe/unsubscribe messages needed. Each message is a JSON envelope: {\"type\":\"transfer\",\"payload\":{\"transfer\":{...},\"alertId\":N}}. The payload.transfer object has the same schema as GET /transfers responses.\n\n**Reconnection and replay:** Streams expire after 10 minutes"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

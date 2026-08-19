@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Chains API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get supported chains list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chains"
+          },
+          "docs": "Retrieves a list of supported blockchain chains."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

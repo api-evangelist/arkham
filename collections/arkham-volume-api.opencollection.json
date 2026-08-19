@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Volume API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Volume",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transfer volume for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/volume/address/:address",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by. If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query transfer volume for."
+              }
+            ]
+          },
+          "docs": "Returns transfer volume snapshots for the specified address, broken down by chain."
+        },
+        {
+          "info": {
+            "name": "Get transfer volume for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/volume/entity/:entity",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by. If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query transfer volume for."
+              }
+            ]
+          },
+          "docs": "Returns transfer volume snapshots for the specified entity, broken down by chain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

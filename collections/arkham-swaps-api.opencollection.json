@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Swaps API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Swaps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get swaps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/swaps",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter by specific entity or address involved in the swap. Required — omitting it returns an empty list."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,solana'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Swap direction relative to the base address. Valid values: 'in' (receiving token1), 'out' (sending token0), or 'all'. Defaults to 'all'."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "List of token addresses or token IDs that appear as either token0 or token1."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Filter to swaps where the base sold one of these tokens (token addresses or token IDs). Combine with 'to' for a specific sold/bought trade. To match a token on either side regardless of direction use 'tokens'; to filter by the transaction parties instead, use senders/receivers."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Filter to swaps where the base bought one of these tokens (token addresses or token IDs). Combine with 'from' for a specific sold/bought trade."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter swaps at or after this time (unix ms, unix seconds, RFC3339, or YYYY-MM-DD)."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter swaps at or before this time (unix ms, unix seconds, RFC3339, or YYYY-MM-DD)."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Time range filter using relative durations (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+              },
+              {
+                "name": "value0Gte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum token0 amount (decimal-adjusted; matched on absolute value)."
+              },
+              {
+                "name": "value0Lte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum token0 amount (decimal-adjusted; matched on absolute value)."
+              },
+              {
+                "name": "value1Gte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum token1 amount (decimal-adjusted; matched on absolute value)."
+              },
+              {
+                "name": "value1Lte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum token1 amount (decimal-adjusted; matched on absolute value)."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Minimum historical USD value."
+              },
+              {
+                "name": "usdLte",
+                "value": "",
+                "type": "query",
+                "description": "Maximum historical USD value."
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Field by which to sort the results. One of: time, usd."
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction: 'asc' (ascending) or 'desc' (descending). Defaults to 'desc'."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default: 20. Max: 1649."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. offset + limit must not exceed 10000."
+              },
+              {
+                "name": "counterparties",
+                "value": "",
+                "type": "query",
+                "description": "List of addresses or entities to treat strictly as counterparties."
+              },
+              {
+                "name": "senders",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the transaction parties that initiated the swap (sender addresses or entities). Distinct from 'from', which filters on the sold token."
+              },
+              {
+                "name": "receivers",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the transaction parties that received the swap output (receiver addresses or entities). Distinct from 'to', which filters on the bought token."
+              },
+              {
+                "name": "protocols",
+                "value": "",
+                "type": "query",
+                "description": "Filter by protocol/DEX addresses or entity IDs."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of swaps (DEX trades) based on various query filters.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Portfolio API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get address portfolio history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/portfolio/address/:address",
+            "params": [
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query portfolio history for."
+              }
+            ]
+          },
+          "docs": "Retrieves historical portfolio snapshots for the specified address across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID."
+        },
+        {
+          "info": {
+            "name": "Get entity portfolio history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/portfolio/entity/:entity",
+            "params": [
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID."
+              }
+            ]
+          },
+          "docs": "Retrieves historical portfolio snapshots for the specified entity across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID."
+        },
+        {
+          "info": {
+            "name": "Get daily time series data for an address's token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/portfolio/timeSeries/address/:address",
+            "params": [
+              {
+                "name": "pricingId",
+                "value": "",
+                "type": "query",
+                "description": "The CoinGecko pricing ID of the token to track."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query time series data for."
+              }
+            ]
+          },
+          "docs": "Returns daily snapshots (in UTC) of the specified address's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID."
+        },
+        {
+          "info": {
+            "name": "Get daily time series data for an entity's token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/portfolio/timeSeries/entity/:entity",
+            "params": [
+              {
+                "name": "pricingId",
+                "value": "",
+                "type": "query",
+                "description": "The CoinGecko pricing ID of the token to track."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID."
+              }
+            ]
+          },
+          "docs": "Returns daily snapshots (in UTC) of the specified entity's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

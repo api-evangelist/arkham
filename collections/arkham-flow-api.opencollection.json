@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Flow API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical USD flows for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/flow/address/:address",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query flow data for."
+              }
+            ]
+          },
+          "docs": "Returns historical USD inflows, outflows, and cumulative totals for the specified address across supported chains."
+        },
+        {
+          "info": {
+            "name": "Get historical USD flows for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/flow/entity/:entity",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bitcoin'). If omitted, returns data across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query flow data for."
+              }
+            ]
+          },
+          "docs": "Returns historical USD inflows, outflows, and cumulative totals for the specified entity across supported chains."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

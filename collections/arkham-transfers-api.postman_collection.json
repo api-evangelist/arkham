@@ -1,0 +1,2134 @@
+{
+  "item": [
+    {
+      "id": "5e5350e6-a6ed-43f3-ae78-788ca8c3cf44",
+      "name": "Transfers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4fc02881-324c-418c-9907-b744acc1f2fa",
+          "name": "Get transfers",
+          "request": {
+            "name": "Get transfers",
+            "description": {
+              "content": "Retrieves a list of transfers based on various query filters.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.\n\n**Filter parameters:**\n- **base**: Filter by specific entity or address. For example, \"0x123abc\" or \"binance\".\n- **chains**: Specify a comma-separated list of chains (e.g. \"ethereum,bsc\").\n- **flow**: Direction of the transfer. Valid values are \"in\" (incoming), \"out\" (outgoing), \"self\" (self-transfers), or \"all\".\n- **from**: Comma-separated list of addresses, entities, or deposit services for the 'from' side of a transfer. You can also use special syntax like \"type:cex\" to filter on entity types or \"deposit:binance\" to filter on deposit addresses.\n- **to**: Comma-separated list of addresses, entities, or deposit services for the 'to' side.\n- **tokens**: Comma-separated list of token addresses or token IDs. E.g. \"ethereum\", \"usd-coin\", or \"0x...tokenAddress\".\n- **counterparties**: Comma-separated list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers).\n- **timeLast**: Filter transfers from a recent duration. For example, \"24h\" returns transfers from the last 24 hours.\n- **timeGte/timeLte**: Filter from/to a specific timestamp in milliseconds.\n- **valueGte/valueLte**: Numeric filters on the raw token amount (on-chain units).\n- **usdGte/usdLte**: Numeric filters on the historical USD value of the transfer.\n- **sortKey**: Field by which to sort the results. Options include \"time\", \"value\", or \"usd\".\n- **sortDir**: Sorting direction. Use \"asc\" for ascending or \"desc\" for descending.\n- **limit**: Maximum number of results to return (default is 20).\n- **offset**: Pagination offset (default is 0).\n\n**Real-time streaming:** For live transfer notifications instead of polling, use the WebSocket API. See GET /ws/transfers for real-time streaming with the same filtering capabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter after a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter before a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter using a duration string."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "<string>",
+                  "description": "Direction for sorting results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default: 20. Max: 1650."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. offset + limit must not exceed 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCursors",
+                  "value": "<boolean>",
+                  "description": "Include per-chain as-of cursors in the response. Default: false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92646c1e-b3ee-423b-b710-f04989ee450a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transfers\": [\n    {\n      \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"fromAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"fromIsContract\": true,\n      \"toAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"toIsContract\": true,\n      \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n      \"blockNumber\": 1,\n      \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"tokenName\": \"USD Coin\",\n      \"tokenSymbol\": \"USDC\",\n      \"tokenDecimals\": 1,\n      \"unitValue\": 1.23,\n      \"tokenId\": \"usd-coin\",\n      \"historicalUSD\": 1.23,\n      \"assetId\": \"usd-coin\",\n      \"chain\": \"ethereum\"\n    },\n    {\n      \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"fromAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"fromIsContract\": true,\n      \"toAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"toIsContract\": true,\n      \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n      \"blockNumber\": 1,\n      \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"tokenName\": \"USD Coin\",\n      \"tokenSymbol\": \"USDC\",\n      \"tokenDecimals\": 1,\n      \"unitValue\": 1.23,\n      \"tokenId\": \"usd-coin\",\n      \"historicalUSD\": 1.23,\n      \"assetId\": \"usd-coin\",\n      \"chain\": \"ethereum\"\n    }\n  ],\n  \"count\": 10,\n  \"cursors\": {\n    \"ethereum\": 454726633\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "176d4cec-fdb6-4a3a-93a1-c4f484582e13",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a054ecff-dac3-4d28-a638-93b90be541f1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07d32b76-dc6d-4f0c-99bb-c4447b406b66",
+          "name": "Get a detailed histogram of transfers (API Only)",
+          "request": {
+            "name": "Get a detailed histogram of transfers (API Only)",
+            "description": {
+              "content": "Returns an aggregated histogram of transfers over time (count and USD values) based on the same filter parameters used in /transfers.\n\n**Requires an API key** (browser-session and anonymous access are not permitted).\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.\n\n**Additional parameter**:\n- **granularity**: \"1h\" or \"1d\" (if the range exceeds 30 days, \"1h\" is invalid).\n\n**Filter parameters** (same as /transfers, minus pagination/sorting):\n- **base**: Filter by specific entity or address. For example, \"0x123abc\" or \"binance\".\n- **chains**: Specify a comma-separated list of chains (e.g. \"ethereum,bsc\").\n- **flow**: Direction of the transfer. Valid values are \"in\", \"out\", \"self\", or \"all\".\n- **timeLast**: Filter from a recent duration (e.g. \"24h\", \"7d\", \"30d\", etc.).\n- **timeGte/timeLte**: Filter from/to a specific timestamp in milliseconds.\n- **valueGte/valueLte**: Numeric filters on the raw token amount.\n- **usdGte/usdLte**: Numeric filters on the historical USD value of the transfer.\n- **from**: Comma-separated list of addresses, entities, or deposit services for the 'from' side.\n- **to**: Comma-separated list of addresses, entities, or deposit services for the 'to' side.\n- **tokens**: Comma-separated list of token addresses or token IDs.\n- **counterparties**: Comma-separated list of addresses or entities to treat strictly as counterparties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "histogram"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter after a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter before a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter using a duration string."
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "Granularity of histogram buckets. For time ranges over 30 days, only '1d' is valid."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a09a82f3-cc2c-4425-bce9-903419b193e6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"count\": 1,\n    \"time\": \"2024-01-01T00:00:00Z\",\n    \"usd\": 1.23\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd2f794-310f-4a33-922a-7b75444fefc9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f427327c-051c-4960-b870-4cd2dbab9550",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "454da67f-e961-47d7-8fdc-30801ee430a5",
+          "name": "Get a simple histogram of transfers",
+          "request": {
+            "name": "Get a simple histogram of transfers",
+            "description": {
+              "content": "Returns a simplified aggregated histogram of transfers over time.\n\n**Note**: For the full-featured histogram endpoint with all filter options, use /transfers/histogram which requires API authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "histogram",
+                "simple"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter after a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter before a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter using a duration string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d3500d-c24d-47de-b2e1-26ca5c959ddb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"count\": 1,\n    \"time\": \"2024-01-01T00:00:00Z\",\n    \"usd\": 1.23\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d878054-3f97-464a-ab19-c53473d81b01",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b31dc91-4245-4325-a208-e1f78d6281a7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "histogram",
+                    "simple"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "222067c7-9507-4333-9a5e-832bf6f6c3f0",
+          "name": "Get transfers for a transaction",
+          "request": {
+            "name": "Get transfers for a transaction",
+            "description": {
+              "content": "Returns the transfers of a given type (external, internal, or token) within a single transaction, identified by its hash. Supported on EVM chains and Tron; other chains return an empty list. For Solana and other non-EVM transactions, use GET /tx/{hash} to retrieve the transaction's details instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "tx",
+                ":hash"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "transferType",
+                  "value": "<string>",
+                  "description": "(Required) Type of transfers to return. 'external' = native value transfers, 'internal' = trace calls, 'token' = ERC-20/TRC-20 transfers."
+                },
+                {
+                  "disabled": false,
+                  "key": "chain",
+                  "value": "<string>",
+                  "description": "(Required) The blockchain network the transaction is on."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hash",
+                  "description": "(Required) The transaction hash to retrieve transfers for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81e713b3-f984-49f9-9c41-2bbaa41f419b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transferType",
+                      "value": "token"
+                    },
+                    {
+                      "key": "chain",
+                      "value": "ethereum"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to retrieve transfers for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"fromAddress\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"fromIsContract\": true,\n    \"toAddress\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"toIsContract\": true,\n    \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n    \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n    \"blockNumber\": 1,\n    \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"tokenName\": \"USD Coin\",\n    \"tokenSymbol\": \"USDC\",\n    \"tokenDecimals\": 1,\n    \"unitValue\": 1.23,\n    \"tokenId\": \"usd-coin\",\n    \"historicalUSD\": 1.23,\n    \"assetId\": \"usd-coin\",\n    \"chain\": \"ethereum\"\n  },\n  {\n    \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"fromAddress\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"fromIsContract\": true,\n    \"toAddress\": {\n      \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n      \"chain\": \"ethereum\",\n      \"arkhamEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"arkhamLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      },\n      \"contract\": false,\n      \"depositServiceID\": \"binance\",\n      \"isShielded\": true,\n      \"isUserAddress\": false,\n      \"ownerAddress\": {\n        \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n      },\n      \"predictedEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"program\": true,\n      \"service\": true,\n      \"userEntity\": {\n        \"name\": \"Binance\",\n        \"note\": \"\",\n        \"id\": \"binance\",\n        \"type\": \"cex\",\n        \"service\": true,\n        \"addresses\": {\n          \"abc123\": [\n            \"abc123\"\n          ]\n        },\n        \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n        \"customImageSlug\": \"binance\",\n        \"customized\": true,\n        \"instagram\": \"https://www.instagram.com/binance\",\n        \"linkShareable\": true,\n        \"linkedin\": \"https://www.linkedin.com/company/binance\",\n        \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"populatedTags\": [\n          {\n            \"chain\": \"ethereum\",\n            \"disablePage\": false,\n            \"excludeEntities\": false,\n            \"label\": \"Binance Proof of Reserves\",\n            \"rank\": 20,\n            \"tagParams\": \"Binance\"\n          }\n        ],\n        \"twitter\": \"https://twitter.com/binance\",\n        \"website\": \"https://binance.com\"\n      },\n      \"userLabel\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chainType\": \"evm\",\n        \"name\": \"Cold Wallet\",\n        \"note\": \"\"\n      }\n    },\n    \"toIsContract\": true,\n    \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n    \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n    \"blockNumber\": 1,\n    \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n    \"tokenName\": \"USD Coin\",\n    \"tokenSymbol\": \"USDC\",\n    \"tokenDecimals\": 1,\n    \"unitValue\": 1.23,\n    \"tokenId\": \"usd-coin\",\n    \"historicalUSD\": 1.23,\n    \"assetId\": \"usd-coin\",\n    \"chain\": \"ethereum\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ecdc071-d2e0-4a0c-8121-534154e924a1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transferType",
+                      "value": "token"
+                    },
+                    {
+                      "key": "chain",
+                      "value": "ethereum"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to retrieve transfers for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "721746c9-db65-4e9f-9ba5-18f018b6455d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "tx",
+                    ":hash"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transferType",
+                      "value": "token"
+                    },
+                    {
+                      "key": "chain",
+                      "value": "ethereum"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hash",
+                      "description": "(Required) The transaction hash to retrieve transfers for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d77fecce-ef05-4551-8950-423baaa4995c",
+          "name": "Get unenriched transfers",
+          "request": {
+            "name": "Get unenriched transfers",
+            "description": {
+              "content": "Retrieves a list of transfers based on the same query filters as GET /transfers, but returns raw addresses without Arkham address intelligence.\n\nThis endpoint uses the transfer search index and token/transaction metadata enrichment, but it does not enrich transfer counterparties with Arkham entities, labels, deposit services, or predicted entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transfers",
+                "unenriched"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter from or to any of a comma separated list of entities or addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "List of chains to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter after a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter before a specific time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter using a duration string."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "<string>",
+                  "description": "Direction for sorting results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default: 20. Max: 1650."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. offset + limit must not exceed 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeCursors",
+                  "value": "<boolean>",
+                  "description": "Include per-chain as-of cursors in the response. Default: false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5cecc2f-0d0a-46e8-85f7-c6a7c40f3111",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "unenriched"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transfers\": [\n    {\n      \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"fromAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"fromIsContract\": true,\n      \"toAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"toIsContract\": true,\n      \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n      \"blockNumber\": 1,\n      \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"tokenName\": \"USD Coin\",\n      \"tokenSymbol\": \"USDC\",\n      \"tokenDecimals\": 1,\n      \"unitValue\": 1.23,\n      \"tokenId\": \"usd-coin\",\n      \"historicalUSD\": 1.23,\n      \"assetId\": \"usd-coin\",\n      \"chain\": \"ethereum\"\n    },\n    {\n      \"id\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"transactionHash\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"fromAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"fromIsContract\": true,\n      \"toAddress\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"note\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"service\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"addresses\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crunchbase\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customImageSlug\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"customized\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"instagram\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkShareable\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"linkedin\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ownerUID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"populatedTags\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"twitter\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"website\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"toIsContract\": true,\n      \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"blockTimestamp\": \"2024-01-01T00:00:00Z\",\n      \"blockNumber\": 1,\n      \"blockID\": \"0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060\",\n      \"tokenName\": \"USD Coin\",\n      \"tokenSymbol\": \"USDC\",\n      \"tokenDecimals\": 1,\n      \"unitValue\": 1.23,\n      \"tokenId\": \"usd-coin\",\n      \"historicalUSD\": 1.23,\n      \"assetId\": \"usd-coin\",\n      \"chain\": \"ethereum\"\n    }\n  ],\n  \"count\": 10,\n  \"cursors\": {\n    \"ethereum\": 454726633\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02b62cc9-4a7d-4716-b47b-3dd4006fde79",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "unenriched"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2906f966-edaa-4a33-82e4-9c2a88ec9d0d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transfers",
+                    "unenriched"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "base",
+                      "value": "!wintermute"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "from",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "to",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "to",
+                      "value": "deposit:binance"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "includeCursors",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "227f3733-37e1-4bd7-b26d-750702ad6b31",
+    "name": "Arkham Intel Analytics Transfers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

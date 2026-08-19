@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Tx API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tx",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/tx/:hash",
+            "params": [
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "The transaction hash to look up."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific blockchain transaction using its hash.\n\nThe endpoint searches across all supported chains to find the transaction. If it is not found in confirmed transactions, it also checks the mempool for pending transactions.\n\n**Response shape.** The response body is a JSON object keyed by chain identifier (for example \"ethereum\"). Because the same hash format can appear on more than one chain, the object may contain more than one entry, one per chain on which"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

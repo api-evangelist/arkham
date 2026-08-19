@@ -1,0 +1,577 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Token API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get chain addresses for a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/addresses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns all known chain/address pairs for a token identified by its pricing ID."
+        },
+        {
+          "info": {
+            "name": "Get Arkham Exchange tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/arkham_exchange_tokens"
+          },
+          "docs": "Returns the tokens listed on Arkham Exchange, split into `spotTokens` and `perpTokens` arrays. Each entry identifies a token by its CoinGecko pricing ID."
+        },
+        {
+          "info": {
+            "name": "Get token balance for an entity or address, for a specific chain/address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/balance/:chain/:address",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "query",
+                "description": "Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address."
+              }
+            ]
+          },
+          "docs": "Returns the balance of a specific token contract (identified by the `chain` and `address` path params) held by an entity or address. The `address` query param is the holder wallet(s); the path `address` is the token contract."
+        },
+        {
+          "info": {
+            "name": "Get token balance (all chains) for an entity or address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/balance/:id",
+            "params": [
+              {
+                "name": "entityID",
+                "value": "",
+                "type": "query",
+                "description": "Entity ID to query the balance for. Provide either entityID or address; if both are given, address takes precedence and entityID is ignored. If neither is given, the balance is 0."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "query",
+                "description": "Addresses to query the balance for, passed as a single comma-separated string, e.g. '0x28C6…,0x21a3…' (not a JSON array). Takes precedence over entityID when both are provided; if neither is given, the balance is 0."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns the aggregated token balance for either an entity or address, across all chains."
+        },
+        {
+          "info": {
+            "name": "Get top token holders by chain and address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/holders/:chain/:address",
+            "params": [
+              {
+                "name": "groupByEntity",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', groups holdings by entity rather than individual addresses."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of holders to skip for pagination (default 0)."
+              },
+              {
+                "name": "poolAddress",
+                "value": "",
+                "type": "query",
+                "description": "Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address to query."
+              }
+            ]
+          },
+          "docs": "Returns the top token holders for a specific token contract on a given chain. Results are sorted by balance in descending order.\n\nOnly chains with token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/holders/{id}).\n\n**Response fields:**\n- **token**: Token metadata (name, symbol, pricing info).\n- **totalSupply**: Total supply for the chain.\n- **addressTopHolders**: Top holders by individual address.\n- **entityTopHolders**: To"
+        },
+        {
+          "info": {
+            "name": "Get top token holders by pricing ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/holders/:id",
+            "params": [
+              {
+                "name": "groupByEntity",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', groups holdings by entity rather than individual addresses."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of holders to return per page (default 100, max 100). offset + limit must not exceed 1000."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of holders to skip for pagination (default 0)."
+              },
+              {
+                "name": "poolAddress",
+                "value": "",
+                "type": "query",
+                "description": "Optional Solana pool address. When provided, address holder unrealized PnL is calculated from this pool only."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns the top token holders for a token identified by its CoinGecko pricing ID (e.g. \"bitcoin\", \"ethereum\", \"usd-coin\"). Results are sorted by balance in descending order.\n\n**Response fields:**\n- **token**: Token metadata (name, symbol, pricing info).\n- **totalSupply**: Total supply per chain.\n- **addressTopHolders**: Top holders by individual address, keyed by chain.\n- **entityTopHolders**: Top holders grouped by entity (only present when groupByEntity=true), keyed by chain.\n\n**Note:** Entity"
+        },
+        {
+          "info": {
+            "name": "Get current market data for a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/market/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns current market data for a token including price, market cap, volume, and supply information."
+        },
+        {
+          "info": {
+            "name": "Get token price history by chain and address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/price/history/:chain/:address",
+            "params": [
+              {
+                "name": "daily",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address."
+              }
+            ]
+          },
+          "docs": "Returns historical price data for a token identified by its chain and contract address.\n\nOnly chains that have token contracts (EVM chains, Solana, Tron) are supported here. For UTXO assets like Bitcoin, use `/token/price/history/{id}` with the token's pricing ID (e.g. `bitcoin`)."
+        },
+        {
+          "info": {
+            "name": "Get token price history by pricing ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/price/history/:id",
+            "params": [
+              {
+                "name": "daily",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', returns the full daily price history for the token. Otherwise returns every quote recorded in the last 24 hours."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns historical price data for a token identified by its pricing ID (e.g., 'bitcoin', 'ethereum'). Returns an array of timestamped price quotes."
+        },
+        {
+          "info": {
+            "name": "Get token price change since a timestamp",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/price_change/:id",
+            "params": [
+              {
+                "name": "pastTime",
+                "value": "",
+                "type": "query",
+                "description": "Past timestamp in RFC3339 format to calculate price change from."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns the token's current price and its historical price at the requested past timestamp. The absolute or percentage change can be computed from the two values."
+        },
+        {
+          "info": {
+            "name": "Get top tokens by exchange activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/top",
+            "params": [
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query",
+                "description": "Time interval for aggregation."
+              },
+              {
+                "name": "orderByAgg",
+                "value": "",
+                "type": "query",
+                "description": "Metric to sort by."
+              },
+              {
+                "name": "orderByDesc",
+                "value": "",
+                "type": "query",
+                "description": "Sort order. Use 'true' for descending, 'false' for ascending."
+              },
+              {
+                "name": "orderByPercent",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', sort by percentage change rather than absolute values."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (starting index)."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "minVolume",
+                "value": "",
+                "type": "query",
+                "description": "Minimum volume filter in USD."
+              },
+              {
+                "name": "maxVolume",
+                "value": "",
+                "type": "query",
+                "description": "Maximum volume filter in USD."
+              },
+              {
+                "name": "minMarketCap",
+                "value": "",
+                "type": "query",
+                "description": "Minimum market cap filter in USD."
+              },
+              {
+                "name": "maxMarketCap",
+                "value": "",
+                "type": "query",
+                "description": "Maximum market cap filter in USD."
+              },
+              {
+                "name": "numReferencePeriods",
+                "value": "",
+                "type": "query",
+                "description": "Number of prior periods (each the length of the timeframe) used as the historical baseline the current period is compared against. Default: auto (6 periods for 1h, 1 for longer timeframes). Max: 10."
+              },
+              {
+                "name": "tokenIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of CoinGecko token IDs to filter results."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+              }
+            ]
+          },
+          "docs": "Analyzes token activity across centralized and decentralized exchanges. Ranks tokens by volume, inflows, outflows, netflows, and other metrics over customizable time intervals.\n\nSupports filtering by chain, market cap, and specific tokens.\n\nEach result reports 'current' (metrics over the selected timeframe) and 'previous' (the same metrics averaged across the numReferencePeriods prior windows, each the length of the timeframe); the two are compared to produce the change and percentage rankings."
+        },
+        {
+          "info": {
+            "name": "Get top token flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/top_flow/:chain/:address",
+            "params": [
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Time range filter using relative durations."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of addresses to return per flow direction. Default: 50. Max: 100."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Ignored on this endpoint form — the chain is already fixed by the path. Use the pricing-ID form of this endpoint to filter flows by chain."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address."
+              }
+            ]
+          },
+          "docs": "Retrieves the top token flow (in USD and value) for the specified chain and address over a given duration.\n\nOnly chains with token contracts (EVM chains, Solana, Tron) return token flows here. For UTXO assets like Bitcoin, use the pricing-ID form (/token/top_flow/{id}) for native flows.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        },
+        {
+          "info": {
+            "name": "Get top flow for a token by pricing ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/top_flow/:id",
+            "params": [
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Time range filter using relative durations."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of addresses to return per flow direction. Default: 50. Max: 100."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated string, e.g. 'ethereum,bsc' (not a JSON array). If omitted, returns all supported chains."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns the top inflows/outflows for the specified token ID, aggregated by address.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        },
+        {
+          "info": {
+            "name": "Get trending tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/trending"
+          },
+          "docs": "Returns a list of currently trending tokens across multiple chains."
+        },
+        {
+          "info": {
+            "name": "Get a single trending token by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/trending/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns a single trending token, identified by a specific ID (e.g., \"bitcoin\", \"ethereum\")."
+        },
+        {
+          "info": {
+            "name": "Get volume for a token by chain/address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/volume/:chain/:address",
+            "params": [
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "path",
+                "description": "Blockchain network where the token is deployed."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The token contract address."
+              }
+            ]
+          },
+          "docs": "Returns exchange flow for the specified token contract on a given chain, bucketed by time.\n\nEach bucket reports the token's flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.\n\nThis form looks the token up by its contract address, so it only covers chains that have token contracts (EVM chains, Solana, Tron). UTXO assets such as Bitcoin and Dogecoin ha"
+        },
+        {
+          "info": {
+            "name": "Get volume for a token by pricing ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/token/volume/:id",
+            "params": [
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Bucket size for the histogram. Use a whole number of hours, from 1h up to 7d (e.g. 1h, 2h, 6h, 12h, 1d, 2d, 3d, 7d); sub-hour values and durations over 7d are rejected. Only applied when timeLast is under 30 days; for longer or omitted ranges, results are always returned in daily buckets."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Time range to return, as a relative duration such as '24h', '7d', or '60d'. Under 30 days, results honor granularity; 30 days or longer returns daily buckets. If omitted, returns all-time data in daily buckets."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The CoinGecko pricing ID of the token."
+              }
+            ]
+          },
+          "docs": "Returns exchange flow for the specified token, bucketed by time.\n\nEach bucket reports the token's flows to and from the largest exchanges: inUSD and inValue are the amounts moving into exchanges, outUSD and outValue the amounts moving back out, denominated in USD and in token units respectively.\n\nThis form resolves the token by pricing ID, so it also covers native assets such as Bitcoin and Dogecoin.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

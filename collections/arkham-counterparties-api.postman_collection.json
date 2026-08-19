@@ -1,0 +1,796 @@
+{
+  "item": [
+    {
+      "id": "2b2c2013-1287-4a90-91dd-2646eb21c5d9",
+      "name": "Counterparties",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83d1b49a-34f5-4172-897d-ff4709bba7b0",
+          "name": "Get top counterparties for an address",
+          "request": {
+            "name": "Get top counterparties for an address",
+            "description": {
+              "content": "Returns aggregated counterparty activity by volume for the specified address.\n\nSupports filtering by transfer direction, chain, token, time range, and minimum USD volume.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "counterparties",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction. Only \"in\" or \"out\" are accepted (omit for both directions)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default: 20. Max: 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of counterparty tags to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of counterparty tags to filter by."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c01efe2-3f56-469e-a12f-40869ad24234",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"address\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"abc123\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"usd\": 331013556816.85,\n      \"transactionCount\": 223156,\n      \"flow\": \"in\",\n      \"chains\": [\n        \"ethereum\"\n      ]\n    },\n    {\n      \"address\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"abc123\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ],\n            \"key_2\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"usd\": 331013556816.85,\n      \"transactionCount\": 223156,\n      \"flow\": \"in\",\n      \"chains\": [\n        \"ethereum\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a826bf4-d8c8-49f4-9886-996f7ba6fcaa",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2f28448-7b5a-4bcd-bd54-9b2f4fbb3b66",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66843536-d86c-4585-a4a3-c95fe7e599bf",
+          "name": "Get top counterparties for an entity",
+          "request": {
+            "name": "Get top counterparties for an entity",
+            "description": {
+              "content": "Returns aggregated counterparty activity by volume for the specified entity.\n\nSupports filtering by transfer direction, chain, token, time range, and minimum USD volume.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "counterparties",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Transfer direction. Only \"in\" or \"out\" are accepted (omit for both directions)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "Comma-separated list of token addresses or token IDs; matches counterparties involving any of them."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default: 20. Max: 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of counterparty tags to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "List of counterparty tags to filter by."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query counterparties for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba0778f1-2caa-475b-af4a-b6e1e6576895",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query counterparties for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"address\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ],\n            \"key_2\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"usd\": 331013556816.85,\n      \"transactionCount\": 223156,\n      \"flow\": \"in\",\n      \"chains\": [\n        \"ethereum\"\n      ]\n    },\n    {\n      \"address\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"chain\": \"ethereum\",\n        \"arkhamEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ],\n            \"key_1\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        },\n        \"contract\": false,\n        \"depositServiceID\": \"binance\",\n        \"isShielded\": true,\n        \"isUserAddress\": false,\n        \"ownerAddress\": {\n          \"value\": \"<Circular reference to #/components/schemas/Address detected>\"\n        },\n        \"predictedEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"program\": true,\n        \"service\": true,\n        \"userEntity\": {\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"id\": \"binance\",\n          \"type\": \"cex\",\n          \"service\": true,\n          \"addresses\": {\n            \"key_0\": [\n              \"abc123\"\n            ]\n          },\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"customImageSlug\": \"binance\",\n          \"customized\": true,\n          \"instagram\": \"https://www.instagram.com/binance\",\n          \"linkShareable\": true,\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"ownerUID\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n          \"populatedTags\": [\n            {\n              \"chain\": \"ethereum\",\n              \"disablePage\": false,\n              \"excludeEntities\": false,\n              \"label\": \"Binance Proof of Reserves\",\n              \"rank\": 20,\n              \"tagParams\": \"Binance\"\n            }\n          ],\n          \"twitter\": \"https://twitter.com/binance\",\n          \"website\": \"https://binance.com\"\n        },\n        \"userLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Cold Wallet\",\n          \"note\": \"\"\n        }\n      },\n      \"usd\": 331013556816.85,\n      \"transactionCount\": 223156,\n      \"flow\": \"in\",\n      \"chains\": [\n        \"ethereum\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "223eae71-efcd-4c43-976f-61fa98befbb4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query counterparties for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbb918ad-40f0-4d91-b4a1-199cb2b617a8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "counterparties",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-06-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "whale"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "kol"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query counterparties for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c6881cc3-cbc4-4dad-b921-052df1037fbb",
+    "name": "Arkham Intel Analytics Counterparties API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

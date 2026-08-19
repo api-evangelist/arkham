@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Loans API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Loans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get loan/borrow positions for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/loans/address/:address",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query loan positions for."
+              }
+            ]
+          },
+          "docs": "Returns an overview of loaned/supplied/borrowed assets for a given address."
+        },
+        {
+          "info": {
+            "name": "Get loan/borrow positions for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/loans/entity/:entity",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query loan positions for. Accepts both Arkham entity IDs and user entity IDs."
+              }
+            ]
+          },
+          "docs": "Returns an overview of loaned/supplied/borrowed assets for a given entity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

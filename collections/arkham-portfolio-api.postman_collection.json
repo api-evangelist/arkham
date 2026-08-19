@@ -1,0 +1,992 @@
+{
+  "item": [
+    {
+      "id": "5d22ff58-a08c-4bc7-a9a4-97b3406f6acd",
+      "name": "Portfolio",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a5608bd4-e4a8-4079-b1b7-c0e59781fa47",
+          "name": "Get address portfolio history",
+          "request": {
+            "name": "Get address portfolio history",
+            "description": {
+              "content": "Retrieves historical portfolio snapshots for the specified address across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "(Required) Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query portfolio history for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1ab4eb3-e349-40d0-bd4f-f0b9dc0d04c1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query portfolio history for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"key_0\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    },\n    \"key_1\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    },\n    \"key_2\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22cc0daa-e5c3-48b1-9208-7b6cfc99ac2f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query portfolio history for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "03849732-f752-44e8-bfb3-04c07797266e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query portfolio history for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08931401-7906-4549-b603-48bd5bafff0b",
+          "name": "Get entity portfolio history",
+          "request": {
+            "name": "Get entity portfolio history",
+            "description": {
+              "content": "Retrieves historical portfolio snapshots for the specified entity across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "(Required) Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74d40b1d-46ce-4834-97f9-26e372d67434",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"key_0\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    }\n  },\n  \"key_1\": {\n    \"key_0\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    },\n    \"key_1\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    },\n    \"key_2\": {\n      \"id\": \"usd-coin\",\n      \"name\": \"USD Coin\",\n      \"symbol\": \"USDC\",\n      \"balance\": 1500.5,\n      \"price\": 1,\n      \"usd\": 1500.5\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "418dda06-33e6-4819-8c4f-59629b1fd162",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdb7f62a-d235-4098-8b4b-6262b0c542aa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "time",
+                      "value": "1704067200000"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be1b1650-d77c-40ba-9e71-7e1849a2ed96",
+          "name": "Get daily time series data for an address's token",
+          "request": {
+            "name": "Get daily time series data for an address's token",
+            "description": {
+              "content": "Returns daily snapshots (in UTC) of the specified address's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                "timeSeries",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pricingId",
+                  "value": "<string>",
+                  "description": "(Required) The CoinGecko pricing ID of the token to track."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query time series data for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d88715d0-d5c6-4cc4-96df-e30c89a4c6ed",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query time series data for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  },\n  \"key_1\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    },\n    \"key_1\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  },\n  \"key_2\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    },\n    \"key_1\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    },\n    \"key_2\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  },\n  \"key_3\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c59dc0d7-6e2c-470e-8a5d-d907afe87576",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query time series data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "450359e6-fac1-4beb-8d5c-bf517868ba0b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query time series data for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29266bcc-abd3-46dc-a6cb-f69b399c7e22",
+          "name": "Get daily time series data for an entity's token",
+          "request": {
+            "name": "Get daily time series data for an entity's token",
+            "description": {
+              "content": "Returns daily snapshots (in UTC) of the specified entity's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                "timeSeries",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pricingId",
+                  "value": "<string>",
+                  "description": "(Required) The CoinGecko pricing ID of the token to track."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cca557f8-dfaa-4c8e-a788-139661b18cd5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_2\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_3\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    },\n    \"key_1\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  },\n  \"key_1\": {\n    \"key_0\": {\n      \"key_0\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      },\n      \"key_1\": {\n        \"id\": \"usd-coin\",\n        \"name\": \"USD Coin\",\n        \"symbol\": \"USDC\",\n        \"balance\": 1500.5,\n        \"price\": 1,\n        \"usd\": 1500.5\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8125099b-c5ec-43e8-8ea0-c548a8060aae",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "461b0008-8620-4ecd-ad5e-a5f6da9f05fd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    "timeSeries",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingId",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d637132e-115c-4be5-972a-d55fb41ea39f",
+    "name": "Arkham Intel Analytics Portfolio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Risk API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Risk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get risk scores for multiple addresses in one request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/risk/address/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batched version of GET /risk/address/:address. Accepts up to 200 addresses and returns a map keyed by the address the caller sent."
+        },
+        {
+          "info": {
+            "name": "Get risk score for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/risk/address/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query."
+              }
+            ]
+          },
+          "docs": "Returns a compliance risk score for the specified blockchain address, including exposure categories and risk factors."
+        },
+        {
+          "info": {
+            "name": "Get seed-to-target paths for an address's risk score",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/risk/address/:address/paths",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to trace."
+              }
+            ]
+          },
+          "docs": "Returns the dominant address chains linking the queried address back to each risky seed. Results are rolled up by chain_type (EVM chains collapse to 'evm')."
+        },
+        {
+          "info": {
+            "name": "Get risk scores for multiple entities in one request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/risk/entity/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Batched version of GET /risk/entity/:entity_id. Accepts up to 200 entity IDs and returns a map keyed by entity ID."
+        },
+        {
+          "info": {
+            "name": "Get entity-level risk score",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/risk/entity/:entity_id",
+            "params": [
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "path",
+                "description": "The entity identifier to query."
+              }
+            ]
+          },
+          "docs": "Returns the aggregated risk score for an entity, computed as the maximum across all of the entity's addresses."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

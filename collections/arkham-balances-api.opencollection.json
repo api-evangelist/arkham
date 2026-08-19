@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Balances API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get token balances for an address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balances/address/:address",
+            "params": [
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+              },
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain address to query balances for."
+              }
+            ]
+          },
+          "docs": "Returns token balances for the specified address, optionally filtered by chains."
+        },
+        {
+          "info": {
+            "name": "Get token balances for an entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balances/entity/:entity",
+            "params": [
+              {
+                "name": "cheap",
+                "value": "",
+                "type": "query",
+                "description": "If 'true', uses a faster but less real-time balance query (up to 24 hours delayed)."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+              },
+              {
+                "name": "entity",
+                "value": "",
+                "type": "path",
+                "description": "The entity ID to query balances for."
+              }
+            ]
+          },
+          "docs": "Returns token balances for the specified entity, optionally filtered by chains."
+        },
+        {
+          "info": {
+            "name": "Get Solana subaccount balances for addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balances/solana/subaccounts/address/:addresses",
+            "params": [
+              {
+                "name": "pricingID",
+                "value": "",
+                "type": "query",
+                "description": "The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of subaccount balance entries to return. Default: 1000."
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of Solana addresses to query subaccount balances for."
+              }
+            ]
+          },
+          "docs": "Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified addresses."
+        },
+        {
+          "info": {
+            "name": "Get Solana subaccount balances for entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balances/solana/subaccounts/entity/:entities",
+            "params": [
+              {
+                "name": "pricingID",
+                "value": "",
+                "type": "query",
+                "description": "The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of subaccount balance entries to return. Default: 1000."
+              },
+              {
+                "name": "entities",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of entity IDs to query subaccount balances for."
+              }
+            ]
+          },
+          "docs": "Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified entities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2988 @@
+{
+  "item": [
+    {
+      "id": "de3470a4-1560-4021-a5dd-9ca28021e45e",
+      "name": "Hypercore",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f7cf017-83e3-4d17-b5c0-6f9e26bf8bf5",
+          "name": "Check for HyperCore activity",
+          "request": {
+            "name": "Check for HyperCore activity",
+            "description": {
+              "content": "Whether a HyperCore address has any HyperCore activity: a spot balance, open perp position, margin, staking, or vault equity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a997dbec-0a4f-4177-b5f1-6ffde83adba3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active\": true,\n  \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab0c115f-23cc-46db-9cf6-b809366bb5d6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e45f8af5-677e-424b-a9e4-25afe345bbbf",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a5c8ac3-20a8-43aa-ac14-bdbad1224906",
+          "name": "Get HyperCore perp positions",
+          "request": {
+            "name": "Get HyperCore perp positions",
+            "description": {
+              "content": "Open perpetual positions for a HyperCore address (master + sub-accounts) with mark price, unrealized PnL, and per-DEX USDC margin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "perp-positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8ad4014-ed6a-4fe6-ae75-18debb20a0a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountUsdValue\": 62831603.012425,\n  \"addresses\": [\n    \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n    \"0x08b095625fb698837fc436c489ce9e4f6ee084c1\",\n    \"0x152600cac5306fd519ccb2bdd4b18a441443428a\",\n    \"0x153ae96fafe232f61b9a19c285b8e8e265642f69\",\n    \"0x37449263a96d00ec4cd68952a3f3c7fd1927d958\",\n    \"0x4304dc380a4c9a452c58707487e185caf992ff05\",\n    \"0x6d9f9706d647d19e93164a7217576797358fa8c3\",\n    \"0x8185204d31602595fadbb9305155e8981762e60c\",\n    \"0x82578861165b62466f8e11e51efe74455ed0e1a6\",\n    \"0x88f9bd20b748c3e533374fa201621ceb119ee9db\",\n    \"0x8af63f51e0c60851a30da696a6a0911a3d019d5e\",\n    \"0x8fecb60f12fd9a3db6901b8a7703a24fa2ee1268\",\n    \"0x90e678b96a3d15bac0e109535692be5361571652\",\n    \"0x91ea0caf217cb0e51d833d9b66464371fb9d1c5b\",\n    \"0xa3e4be245fa0cbd5df1718c33cb9c08af5796f3b\",\n    \"0xb3514b307d17e09d2086738b62ac5db371692d9d\",\n    \"0xba6be69a57e42572df416997af3b7dcdd59ef360\",\n    \"0xc21f25650fd7165905e94014529261070c4530a3\",\n    \"0xc64283a986819174aa0b13b22ff9ab55ac2bd394\",\n    \"0xe78030f0e93def6280f7331edb81db4a3f547633\",\n    \"0xefee01d3a0d06c188627d98b6aa814f401f87c4b\",\n    \"0xfa452867a690af8bc0a3aa585facaf8e70e65ef8\",\n    \"0xff1ec702af93ac3e9537d9e24c2c4750d44cbf75\"\n  ],\n  \"dexBalances\": [\n    {\n      \"dex\": \"xyz\",\n      \"usdcBalance\": 10084680.877152\n    },\n    {\n      \"dex\": \"vntl\",\n      \"usdcBalance\": 0\n    },\n    {\n      \"dex\": \"cash\",\n      \"usdcBalance\": 0.004359\n    }\n  ],\n  \"positions\": [\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"xyz:XYZ100\",\n      \"direction\": \"long\",\n      \"entryPx\": 28568.39,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 3,\n      \"markPx\": 28523.999999999996,\n      \"maxLeverage\": 30,\n      \"positionValue\": 79536.3216,\n      \"szi\": 2.7884,\n      \"unrealizedPnl\": -123.78444\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"xyz:TSLA\",\n      \"direction\": \"long\",\n      \"entryPx\": 392.186,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 3,\n      \"markPx\": 380.03000000000003,\n      \"maxLeverage\": 20,\n      \"positionValue\": 608103.86441,\n      \"szi\": 1600.147,\n      \"underlyingPricingId\": \"tesla-xstock\",\n      \"underlyingSymbol\": \"TSLAX\",\n      \"unrealizedPnl\": -19451.467595\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"xyz:NVDA\",\n      \"direction\": \"long\",\n      \"entryPx\": 206.302,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 3,\n      \"markPx\": 203.20000000000002,\n      \"maxLeverage\": 20,\n      \"positionValue\": 847307.424,\n      \"szi\": 4169.82,\n      \"underlyingPricingId\": \"nvidia-xstock\",\n      \"underlyingSymbol\": \"NVDAX\",\n      \"unrealizedPnl\": -12935.268385\n    }\n  ],\n  \"unrealizedPnl\": 1015323.5175330002,\n  \"usdcBalance\": 179763906.134545\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c750ccf-805f-4468-add2-08b5adde6875",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdc2ca15-30bd-4e33-a833-0453ba6a7d4f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83f0f766-0ff5-49c1-b6fe-a85f70278d09",
+          "name": "Get HyperCore account value / PnL history",
+          "request": {
+            "name": "Get HyperCore account value / PnL history",
+            "description": {
+              "content": "Live account-value and PnL time series per timeframe (day, week, month, allTime) for a HyperCore address. Not aggregated across sub-accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "portfolio-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b593839-7096-44aa-98a1-44dcc48bbab8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n  \"periods\": [\n    {\n      \"accountValue\": [\n        {\n          \"time\": 1784246344057,\n          \"value\": 95092178.097197\n        },\n        {\n          \"time\": 1784298591213,\n          \"value\": 98859536.656199\n        }\n      ],\n      \"period\": \"day\",\n      \"pnl\": [\n        {\n          \"time\": 1784224644641,\n          \"value\": 849540.7263119817\n        },\n        {\n          \"time\": 1784298591213,\n          \"value\": 1945082.7996740043\n        }\n      ]\n    },\n    {\n      \"accountValue\": [\n        {\n          \"time\": 1783727877035,\n          \"value\": 91759827.573454\n        },\n        {\n          \"time\": 1783814323032,\n          \"value\": 96805222.506593\n        },\n        {\n          \"time\": 1783896617062,\n          \"value\": 101532293.403535\n        }\n      ],\n      \"period\": \"week\",\n      \"pnl\": [\n        {\n          \"time\": 1784073197689,\n          \"value\": -2659247.7237069905\n        },\n        {\n          \"time\": 1784138060004,\n          \"value\": -3659770.578257978\n        },\n        {\n          \"time\": 1784224644641,\n          \"value\": -2810229.8519459963\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1270a1e-c187-4b4c-b78d-504fd09cc2b9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "686ba967-5d51-4703-ab82-91f067f366c1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fbacf74-e61f-4d6f-8823-b75d7ae75d1b",
+          "name": "Get HyperCore spot balances",
+          "request": {
+            "name": "Get HyperCore spot balances",
+            "description": {
+              "content": "Spot token balances for a HyperCore address (master + sub-accounts), each valued in USD at the spot mid price.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "spot-balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58d0d22d-3868-4774-9e5b-a923a5df20ea",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n    \"0x08b095625fb698837fc436c489ce9e4f6ee084c1\",\n    \"0x152600cac5306fd519ccb2bdd4b18a441443428a\",\n    \"0x153ae96fafe232f61b9a19c285b8e8e265642f69\",\n    \"0x37449263a96d00ec4cd68952a3f3c7fd1927d958\",\n    \"0x4304dc380a4c9a452c58707487e185caf992ff05\",\n    \"0x6d9f9706d647d19e93164a7217576797358fa8c3\",\n    \"0x8185204d31602595fadbb9305155e8981762e60c\",\n    \"0x82578861165b62466f8e11e51efe74455ed0e1a6\",\n    \"0x88f9bd20b748c3e533374fa201621ceb119ee9db\",\n    \"0x8af63f51e0c60851a30da696a6a0911a3d019d5e\",\n    \"0x8fecb60f12fd9a3db6901b8a7703a24fa2ee1268\",\n    \"0x90e678b96a3d15bac0e109535692be5361571652\",\n    \"0x91ea0caf217cb0e51d833d9b66464371fb9d1c5b\",\n    \"0xa3e4be245fa0cbd5df1718c33cb9c08af5796f3b\",\n    \"0xb3514b307d17e09d2086738b62ac5db371692d9d\",\n    \"0xba6be69a57e42572df416997af3b7dcdd59ef360\",\n    \"0xc21f25650fd7165905e94014529261070c4530a3\",\n    \"0xc64283a986819174aa0b13b22ff9ab55ac2bd394\",\n    \"0xe78030f0e93def6280f7331edb81db4a3f547633\",\n    \"0xefee01d3a0d06c188627d98b6aa814f401f87c4b\",\n    \"0xfa452867a690af8bc0a3aa585facaf8e70e65ef8\",\n    \"0xff1ec702af93ac3e9537d9e24c2c4750d44cbf75\"\n  ],\n  \"balances\": [\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"USDC\",\n      \"hold\": 5417652.57475905,\n      \"token\": 0,\n      \"total\": 10874813.93987035,\n      \"underlyingPricingId\": \"usd-coin\",\n      \"usdPrice\": 1,\n      \"usdValue\": 5457161.3651113\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"PURR\",\n      \"entryPx\": 0.08784222575940936,\n      \"hold\": 0,\n      \"token\": 1,\n      \"total\": 129.21127,\n      \"underlyingPricingId\": \"purr-2\",\n      \"underlyingSymbol\": \"PURR\",\n      \"unrealizedPnl\": -2.1359560693949984,\n      \"usdPrice\": 0.0713115,\n      \"usdValue\": 9.214249480605002\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"HFUN\",\n      \"hold\": 0,\n      \"token\": 2,\n      \"total\": 0.73279813,\n      \"underlyingPricingId\": \"hypurr-fun\",\n      \"underlyingSymbol\": \"HFUN\",\n      \"usdPrice\": 13.4645,\n      \"usdValue\": 9.866760421385\n    }\n  ],\n  \"totalUsdValue\": 16717217.12361454\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22fd014b-40ac-4242-aab8-8edbc0d03a1d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a040450e-c9b0-448a-8998-368499c24cfd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d86a4fa-3b0c-4604-967a-fb0d084d7fa1",
+          "name": "Get HyperCore sub-accounts",
+          "request": {
+            "name": "Get HyperCore sub-accounts",
+            "description": {
+              "content": "Sub-accounts (name, address, vault flag) indexed for a HyperCore master address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "subaccounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88d65d1c-ba10-4e7b-9612-655f52df4a60",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "subaccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n  \"subAccounts\": [\n    {\n      \"address\": \"0x8185204d31602595fadbb9305155e8981762e60c\",\n      \"isVault\": false,\n      \"master\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"name\": \"sub1\"\n    },\n    {\n      \"address\": \"0x37449263a96d00ec4cd68952a3f3c7fd1927d958\",\n      \"isVault\": false,\n      \"master\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"name\": \"sub10\"\n    },\n    {\n      \"address\": \"0x152600cac5306fd519ccb2bdd4b18a441443428a\",\n      \"isVault\": false,\n      \"master\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"name\": \"sub11\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa9a96ad-69b0-4bf1-8dbd-6e0807287fc9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "subaccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe270a28-e4e4-4113-8e1c-b4816825e73d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "subaccounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1108249-eeb9-4126-bde7-70ad15f077b6",
+          "name": "Get HyperCore account value summary",
+          "request": {
+            "name": "Get HyperCore account value summary",
+            "description": {
+              "content": "Total account value (spot USD + perp equity + staked HYPE) for a HyperCore address. A master address aggregates across all of its sub-accounts; a sub-account returns only its own value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fbe0cf0-0103-4758-9951-739f2c16fb32",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n  \"addresses\": [\n    \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n    \"0x08b095625fb698837fc436c489ce9e4f6ee084c1\",\n    \"0x152600cac5306fd519ccb2bdd4b18a441443428a\",\n    \"0x153ae96fafe232f61b9a19c285b8e8e265642f69\",\n    \"0x37449263a96d00ec4cd68952a3f3c7fd1927d958\",\n    \"0x4304dc380a4c9a452c58707487e185caf992ff05\",\n    \"0x6d9f9706d647d19e93164a7217576797358fa8c3\",\n    \"0x8185204d31602595fadbb9305155e8981762e60c\",\n    \"0x82578861165b62466f8e11e51efe74455ed0e1a6\",\n    \"0x88f9bd20b748c3e533374fa201621ceb119ee9db\",\n    \"0x8af63f51e0c60851a30da696a6a0911a3d019d5e\",\n    \"0x8fecb60f12fd9a3db6901b8a7703a24fa2ee1268\",\n    \"0x90e678b96a3d15bac0e109535692be5361571652\",\n    \"0x91ea0caf217cb0e51d833d9b66464371fb9d1c5b\",\n    \"0xa3e4be245fa0cbd5df1718c33cb9c08af5796f3b\",\n    \"0xb3514b307d17e09d2086738b62ac5db371692d9d\",\n    \"0xba6be69a57e42572df416997af3b7dcdd59ef360\",\n    \"0xc21f25650fd7165905e94014529261070c4530a3\",\n    \"0xc64283a986819174aa0b13b22ff9ab55ac2bd394\",\n    \"0xe78030f0e93def6280f7331edb81db4a3f547633\",\n    \"0xefee01d3a0d06c188627d98b6aa814f401f87c4b\",\n    \"0xfa452867a690af8bc0a3aa585facaf8e70e65ef8\",\n    \"0xff1ec702af93ac3e9537d9e24c2c4750d44cbf75\"\n  ],\n  \"perpPositionCount\": 123,\n  \"perpUnrealizedPnl\": 1015323.5175330002,\n  \"perpUsdValue\": 62831603.012425,\n  \"perpUsdcBalance\": 179763906.134545,\n  \"pricingAvailable\": true,\n  \"spotBalanceCount\": 34,\n  \"spotUsdValue\": 16717217.12361454,\n  \"stakedUsdValue\": 15428141.678624816,\n  \"subAccountCount\": 22,\n  \"totalUsdValue\": 94976961.81466436\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae85a117-b022-491a-9ba8-628aef675129",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff635633-78bf-4711-a715-48c96e71efe2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32cf69a4-1555-4d0d-a94a-a81f924f895e",
+          "name": "Get HyperCore trade history",
+          "request": {
+            "name": "Get HyperCore trade history",
+            "description": {
+              "content": "Merged spot and perp fills for a HyperCore address (master + sub-accounts), newest first, paginated via limit/offset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "account",
+                ":address",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max fills to return (default 50, max 200)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset into the merged fill history. Default: 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) HyperCore master or sub-account address."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a777443f-c689-41df-89a9-f70ccb32a2a7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    \"0x020ca66c30bec2c4fe3861a94e4db4a498a35872\"\n  ],\n  \"hasMore\": true,\n  \"limit\": 50,\n  \"offset\": 0,\n  \"trades\": [\n    {\n      \"address\": \"0x020ca66c30bec2c4fe3861a94e4db4a498a35872\",\n      \"closedPnl\": 0,\n      \"coin\": \"ETH\",\n      \"direction\": \"Open Long\",\n      \"fee\": 9.970859,\n      \"feeToken\": \"USDC\",\n      \"hash\": \"0x0a62f1391c59819b0bdc044022f1670203a2001eb75ca06dae2b9c8bdb5d5b85\",\n      \"kind\": \"perp\",\n      \"price\": 1832.7,\n      \"side\": \"B\",\n      \"size\": 18.1351,\n      \"time\": \"2026-07-17T14:10:59.009Z\"\n    },\n    {\n      \"address\": \"0x020ca66c30bec2c4fe3861a94e4db4a498a35872\",\n      \"closedPnl\": 0,\n      \"coin\": \"ETH\",\n      \"direction\": \"Open Long\",\n      \"fee\": 3.77439,\n      \"feeToken\": \"USDC\",\n      \"hash\": \"0x0a62f1391c59819b0bdc044022f1670203a2001eb75ca06dae2b9c8bdb5d5b85\",\n      \"kind\": \"perp\",\n      \"price\": 1832.7,\n      \"side\": \"B\",\n      \"size\": 6.8649,\n      \"time\": \"2026-07-17T14:10:59.009Z\"\n    },\n    {\n      \"address\": \"0x020ca66c30bec2c4fe3861a94e4db4a498a35872\",\n      \"closedPnl\": 0,\n      \"coin\": \"ETH\",\n      \"direction\": \"Open Long\",\n      \"fee\": 13.753499,\n      \"feeToken\": \"USDC\",\n      \"hash\": \"0x282c56304428027829a6044022f1010206a50015df2b214acbf50183032bdc62\",\n      \"kind\": \"perp\",\n      \"price\": 1833.8,\n      \"side\": \"B\",\n      \"size\": 25,\n      \"time\": \"2026-07-17T14:10:51.906Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9396119-ce24-47e7-8711-3d02ce124a47",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f07efe0-b2a5-4313-baf4-0c27d38de051",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "account",
+                    ":address",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) HyperCore master or sub-account address."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbc13716-10a2-4bc1-8b24-9ed1c70722cd",
+          "name": "Check for HyperCore entity activity",
+          "request": {
+            "name": "Check for HyperCore entity activity",
+            "description": {
+              "content": "Whether any address attributed to the entity has HyperCore activity: a spot balance, open perp position, margin, staking, or vault equity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "entity",
+                ":entity",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "871de878-4044-4067-b05c-9ce4fe2ae441",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active\": true,\n  \"entity\": \"wintermute\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baa7aa26-d352-4171-bc22-b683f0f9a601",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "79738370-3e2f-490b-93c7-17cb217eac0b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1efa9bbc-651e-49c1-b69f-a8bb07263dd4",
+          "name": "Get HyperCore entity perp positions",
+          "request": {
+            "name": "Get HyperCore entity perp positions",
+            "description": {
+              "content": "Open perpetual positions across every address attributed to the entity, with mark price, unrealized PnL, and per-DEX USDC margin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "entity",
+                ":entity",
+                "perp-positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b158ddc-273c-48ae-a823-bff514ff59d1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountUsdValue\": 60422375.07808398,\n  \"addresses\": [\n    \"0x0000006daea1723962647b7e189d311d757fb793\",\n    \"0x0000f079e68bbcc79ab9600ace786b0a4db1c83c\",\n    \"0x03ae1a796dfe0400439211133d065bda774b9d3e\"\n  ],\n  \"dexBalances\": [\n    {\n      \"dex\": \"xyz\",\n      \"usdcBalance\": 9719026.928198999\n    },\n    {\n      \"dex\": \"\",\n      \"usdcBalance\": 161683016.732425\n    },\n    {\n      \"dex\": \"cash\",\n      \"usdcBalance\": 0.004359\n    }\n  ],\n  \"positions\": [\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"PUMP\",\n      \"direction\": \"short\",\n      \"entryPx\": 0.0015532833786410095,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 3,\n      \"markPx\": 0.001625,\n      \"maxLeverage\": 10,\n      \"positionValue\": 4264428.89925,\n      \"szi\": -2624263938,\n      \"underlyingPricingId\": \"pump-fun\",\n      \"underlyingSymbol\": \"PUMP\",\n      \"unrealizedPnl\": -188203.34318759906\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"kPEPE\",\n      \"direction\": \"short\",\n      \"entryPx\": 0.0026949657593151586,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 10,\n      \"markPx\": 0.002675,\n      \"maxLeverage\": 10,\n      \"positionValue\": 1309223.594175,\n      \"szi\": -489429381,\n      \"underlyingPricingId\": \"pepe\",\n      \"underlyingSymbol\": \"PEPE\",\n      \"unrealizedPnl\": 9771.829222813132\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"kBONK\",\n      \"direction\": \"short\",\n      \"entryPx\": 0.003497,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 10,\n      \"markPx\": 0.003168,\n      \"maxLeverage\": 10,\n      \"positionValue\": 171282.754368,\n      \"szi\": -54066526,\n      \"underlyingPricingId\": \"bonk\",\n      \"underlyingSymbol\": \"BONK\",\n      \"unrealizedPnl\": 17787.887054000017\n    }\n  ],\n  \"unrealizedPnl\": 1653719.941092011,\n  \"usdcBalance\": 171402043.664983\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9faa5ee0-a9f2-46d4-ae28-050bfb1931d2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "741d4997-88d5-4bd9-83d0-2ea6c196ec51",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "perp-positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "994a87bd-1c77-4aca-a2f1-93f8c5f02782",
+          "name": "Get HyperCore entity account value / PnL history",
+          "request": {
+            "name": "Get HyperCore entity account value / PnL history",
+            "description": {
+              "content": "Combined account-value and PnL time series per timeframe (day, week, month, allTime) across an entity's HyperCore addresses, at daily resolution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "entity",
+                ":entity",
+                "portfolio-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11fa3102-e9f5-4a81-9dec-877e681cea6e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entity\": \"wintermute\",\n  \"periods\": [\n    {\n      \"accountValue\": [\n        {\n          \"time\": 1784246344057,\n          \"value\": 95158621.32031299\n        },\n        {\n          \"time\": 1784294531578,\n          \"value\": 98562252.84599899\n        }\n      ],\n      \"period\": \"day\",\n      \"pnl\": [\n        {\n          \"time\": 1784224706077,\n          \"value\": 846167.4401189685\n        },\n        {\n          \"time\": 1784294531578,\n          \"value\": 2471029.4675139785\n        }\n      ]\n    },\n    {\n      \"accountValue\": [\n        {\n          \"time\": 1783727996396,\n          \"value\": 91760066.196543\n        },\n        {\n          \"time\": 1783814323032,\n          \"value\": 96805461.583287\n        },\n        {\n          \"time\": 1783900560020,\n          \"value\": 101532531.30774198\n        }\n      ],\n      \"period\": \"week\",\n      \"pnl\": [\n        {\n          \"time\": 1783726080034,\n          \"value\": -2659042.1070310175\n        },\n        {\n          \"time\": 1783810080061,\n          \"value\": -2659041.3849770427\n        },\n        {\n          \"time\": 1783897680023,\n          \"value\": -2659040.7379760146\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86665505-7a24-482b-99cf-41a8e94e9d9b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6108e63-d6ad-4a8f-b73d-f668b0fa2e04",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "portfolio-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3fdd9b4-a8a9-4408-bbeb-302e06658d40",
+          "name": "Get HyperCore entity spot balances",
+          "request": {
+            "name": "Get HyperCore entity spot balances",
+            "description": {
+              "content": "Spot token balances across every address attributed to the entity, each valued in USD at the spot mid price.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "entity",
+                ":entity",
+                "spot-balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ae32c09-63ed-4d3a-b979-995a92198fb6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": [\n    \"0x0000006daea1723962647b7e189d311d757fb793\",\n    \"0x0000f079e68bbcc79ab9600ace786b0a4db1c83c\",\n    \"0x03ae1a796dfe0400439211133d065bda774b9d3e\"\n  ],\n  \"balances\": [\n    {\n      \"address\": \"0x9f2a049145af1ee33ee1de8adc0e62041761cc5d\",\n      \"coin\": \"MAX\",\n      \"hold\": 0,\n      \"token\": 734,\n      \"total\": 9995.425307,\n      \"usdPrice\": 4e-7,\n      \"usdValue\": 0.0039981701228\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"USDC\",\n      \"hold\": 6289812.51771749,\n      \"token\": 0,\n      \"total\": 9991392.00856484,\n      \"underlyingPricingId\": \"usd-coin\",\n      \"usdPrice\": 1,\n      \"usdValue\": 3701579.490847349\n    },\n    {\n      \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"coin\": \"UBTC\",\n      \"entryPx\": 64115.25251628088,\n      \"hold\": 36.39076,\n      \"token\": 197,\n      \"total\": 97.9853715109,\n      \"underlyingPricingId\": \"unit-bitcoin\",\n      \"underlyingSymbol\": \"UBTC\",\n      \"unrealizedPnl\": -141515.61936333403,\n      \"usdPrice\": 62671,\n      \"usdValue\": 6140841.217959614\n    }\n  ],\n  \"totalUsdValue\": 16750028.265744798\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b243d43e-56c5-497a-8fe2-d33b6d2b3c6a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc503501-2d60-4f5a-92fa-4dd35c20367e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "spot-balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a41a7fc-0e1f-4f65-a78a-65a9c94aa2fe",
+          "name": "Get HyperCore entity value summary",
+          "request": {
+            "name": "Get HyperCore entity value summary",
+            "description": {
+              "content": "Total HyperCore value (spot USD + perp equity + staked HYPE) aggregated across every address attributed to the entity, sub-accounts included.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "entity",
+                ":entity",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) Arkham entity ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0a0f72c-16ca-4d37-a00e-a7853d7de679",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressCount\": 71,\n  \"entity\": \"wintermute\",\n  \"perpPositionCount\": 123,\n  \"perpUnrealizedPnl\": 1653719.941092011,\n  \"perpUsdValue\": 60422375.07808398,\n  \"perpUsdcBalance\": 171402043.664983,\n  \"pricingAvailable\": true,\n  \"spotBalanceCount\": 45,\n  \"spotUsdValue\": 16750028.265744798,\n  \"stakedUsdValue\": 15341482.640184918,\n  \"subAccountCount\": 22,\n  \"totalUsdValue\": 92513885.98401369\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e8f958-91ac-41cc-9a73-ad5bb89e36a3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3c7b042-bb22-447e-afa4-9533f5ddb7c3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "entity",
+                    ":entity",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) Arkham entity ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91b25995-ec24-4f0e-8a8f-cd73a6110d27",
+          "name": "List HyperCore markets",
+          "request": {
+            "name": "List HyperCore markets",
+            "description": {
+              "content": "Every token that has a HyperCore spot or perpetual market. Returns each token's pricing id, symbol, and name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "markets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a33489a-5341-434c-b962-6f97aa6783f2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"markets\": [\n    {\n      \"name\": \"Bitcoin\",\n      \"pricingId\": \"bitcoin\",\n      \"symbol\": \"BTC\"\n    },\n    {\n      \"name\": \"Ethereum\",\n      \"pricingId\": \"ethereum\",\n      \"symbol\": \"ETH\"\n    },\n    {\n      \"name\": \"Hyperliquid\",\n      \"pricingId\": \"hyperliquid\",\n      \"symbol\": \"HYPE\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4d3727c-d488-4abc-b7a9-b1fd133eacbd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "115c8020-4ed4-4f74-9c70-4cc085cce7ea",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e0fc91c-8fd4-44f4-8247-a2a3d482b348",
+          "name": "Get top HyperCore perp positions for a token",
+          "request": {
+            "name": "Get top HyperCore perp positions for a token",
+            "description": {
+              "content": "Returns the largest open HyperCore perp positions on the token's canonical market, optionally netted per entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "token",
+                ":pricingId",
+                "positions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "side",
+                  "value": "<string>",
+                  "description": "Filter to 'long' or 'short' positions; omit for both."
+                },
+                {
+                  "disabled": false,
+                  "key": "groupByEntity",
+                  "value": "<string>",
+                  "description": "If 'true', nets positions per attributed entity."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort column: size, value, pnl, funding (default size)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ascending",
+                  "value": "<string>",
+                  "description": "If 'true', sorts ascending."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Rows per page (default 50, max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset (offset+limit capped at 1000). Default: 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pricingId",
+                  "description": "(Required) CoinGecko pricing id of the token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0858f05-6fa2-4b6e-8435-7c1331af8f53",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "token",
+                    ":pricingId",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "side",
+                      "value": "long"
+                    },
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "size"
+                    },
+                    {
+                      "key": "ascending",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pricingId",
+                      "description": "(Required) CoinGecko pricing id of the token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hasPerp\": true,\n  \"positions\": [\n    {\n      \"address\": {\n        \"address\": \"0x92ea19eceb7a8de0f50978a1583a5d8b018050e9\",\n        \"arkhamLabel\": {\n          \"address\": \"0x92ea19ECeB7a8dE0f50978A1583A5D8b018050e9\",\n          \"chainType\": \"evm\",\n          \"name\": \"\\\"GarretBullish\\\" on Markets.xyz\"\n        },\n        \"chain\": \"hyperevm\",\n        \"contract\": false,\n        \"service\": false\n      },\n      \"addressCount\": 1,\n      \"coin\": \"BTC\",\n      \"cumFundingSinceOpen\": 862173.863344,\n      \"direction\": \"long\",\n      \"entryPx\": 76117.3,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 5,\n      \"markPx\": 62700,\n      \"maxLeverage\": 40,\n      \"positionValue\": 79524596.34899999,\n      \"szi\": 1268.33487,\n      \"unrealizedPnl\": -17017629.451251004\n    },\n    {\n      \"address\": {\n        \"address\": \"0x66f889094739dbb7d20aa60f645acd88feba75a9\",\n        \"arkhamLabel\": {\n          \"address\": \"0x66f889094739dbb7d20AA60F645AcD88FEbA75a9\",\n          \"chainType\": \"evm\",\n          \"name\": \"\\\"DoshiAtoll\\\" on Markets.xyz\"\n        },\n        \"chain\": \"hyperevm\",\n        \"contract\": false,\n        \"service\": false\n      },\n      \"addressCount\": 1,\n      \"coin\": \"BTC\",\n      \"cumFundingSinceOpen\": 8757.225544,\n      \"direction\": \"long\",\n      \"entryPx\": 63451.3,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 30,\n      \"markPx\": 62700,\n      \"maxLeverage\": 40,\n      \"positionValue\": 62702811.468,\n      \"szi\": 1000.04484,\n      \"unrealizedPnl\": -751333.6882920029\n    },\n    {\n      \"address\": {\n        \"address\": \"0x15a4f009bb324a3fb9e36137136b201e3fe0dfdb\",\n        \"arkhamLabel\": {\n          \"address\": \"0x15a4F009BB324A3fb9E36137136B201E3Fe0DFDb\",\n          \"chainType\": \"evm\",\n          \"name\": \"\\\"baxter-island-papaverpoppy2999\\\" on Markets.xyz\"\n        },\n        \"chain\": \"hyperevm\",\n        \"contract\": false,\n        \"service\": false\n      },\n      \"addressCount\": 1,\n      \"coin\": \"BTC\",\n      \"cumFundingSinceOpen\": 210709.639252,\n      \"direction\": \"long\",\n      \"entryPx\": 62353.6,\n      \"leverageType\": \"cross\",\n      \"leverageValue\": 40,\n      \"markPx\": 62700,\n      \"maxLeverage\": 40,\n      \"positionValue\": 62700000,\n      \"szi\": 1000,\n      \"unrealizedPnl\": 346400.00000000146\n    }\n  ],\n  \"total\": 29706\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b4a1f92-c3c5-4942-b549-07b65c62fc8b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "token",
+                    ":pricingId",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "side",
+                      "value": "long"
+                    },
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "size"
+                    },
+                    {
+                      "key": "ascending",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pricingId",
+                      "description": "(Required) CoinGecko pricing id of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4a0f163-c5a9-4d1d-be68-e02f69fbc835",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "token",
+                    ":pricingId",
+                    "positions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "side",
+                      "value": "long"
+                    },
+                    {
+                      "key": "groupByEntity",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "size"
+                    },
+                    {
+                      "key": "ascending",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pricingId",
+                      "description": "(Required) CoinGecko pricing id of the token."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e37a00d-312a-4d99-8f21-17ed7b606616",
+          "name": "Search HyperCore trades",
+          "request": {
+            "name": "Search HyperCore trades",
+            "description": {
+              "content": "Filtered, sorted feed of HyperCore perp and spot fills merged under one limit, each enriched with the trader's entity and labels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hypercore",
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter by trader: a comma-separated list of addresses and/or entity ids."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "Filter by trader: a comma-separated list of addresses and/or entity ids."
+                },
+                {
+                  "disabled": false,
+                  "key": "coins",
+                  "value": "<string>",
+                  "description": "Filter to these raw coin identifiers."
+                },
+                {
+                  "disabled": false,
+                  "key": "coins",
+                  "value": "<string>",
+                  "description": "Filter to these raw coin identifiers."
+                },
+                {
+                  "disabled": false,
+                  "key": "pricingIds",
+                  "value": "<string>",
+                  "description": "Filter by token: CoinGecko pricing ids, expanded to every coin that resolves to them."
+                },
+                {
+                  "disabled": false,
+                  "key": "pricingIds",
+                  "value": "<string>",
+                  "description": "Filter by token: CoinGecko pricing ids, expanded to every coin that resolves to them."
+                },
+                {
+                  "disabled": false,
+                  "key": "side",
+                  "value": "<string>",
+                  "description": "Filter by side: 'buy' or 'sell'."
+                },
+                {
+                  "disabled": false,
+                  "key": "directions",
+                  "value": "<string>",
+                  "description": "Filter perp fills by direction label, for example 'Open Long'."
+                },
+                {
+                  "disabled": false,
+                  "key": "directions",
+                  "value": "<string>",
+                  "description": "Filter perp fills by direction label, for example 'Open Long'."
+                },
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "Limit to 'perp' or 'spot'; empty returns both."
+                },
+                {
+                  "disabled": false,
+                  "key": "crossed",
+                  "value": "<boolean>",
+                  "description": "Filter by whether the fill crossed the book."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Filter by trader address tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Filter by trader address tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Only fills at or after this time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Only fills at or before this time."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Relative window, e.g. '24h' or '7d' (mutually exclusive with timeGte/timeLte)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "Sort by 'time', 'value', 'size', or 'price' (default 'time')."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "<string>",
+                  "description": "'asc' or 'desc' (default 'desc')."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max trades to return (default 50, max 200)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset (offset+limit must be <= 10000). Default: 0."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e67280a-eac8-4660-9d34-ecf61dbb974c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "wintermute"
+                    },
+                    {
+                      "key": "coins",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "pricingIds",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "side",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "directions",
+                      "value": "Open Long"
+                    },
+                    {
+                      "key": "product",
+                      "value": "perp"
+                    },
+                    {
+                      "key": "crossed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "abc123"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10000,\n  \"hasMore\": true,\n  \"limit\": 50,\n  \"offset\": 0,\n  \"trades\": [\n    {\n      \"blockNumber\": 1076280041,\n      \"closedPnl\": 0,\n      \"coin\": \"xyz:CL\",\n      \"crossed\": true,\n      \"direction\": \"Open Short\",\n      \"eventIndex\": 1,\n      \"hash\": \"0x1c5e446f7b1ff6e01dd8044026bae90201640055161315b2c026efc23a13d0ca\",\n      \"kind\": \"perp\",\n      \"price\": 81.466,\n      \"side\": \"sell\",\n      \"size\": 6.138,\n      \"startPosition\": -1894.224,\n      \"time\": \"2026-07-17T19:06:56.614267408Z\",\n      \"trader\": {\n        \"address\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/wintermute-trading\",\n          \"id\": \"wintermute\",\n          \"linkedin\": \"https://www.linkedin.com/company/wintermute-trading\",\n          \"name\": \"Wintermute\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/wintermute_t\",\n          \"type\": \"fund\",\n          \"website\": \"https://www.wintermute.com/\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0xECB63caA47c7c4E77F60f1cE858Cf28dC2B82b00\",\n          \"chainType\": \"evm\",\n          \"name\": \"\\\"Wintermute\\\" on Markets.xyz\"\n        },\n        \"chain\": \"hyperevm\",\n        \"contract\": false,\n        \"service\": false\n      },\n      \"userAddress\": \"0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00\",\n      \"value\": 500.038308\n    },\n    {\n      \"blockNumber\": 1076280039,\n      \"closedPnl\": 0.18291,\n      \"coin\": \"SPX\",\n      \"crossed\": false,\n      \"direction\": \"Close Long\",\n      \"eventIndex\": 1,\n      \"hash\": \"0x5ed8ee482a2d69b26052044026bae7010700062dc520888402a1999ae921439d\",\n      \"kind\": \"perp\",\n      \"price\": 0.3589,\n      \"side\": \"sell\",\n      \"size\": 54.6,\n      \"startPosition\": 8990.2,\n      \"time\": \"2026-07-17T19:06:56.464368727Z\",\n      \"trader\": {\n        \"address\": \"0x4e60e3a4a32d63d245aa4e4ce304b4254b088f95\",\n        \"chain\": \"hyperevm\",\n        \"contract\": false\n      },\n      \"underlyingPricingId\": \"spx6900\",\n      \"underlyingSymbol\": \"SPX\",\n      \"userAddress\": \"0x4e60e3a4a32d63d245aa4e4ce304b4254b088f95\",\n      \"value\": 19.59594\n    },\n    {\n      \"blockNumber\": 1076280037,\n      \"closedPnl\": 0,\n      \"coin\": \"xyz:XYZ100\",\n      \"crossed\": true,\n      \"direction\": \"Open Short\",\n      \"eventIndex\": 23,\n      \"hash\": \"0xb30123117eb306e8b47a044026bae50202c200f719b625ba56c9ce643db6e0d3\",\n      \"kind\": \"perp\",\n      \"price\": 28637,\n      \"side\": \"sell\",\n      \"size\": 0.0061,\n      \"startPosition\": 0,\n      \"time\": \"2026-07-17T19:06:56.345106954Z\",\n      \"trader\": {\n        \"address\": \"0x34fb17e6b34541d631777a78528bb5b156856d35\",\n        \"chain\": \"hyperevm\",\n        \"contract\": false\n      },\n      \"userAddress\": \"0x34fb17e6b34541d631777a78528bb5b156856d35\",\n      \"value\": 174.6857\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d74805da-7956-4646-9ca9-b337da58b740",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "wintermute"
+                    },
+                    {
+                      "key": "coins",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "pricingIds",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "side",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "directions",
+                      "value": "Open Long"
+                    },
+                    {
+                      "key": "product",
+                      "value": "perp"
+                    },
+                    {
+                      "key": "crossed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "abc123"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90be4d69-cad5-4942-bcde-a171647bf8f5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hypercore",
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "wintermute"
+                    },
+                    {
+                      "key": "coins",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "pricingIds",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "side",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "directions",
+                      "value": "Open Long"
+                    },
+                    {
+                      "key": "product",
+                      "value": "perp"
+                    },
+                    {
+                      "key": "crossed",
+                      "value": "true"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "abc123"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dc09c6df-5cc4-4333-ad09-14ce2d929896",
+    "name": "Arkham Intel Analytics Hypercore API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

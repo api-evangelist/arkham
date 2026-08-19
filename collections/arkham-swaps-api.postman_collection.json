@@ -1,0 +1,560 @@
+{
+  "item": [
+    {
+      "id": "b05e9adc-f21a-410a-986d-0bba6dd66db7",
+      "name": "Swaps",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3eac1dd-11ac-4f5c-a9c9-e914bf8b60a7",
+          "name": "Get swaps",
+          "request": {
+            "name": "Get swaps",
+            "description": {
+              "content": "Retrieves a list of swaps (DEX trades) based on various query filters.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "swaps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "(Required) Filter by specific entity or address involved in the swap. Required — omitting it returns an empty list."
+                },
+                {
+                  "disabled": false,
+                  "key": "base",
+                  "value": "<string>",
+                  "description": "(Required) Filter by specific entity or address involved in the swap. Required — omitting it returns an empty list."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,solana'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,solana'). If omitted, returns data across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "flow",
+                  "value": "<string>",
+                  "description": "Swap direction relative to the base address. Valid values: 'in' (receiving token1), 'out' (sending token0), or 'all'. Defaults to 'all'."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "List of token addresses or token IDs that appear as either token0 or token1."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokens",
+                  "value": "<string>",
+                  "description": "List of token addresses or token IDs that appear as either token0 or token1."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter to swaps where the base sold one of these tokens (token addresses or token IDs). Combine with 'to' for a specific sold/bought trade. To match a token on either side regardless of direction use 'tokens'; to filter by the transaction parties instead, use senders/receivers."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "Filter to swaps where the base sold one of these tokens (token addresses or token IDs). Combine with 'to' for a specific sold/bought trade. To match a token on either side regardless of direction use 'tokens'; to filter by the transaction parties instead, use senders/receivers."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to swaps where the base bought one of these tokens (token addresses or token IDs). Combine with 'from' for a specific sold/bought trade."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "Filter to swaps where the base bought one of these tokens (token addresses or token IDs). Combine with 'from' for a specific sold/bought trade."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeGte",
+                  "value": "<string>",
+                  "description": "Filter swaps at or after this time (unix ms, unix seconds, RFC3339, or YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLte",
+                  "value": "<string>",
+                  "description": "Filter swaps at or before this time (unix ms, unix seconds, RFC3339, or YYYY-MM-DD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "timeLast",
+                  "value": "<string>",
+                  "description": "Time range filter using relative durations (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortKey",
+                  "value": "<string>",
+                  "description": "Field by which to sort the results. One of: time, usd."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortDir",
+                  "value": "<string>",
+                  "description": "Sort direction: 'asc' (ascending) or 'desc' (descending). Defaults to 'desc'."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default: 20. Max: 1649."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. offset + limit must not exceed 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "List of addresses or entities to treat strictly as counterparties."
+                },
+                {
+                  "disabled": false,
+                  "key": "counterparties",
+                  "value": "<string>",
+                  "description": "List of addresses or entities to treat strictly as counterparties."
+                },
+                {
+                  "disabled": false,
+                  "key": "senders",
+                  "value": "<string>",
+                  "description": "Filter by the transaction parties that initiated the swap (sender addresses or entities). Distinct from 'from', which filters on the sold token."
+                },
+                {
+                  "disabled": false,
+                  "key": "senders",
+                  "value": "<string>",
+                  "description": "Filter by the transaction parties that initiated the swap (sender addresses or entities). Distinct from 'from', which filters on the sold token."
+                },
+                {
+                  "disabled": false,
+                  "key": "receivers",
+                  "value": "<string>",
+                  "description": "Filter by the transaction parties that received the swap output (receiver addresses or entities). Distinct from 'to', which filters on the bought token."
+                },
+                {
+                  "disabled": false,
+                  "key": "receivers",
+                  "value": "<string>",
+                  "description": "Filter by the transaction parties that received the swap output (receiver addresses or entities). Distinct from 'to', which filters on the bought token."
+                },
+                {
+                  "disabled": false,
+                  "key": "protocols",
+                  "value": "<string>",
+                  "description": "Filter by protocol/DEX addresses or entity IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "protocols",
+                  "value": "<string>",
+                  "description": "Filter by protocol/DEX addresses or entity IDs."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0092fe0c-4e43-4d83-b8f1-25feec337b6b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "to",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "senders",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "receivers",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "protocols",
+                      "value": "uniswap"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 10000,\n  \"swaps\": [\n    {\n      \"blockHash\": \"0x6e9f88a716532f88ca3e3154a4988dc82405fe7774bb2db1965880c02833a051\",\n      \"blockNumber\": 24643153,\n      \"blockTimestamp\": \"2026-03-12T18:23:47Z\",\n      \"chain\": \"ethereum\",\n      \"contractAddress\": {\n        \"address\": \"0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/uniswap-labs\",\n          \"id\": \"uniswap\",\n          \"linkedin\": \"https://www.linkedin.com/company/uniswaporg\",\n          \"name\": \"Uniswap\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/Uniswap\",\n          \"type\": \"dex\",\n          \"website\": \"https://uniswap.org\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640\",\n          \"chainType\": \"evm\",\n          \"name\": \"USDC 3\"\n        },\n        \"chain\": \"ethereum\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"contractEntityId\": \"uniswap\",\n      \"historicalUSD\": 9128487.881334,\n      \"id\": \"0xb62ab136f09349dd1d2f7c97e830a161c003e60509ff27cdf1f1769d18b963a8_2\",\n      \"receiver\": {\n        \"address\": \"0x51C72848c68a965f66FA7a88855F9f7784502a7F\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/wintermute-trading\",\n          \"id\": \"wintermute\",\n          \"linkedin\": \"https://www.linkedin.com/company/wintermute-trading\",\n          \"name\": \"Wintermute\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/wintermute_t\",\n          \"type\": \"fund\",\n          \"website\": \"https://www.wintermute.com/\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x51C72848c68a965f66FA7a88855F9f7784502a7F\",\n          \"chainType\": \"evm\",\n          \"name\": \"Market Maker\"\n        },\n        \"chain\": \"ethereum\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"sender\": {\n        \"address\": \"0x51C72848c68a965f66FA7a88855F9f7784502a7F\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/wintermute-trading\",\n          \"id\": \"wintermute\",\n          \"linkedin\": \"https://www.linkedin.com/company/wintermute-trading\",\n          \"name\": \"Wintermute\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/wintermute_t\",\n          \"type\": \"fund\",\n          \"website\": \"https://www.wintermute.com/\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x51C72848c68a965f66FA7a88855F9f7784502a7F\",\n          \"chainType\": \"evm\",\n          \"name\": \"Market Maker\"\n        },\n        \"chain\": \"ethereum\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"token0\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n      \"token0Decimals\": 6,\n      \"token0Id\": \"usd-coin\",\n      \"token0Name\": \"USD Coin\",\n      \"token0Symbol\": \"USDC\",\n      \"token1\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n      \"token1Decimals\": 18,\n      \"token1Id\": \"weth\",\n      \"token1Name\": \"Wrapped Ether\",\n      \"token1Symbol\": \"WETH\",\n      \"unitValue0\": -9128487.881334,\n      \"unitValue1\": 4263.136684788042,\n      \"valid\": true\n    },\n    {\n      \"blockHash\": \"0x8b77776a7b9ed15a50afbda87fab1479a7d369962330d8e162d9c1012da1faa7\",\n      \"blockNumber\": 65642004,\n      \"blockTimestamp\": \"2025-10-23T15:11:49Z\",\n      \"chain\": \"bsc\",\n      \"contractAddress\": {\n        \"address\": \"0x47a90A2d92A8367A91EfA1906bFc8c1E05bf10c4\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/uniswap-labs\",\n          \"id\": \"uniswap\",\n          \"linkedin\": \"https://www.linkedin.com/company/uniswaporg\",\n          \"name\": \"Uniswap\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/Uniswap\",\n          \"type\": \"dex\",\n          \"website\": \"https://uniswap.org\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x47a90A2d92A8367A91EfA1906bFc8c1E05bf10c4\",\n          \"chainType\": \"evm\",\n          \"name\": \"V3 Pool\"\n        },\n        \"chain\": \"bsc\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"contractEntityId\": null,\n      \"historicalUSD\": 256048.41755623545,\n      \"id\": \"0x1bf3a69b623e444dae87be15f51e9fd2a7a9cd03484c07aac838d77ac6ec8619_3\",\n      \"receiver\": {\n        \"address\": \"0x76801132a22801640284Cd67F7DD41fED2926B6a\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/wintermute-trading\",\n          \"id\": \"wintermute\",\n          \"linkedin\": \"https://www.linkedin.com/company/wintermute-trading\",\n          \"name\": \"Wintermute\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/wintermute_t\",\n          \"type\": \"fund\",\n          \"website\": \"https://www.wintermute.com/\"\n        },\n        \"chain\": \"bsc\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"sender\": {\n        \"address\": \"0x32564234dF8961ae1d640bE2CBA4aEab54151551\",\n        \"chain\": \"bsc\",\n        \"contract\": true,\n        \"isUserAddress\": false\n      },\n      \"token0\": \"0x55d398326f99059fF775485246999027B3197955\",\n      \"token0Decimals\": 18,\n      \"token0Id\": \"binance-bridged-usdt-bnb-smart-chain\",\n      \"token0Name\": \"Tether USD\",\n      \"token0Symbol\": \"USDT\",\n      \"token1\": \"0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c\",\n      \"token1Decimals\": 18,\n      \"token1Id\": \"wbnb\",\n      \"token1Name\": \"Wrapped BNB\",\n      \"token1Symbol\": \"WBNB\",\n      \"unitValue0\": 256048.41755623545,\n      \"unitValue1\": -228.12506498806798,\n      \"valid\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "997c807e-54d1-4ed7-a883-ac5d073d4acd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "to",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "senders",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "receivers",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "protocols",
+                      "value": "uniswap"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "655e1ab9-6e52-4134-86ab-5fc95f72f25a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "base",
+                      "value": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    },
+                    {
+                      "key": "flow",
+                      "value": "in"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "tokens",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "from",
+                      "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                    },
+                    {
+                      "key": "to",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "timeGte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLte",
+                      "value": "2024-01-01T00:00:00Z"
+                    },
+                    {
+                      "key": "timeLast",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "sortKey",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortDir",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "counterparties",
+                      "value": "binance"
+                    },
+                    {
+                      "key": "senders",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "receivers",
+                      "value": "0x28C6c06298d514Db089934071355E5743bf21d60"
+                    },
+                    {
+                      "key": "protocols",
+                      "value": "uniswap"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dcb7302e-3ddd-4c2f-88c2-5de57e5e6a64",
+    "name": "Arkham Intel Analytics Swaps API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

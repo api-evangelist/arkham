@@ -1,0 +1,302 @@
+{
+  "item": [
+    {
+      "id": "11a0ed92-00f4-4c5d-8a3e-b87e6c8931cb",
+      "name": "Networks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df198822-256c-4a6a-a6ab-7ab6edc7b5df",
+          "name": "Get historical data for a blockchain network",
+          "request": {
+            "name": "Get historical data for a blockchain network",
+            "description": {
+              "content": "Retrieves the full daily price, volume, and market-cap history of a blockchain network's native token, from the token's launch to the latest available snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                "history",
+                ":chain"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "chain",
+                  "description": "(Required) The blockchain network identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e390e46-761f-4c25-8ff9-0ebf373b5b6d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    "history",
+                    ":chain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) The blockchain network identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"marketCap\": 15091573435.25,\n    \"time\": \"2019-03-30T00:00:00Z\",\n    \"usd\": 143.15,\n    \"volume24h\": 6309182468.75\n  },\n  {\n    \"marketCap\": 146718573462,\n    \"time\": \"2022-11-17T00:04:43.16Z\",\n    \"usd\": 1217.98,\n    \"volume24h\": 8857864433\n  },\n  {\n    \"marketCap\": 215157394830,\n    \"time\": \"2026-07-06T00:00:30.587Z\",\n    \"usd\": 1783.55,\n    \"volume24h\": 10802375225\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49a2cb66-b85d-40c2-955b-80eca1ed200e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    "history",
+                    ":chain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) The blockchain network identifier."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e44c425-4e73-4f8c-a57c-606a023262bf",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    "history",
+                    ":chain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "chain",
+                      "description": "(Required) The blockchain network identifier."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76e229c5-4fb7-4154-864c-e9068ce2cb11",
+          "name": "Get current status for all blockchain networks",
+          "request": {
+            "name": "Get current status for all blockchain networks",
+            "description": {
+              "content": "Retrieves the current status for all supported blockchain networks, including price, 24h price change, volume, market cap, latest block (tip), total transfers, and gas/fee information. Each network includes an \"asOf\" object giving the time each piece of data was last read; values are served from a cache refreshed about once per minute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f1df4fa8-84c3-4145-8ac0-7b5898d85d6a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bitcoin\": {\n    \"active\": true,\n    \"asOf\": {\n      \"fee\": \"2026-07-06T14:00:37.216437394Z\",\n      \"price\": \"2026-07-06T14:00:37.212573416Z\",\n      \"tip\": \"2026-07-06T14:00:37.214465232Z\",\n      \"transfers\": \"2026-07-06T14:00:37.239063539Z\"\n    },\n    \"chain\": \"bitcoin\",\n    \"gasFee\": null,\n    \"marketCap\": 1239738051993,\n    \"price\": 61828,\n    \"priceChange24h\": -910,\n    \"priceChange24hPercent\": -1.45,\n    \"satFee\": 506,\n    \"tip\": 956923,\n    \"tps\": 0,\n    \"transfers\": 7215875738,\n    \"volume\": 27395894777\n  },\n  \"ethereum\": {\n    \"active\": true,\n    \"asOf\": {\n      \"fee\": \"2026-07-06T14:00:37.214666903Z\",\n      \"price\": \"2026-07-06T14:00:37.212834121Z\",\n      \"tip\": \"2026-07-06T14:00:37.214097043Z\",\n      \"transfers\": \"2026-07-06T14:00:37.241411754Z\"\n    },\n    \"chain\": \"ethereum\",\n    \"gasFee\": 1.13,\n    \"marketCap\": 210742916805,\n    \"price\": 1745.84,\n    \"priceChange24h\": -18.71,\n    \"priceChange24hPercent\": -1.06,\n    \"satFee\": null,\n    \"tip\": 25473954,\n    \"tps\": 0,\n    \"transfers\": 6082358603,\n    \"volume\": 10129176757\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2607b944-eedc-47d9-a8a5-82eb4410dd5b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4bf9ae12-31cc-40a0-a33e-ba869702e4dd",
+    "name": "Arkham Intel Analytics Networks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

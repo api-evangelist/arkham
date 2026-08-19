@@ -1,0 +1,472 @@
+{
+  "item": [
+    {
+      "id": "1ee2dbdc-e2be-4367-88c4-2d89139ca773",
+      "name": "Loans",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b863b8ee-475d-4632-bc15-0a88730d3f58",
+          "name": "Get loan/borrow positions for an address",
+          "request": {
+            "name": "Get loan/borrow positions for an address",
+            "description": {
+              "content": "Returns an overview of loaned/supplied/borrowed assets for a given address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "loans",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query loan positions for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95d1db21-194d-4690-abd5-dbf020bebfb1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query loan positions for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": {\n    \"arbitrum_one\": {\n      \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\": {\n        \"address\": \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\",\n        \"arkhamLabel\": {\n          \"address\": \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\",\n          \"chainType\": \"evm\",\n          \"name\": \"etherean.eth\"\n        },\n        \"chain\": \"arbitrum_one\",\n        \"contract\": false,\n        \"isUserAddress\": false\n      }\n    },\n    \"ethereum\": {\n      \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\": {\n        \"address\": \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\",\n        \"arkhamLabel\": {\n          \"address\": \"0xaD1fB851e54C55D65D8CEfE65f9E4c64A83650fd\",\n          \"chainType\": \"evm\",\n          \"name\": \"etherean.eth\"\n        },\n        \"chain\": \"ethereum\",\n        \"contract\": false,\n        \"isUserAddress\": false\n      }\n    }\n  },\n  \"balances\": {\n    \"arbitrum_one\": [\n      {\n        \"address\": \"0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf\",\n        \"balance\": 23792.73678,\n        \"balanceExact\": \"23792736780\",\n        \"id\": \"usd-coin\",\n        \"market\": \"0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf\",\n        \"name\": \"USD Coin\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"COMPOUND_V3\",\n        \"quoteTime\": \"2026-07-07T15:34:50.955Z\",\n        \"symbol\": \"USDC\",\n        \"type\": \"borrowed\",\n        \"underlyingAssetAddress\": \"0xaf88d065e77c8cC2239327C5EDb3A432268e5831\",\n        \"underlyingAssetID\": \"usd-coin\",\n        \"usd\": 23792.73678\n      },\n      {\n        \"address\": \"0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA\",\n        \"balance\": 12142.723738,\n        \"balanceExact\": \"12142723738\",\n        \"id\": \"usd-coin-ethereum-bridged\",\n        \"market\": \"0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA\",\n        \"name\": \"USD Coin (Arb1)\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"COMPOUND_V3\",\n        \"quoteTime\": \"2026-07-07T15:34:35.701Z\",\n        \"symbol\": \"USDC\",\n        \"type\": \"borrowed\",\n        \"underlyingAssetAddress\": \"0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8\",\n        \"underlyingAssetID\": \"usd-coin-ethereum-bridged\",\n        \"usd\": 12142.723738\n      }\n    ],\n    \"ethereum\": [\n      {\n        \"address\": \"0xc3d688B66703497DAA19211EEdff47f25384cdc3\",\n        \"balance\": 213778.237113,\n        \"balanceExact\": \"213778237113\",\n        \"id\": \"usd-coin\",\n        \"market\": \"0xc3d688B66703497DAA19211EEdff47f25384cdc3\",\n        \"name\": \"USD Coin\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"COMPOUND_V3\",\n        \"quoteTime\": \"2026-07-07T15:34:50.955Z\",\n        \"symbol\": \"USDC\",\n        \"type\": \"borrowed\",\n        \"underlyingAssetAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n        \"underlyingAssetID\": \"usd-coin\",\n        \"usd\": 213778.237113\n      },\n      {\n        \"address\": \"0xc3d688B66703497DAA19211EEdff47f25384cdc3\",\n        \"balance\": 78.53290370957879,\n        \"balanceExact\": \"78532903709578783817\",\n        \"id\": \"weth\",\n        \"market\": \"0xc3d688B66703497DAA19211EEdff47f25384cdc3\",\n        \"name\": \"Wrapped Ether\",\n        \"price\": 1792.54,\n        \"price24hAgo\": 1762.1,\n        \"protocol\": \"COMPOUND_V3\",\n        \"quoteTime\": \"2026-07-07T15:34:46.553Z\",\n        \"symbol\": \"WETH\",\n        \"type\": \"supplied\",\n        \"underlyingAssetAddress\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",\n        \"underlyingAssetID\": \"weth\",\n        \"usd\": 140773.37121556836\n      }\n    ]\n  },\n  \"totalPositions\": {\n    \"arbitrum_one\": 48146.42974611472,\n    \"ethereum\": 359915.8033752398\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c60c013-4421-46b7-acb4-ff6dbb599de5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query loan positions for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ce468d82-0fa7-4302-9945-b3f703d569aa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query loan positions for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0351c723-df98-4925-9fb5-7a11be6f6ae2",
+          "name": "Get loan/borrow positions for an entity",
+          "request": {
+            "name": "Get loan/borrow positions for an entity",
+            "description": {
+              "content": "Returns an overview of loaned/supplied/borrowed assets for a given entity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "loans",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns loan positions across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query loan positions for. Accepts both Arkham entity IDs and user entity IDs."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82026077-3ab3-4a83-9a99-0bc9a03426ef",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query loan positions for. Accepts both Arkham entity IDs and user entity IDs."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balances\": {\n    \"arbitrum_one\": [\n      {\n        \"address\": \"0x6ab707Aca953eDAeFBc4fD23bA73294241490620\",\n        \"balance\": 1676.612954,\n        \"id\": \"usdt0\",\n        \"market\": \"0x6ab707Aca953eDAeFBc4fD23bA73294241490620\",\n        \"name\": \"Aave Arbitrum USDT\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"AAVE_V3\",\n        \"quoteTime\": \"2026-07-07T14:55:44.119Z\",\n        \"symbol\": \"aArbUSDT\",\n        \"type\": \"supplied\",\n        \"underlyingAssetAddress\": \"0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9\",\n        \"underlyingAssetID\": \"usdt0\",\n        \"usd\": 1676.612954\n      },\n      {\n        \"address\": \"0x724dc807b04555b71ed48a6896b6F41593b8C637\",\n        \"balance\": 29.871206,\n        \"id\": \"usd-coin\",\n        \"market\": \"0x724dc807b04555b71ed48a6896b6F41593b8C637\",\n        \"name\": \"Aave Arbitrum USDCn\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"AAVE_V3\",\n        \"quoteTime\": \"2026-07-07T14:55:39.964Z\",\n        \"symbol\": \"aArbUSDCn\",\n        \"type\": \"supplied\",\n        \"underlyingAssetAddress\": \"0xaf88d065e77c8cC2239327C5EDb3A432268e5831\",\n        \"underlyingAssetID\": \"usd-coin\",\n        \"usd\": 29.871206\n      }\n    ],\n    \"ethereum\": [\n      {\n        \"address\": \"0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c\",\n        \"balance\": 10875.867582,\n        \"id\": \"usd-coin\",\n        \"market\": \"0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c\",\n        \"name\": \"Aave Ethereum USDC\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"AAVE_V3\",\n        \"quoteTime\": \"2026-07-07T14:55:39.964Z\",\n        \"symbol\": \"aEthUSDC\",\n        \"type\": \"supplied\",\n        \"underlyingAssetAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n        \"underlyingAssetID\": \"usd-coin\",\n        \"usd\": 10875.867582\n      },\n      {\n        \"address\": \"0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a\",\n        \"balance\": 5673.819058,\n        \"id\": \"tether\",\n        \"market\": \"0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a\",\n        \"name\": \"Aave Ethereum USDT\",\n        \"price\": 1,\n        \"price24hAgo\": 1,\n        \"protocol\": \"AAVE_V3\",\n        \"quoteTime\": \"2026-07-07T14:55:32.963Z\",\n        \"symbol\": \"aEthUSDT\",\n        \"type\": \"supplied\",\n        \"underlyingAssetAddress\": \"0xdAC17F958D2ee523a2206206994597C13D831ec7\",\n        \"underlyingAssetID\": \"tether\",\n        \"usd\": 5673.819058\n      }\n    ]\n  },\n  \"entities\": {\n    \"binance\": {\n      \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n      \"description\": \"\",\n      \"id\": \"binance\",\n      \"linkedin\": \"https://www.linkedin.com/company/binance\",\n      \"name\": \"Binance\",\n      \"note\": \"\",\n      \"populatedTags\": [\n        {\n          \"disablePage\": false,\n          \"excludeEntities\": false,\n          \"id\": \"proof-of-reserves\",\n          \"label\": \"Binance Proof of Reserves\",\n          \"rank\": 20,\n          \"tagParams\": \"Binance\"\n        },\n        {\n          \"disablePage\": false,\n          \"excludeEntities\": false,\n          \"id\": \"cex\",\n          \"label\": \"Centralized Exchange\",\n          \"rank\": 50\n        }\n      ],\n      \"service\": null,\n      \"twitter\": \"https://twitter.com/binance\",\n      \"type\": \"cex\",\n      \"website\": \"https://binance.com\"\n    }\n  },\n  \"totalPositions\": {\n    \"arbitrum_one\": 1725.5757898151708,\n    \"ethereum\": 18641.93066428793\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13f2af66-e8f6-4fe6-9c8f-e0560902c807",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query loan positions for. Accepts both Arkham entity IDs and user entity IDs."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42067825-efc1-4c4a-84dc-af47fe230622",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loans",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query loan positions for. Accepts both Arkham entity IDs and user entity IDs."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7cb7a462-69bf-40bd-8518-a3eaa585deb0",
+    "name": "Arkham Intel Analytics Loans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,503 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Transfers API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transfers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transfers",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter from or to any of a comma separated list of entities or addresses."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "counterparties",
+                "value": "",
+                "type": "query",
+                "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter after a specific time."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter before a specific time."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter using a duration string."
+              },
+              {
+                "name": "valueGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum token value."
+              },
+              {
+                "name": "valueLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum token value."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum USD value."
+              },
+              {
+                "name": "usdLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum USD value."
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending."
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Direction for sorting results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default: 20. Max: 1650."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. offset + limit must not exceed 10000."
+              },
+              {
+                "name": "includeCursors",
+                "value": "",
+                "type": "query",
+                "description": "Include per-chain as-of cursors in the response. Default: false."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of transfers based on various query filters.\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.\n\n**Filter parameters:**\n- **base**: Filter by specific entity or address. For example, \"0x123abc\" or \"binance\".\n- **chains**: Specify a comma-separated list of chains (e.g. \"ethereum,bsc\").\n- **flow**: Direction of the transfer. Valid values are \"in\" (incoming), \"out\" (outgoing), \"self\" (self-transfers), or \"all\".\n- **from**: Comma-separated list of addr"
+        },
+        {
+          "info": {
+            "name": "Get a detailed histogram of transfers (API Only)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transfers/histogram",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter from or to any of a comma separated list of entities or addresses."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "counterparties",
+                "value": "",
+                "type": "query",
+                "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter after a specific time."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter before a specific time."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter using a duration string."
+              },
+              {
+                "name": "valueGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum token value."
+              },
+              {
+                "name": "valueLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum token value."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum USD value."
+              },
+              {
+                "name": "usdLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum USD value."
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Granularity of histogram buckets. For time ranges over 30 days, only '1d' is valid."
+              }
+            ]
+          },
+          "docs": "Returns an aggregated histogram of transfers over time (count and USD values) based on the same filter parameters used in /transfers.\n\n**Requires an API key** (browser-session and anonymous access are not permitted).\n\n**Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.\n\n**Additional parameter**:\n- **granularity**: \"1h\" or \"1d\" (if the range exceeds 30 days, \"1h\" is invalid).\n\n**Filter parameters** (same as /transfers, minus pagination/sorting):\n- **base**: Filter by "
+        },
+        {
+          "info": {
+            "name": "Get a simple histogram of transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transfers/histogram/simple",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter from or to any of a comma separated list of entities or addresses."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "counterparties",
+                "value": "",
+                "type": "query",
+                "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter after a specific time."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter before a specific time."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter using a duration string."
+              },
+              {
+                "name": "valueGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum token value."
+              },
+              {
+                "name": "valueLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum token value."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum USD value."
+              },
+              {
+                "name": "usdLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum USD value."
+              }
+            ]
+          },
+          "docs": "Returns a simplified aggregated histogram of transfers over time.\n\n**Note**: For the full-featured histogram endpoint with all filter options, use /transfers/histogram which requires API authentication."
+        },
+        {
+          "info": {
+            "name": "Get transfers for a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transfers/tx/:hash",
+            "params": [
+              {
+                "name": "transferType",
+                "value": "",
+                "type": "query",
+                "description": "Type of transfers to return. 'external' = native value transfers, 'internal' = trace calls, 'token' = ERC-20/TRC-20 transfers."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network the transaction is on."
+              },
+              {
+                "name": "hash",
+                "value": "",
+                "type": "path",
+                "description": "The transaction hash to retrieve transfers for."
+              }
+            ]
+          },
+          "docs": "Returns the transfers of a given type (external, internal, or token) within a single transaction, identified by its hash. Supported on EVM chains and Tron; other chains return an empty list. For Solana and other non-EVM transactions, use GET /tx/{hash} to retrieve the transaction's details instead."
+        },
+        {
+          "info": {
+            "name": "Get unenriched transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/transfers/unenriched",
+            "params": [
+              {
+                "name": "base",
+                "value": "",
+                "type": "query",
+                "description": "Filter from or to any of a comma separated list of entities or addresses."
+              },
+              {
+                "name": "chains",
+                "value": "",
+                "type": "query",
+                "description": "List of chains to filter by."
+              },
+              {
+                "name": "flow",
+                "value": "",
+                "type": "query",
+                "description": "Transfer direction."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Filter from any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Filter to any of a comma separated list of addresses, entities, or deposit services. You can also use special syntax like 'type:cex' to filter on entity types or 'deposit:binance' to filter on deposit addresses."
+              },
+              {
+                "name": "counterparties",
+                "value": "",
+                "type": "query",
+                "description": "list of addresses or entities to treat strictly as counterparties (only base <-> counterparty transfers)."
+              },
+              {
+                "name": "tokens",
+                "value": "",
+                "type": "query",
+                "description": "Filter involving any of a comma separated list of token addresses or token IDs."
+              },
+              {
+                "name": "timeGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter after a specific time."
+              },
+              {
+                "name": "timeLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter before a specific time."
+              },
+              {
+                "name": "timeLast",
+                "value": "",
+                "type": "query",
+                "description": "Filter using a duration string."
+              },
+              {
+                "name": "valueGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum token value."
+              },
+              {
+                "name": "valueLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum token value."
+              },
+              {
+                "name": "usdGte",
+                "value": "",
+                "type": "query",
+                "description": "Filter above a minimum USD value."
+              },
+              {
+                "name": "usdLte",
+                "value": "",
+                "type": "query",
+                "description": "Filter below a maximum USD value."
+              },
+              {
+                "name": "sortKey",
+                "value": "",
+                "type": "query",
+                "description": "Field by which to sort the results. Custom sorting requires authentication; anonymous requests are always sorted by time, descending."
+              },
+              {
+                "name": "sortDir",
+                "value": "",
+                "type": "query",
+                "description": "Direction for sorting results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default: 20. Max: 1650."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. offset + limit must not exceed 10000."
+              },
+              {
+                "name": "includeCursors",
+                "value": "",
+                "type": "query",
+                "description": "Include per-chain as-of cursors in the response. Default: false."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of transfers based on the same query filters as GET /transfers, but returns raw addresses without Arkham address intelligence.\n\nThis endpoint uses the transfer search index and token/transaction metadata enrichment, but it does not enrich transfer counterparties with Arkham entities, labels, deposit services, or predicted entities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

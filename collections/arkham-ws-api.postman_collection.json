@@ -1,0 +1,1409 @@
+{
+  "item": [
+    {
+      "id": "ab645141-52b5-4802-abe1-0142937c87fd",
+      "name": "Ws",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5769168f-f3bc-4ab0-8b85-60c649053ea3",
+          "name": "Get active WebSocket connections (deprecated — use v2)",
+          "request": {
+            "name": "Get active WebSocket connections (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns the number of active WebSocket connections for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "active_connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef9f7f35-4e35-48f4-a604-2a2d991b94a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "active_connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activeConnections\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "debb7f6d-eeac-4244-880a-59f00c4ba97c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "active_connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b14bb9f2-52ef-4edf-8316-7906e8893318",
+          "name": "Get WebSocket pricing info (deprecated — use v2)",
+          "request": {
+            "name": "Get WebSocket pricing info (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** v1 session pricing. Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams) — v2 has no per-session fee.\n\nReturns the current pricing information for WebSocket sessions, including the credit cost per session creation and per transfer received.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "session-info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb7ee6cb-d079-406d-8e9f-28ccacfcb2d3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "session-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"creditPerSession\": 500,\n  \"creditPerTransfer\": 2,\n  \"nextRenewalDate\": \"2026-08-14T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8518d720-7c09-40a0-b3ba-676c070e7214",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "session-info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90a0b763-05b3-48e1-afe2-0e51c7dc345e",
+          "name": "List WebSocket sessions (deprecated — use v2)",
+          "request": {
+            "name": "List WebSocket sessions (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns all WebSocket sessions for the authenticated user, including usage statistics and connection status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "357e3764-48ce-4f8f-b47c-396f308962de",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdAt\": \"2026-07-14T09:12:43Z\",\n    \"isActive\": true,\n    \"isConnected\": true,\n    \"sessionId\": \"ws_Ab3xK9pQ_1782149114960780310\",\n    \"transfersUsed\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d9e90a5-7f92-4361-902c-8aec3ee1b502",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f90f5b4a-6cde-4601-a9d2-61858fb33cc3",
+          "name": "Create WebSocket session (deprecated — use v2)",
+          "request": {
+            "name": "Create WebSocket session (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** Use the v2 WebSocket stream endpoints instead. See GET /ws/v2/streams for details. V2 offers lower cost (no session creation fee) and better performance.\n\nCreates a new WebSocket session for real-time transfer streaming.\n\nYou must create a session before connecting to the WebSocket stream. The returned sessionId should be passed as a query parameter when connecting: wss://api.arkm.com/ws/transfers?session_id=<sessionId>\n\n**Billing:** Session creation costs API credits. Check GET /ws/session-info for current pricing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6028db3e-2c3a-4e5a-821d-17c206108cab",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2026-07-14T09:12:43Z\",\n  \"isActive\": true,\n  \"sessionId\": \"ws_Ab3xK9pQ_1782149114960780310\",\n  \"transfersUsed\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5dfe03b-5594-432d-b967-e007526b25eb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d73d9917-3984-4be2-9398-341b2f3c4152",
+          "name": "Delete WebSocket session (deprecated — use v2)",
+          "request": {
+            "name": "Delete WebSocket session (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nDeletes a WebSocket session. Any active connection using this session will be disconnected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sessions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The session ID to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a29922d-b02c-41d3-a42e-bc529bbaa595",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"session deleted successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "042efed4-d0c7-4539-8464-eec0835096f8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d563cc3-a45d-4713-a998-94b1ebd20aaf",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to delete"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44d5b82d-7f23-4ed7-8fb8-e56fe7e9e066",
+          "name": "Get WebSocket session status (deprecated — use v2)",
+          "request": {
+            "name": "Get WebSocket session status (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** Use the v2 WebSocket stream endpoints instead (see GET /ws/v2/streams).\n\nReturns the status and usage details for a specific WebSocket session, including transfer count and connection status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sessions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The session ID to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbd2e377-0c6d-4d8f-9e01-3ae54fb8951b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2026-07-14T09:12:43Z\",\n  \"isActive\": true,\n  \"isConnected\": true,\n  \"sessionId\": \"ws_Ab3xK9pQ_1782149114960780310\",\n  \"transfersUsed\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a776bec6-20a4-4070-ac3a-fa87f23c219a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to retrieve"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9874cce0-d961-4800-8a5c-127584bc3392",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sessions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The session ID to retrieve"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "293b736d-5503-478d-8d3f-5f411913ac91",
+          "name": "WebSocket transfer streaming (deprecated — use v2)",
+          "request": {
+            "name": "WebSocket transfer streaming (deprecated — use v2)",
+            "description": {
+              "content": "**Deprecated:** This is the v1 WebSocket endpoint. Use the v2 WebSocket stream endpoints for improved cost and performance. See GET /ws/v2/streams for details.\n\nWebSocket endpoint for streaming real-time blockchain transfers.\n\n**Getting Started:**\n1. Create a session by calling POST /ws/sessions - this returns a sessionId\n2. Connect to wss://api.arkm.com/ws/transfers?session_id=<your-session-id> with your API-Key header\n3. Send a subscribe message with your transfer filters to start receiving data\n\n**Query Parameters:**\n- session_id (required) - Your session ID from POST /ws/sessions\n- fresh (optional) - Set to true to clear pending notifications from a previous connection\n\n**Client Messages:**\n- subscribe: Create a filter to receive matching transfers (1 per session)\n- unsubscribe: Remove your filter by ID\n\n**Server Messages:**\n- transfer: Real-time transfer notification matching your filters\n- ack: Acknowledgment for successful operations\n- error: Error notifications (codes: INVALID_PAYLOAD, INVALID_FILTER, FILTER_EXISTS, NO_SESSION, INTERNAL_ERROR)\n\nEach message is a JSON envelope of the form {\"type\":\"transfer\",\"payload\":{\"transfer\":{...},\"alertId\":123}}. Read payload.transfer for the transfer object; its fields match a GET /transfers row and vary by chain (UTXO chains such as bitcoin omit tokenSymbol and use fromAddresses).\n\n**Filter Requirements:**\n- Must include at least one of: base, from, to, tokens, or usdGte >= 250,000\n\n**Billing:** Each transfer received consumes API credits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4dc7f96d-582b-4a63-b82e-6e921375c07a",
+              "name": "Switching Protocols",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49ea0385-ceea-44cd-863e-a9a4c27e4d09",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39164f33-1456-42d6-b941-f5322cca0fc8",
+          "name": "List WebSocket v2 streams",
+          "request": {
+            "name": "List WebSocket v2 streams",
+            "description": {
+              "content": "Returns all WebSocket v2 streams for the authenticated user.\n\n**How v2 works (3 steps):**\n1. **Create** a stream with your transfer filter via POST /ws/v2/streams — the filter uses the same fields as GET /transfers, sent as a JSON request body\n2. **Connect** via WebSocket: wss://api.arkm.com/ws/v2/transfers?stream_id=<streamId> with your API-Key header\n3. **Receive** transfers automatically — no subscribe/unsubscribe messages needed\n\n**Key differences from v1:** In v2, each stream has exactly one filter set at creation time via a JSON request body on POST /ws/v2/streams. There is no need to send subscribe/unsubscribe messages over the WebSocket — transfers are delivered automatically as soon as you connect. The filter fields are the same as GET /transfers (base, from, to, chains, tokens, usdGte, etc.).\n\n**Reconnection:** Streams expire after 10 minutes of inactivity. Reconnecting within 10 minutes reactivates the stream and delivers any transfers that occurred while disconnected.\n\n**Limits:** Maximum 10 active streams per user (contact sales for higher limits).\n\n**Billing:** 2 credits per transfer delivered. Stream creation, listing, and deletion are free.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "v2",
+                "streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82e2d694-d7d6-4b67-a9ad-a80959e12e44",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdAt\": \"2026-07-14T09:12:43Z\",\n    \"id\": 173943,\n    \"isConnected\": true,\n    \"lastActive\": \"2026-07-15T10:16:35Z\",\n    \"streamId\": \"e561dd5b-a24d-4669-bbba-9e5cf37d5125\",\n    \"transfersUsed\": 1\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "048db33b-3c86-4432-a1c6-888b1829ce35",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b1fc8eb-fb25-4d1e-a553-d0c96c254e25",
+          "name": "Create a WebSocket v2 stream",
+          "request": {
+            "name": "Create a WebSocket v2 stream",
+            "description": {
+              "content": "Creates a new WebSocket v2 stream with the given transfer filter, sent as a JSON request body.\n\nThe filter is set at creation time and cannot be changed. To use a different filter, delete this stream and create a new one.\n\n**Filter requirements:** Must include at least one of: base, from, to, tokens, or usdGte >= 250,000.\n\n**Filter parameters:**\n- **base** — Entity name or wallet address to monitor. Shows transfers where this appears as sender or receiver. E.g. \"binance\" or \"0x123abc\".\n- **chains** — List of blockchains to filter by. E.g. [\"ethereum\", \"bsc\"]. Omit to include all chains.\n- **flow** — Transfer direction relative to the base. Values: \"in\" (incoming), \"out\" (outgoing), \"self\" (self-transfers), \"all\" (default).\n- **from** — List of addresses, entities, or deposit services for the sender side. Supports special syntax: \"type:cex\" for all CEX addresses, \"deposit:binance\" for Binance deposit addresses.\n- **to** — List of addresses, entities, or deposit services for the receiver side. Same syntax as from.\n- **tokens** — List of token symbols or contract addresses. E.g. [\"ethereum\", \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\"].\n- **counterparties** — List of addresses or entities to treat strictly as counterparties. When set with base, only delivers transfers that flow directly between base and counterparty (base→counterparty or counterparty→base).\n- **usdGte** / **usdLte** — Minimum/maximum USD value of the transfer. usdGte can satisfy the filter requirement on its own if >= 250,000.\n- **valueGte** / **valueLte** — Minimum/maximum raw token amount (not USD).\n\nAll address/entity parameters (base, from, to, counterparties) accept both raw wallet addresses and Arkham entity names. You do not need to use labeled entities — any wallet address works.\n\n**Billing:** Free. You are only charged when transfers are delivered (2 credits per transfer).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "v2",
+                "streams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"base\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"chains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"counterparties\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"flow\": \"<string>\",\n  \"from\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tokens\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"usdGte\": \"<string>\",\n  \"usdLte\": \"<string>\",\n  \"valueGte\": \"<string>\",\n  \"valueLte\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cda670ae-9b0f-429b-99fb-0346b28596d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"chains\": [\n    \"ethereum\",\n    \"bsc\",\n    \"polygon\"\n  ],\n  \"counterparties\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"flow\": \"in\",\n  \"from\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"type:cex\",\n    \"deposit:binance\"\n  ],\n  \"to\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"deposit:binance\"\n  ],\n  \"tokens\": [\n    \"ethereum\",\n    \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\"\n  ],\n  \"usdGte\": \"250000\",\n  \"usdLte\": \"1000000\",\n  \"valueGte\": \"100\",\n  \"valueLte\": \"10000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2026-07-14T09:12:43Z\",\n  \"id\": 173943,\n  \"streamId\": \"e561dd5b-a24d-4669-bbba-9e5cf37d5125\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee689a88-3d29-4ec8-b629-7c5a5db8c770",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"chains\": [\n    \"ethereum\",\n    \"bsc\",\n    \"polygon\"\n  ],\n  \"counterparties\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"flow\": \"in\",\n  \"from\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"type:cex\",\n    \"deposit:binance\"\n  ],\n  \"to\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"deposit:binance\"\n  ],\n  \"tokens\": [\n    \"ethereum\",\n    \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\"\n  ],\n  \"usdGte\": \"250000\",\n  \"usdLte\": \"1000000\",\n  \"valueGte\": \"100\",\n  \"valueLte\": \"10000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f16f92f0-5255-48a2-a4bc-c654b77588e8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"base\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"chains\": [\n    \"ethereum\",\n    \"bsc\",\n    \"polygon\"\n  ],\n  \"counterparties\": [\n    \"binance\",\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"\n  ],\n  \"flow\": \"in\",\n  \"from\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"type:cex\",\n    \"deposit:binance\"\n  ],\n  \"to\": [\n    \"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\",\n    \"deposit:binance\"\n  ],\n  \"tokens\": [\n    \"ethereum\",\n    \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\"\n  ],\n  \"usdGte\": \"250000\",\n  \"usdLte\": \"1000000\",\n  \"valueGte\": \"100\",\n  \"valueLte\": \"10000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "486056ef-3325-4cbb-999a-0b47e96ad5eb",
+          "name": "Delete a WebSocket v2 stream",
+          "request": {
+            "name": "Delete a WebSocket v2 stream",
+            "description": {
+              "content": "Deletes a WebSocket v2 stream. Any active connection using this stream will be disconnected.\n\n**Billing:** Free.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "v2",
+                "streams",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f125799-a3c0-4300-832f-73b428694ff6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"stream deleted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5928279-acc9-4a03-98f4-ff2235ec76d6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff556967-0694-45a8-b15c-e50d17c87c29",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "streams",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The streamId of the stream to delete, as returned by POST /ws/v2/streams. The numeric id from that response is not accepted here."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27fb51dc-b138-4dd2-a922-bb0aac279c9b",
+          "name": "WebSocket v2 transfer streaming",
+          "request": {
+            "name": "WebSocket v2 transfer streaming",
+            "description": {
+              "content": "Connect to a v2 stream to receive real-time transfer notifications.\n\n**Query Parameters:**\n- stream_id (required) — The stream ID from POST /ws/v2/streams\n\nTransfers matching the stream's filter are delivered automatically — no subscribe/unsubscribe messages needed. Each message is a JSON envelope: {\"type\":\"transfer\",\"payload\":{\"transfer\":{...},\"alertId\":N}}. The payload.transfer object has the same schema as GET /transfers responses.\n\n**Reconnection and replay:** Streams expire after 10 minutes of inactivity. If you reconnect within 10 minutes, the stream reactivates and any transfers that matched your filter while disconnected are delivered immediately. After 10 minutes of inactivity the stream is cleaned up and you must create a new one.\n\n**Billing:** 2 credits per transfer delivered.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "v2",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5133877f-73fe-4ead-b5c3-6824ba747fb1",
+              "name": "Switching Protocols",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e4b7ec0-c95f-4350-8bc3-5d2551801e82",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "v2",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "50bc47a4-ec45-4c79-9a06-c584a2027e20",
+    "name": "Arkham Intel Analytics Ws API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

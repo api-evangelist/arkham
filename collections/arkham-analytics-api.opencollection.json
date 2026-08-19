@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get historical credit usage by billing period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/credit-periods"
+          },
+          "docs": "Returns the last 12 billing periods of credit usage for your billing entity.\n\nEach period includes the period boundaries, plan credits included, extra (overage) credits, and total credits consumed.\n\nOnly available to organization admins (returning their org's usage) and individual API subscribers (returning their own usage). Other callers receive `403`."
+        },
+        {
+          "info": {
+            "name": "Get API endpoint call analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/endpoint-calls",
+            "params": [
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time window: \"24h\", \"7d\", or \"30d\". Defaults to \"24h\". Ignored when both start_date and end_date are provided."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "RFC3339 timestamp. Historical cutoff for the period-based window, or the upper bound of a custom range."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "RFC3339 timestamp. Lower bound of a custom date range. Only takes effect together with end_date — a custom range requires both; start_date supplied on its own is ignored. Max range 366 days."
+              }
+            ]
+          },
+          "docs": "Returns your API usage broken down by endpoint, including call counts and credits consumed.\n\nIf your API key belongs to an organization member, results are scoped to your usage within that org. Otherwise, results cover your individual subscription usage."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,134 @@
+{
+  "item": [
+    {
+      "id": "eaa376ad-9322-40ea-9e43-36941208b74e",
+      "name": "Marketdata",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "757203c2-5e4d-4f57-af59-5bb383f9f934",
+          "name": "Get Altcoin Index",
+          "request": {
+            "name": "Get Altcoin Index",
+            "description": {
+              "content": "Returns the current Altcoin Index value, which measures altcoin performance relative to Bitcoin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                "altcoin_index"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "995054a4-0ce2-4be3-be75-cb4b6a989d63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "altcoin_index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"altcoinIndex\": 63\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25221a66-1fb3-47e0-ae7f-19d7c951c652",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "altcoin_index"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "38b5f013-f81c-40c6-ba2d-a74957a640c9",
+    "name": "Arkham Intel Analytics Marketdata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

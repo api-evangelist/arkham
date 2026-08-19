@@ -1,0 +1,324 @@
+{
+  "item": [
+    {
+      "id": "94533802-e2df-4575-9049-137271766eae",
+      "name": "Analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed13222b-0c98-4b1d-8086-f0479b6dc2cf",
+          "name": "Get historical credit usage by billing period",
+          "request": {
+            "name": "Get historical credit usage by billing period",
+            "description": {
+              "content": "Returns the last 12 billing periods of credit usage for your billing entity.\n\nEach period includes the period boundaries, plan credits included, extra (overage) credits, and total credits consumed.\n\nOnly available to organization admins (returning their org's usage) and individual API subscribers (returning their own usage). Other callers receive `403`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "credit-periods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8cf3473-e21d-44ab-a5d8-aa348ffb9c03",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "credit-periods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"computedAt\": \"2026-05-01T00:05:12Z\",\n    \"creditsIncluded\": 500000,\n    \"creditsUsed\": 482350,\n    \"entityId\": \"org_01HF8X3J0KQZ2N7T6P9YV4WB5R\",\n    \"entityType\": \"org\",\n    \"extraCredits\": 0,\n    \"periodEnd\": \"2026-05-01T00:00:00Z\",\n    \"periodStart\": \"2026-04-01T00:00:00Z\",\n    \"status\": \"closed\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a537cc0e-39c0-4ce9-87ed-2e0322f9fda3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "credit-periods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53c67a0e-83eb-430a-afdb-e7b3030caa0c",
+          "name": "Get API endpoint call analytics",
+          "request": {
+            "name": "Get API endpoint call analytics",
+            "description": {
+              "content": "Returns your API usage broken down by endpoint, including call counts and credits consumed.\n\nIf your API key belongs to an organization member, results are scoped to your usage within that org. Otherwise, results cover your individual subscription usage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "endpoint-calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Time window: \"24h\", \"7d\", or \"30d\". Defaults to \"24h\". Ignored when both start_date and end_date are provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "RFC3339 timestamp. Historical cutoff for the period-based window, or the upper bound of a custom range."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "RFC3339 timestamp. Lower bound of a custom date range. Only takes effect together with end_date — a custom range requires both; start_date supplied on its own is ignored. Max range 366 days."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f79c6ef6-a8d8-4c18-a2ec-8a663e694bf8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "endpoint-calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2026-05-26T00:00:00Z"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2026-04-26T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataPoints\": [\n    {\n      \"callBreakdown\": {\n        \"/intelligence/address/{address}\": 864,\n        \"/transfers\": 420\n      },\n      \"creditBreakdown\": {\n        \"/intelligence/address/{address}\": 5220,\n        \"/transfers\": 2100\n      },\n      \"hour\": \"2026-05-26T14:00:00Z\",\n      \"totalCalls\": 1284,\n      \"totalCostUnits\": 7320,\n      \"totalCredits\": 7320\n    }\n  ],\n  \"endTime\": \"2026-05-26T00:00:00Z\",\n  \"endpointInfos\": [\n    {\n      \"color\": \"#4f46e5\",\n      \"pattern\": \"/transfers\",\n      \"unitType\": \"call\",\n      \"weight\": 5\n    }\n  ],\n  \"period\": \"7d\",\n  \"startTime\": \"2026-05-19T00:00:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c1390f9-3bb0-4d99-8b9a-06a14d232d51",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "endpoint-calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2026-05-26T00:00:00Z"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2026-04-26T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a754e634-540b-4736-b399-d1e6cb381f32",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "endpoint-calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "7d"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2026-05-26T00:00:00Z"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2026-04-26T00:00:00Z"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "30980e66-c6ff-4f85-94f9-6cff8c565bad",
+    "name": "Arkham Intel Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

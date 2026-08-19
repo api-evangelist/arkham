@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Arkham Intel Analytics Marketdata API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Marketdata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Altcoin Index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/marketdata/altcoin_index"
+          },
+          "docs": "Returns the current Altcoin Index value, which measures altcoin performance relative to Bitcoin."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,922 @@
+{
+  "item": [
+    {
+      "id": "fbf2a55b-9e40-4d7a-9fbd-2a80ebb57b88",
+      "name": "Balances",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f90752cd-74c9-4057-a198-73368556345f",
+          "name": "Get token balances for an address",
+          "request": {
+            "name": "Get token balances for an address",
+            "description": {
+              "content": "Returns token balances for the specified address, optionally filtered by chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "balances",
+                "address",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) The blockchain address to query balances for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5dd51603-139a-439b-bfe6-73b397502b3a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query balances for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addresses\": {\n    \"bsc\": {\n      \"0x28C6c06298d514Db089934071355E5743bf21d60\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"id\": \"binance\",\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/binance\",\n          \"type\": \"cex\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Hot Wallet\"\n        },\n        \"chain\": \"bsc\",\n        \"contract\": false,\n        \"isUserAddress\": false\n      }\n    },\n    \"ethereum\": {\n      \"0x28C6c06298d514Db089934071355E5743bf21d60\": {\n        \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n        \"arkhamEntity\": {\n          \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n          \"id\": \"binance\",\n          \"linkedin\": \"https://www.linkedin.com/company/binance\",\n          \"name\": \"Binance\",\n          \"note\": \"\",\n          \"service\": null,\n          \"twitter\": \"https://twitter.com/binance\",\n          \"type\": \"cex\",\n          \"website\": \"https://binance.com\"\n        },\n        \"arkhamLabel\": {\n          \"address\": \"0x28C6c06298d514Db089934071355E5743bf21d60\",\n          \"chainType\": \"evm\",\n          \"name\": \"Hot Wallet\"\n        },\n        \"chain\": \"ethereum\",\n        \"contract\": false,\n        \"isUserAddress\": false\n      }\n    }\n  },\n  \"balances\": {\n    \"bsc\": [\n      {\n        \"balance\": 3734.2858510100004,\n        \"balanceExact\": \"3734285851010000000000\",\n        \"ethereumAddress\": \"0x55d398326f99059fF775485246999027B3197955\",\n        \"id\": \"binance-bridged-usdt-bnb-smart-chain\",\n        \"name\": \"Tether USD\",\n        \"price\": 1,\n        \"priceChange24h\": 0,\n        \"priceChange24hPercent\": 0,\n        \"quoteTime\": \"2026-07-06T08:56:06.003Z\",\n        \"symbol\": \"USDT\",\n        \"usd\": 3734.2858510100004\n      }\n    ],\n    \"ethereum\": [\n      {\n        \"balance\": 933180509.069545,\n        \"balanceExact\": \"933180509069545\",\n        \"ethereumAddress\": \"0xdAC17F958D2ee523a2206206994597C13D831ec7\",\n        \"id\": \"tether\",\n        \"name\": \"Tether USD\",\n        \"price\": 1,\n        \"priceChange24h\": 0,\n        \"priceChange24hPercent\": 0,\n        \"quoteTime\": \"2026-07-06T08:56:21.074Z\",\n        \"symbol\": \"USDT\",\n        \"usd\": 933180509.069545\n      },\n      {\n        \"balance\": 264229.89222968067,\n        \"balanceExact\": \"264229892229680683921876\",\n        \"id\": \"ethereum\",\n        \"name\": \"Ethereum\",\n        \"price\": 1764.02,\n        \"priceChange24h\": -2.2200000000000273,\n        \"priceChange24hPercent\": -0.12569073285623852,\n        \"quoteTime\": \"2026-07-06T08:56:12.855Z\",\n        \"symbol\": \"ETH\",\n        \"usd\": 466106814.4910013\n      }\n    ]\n  },\n  \"totalBalance\": {\n    \"bsc\": 4958.963746508313,\n    \"ethereum\": 1851859770.8709288\n  },\n  \"totalBalance24hAgo\": {\n    \"bsc\": 4962.53510092634,\n    \"ethereum\": 1855389918.2681246\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a8e8bc7-bca7-4dec-834b-1b6237157c8d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bfaa1479-dccc-48c6-a404-8fc76d7e075c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "address",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) The blockchain address to query balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2879c002-05b6-49af-ad62-629b09eda085",
+          "name": "Get token balances for an entity",
+          "request": {
+            "name": "Get token balances for an entity",
+            "description": {
+              "content": "Returns token balances for the specified entity, optionally filtered by chains.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "balances",
+                "entity",
+                ":entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cheap",
+                  "value": "<string>",
+                  "description": "If 'true', uses a faster but less real-time balance query (up to 24 hours delayed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+                },
+                {
+                  "disabled": false,
+                  "key": "chains",
+                  "value": "<string>",
+                  "description": "Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns balances across all supported chains."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entity",
+                  "description": "(Required) The entity ID to query balances for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "628bdb65-e235-45c6-bb31-1ecd2e03a466",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cheap",
+                      "value": "true"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query balances for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balances\": {\n    \"bsc\": [\n      {\n        \"balance\": 40881.77844727871,\n        \"id\": \"binance-bitcoin\",\n        \"name\": \"Binance Bitcoin\",\n        \"price\": 65027,\n        \"priceChange24h\": 950,\n        \"priceChange24hPercent\": 1.4825912573934485,\n        \"quoteTime\": \"2026-06-22T13:23:37.62Z\",\n        \"symbol\": \"BTCB\",\n        \"usd\": 2658419407.0911927\n      }\n    ],\n    \"ethereum\": [\n      {\n        \"balance\": 40046128192.73723,\n        \"id\": \"tether\",\n        \"name\": \"Tether\",\n        \"price\": 1,\n        \"priceChange24h\": 0,\n        \"priceChange24hPercent\": 0,\n        \"quoteTime\": \"2026-06-22T13:24:28.299Z\",\n        \"symbol\": \"USDT\",\n        \"usd\": 40046128192.73723\n      },\n      {\n        \"balance\": 7422685972.66057,\n        \"id\": \"usd-coin\",\n        \"name\": \"USDC\",\n        \"price\": 1,\n        \"priceChange24h\": 0,\n        \"priceChange24hPercent\": 0,\n        \"quoteTime\": \"2026-06-22T13:24:30.156Z\",\n        \"symbol\": \"USDC\",\n        \"usd\": 7422685972.66057\n      }\n    ]\n  },\n  \"entities\": {\n    \"binance\": {\n      \"crunchbase\": \"https://www.crunchbase.com/organization/binance\",\n      \"description\": \"\",\n      \"id\": \"binance\",\n      \"linkedin\": \"https://www.linkedin.com/company/binance\",\n      \"name\": \"Binance\",\n      \"note\": \"\",\n      \"populatedTags\": [\n        {\n          \"disablePage\": false,\n          \"excludeEntities\": false,\n          \"id\": \"proof-of-reserves\",\n          \"label\": \"Binance Proof of Reserves\",\n          \"rank\": 20,\n          \"tagParams\": \"Binance\"\n        }\n      ],\n      \"service\": null,\n      \"twitter\": \"https://twitter.com/binance\",\n      \"type\": \"cex\",\n      \"website\": \"https://binance.com\"\n    }\n  },\n  \"totalBalance\": {\n    \"bsc\": 11662208524.033506,\n    \"ethereum\": 66276809360.97472\n  },\n  \"totalBalance24hAgo\": {\n    \"bsc\": 11595187303.045288,\n    \"ethereum\": 65932976474.17882\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57a558d5-7c57-48a8-9629-4f1332829d04",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cheap",
+                      "value": "true"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "183183ef-689e-4831-ae86-a829d5d0093d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "entity",
+                    ":entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cheap",
+                      "value": "true"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "ethereum"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "bsc"
+                    },
+                    {
+                      "key": "chains",
+                      "value": "polygon"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entity",
+                      "description": "(Required) The entity ID to query balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d39bd363-b59d-41e6-8cd6-b75fb682ec76",
+          "name": "Get Solana subaccount balances for addresses",
+          "request": {
+            "name": "Get Solana subaccount balances for addresses",
+            "description": {
+              "content": "Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified addresses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "balances",
+                "solana",
+                "subaccounts",
+                "address",
+                ":addresses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pricingID",
+                  "value": "<string>",
+                  "description": "(Required) The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Maximum number of subaccount balance entries to return. Default: 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addresses",
+                  "description": "(Required) Comma-separated list of Solana addresses to query subaccount balances for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bfb3eb89-fef5-4471-a5ef-a872c1b01cdf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "address",
+                    ":addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "jito-staked-sol"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addresses",
+                      "description": "(Required) Comma-separated list of Solana addresses to query subaccount balances for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy\",\n    \"ownerAddress\": \"GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4\",\n    \"name\": \"Jito Staked SOL\",\n    \"symbol\": \"JitoSOL\",\n    \"id\": \"jito-staked-sol\",\n    \"balance\": 508628.141646117,\n    \"usd\": 44621946.86661385,\n    \"price\": 87.73,\n    \"balanceExact\": \"508628141646117\"\n  },\n  {\n    \"address\": \"BCjNfgiZYpfZG2aTDDFw5dL4zu7cwBRdv2v8FsnjK6Dy\",\n    \"ownerAddress\": \"GxDDTT1zqgH2aNgdoyDvEgvHdsLq91JAExCTao7c5GT4\",\n    \"name\": \"Jito Staked SOL\",\n    \"symbol\": \"JitoSOL\",\n    \"id\": \"jito-staked-sol\",\n    \"balance\": 508628.141646117,\n    \"usd\": 44621946.86661385,\n    \"price\": 87.73,\n    \"balanceExact\": \"508628141646117\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "713ac254-12e6-4a72-b0bb-bd4772df5cc2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "address",
+                    ":addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "jito-staked-sol"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addresses",
+                      "description": "(Required) Comma-separated list of Solana addresses to query subaccount balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6f13e7e8-ae75-45c8-b03b-a19bd1c4f190",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "address",
+                    ":addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "jito-staked-sol"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addresses",
+                      "description": "(Required) Comma-separated list of Solana addresses to query subaccount balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99a83b6f-80c3-4f5b-b64b-1ef5f8892df3",
+          "name": "Get Solana subaccount balances for entities",
+          "request": {
+            "name": "Get Solana subaccount balances for entities",
+            "description": {
+              "content": "Returns token balances from Solana subaccounts (staking, lending, etc.) for the specified entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "balances",
+                "solana",
+                "subaccounts",
+                "entity",
+                ":entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pricingID",
+                  "value": "<string>",
+                  "description": "(Required) The CoinGecko pricing ID of the token to query subaccount balances for. Filters results to balances of this token."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Maximum number of subaccount balance entries to return. Default: 1000."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entities",
+                  "description": "(Required) Comma-separated list of entity IDs to query subaccount balances for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06c476f3-3539-4338-b25e-e608f90aace1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "entity",
+                    ":entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "tensor"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entities",
+                      "description": "(Required) Comma-separated list of entity IDs to query subaccount balances for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"GugV3a7dGm2n5SDmsoiWKgaPGjwkoMBuz1wQaDCAftKb\",\n    \"balance\": 73296943.94763146,\n    \"balanceExact\": \"73296943947631461\",\n    \"id\": \"tensor\",\n    \"name\": \"Tensor\",\n    \"ownerAddress\": \"5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9\",\n    \"price\": 0.04028654,\n    \"symbol\": \"TNSR\",\n    \"usd\": 2952880.2642240124\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "378df75a-d8b0-475c-bd1e-6bf09fad8f2d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "entity",
+                    ":entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "tensor"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entities",
+                      "description": "(Required) Comma-separated list of entity IDs to query subaccount balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1886fb5-cb64-426f-86c1-b689a5a1ab06",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "balances",
+                    "solana",
+                    "subaccounts",
+                    "entity",
+                    ":entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pricingID",
+                      "value": "tensor"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entities",
+                      "description": "(Required) Comma-separated list of entity IDs to query subaccount balances for."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d4a78fc5-68e3-453f-a936-b38328a0b1da",
+    "name": "Arkham Intel Analytics Balances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

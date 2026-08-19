@@ -1,0 +1,5080 @@
+{
+  "item": [
+    {
+      "id": "ae92b1f6-cf60-4de5-a9e3-c6835961fce5",
+      "name": "Polymarket",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89b9d12b-5717-4490-b580-30f87c515428",
+          "name": "Polymarket activity feed",
+          "request": {
+            "name": "Polymarket activity feed",
+            "description": {
+              "content": "Returns a paginated feed of Polymarket trade and lifecycle events (trades, splits, merges, converts), newest first. Use `actions`, `eventType`, or `direction` to scope which event types are returned (`actions` can't be combined with the other two).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific Polymarket trade addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "userAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific Polymarket trade addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "conditionID",
+                  "value": "<string>",
+                  "description": "Optional. Filter to a single market condition ID (all of its outcome tokens)."
+                },
+                {
+                  "disabled": false,
+                  "key": "eventID",
+                  "value": "<integer>",
+                  "description": "Optional. Filter to all markets and outcomes in a Polymarket event."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific outcome token addresses. The conditionID, eventID, and tokenAddresses filters are intersected (a token must satisfy all provided)."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific outcome token addresses. The conditionID, eventID, and tokenAddresses filters are intersected (a token must satisfy all provided)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minUsd",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum notional (size * price) in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxUsd",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum notional (size * price) in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minPrice",
+                  "value": "<number>",
+                  "description": "Optional. Minimum per-share price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPrice",
+                  "value": "<number>",
+                  "description": "Optional. Maximum per-share price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "minSize",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum trade size in whole outcome-token shares."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxSize",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum trade size in whole outcome-token shares."
+                },
+                {
+                  "disabled": false,
+                  "key": "actions",
+                  "value": "<string>",
+                  "description": "Optional. Filter to one or more actions: buy, sell, split, merge, convert. Cannot be combined with eventType or direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "actions",
+                  "value": "<string>",
+                  "description": "Optional. Filter to one or more actions: buy, sell, split, merge, convert. Cannot be combined with eventType or direction."
+                },
+                {
+                  "disabled": false,
+                  "key": "eventType",
+                  "value": "<string>",
+                  "description": "Optional. Filter by event class: trade, split, merge, or convert. Use direction to narrow trades to one side."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Optional. Narrow trades to one side: buy or sell. Only valid with eventType=trade (or no eventType)."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<integer>",
+                  "description": "Optional. Unix timestamp in seconds for the start of the range (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<integer>",
+                  "description": "Optional. Unix timestamp in seconds for the end of the range (exclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max results (default 50, max 500)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination (default 0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fastPagination",
+                  "value": "true",
+                  "description": "Fast pagination defaults to true. When enabled, totalCount is only large enough to determine whether another page exists; set false to count matches up to 10,000."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Column to order by: time (default), size (outcome-token shares), price (cents-per-share), usd (notional)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort direction: asc or desc (default)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "269619c5-4862-4643-8e9d-f5ef1ef5121e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "minUsd",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxUsd",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSize",
+                      "value": "500"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "eventType",
+                      "value": "trade"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fastPagination",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"blockTimestamp\": \"2026-06-22T13:29:41Z\",\n      \"conditionId\": \"0x38e99171e9124c355447b04ff5cfa38d6c3ebaf9a1daed629cfcdd6fff175878\",\n      \"direction\": \"buy\",\n      \"eventId\": 618839,\n      \"eventType\": \"trade\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/ETH+fullsize.jpg\",\n      \"logIndex\": 489,\n      \"notional\": \"10.692\",\n      \"outcome\": \"Up\",\n      \"question\": \"Ethereum Up or Down - June 22, 9:30AM-9:35AM ET\",\n      \"size\": \"23.76\",\n      \"tokenAddress\": \"0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35\",\n      \"transactionHash\": \"0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad\",\n      \"userAddress\": \"0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c\"\n    }\n  ],\n  \"totalCount\": 10000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b9749a9-5dd3-4b73-8fce-875eba9872f8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "minUsd",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxUsd",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSize",
+                      "value": "500"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "eventType",
+                      "value": "trade"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fastPagination",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "834e1aa7-4075-4d5d-885c-89c3cf91fe58",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "minUsd",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxUsd",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSize",
+                      "value": "500"
+                    },
+                    {
+                      "key": "actions",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "eventType",
+                      "value": "trade"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "buy"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fastPagination",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "time"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c55e6bd8-2008-4ce0-9f95-689921690aee",
+          "name": "Polymarket positions in a market",
+          "request": {
+            "name": "Polymarket positions in a market",
+            "description": {
+              "content": "Returns holders and their positions for a market's outcome tokens — one row per user and token, with shares, price, value, and PnL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "event-positions",
+                ":conditionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Explicit outcome token list; overrides condition-derived tokens and can span markets beyond the path conditionId."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Explicit outcome token list; overrides condition-derived tokens and can span markets beyond the path conditionId."
+                },
+                {
+                  "disabled": false,
+                  "key": "userAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific Polymarket trade addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "userAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific Polymarket trade addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "outcome",
+                  "value": "<integer>",
+                  "description": "Optional. 0 for Yes token, 1 for No token."
+                },
+                {
+                  "disabled": false,
+                  "key": "minShares",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum held shares (whole outcome-token shares)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxShares",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum held shares (whole outcome-token shares)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minValue",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum current position value in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxValue",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum current position value in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minPnl",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum PnL in whole USD (can be negative)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPnl",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum PnL in whole USD (can be negative)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Optional. \"pnl\" (default), \"shares\", or \"value\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Optional. \"asc\" or \"desc\" (default)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max results (default 50, max 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination (default 0)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conditionId",
+                  "description": "(Required) Required. Polymarket condition ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2053340b-d049-4200-b842-ec48cb091a1d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "event-positions",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "1"
+                    },
+                    {
+                      "key": "minShares",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxShares",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n  \"positions\": [\n    {\n      \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png\",\n      \"outcome\": \"Yes\",\n      \"pnl\": \"183116.690251204\",\n      \"price\": 0.0545,\n      \"question\": \"Will Netherlands win the 2026 FIFA World Cup?\",\n      \"shares\": \"6337.619912\",\n      \"tokenAddress\": \"0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4\",\n      \"totalTrades\": 5818,\n      \"userAddress\": \"0xB687f00464E33934f5d591F224E71C3559ecAeE5\",\n      \"value\": \"345.400285204\"\n    }\n  ],\n  \"totalCount\": 40468\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cea22b2-a02d-40e2-aa7e-924358095d4e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "event-positions",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "1"
+                    },
+                    {
+                      "key": "minShares",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxShares",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ebf100f5-9e19-46b8-81f7-d05011374ef6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "event-positions",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "userAddresses",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "1"
+                    },
+                    {
+                      "key": "minShares",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxShares",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36318a74-2e4b-4e38-b3d9-6ff4be570516",
+          "name": "List Polymarket events",
+          "request": {
+            "name": "List Polymarket events",
+            "description": {
+              "content": "Returns a filtered, paginated list of Polymarket events, each with a few top-market previews and current prices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Optional. Filter by event tag. Matches lowercase Polymarket tags case-insensitively."
+                },
+                {
+                  "disabled": false,
+                  "key": "excludeTag",
+                  "value": "<string>",
+                  "description": "Optional. Exclude events carrying this tag (case-insensitive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "active",
+                  "value": "<boolean>",
+                  "description": "Optional. Filter to active events — not closed and not ended (true/false)."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Optional. Search event titles, market questions, and grouped-market titles."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Optional. Sort field: volume, endDate, or createdAt. Default: volume when no tag, endDate when tag is set."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Sort order: asc or desc. Default: desc."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max events to return (1-100). Default: 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. Default: 0."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc5d33ba-2083-496e-9646-2b894bd20e61",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "crypto"
+                    },
+                    {
+                      "key": "excludeTag",
+                      "value": "sports"
+                    },
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"active\": true,\n      \"category\": \"crypto\",\n      \"closed\": true,\n      \"description\": \"This market will resolve according to the national team that wins the 2026 FIFA World Cup.\",\n      \"endDate\": \"2024-01-01T00:00:00Z\",\n      \"ended\": true,\n      \"eventId\": 1,\n      \"eventIds\": [\n        1\n      ],\n      \"gameId\": 18432,\n      \"iconUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-soccer-cup-93e5f1d884.jpg\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-soccer-cup-93e5f1d884.jpg\",\n      \"live\": true,\n      \"marketCount\": 1,\n      \"marketPreviews\": [\n        {\n          \"conditionId\": \"0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894\",\n          \"groupItemMeta\": {\n            \"primaryColor\": \"#00FF00\",\n            \"shortName\": \"Yes\"\n          },\n          \"groupItemTitle\": \"France\",\n          \"outcomeMeta\": [\n            {\n              \"primaryColor\": \"#00FF00\",\n              \"shortName\": \"Yes\"\n            }\n          ],\n          \"outcomes\": [\n            \"Yes\",\n            \"No\"\n          ],\n          \"question\": \"Will France win the 2026 FIFA World Cup?\",\n          \"resolved\": true,\n          \"volume24hUsdc\": \"1250\",\n          \"winningOutcome\": \"Yes\",\n          \"yesPrice\": 0.1975,\n          \"yesPriceChange24h\": 1.23\n        }\n      ],\n      \"negRisk\": true,\n      \"restricted\": true,\n      \"slug\": \"world-cup-winner\",\n      \"startTime\": \"2024-01-01T00:00:00Z\",\n      \"tags\": [\n        {\n          \"label\": \"NBA\",\n          \"tag\": \"nba\"\n        }\n      ],\n      \"title\": \"World Cup Winner \",\n      \"volume24hChangePct\": 1.23,\n      \"volume24hUsdc\": \"320\",\n      \"volumeUsdc\": \"4582.1\"\n    }\n  ],\n  \"limit\": 2,\n  \"offset\": 0,\n  \"totalCount\": 610092\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b28f883-d84e-4f43-8607-a54365e34c17",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "crypto"
+                    },
+                    {
+                      "key": "excludeTag",
+                      "value": "sports"
+                    },
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "00e54981-c7fd-4564-92ce-98b8647b03f6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "crypto"
+                    },
+                    {
+                      "key": "excludeTag",
+                      "value": "sports"
+                    },
+                    {
+                      "key": "active",
+                      "value": "true"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "volume"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01a054d4-6317-41fd-a655-0052b5c26e29",
+          "name": "Get a Polymarket event",
+          "request": {
+            "name": "Get a Polymarket event",
+            "description": {
+              "content": "Returns a single Polymarket event by its event ID, along with every active or resolved market in the event. Each market includes its outcomes, current Yes price, 24h volume, and resolution status. Returns 404 if the event does not exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "events",
+                ":eventId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "eventId",
+                  "description": "(Required) Required. Polymarket event ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eeb14f65-fda2-4b49-9d13-c27c0ee18b2a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Required. Polymarket event ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"eventId\": 1,\n    \"title\": \"World Cup Winner \",\n    \"marketCount\": 1,\n    \"marketPreviews\": [\n      {\n        \"conditionId\": \"0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894\",\n        \"question\": \"Will France win the 2026 FIFA World Cup?\",\n        \"resolved\": true,\n        \"groupItemMeta\": {\n          \"primaryColor\": \"#00FF00\",\n          \"shortName\": \"Yes\"\n        },\n        \"groupItemTitle\": \"France\",\n        \"outcomeMeta\": [\n          {\n            \"primaryColor\": \"#00FF00\",\n            \"shortName\": \"Yes\"\n          }\n        ],\n        \"outcomes\": [\n          \"Yes\",\n          \"No\"\n        ],\n        \"volume24hUsdc\": \"1250\",\n        \"winningOutcome\": \"Yes\",\n        \"yesPrice\": 0.1975,\n        \"yesPriceChange24h\": 1.23\n      },\n      {\n        \"conditionId\": \"0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894\",\n        \"question\": \"Will France win the 2026 FIFA World Cup?\",\n        \"resolved\": true,\n        \"groupItemMeta\": {\n          \"primaryColor\": \"#00FF00\",\n          \"shortName\": \"Yes\"\n        },\n        \"groupItemTitle\": \"France\",\n        \"outcomeMeta\": [\n          {\n            \"primaryColor\": \"#00FF00\",\n            \"shortName\": \"Yes\"\n          }\n        ],\n        \"outcomes\": [\n          \"Yes\",\n          \"No\"\n        ],\n        \"volume24hUsdc\": \"1250\",\n        \"winningOutcome\": \"Yes\",\n        \"yesPrice\": 0.1975,\n        \"yesPriceChange24h\": 1.23\n      }\n    ],\n    \"active\": true,\n    \"closed\": true,\n    \"restricted\": true,\n    \"ended\": true,\n    \"live\": true,\n    \"category\": \"crypto\",\n    \"description\": \"This market will resolve according to the national team that wins the 2026 FIFA World Cup.\",\n    \"endDate\": \"2024-01-01T00:00:00Z\",\n    \"eventIds\": [\n      1\n    ],\n    \"gameId\": 18432,\n    \"iconUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-soccer-cup-93e5f1d884.jpg\",\n    \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-soccer-cup-93e5f1d884.jpg\",\n    \"negRisk\": true,\n    \"slug\": \"world-cup-winner\",\n    \"startTime\": \"2024-01-01T00:00:00Z\",\n    \"tags\": [\n      {\n        \"label\": \"NBA\",\n        \"tag\": \"nba\"\n      }\n    ],\n    \"volume24hChangePct\": 1.23,\n    \"volume24hUsdc\": \"320\",\n    \"volumeUsdc\": \"4582.1\"\n  },\n  \"markets\": [\n    {\n      \"active\": true,\n      \"closed\": true,\n      \"conditionId\": \"0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894\",\n      \"endDate\": \"2024-01-01T00:00:00Z\",\n      \"groupItemMeta\": {\n        \"primaryColor\": \"#0000FF\",\n        \"shortName\": \"FR\"\n      },\n      \"groupItemTitle\": \"France\",\n      \"iconUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png\",\n      \"outcomeMeta\": [\n        {\n          \"primaryColor\": \"#0000FF\",\n          \"shortName\": \"FR\"\n        }\n      ],\n      \"outcomes\": [\n        \"Yes\",\n        \"No\"\n      ],\n      \"question\": \"Will France win the 2026 FIFA World Cup?\",\n      \"resolved\": true,\n      \"resolvedAt\": \"2024-01-01T00:00:00Z\",\n      \"restricted\": true,\n      \"slug\": \"will-france-win-the-2026-fifa-world-cup-924\",\n      \"tokenAddresses\": [\n        \"0xef4a0c81fb7b6bc701f41c0da766cd0691e38b5dbf9bb6d096e20d986594942c\"\n      ],\n      \"volumeUsdc\": \"603084.740263\",\n      \"winningOutcome\": \"Yes\",\n      \"yesPrice\": 0.1975\n    }\n  ],\n  \"series\": {\n    \"cadenceSeconds\": 300,\n    \"liveEventId\": 1,\n    \"nextEventId\": 1,\n    \"prevEventId\": 1,\n    \"recurrence\": \"5m\",\n    \"resolutionSource\": \"chainlink-data-streams:BTC/USD\",\n    \"slug\": \"btc-up-or-down-5m\",\n    \"title\": \"BTC Up or Down 5m\",\n    \"underlying\": \"BTC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ebc62d4-002b-4f13-ba33-376c14135e4e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Required. Polymarket event ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66c803aa-b4d3-4922-b6b7-218745641ac4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "events",
+                    ":eventId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Required. Polymarket event ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5566b1b-e724-4c47-8432-ed1571ce7a55",
+          "name": "Polymarket PnL leaderboard",
+          "request": {
+            "name": "Polymarket PnL leaderboard",
+            "description": {
+              "content": "Returns the Polymarket total-PnL leaderboard (realized plus unrealized) for a period: 1d, 1w, 1m, or all (default 1d). Order desc for top traders or asc for worst. Pass an address to also receive that trader's rank.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "leaderboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Time period: 1d, 1w, 1m, all. Default: 1d"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Sort order: desc (top traders) or asc (worst traders). Default: desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max entries (1-200). Default: 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. Default: 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "Optional trade address. If set, also returns this user's rank."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d7dbe6a-441e-4f26-9874-02cbdfc92738",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": [\n    {\n      \"periodPnl\": \"1977499.5723378485\",\n      \"rank\": 1,\n      \"tags\": [\n        {\n          \"events\": 1284,\n          \"label\": \"Politics\",\n          \"tag\": \"politics\",\n          \"volume\": \"45820.12\"\n        }\n      ],\n      \"tokensTotal\": 216,\n      \"tokensWon\": 98,\n      \"tradeCount\": 8328,\n      \"userAddress\": \"0xf0318C32136c2dB7feC88B84869aEE6A1106C80c\"\n    }\n  ],\n  \"period\": \"1d\",\n  \"sort\": \"asc\",\n  \"userRank\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7df41e2-e90f-4690-a2dc-70350c838eba",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a157f7b3-68b5-4071-acf7-c98665a30c7e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c02d55b8-0fb2-47b2-8aec-881c87a435c0",
+          "name": "Polymarket order book",
+          "request": {
+            "name": "Polymarket order book",
+            "description": {
+              "content": "Returns the live CLOB order book for each of a market's outcome tokens: bids, asks, and last trade price per side. Returns 404 when the conditionID has no matching tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "order-book",
+                ":conditionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conditionId",
+                  "description": "(Required) Required. Polymarket condition ID for the market."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7096a7e4-f876-42a4-bccf-c4a9e9d935e9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "order-book",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n  \"sides\": [\n    {\n      \"asks\": [\n        {\n          \"price\": \"0.001\",\n          \"size\": \"2743420.3\"\n        }\n      ],\n      \"bids\": [\n        {\n          \"price\": \"0.001\",\n          \"size\": \"2743420.3\"\n        }\n      ],\n      \"lastTradePrice\": \"0.055\",\n      \"outcome\": \"Yes\",\n      \"tokenId\": \"0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a71217d-cba9-4a53-81f6-72b2068bad57",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "order-book",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c865ded-450d-4189-a487-7e357406bc38",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "order-book",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "110428b0-f29c-4a0d-ab2b-d9c60ef414ea",
+          "name": "Polymarket PnL chart",
+          "request": {
+            "name": "Polymarket PnL chart",
+            "description": {
+              "content": "Returns a time series of cumulative PnL for a trade address — portfolio-wide, or for a single market when `conditionID` is set. Window follows the `period` preset or an explicit `startTime`/`endTime` range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "pnl",
+                "chart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userAddress",
+                  "value": "<string>",
+                  "description": "(Required) Polymarket trade address (0x + 40 hex chars)."
+                },
+                {
+                  "disabled": false,
+                  "key": "conditionID",
+                  "value": "<string>",
+                  "description": "Optional. Market condition ID (0x-prefixed bytes32 hex). Aggregates across all outcome tokens. Omit for portfolio-level PnL."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Time period: 24h, 7d, 30d, all. Presets auto-shrink to the wallet's available history; all is portfolio-only. Default: 30d"
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<integer>",
+                  "description": "Optional Unix timestamp in seconds for start of range. Not supported with period=all. Condition-level custom ranges must be 30 days or less; all condition-level fixed windows must start within the last 30 days."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<integer>",
+                  "description": "Optional Unix timestamp in seconds for end of range. For conditionID requests, preset windows derived from endTime must start within the last 30 days."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5636ce16-ced3-4287-88f2-124258329e8f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "pnl",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddress",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "period",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n  \"endTime\": \"2026-06-22T13:29:45.975416489Z\",\n  \"interval\": \"4h\",\n  \"points\": [\n    {\n      \"bucket\": \"2026-05-23T12:00:00Z\",\n      \"cumulativeFees\": \"0\",\n      \"cumulativePnl\": \"1510462.284030093\",\n      \"cumulativePosition\": \"61565194.136166093\",\n      \"cumulativeUsdcFlow\": \"-60054731.852136\",\n      \"price\": 1.23\n    }\n  ],\n  \"question\": \"Will Netherlands win the 2026 FIFA World Cup?\",\n  \"startTime\": \"2026-05-23T13:29:45.975416489Z\",\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61b375f7-a659-453e-8199-e4217a476ab2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "pnl",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddress",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "period",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "407b5908-ab90-4f4d-89e7-5f2c89bd21e7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "pnl",
+                    "chart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userAddress",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "period",
+                      "value": "24h"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f16b3349-e963-4c0f-ba01-97e68db77126",
+          "name": "Polymarket user positions",
+          "request": {
+            "name": "Polymarket user positions",
+            "description": {
+              "content": "Returns a trade address's current open positions, one row per outcome token, with net position, net USDC flow, last price, and unrealized PnL. Sort by trades (default), shares, value, or pnl. Supports offset pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "positions",
+                ":addr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Column to order by: trades (default), shares, value, pnl."
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort direction: asc or desc (default)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max results (default 50, max 1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination (default 0)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc93937a-8878-40f9-88a8-8dd34164eb23",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "positions",
+                    ":addr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"positions\": [\n    {\n      \"conditionId\": \"0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d\",\n      \"eventId\": 30615,\n      \"groupItemTitle\": \"Scotland\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png\",\n      \"lastPrice\": 0.0015,\n      \"netFlowUsdc\": \"-7203.950016\",\n      \"netPosition\": \"7328182.072224\",\n      \"outcome\": \"Yes\",\n      \"question\": \"Will Scotland win the 2026 FIFA World Cup?\",\n      \"tokenAddress\": \"0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636\",\n      \"totalTrades\": 11468,\n      \"unrealizedPnl\": \"3788.323092336\"\n    }\n  ],\n  \"totalCount\": 58,\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31c756f2-8728-4b42-bb27-2fcb2d8cb1a7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "positions",
+                    ":addr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e661b27b-37d4-4821-a92c-f67e329d1831",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "positions",
+                    ":addr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a452c86a-f03c-4141-9205-ba5d92315acc",
+          "name": "Polymarket price history",
+          "request": {
+            "name": "Polymarket price history",
+            "description": {
+              "content": "Returns a midprice time series for a single Polymarket outcome token, identified by either `tokenAddress` or `conditionID` (not both).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tokenAddress",
+                  "value": "<string>",
+                  "description": "Polymarket token address (0x-prefixed hex). Provide exactly one of tokenAddress or conditionID."
+                },
+                {
+                  "disabled": false,
+                  "key": "conditionID",
+                  "value": "<string>",
+                  "description": "Market condition ID (0x-prefixed bytes32 hex). Returns prices for the first outcome (outcome_index=0) token. Provide exactly one of tokenAddress or conditionID."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "Price interval: 1s, 5s, 1m, 1h, 1d, auto. Default: 1h. 1s and 5s require startTime and endTime, with a maximum 2-hour span, and return a dense series carrying the last price forward across quiet periods."
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "<string>",
+                  "description": "Window selector anchored on the token's last bucket: 1d, 1w, 1m, all. Server picks the granularity. Overrides startTime, endTime and interval except interval=1s or interval=5s, which cannot be combined with range."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<integer>",
+                  "description": "Optional Unix timestamp in seconds for start of range. Ignored when range is set."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<integer>",
+                  "description": "Optional Unix timestamp in seconds for end of range. Ignored when range is set."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max number of price points to return (1-7500). Default: 500, or 7500 for interval=1s and interval=5s. When the requested window holds more points than limit, the newest points are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "636ee56a-7bb6-4a79-b9fe-2476711c0344",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddress",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "range",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n  \"endTime\": \"2026-06-22T13:29:53.260946519Z\",\n  \"interval\": \"1h\",\n  \"prices\": [\n    {\n      \"bucketStart\": \"2026-06-22T12:00:00Z\",\n      \"price\": 0.0545\n    }\n  ],\n  \"startTime\": \"2024-01-01T00:00:00Z\",\n  \"tokenAddress\": \"0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5720541-a4ba-4c46-a4d3-6fc59ad1eafa",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddress",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "range",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea650e1b-419c-4a4f-8fdb-0a92715451a3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tokenAddress",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1m"
+                    },
+                    {
+                      "key": "range",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "startTime",
+                      "value": "1717200000"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "1719878400"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "744c454d-6040-4b2b-84e9-97b532b9bd35",
+          "name": "Polymarket platform stats",
+          "request": {
+            "name": "Polymarket platform stats",
+            "description": {
+              "content": "Returns global Polymarket platform statistics: total volume, 24h volume, total traders, active and resolved market counts, and total trades.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e86abda0-e01c-47eb-b4c1-2c122b43f46e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"activeMarkets\": 42344,\n  \"resolvedMarkets\": 1626032,\n  \"totalTraders\": 2955552,\n  \"totalTrades\": 1541962785,\n  \"totalVolume\": \"74031837587.746668\",\n  \"volume24h\": \"320610637.818212\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "112fe14d-65b1-4a11-8273-c278ed2ff0ab",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71486dd0-86c2-4a9e-89b6-f9fbdc80e400",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c50c95b-08c5-48d2-8e21-29e7f5beb425",
+          "name": "Polymarket top events leaderboard",
+          "request": {
+            "name": "Polymarket top events leaderboard",
+            "description": {
+              "content": "Returns the top (trader, event) entries by PnL for a period: 1d, 1w, 1m, or all (default 1d). Each entry sums a trader's PnL across every market within a single Polymarket event. Order desc for top wins or asc for top losses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "top-events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Time period: 1d, 1w, 1m, all. Default: 1d"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Sort order: desc (top wins) or asc (top losses). Default: desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max entries (1-200). Default: 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset. Default: 0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc3ae5cd-e430-476b-ab5a-7ffc4e3b1e54",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"eventId\": 511447,\n    \"eventTitle\": \"Belgium vs. IR Iran - More Markets\",\n    \"iconUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png\",\n    \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/soccer ball-bba4025f77.png\",\n    \"periodPnl\": \"1242863.7688589205\",\n    \"rank\": 1,\n    \"tradeCount\": 3311,\n    \"userAddress\": \"0x204f72f35326db932158CBA6AdfF0B9A1DA95e14\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0273db8d-c9d5-428e-b915-3ee34cbfa718",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc490362-c685-4b6d-b31a-5e01e02785fa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "951fe058-a76e-4d48-a951-2a4066758874",
+          "name": "Polymarket top event breakdown",
+          "request": {
+            "name": "Polymarket top event breakdown",
+            "description": {
+              "content": "Returns the per-market PnL breakdown for a single trader within one event over a period (1d, 1w, 1m, all; default 1d). Each row is one market in the event with its PnL and trade count; markets with exactly zero PnL are omitted. The address query parameter is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "top-events",
+                ":eventId",
+                "breakdown"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "(Required) Polymarket trader address."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Period: 1d, 1w, 1m, all. Default: 1d."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "eventId",
+                  "description": "(Required) Polymarket event ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86e72d8c-6ef4-4f9f-959f-0be45ab16cee",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events",
+                    ":eventId",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Polymarket event ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"eventId\": 30615,\n  \"eventTitle\": \"World Cup Winner\",\n  \"markets\": [\n    {\n      \"conditionId\": \"0x881a3ffa618b6ae0ab95a5637e310afb1afc2d99c921bfe3235b15eccfce0344\",\n      \"groupItemTitle\": \"Ghana\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-ghana-flag-20260603-192743.png\",\n      \"periodPnl\": \"3748.1328272\",\n      \"question\": \"Will Ghana win the 2026 FIFA World Cup?\",\n      \"tradeCount\": 6\n    }\n  ],\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db3d427f-b6b8-4adb-ae99-3ac3345e7ccb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events",
+                    ":eventId",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Polymarket event ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4d8b560-9996-428a-bb97-00f31b2cf97e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-events",
+                    ":eventId",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "address",
+                      "value": "0xBDDF61Af533fF524D27154e589d2D7A81510C684"
+                    },
+                    {
+                      "key": "period",
+                      "value": "1d"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "eventId",
+                      "description": "(Required) Polymarket event ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be261018-305a-4ff8-8625-4b009a19396a",
+          "name": "Polymarket market top holders",
+          "request": {
+            "name": "Polymarket market top holders",
+            "description": {
+              "content": "Returns the largest position holders for a market, ranked by net position, each with their per-token positions and net USDC flow. Optionally narrow to a single outcome (0 for Yes, 1 for No). Returns 404 when the conditionID has no matching tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "top-holders",
+                ":conditionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max entries to return (1-100). Default: 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "outcome",
+                  "value": "<integer>",
+                  "description": "Optional. 0 for Yes token, 1 for No token. Omit for all tokens."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conditionId",
+                  "description": "(Required) Required. Polymarket condition ID for the market."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b27b11aa-def8-4199-8753-ce61cd925367",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-holders",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n  \"holders\": [\n    {\n      \"netFlowUsdc\": \"0\",\n      \"netPosition\": \"800000\",\n      \"positions\": [\n        {\n          \"conditionId\": \"0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1\",\n          \"groupItemTitle\": \"Netherlands\",\n          \"netFlowUsdc\": \"0\",\n          \"netPosition\": \"800000\",\n          \"outcome\": \"Yes\",\n          \"question\": \"Will Netherlands win the 2026 FIFA World Cup?\",\n          \"tokenAddress\": \"0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4\"\n        }\n      ],\n      \"totalTrades\": 0,\n      \"userAddress\": \"0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18dc09d0-1f5c-4fee-ab70-6adb8a560595",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-holders",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18327142-2e42-4a78-b2a6-c5f51c81388d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "top-holders",
+                    ":conditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "outcome",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conditionId",
+                      "description": "(Required) Required. Polymarket condition ID for the market."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6805b712-1d95-4791-8d53-ec37158d68ff",
+          "name": "Polymarket prediction history",
+          "request": {
+            "name": "Polymarket prediction history",
+            "description": {
+              "content": "Returns every market a trade address has traded — one row per outcome token, with volume, value, buy/sell totals, PnL, shares, and resolution status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "prediction-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Results per page (1-100, default 20)."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination (default 0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field: value, volume, currentPrice, trades, pnl, shares, buyUsd, avgBuy, sellUsd, avgSell. Default: pnl. When status=closed, the value and currentPrice sort options are not available."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Sort order: asc or desc. Default: desc."
+                },
+                {
+                  "disabled": false,
+                  "key": "conditionID",
+                  "value": "<string>",
+                  "description": "Optional. Filter to a single market condition ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "eventID",
+                  "value": "<integer>",
+                  "description": "Optional. Filter to all markets and outcomes in a Polymarket event."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific outcome token addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenAddresses",
+                  "value": "<string>",
+                  "description": "Optional. Filter to specific outcome token addresses."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Optional. Search market question, group title, event title, or condition ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "minTrades",
+                  "value": "<integer>",
+                  "description": "Optional. Minimum trade count."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxTrades",
+                  "value": "<integer>",
+                  "description": "Optional. Maximum trade count."
+                },
+                {
+                  "disabled": false,
+                  "key": "minVolume",
+                  "value": "<integer>",
+                  "description": "Minimum total volume in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxVolume",
+                  "value": "<integer>",
+                  "description": "Maximum total volume in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minValue",
+                  "value": "<integer>",
+                  "description": "Minimum current held value in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxValue",
+                  "value": "<integer>",
+                  "description": "Maximum current held value in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minCurrentPrice",
+                  "value": "<number>",
+                  "description": "Minimum current price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxCurrentPrice",
+                  "value": "<number>",
+                  "description": "Maximum current price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "minPnl",
+                  "value": "<integer>",
+                  "description": "Minimum PnL in whole USD (can be negative)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxPnl",
+                  "value": "<integer>",
+                  "description": "Maximum PnL in whole USD (can be negative)."
+                },
+                {
+                  "disabled": false,
+                  "key": "minTotalBuyUsdc",
+                  "value": "<integer>",
+                  "description": "Minimum total buy amount in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxTotalBuyUsdc",
+                  "value": "<integer>",
+                  "description": "Maximum total buy amount in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minAvgBuyPrice",
+                  "value": "<number>",
+                  "description": "Minimum average buy price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxAvgBuyPrice",
+                  "value": "<number>",
+                  "description": "Maximum average buy price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "minTotalSellUsdc",
+                  "value": "<integer>",
+                  "description": "Minimum total sell amount in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxTotalSellUsdc",
+                  "value": "<integer>",
+                  "description": "Maximum total sell amount in whole USD."
+                },
+                {
+                  "disabled": false,
+                  "key": "minAvgSellPrice",
+                  "value": "<number>",
+                  "description": "Minimum average sell price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxAvgSellPrice",
+                  "value": "<number>",
+                  "description": "Maximum average sell price as a 0-1 fraction."
+                },
+                {
+                  "disabled": false,
+                  "key": "minSharesHeld",
+                  "value": "<integer>",
+                  "description": "Minimum remaining held shares in whole shares."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxSharesHeld",
+                  "value": "<integer>",
+                  "description": "Maximum remaining held shares in whole shares."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Optional. Filter by position state: open or closed."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "921cecf0-15d6-4012-8a9a-1ded59df5236",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "prediction-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "minTrades",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxTrades",
+                      "value": "100"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minCurrentPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxCurrentPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minTotalBuyUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalBuyUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgBuyPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgBuyPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minTotalSellUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalSellUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgSellPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgSellPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSharesHeld",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSharesHeld",
+                      "value": "500"
+                    },
+                    {
+                      "key": "status",
+                      "value": "open"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hasMore\": true,\n  \"markets\": [\n    {\n      \"avgBuyPrice\": \"0.34098803308944694087\",\n      \"avgSellPrice\": \"1.00000000000000000000\",\n      \"conditionId\": \"0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0\",\n      \"currentPrice\": \"1.00000000000000000000\",\n      \"eventId\": 401638,\n      \"eventTitle\": \"Chelsea FC vs. Nottingham Forest FC\",\n      \"groupItemTitle\": \"Chelsea FC\",\n      \"imageUrl\": \"https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg\",\n      \"isResolved\": true,\n      \"netShares\": \"0\",\n      \"outcome\": \"No\",\n      \"pnl\": \"643126.136941\",\n      \"question\": \"Will Chelsea FC win on 2026-05-04?\",\n      \"resolvedAt\": \"2026-05-04T20:20:48Z\",\n      \"sharesHeld\": \"0\",\n      \"tokenAddress\": \"0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892\",\n      \"totalBuyUsdc\": \"332768.337261\",\n      \"totalSellUsdc\": \"975894.474202\",\n      \"totalTrades\": 71,\n      \"value\": \"0\",\n      \"volume\": \"332768.337261\"\n    }\n  ],\n  \"totalCount\": 1428,\n  \"totalCountExact\": true,\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7d75e76-8d12-4bdb-aeff-d9185968c205",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "prediction-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "minTrades",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxTrades",
+                      "value": "100"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minCurrentPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxCurrentPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minTotalBuyUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalBuyUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgBuyPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgBuyPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minTotalSellUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalSellUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgSellPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgSellPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSharesHeld",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSharesHeld",
+                      "value": "500"
+                    },
+                    {
+                      "key": "status",
+                      "value": "open"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f0909ac8-887b-4346-913d-f14177f3be70",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "prediction-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "pnl"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "conditionID",
+                      "value": "0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1"
+                    },
+                    {
+                      "key": "eventID",
+                      "value": "30615"
+                    },
+                    {
+                      "key": "tokenAddresses",
+                      "value": "0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4"
+                    },
+                    {
+                      "key": "search",
+                      "value": "bitcoin"
+                    },
+                    {
+                      "key": "minTrades",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxTrades",
+                      "value": "100"
+                    },
+                    {
+                      "key": "minVolume",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxVolume",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minValue",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxValue",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minCurrentPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxCurrentPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minPnl",
+                      "value": "-100"
+                    },
+                    {
+                      "key": "maxPnl",
+                      "value": "500"
+                    },
+                    {
+                      "key": "minTotalBuyUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalBuyUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgBuyPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgBuyPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minTotalSellUsdc",
+                      "value": "100"
+                    },
+                    {
+                      "key": "maxTotalSellUsdc",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "minAvgSellPrice",
+                      "value": "0.25"
+                    },
+                    {
+                      "key": "maxAvgSellPrice",
+                      "value": "0.75"
+                    },
+                    {
+                      "key": "minSharesHeld",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxSharesHeld",
+                      "value": "500"
+                    },
+                    {
+                      "key": "status",
+                      "value": "open"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf6c5793-fc4d-402a-911b-3838fc78fe8f",
+          "name": "Polymarket wallet USDC balance",
+          "request": {
+            "name": "Polymarket wallet USDC balance",
+            "description": {
+              "content": "Returns a trade address's current Polygon USDC cash balance (the collateral used for Polymarket trading).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "summary",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b493bc36-22ba-4504-9162-f73685fd5feb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"usdcBalance\": \"-15906.549249\",\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2c8466f-5099-43d3-8ea4-bed7df205e94",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac20511c-a8ea-4e82-8c2f-f775dbbc129f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "670b0c32-378d-4ec7-9605-58289ec6023a",
+          "name": "Polymarket wallet biggest win",
+          "request": {
+            "name": "Polymarket wallet biggest win",
+            "description": {
+              "content": "Returns a trade address's single largest realized win, in USDC, across all resolved Polymarket markets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "summary",
+                "biggest-win"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "805dac5b-eb2c-4e1d-9689-010cb301ae97",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "biggest-win"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"biggestWin\": \"643126.136941\",\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "202e1680-ee77-49b5-87d2-fc423975cb2d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "biggest-win"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d244ab35-b350-47df-acc5-e05f34c9cc6d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "biggest-win"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a385573-f86c-45dd-9ec6-3d0c0383b0a0",
+          "name": "Polymarket wallet PnL summary",
+          "request": {
+            "name": "Polymarket wallet PnL summary",
+            "description": {
+              "content": "Returns a trade address's total PnL (open-position plus all-time realized), realized PnL, and counts of unique, won, and total markets traded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "summary",
+                "pnl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbd4ba0d-6496-4d0c-8806-f0f55f6b94db",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "pnl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deployedCapital\": \"1200.5\",\n  \"marketsTotal\": 1428,\n  \"marketsWon\": 695,\n  \"realizedPnl\": \"1173358.66161\",\n  \"totalPnl\": \"1189259.007401233\",\n  \"uniqueMarkets\": 1292,\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3e408d5-d3b4-45d6-b28c-6799a8d28720",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "pnl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "199b4a7b-97d6-43d1-b039-a1cc69ce675b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "pnl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d65d1a9e-6e36-41bb-a53a-3617198bec01",
+          "name": "Polymarket wallet portfolio",
+          "request": {
+            "name": "Polymarket wallet portfolio",
+            "description": {
+              "content": "Returns live portfolio state for a trade address: unrealized PnL, total open-position value, and the number of open positions and markets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "summary",
+                "portfolio"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd0518f7-ad04-47fe-b26f-42e4a35e7eb7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"openMarkets\": 56,\n  \"openPositionValue\": \"503776.5191501625\",\n  \"openPositions\": 58,\n  \"unrealizedPnl\": \"-3469.2627198375\",\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5a7f6d9-c595-4563-9c48-b64ac0d0a5c8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbdb85a9-ff9b-43ad-a8cb-38ee9daab5fd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "portfolio"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cd1ada9-5539-46bf-8b7a-21300a682180",
+          "name": "Polymarket wallet trading stats",
+          "request": {
+            "name": "Polymarket wallet trading stats",
+            "description": {
+              "content": "Returns lifetime trading stats for a trade address: total volume, total fees, total trades, total events, and the timestamp of first activity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "summary",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31ef4b48-b710-415c-8e64-17bb290cbc86",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstActiveAt\": \"2025-11-07T00:00:00Z\",\n  \"totalEvents\": 390337,\n  \"totalFees\": \"70296.03806\",\n  \"totalTrades\": 390337,\n  \"totalVolume\": \"89011677.488757\",\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59b99514-7453-4e95-a2bf-af2405b4798f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5687b288-24b2-48ae-ac13-04c511ee30d9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "summary",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb89137d-aa34-494f-9f59-6f5aeb8e8a2e",
+          "name": "Get Polymarket Wallet Tags",
+          "request": {
+            "name": "Get Polymarket Wallet Tags",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "polymarket",
+                "wallet",
+                ":addr",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Max tags to return, ranked by gross volume. Default 10, max 50."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "addr",
+                  "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7543b3f-bc17-4853-9042-0f055fc2095a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tags\": [\n    {\n      \"events\": 1284,\n      \"label\": \"Politics\",\n      \"tag\": \"politics\",\n      \"volume\": \"45820.12\"\n    }\n  ],\n  \"userAddress\": \"0xBDDF61Af533fF524D27154e589d2D7A81510C684\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6227d448-4d7d-4d81-9895-799b678b795a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8f3fcb6-c395-4502-8950-c06650a06f2d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "polymarket",
+                    "wallet",
+                    ":addr",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "addr",
+                      "description": "(Required) Required. Polymarket trade address (0x + 40 hex chars)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed094cb8-11c0-4f92-98ca-7c0b8b71954f",
+    "name": "Arkham Intel Analytics Polymarket API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
