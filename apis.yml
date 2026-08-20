@@ -78,6 +78,8 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
+  - ARKM
+  tags_raw:
   - Arkm
   properties:
   - type: OpenAPI
@@ -298,6 +300,8 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
+  - Market Data
+  tags_raw:
   - Marketdata
   properties:
   - type: OpenAPI
