@@ -90,7 +90,7 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
-  - ARKM
+  - Arkm
   tags_raw:
   - Arkm
   properties:
@@ -312,7 +312,7 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
-  - Market Data
+  - Marketdata
   tags_raw:
   - Marketdata
   properties:
