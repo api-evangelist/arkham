@@ -306,30 +306,6 @@ apis:
     url: data-model/arkham-data-model.yml
   - type: Webhooks
     url: asyncapi/arkham-websocket-webhooks.yml
-- aid: arkham:arkham-marketdata-api
-  name: Arkham Marketdata API
-  description: The Marketdata API from Arkham — 1 operation(s) for marketdata.
-  humanURL: https://arkm.com/api/docs
-  baseURL: https://api.arkm.com
-  tags:
-  - Market Data
-  tags_raw:
-  - Marketdata
-  properties:
-  - type: OpenAPI
-    url: openapi/arkham-marketdata-api-openapi.yml
-  - type: Authentication
-    url: authentication/arkham-authentication.yml
-  - type: RateLimits
-    url: rate-limits/arkham-rate-limits.yml
-  - type: ErrorCatalog
-    url: errors/arkham-error-codes.yml
-  - type: Conventions
-    url: conventions/arkham-conventions.yml
-  - type: DataModel
-    url: data-model/arkham-data-model.yml
-  - type: Webhooks
-    url: asyncapi/arkham-websocket-webhooks.yml
 - aid: arkham:arkham-networks-api
   name: Arkham Networks API
   description: The Networks API from Arkham — 2 operation(s) for networks.
@@ -604,6 +580,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/arkham-ws-api-openapi.yml
+  - type: Authentication
+    url: authentication/arkham-authentication.yml
+  - type: RateLimits
+    url: rate-limits/arkham-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/arkham-error-codes.yml
+  - type: Conventions
+    url: conventions/arkham-conventions.yml
+  - type: DataModel
+    url: data-model/arkham-data-model.yml
+  - type: Webhooks
+    url: asyncapi/arkham-websocket-webhooks.yml
+- aid: arkham:arkham-market-data-api
+  name: Arkham Market Data API
+  description: The Market Data API from Arkham — 1 operation(s) for market data.
+  humanURL: https://arkm.com/api/docs
+  baseURL: https://api.arkm.com
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/arkham-market-data-api-openapi.yml
   - type: Authentication
     url: authentication/arkham-authentication.yml
   - type: RateLimits
