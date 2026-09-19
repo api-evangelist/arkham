@@ -422,6 +422,8 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
+  - Swap
+  tags_raw:
   - Swaps
   properties:
   - type: OpenAPI
@@ -466,6 +468,8 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
