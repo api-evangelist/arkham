@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Polymarket API
+  title: Arkham Intel Polymarket API
   version: 1.1.0
 tags:
 - name: Polymarket
@@ -34,9 +34,10 @@ paths:
         in: query
         description: Optional. Filter to all markets and outcomes in a Polymarket event.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Filter to all markets and outcomes in a Polymarket event.
-          nullable: true
           example: 30615
       - name: tokenAddresses
         in: query
@@ -55,52 +56,58 @@ paths:
         description: Optional. Minimum notional (size * price) in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum notional (size * price) in whole USD.
-          nullable: true
           example: 100
       - name: maxUsd
         in: query
         description: Optional. Maximum notional (size * price) in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum notional (size * price) in whole USD.
-          nullable: true
           example: 1000
       - name: minPrice
         in: query
         description: Optional. Minimum per-share price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Optional. Minimum per-share price as a 0-1 fraction.
-          nullable: true
           example: 0.25
       - name: maxPrice
         in: query
         description: Optional. Maximum per-share price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Optional. Maximum per-share price as a 0-1 fraction.
-          nullable: true
           example: 0.75
       - name: minSize
         in: query
         description: Optional. Minimum trade size in whole outcome-token shares.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum trade size in whole outcome-token shares.
-          nullable: true
           example: 10
       - name: maxSize
         in: query
         description: Optional. Maximum trade size in whole outcome-token shares.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum trade size in whole outcome-token shares.
-          nullable: true
           example: 500
       - name: actions
         in: query
@@ -126,17 +133,19 @@ paths:
         in: query
         description: Optional. Unix timestamp in seconds for the start of the range (inclusive).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Unix timestamp in seconds for the start of the range (inclusive).
-          nullable: true
           example: 1717200000
       - name: endTime
         in: query
         description: Optional. Unix timestamp in seconds for the end of the range (exclusive).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Unix timestamp in seconds for the end of the range (exclusive).
-          nullable: true
           example: 1719878400
       - name: limit
         in: query
@@ -156,10 +165,11 @@ paths:
         in: query
         description: Fast pagination defaults to true. When enabled, totalCount is only large enough to determine whether another page exists; set false to count matches up to 10,000.
         schema:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Fast pagination defaults to true. When enabled, totalCount is only large enough to determine whether another page exists; set false to count matches up to 10,000.
           default: true
-          nullable: true
           example: true
       - name: sortBy
         in: query
@@ -218,59 +228,66 @@ paths:
         in: query
         description: Optional. 0 for Yes token, 1 for No token.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. 0 for Yes token, 1 for No token.
-          nullable: true
           example: 1
       - name: minShares
         in: query
         description: Optional. Minimum held shares (whole outcome-token shares).
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum held shares (whole outcome-token shares).
-          nullable: true
           example: 10
       - name: maxShares
         in: query
         description: Optional. Maximum held shares (whole outcome-token shares).
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum held shares (whole outcome-token shares).
-          nullable: true
           example: 500
       - name: minValue
         in: query
         description: Optional. Minimum current position value in whole USD.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum current position value in whole USD.
-          nullable: true
           example: 100
       - name: maxValue
         in: query
         description: Optional. Maximum current position value in whole USD.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum current position value in whole USD.
-          nullable: true
           example: 1000
       - name: minPnl
         in: query
         description: Optional. Minimum PnL in whole USD (can be negative).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum PnL in whole USD (can be negative).
-          nullable: true
           example: -100
       - name: maxPnl
         in: query
         description: Optional. Maximum PnL in whole USD (can be negative).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum PnL in whole USD (can be negative).
-          nullable: true
           example: 500
       - name: sortBy
         in: query
@@ -341,9 +358,10 @@ paths:
         in: query
         description: Optional. Filter to active events — not closed and not ended (true/false).
         schema:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Optional. Filter to active events — not closed and not ended (true/false).
-          nullable: true
           example: true
       - name: search
         in: query
@@ -523,17 +541,19 @@ paths:
         in: query
         description: Optional Unix timestamp in seconds for start of range. Not supported with period=all. Condition-level custom ranges must be 30 days or less; all condition-level fixed windows must start within the last 30 days.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional Unix timestamp in seconds for start of range. Not supported with period=all. Condition-level custom ranges must be 30 days or less; all condition-level fixed windows must start within the last 30 days.
-          nullable: true
           example: 1717200000
       - name: endTime
         in: query
         description: Optional Unix timestamp in seconds for end of range. For conditionID requests, preset windows derived from endTime must start within the last 30 days.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional Unix timestamp in seconds for end of range. For conditionID requests, preset windows derived from endTime must start within the last 30 days.
-          nullable: true
           example: 1719878400
       responses:
         '200':
@@ -633,17 +653,19 @@ paths:
         in: query
         description: Optional Unix timestamp in seconds for start of range. Ignored when range is set.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional Unix timestamp in seconds for start of range. Ignored when range is set.
-          nullable: true
           example: 1717200000
       - name: endTime
         in: query
         description: Optional Unix timestamp in seconds for end of range. Ignored when range is set.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional Unix timestamp in seconds for end of range. Ignored when range is set.
-          nullable: true
           example: 1719878400
       - name: limit
         in: query
@@ -794,9 +816,10 @@ paths:
         in: query
         description: Optional. 0 for Yes token, 1 for No token. Omit for all tokens.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. 0 for Yes token, 1 for No token. Omit for all tokens.
-          nullable: true
           example: 0
       - name: conditionId
         in: path
@@ -862,9 +885,10 @@ paths:
         in: query
         description: Optional. Filter to all markets and outcomes in a Polymarket event.
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Filter to all markets and outcomes in a Polymarket event.
-          nullable: true
           example: 30615
       - name: tokenAddresses
         in: query
@@ -890,172 +914,192 @@ paths:
         description: Optional. Minimum trade count.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Minimum trade count.
-          nullable: true
           example: 1
       - name: maxTrades
         in: query
         description: Optional. Maximum trade count.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Optional. Maximum trade count.
-          nullable: true
           example: 100
       - name: minVolume
         in: query
         description: Minimum total volume in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum total volume in whole USD.
-          nullable: true
           example: 100
       - name: maxVolume
         in: query
         description: Maximum total volume in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum total volume in whole USD.
-          nullable: true
           example: 10000
       - name: minValue
         in: query
         description: Minimum current held value in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum current held value in whole USD.
-          nullable: true
           example: 100
       - name: maxValue
         in: query
         description: Maximum current held value in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum current held value in whole USD.
-          nullable: true
           example: 10000
       - name: minCurrentPrice
         in: query
         description: Minimum current price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Minimum current price as a 0-1 fraction.
-          nullable: true
           example: 0.25
       - name: maxCurrentPrice
         in: query
         description: Maximum current price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Maximum current price as a 0-1 fraction.
-          nullable: true
           example: 0.75
       - name: minPnl
         in: query
         description: Minimum PnL in whole USD (can be negative).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum PnL in whole USD (can be negative).
-          nullable: true
           example: -100
       - name: maxPnl
         in: query
         description: Maximum PnL in whole USD (can be negative).
         schema:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum PnL in whole USD (can be negative).
-          nullable: true
           example: 500
       - name: minTotalBuyUsdc
         in: query
         description: Minimum total buy amount in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum total buy amount in whole USD.
-          nullable: true
           example: 100
       - name: maxTotalBuyUsdc
         in: query
         description: Maximum total buy amount in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum total buy amount in whole USD.
-          nullable: true
           example: 10000
       - name: minAvgBuyPrice
         in: query
         description: Minimum average buy price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Minimum average buy price as a 0-1 fraction.
-          nullable: true
           example: 0.25
       - name: maxAvgBuyPrice
         in: query
         description: Maximum average buy price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Maximum average buy price as a 0-1 fraction.
-          nullable: true
           example: 0.75
       - name: minTotalSellUsdc
         in: query
         description: Minimum total sell amount in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum total sell amount in whole USD.
-          nullable: true
           example: 100
       - name: maxTotalSellUsdc
         in: query
         description: Maximum total sell amount in whole USD.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum total sell amount in whole USD.
-          nullable: true
           example: 10000
       - name: minAvgSellPrice
         in: query
         description: Minimum average sell price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Minimum average sell price as a 0-1 fraction.
-          nullable: true
           example: 0.25
       - name: maxAvgSellPrice
         in: query
         description: Maximum average sell price as a 0-1 fraction.
         schema:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Maximum average sell price as a 0-1 fraction.
-          nullable: true
           example: 0.75
       - name: minSharesHeld
         in: query
         description: Minimum remaining held shares in whole shares.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Minimum remaining held shares in whole shares.
-          nullable: true
           example: 10
       - name: maxSharesHeld
         in: query
         description: Maximum remaining held shares in whole shares.
         schema:
           minimum: 0
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum remaining held shares in whole shares.
-          nullable: true
           example: 500
       - name: status
         in: query
@@ -1222,7 +1266,7 @@ paths:
       - Polymarket
   /polymarket/wallet/{addr}/tags:
     get:
-      summary: ''
+      summary: Get polymarket wallet tags
       description: ''
       operationId: GetPolymarketWalletTags
       parameters:
@@ -1254,48 +1298,17 @@ paths:
           description: Internal Server Error
       tags:
       - Polymarket
+      x-summary-source: derived
 components:
   schemas:
-    PolymarketPnLPoint:
-      required:
-      - bucket
-      - cumulativePosition
-      - cumulativeUsdcFlow
-      - cumulativeFees
-      - cumulativePnl
-      type: object
-      properties:
-        bucket:
-          type: string
-          format: date-time
-          example: '2026-05-23T12:00:00Z'
-        cumulativeFees:
-          type: string
-          description: Reserved for compatibility; this endpoint currently returns 0.
-          example: '0'
-        cumulativePnl:
-          type: string
-          description: Total PnL in USDC at this bucket.
-          example: '1510462.284030093'
-        cumulativePosition:
-          type: string
-          description: Current marked position value in USDC at this bucket.
-          example: '61565194.136166093'
-        cumulativeUsdcFlow:
-          type: string
-          description: Cumulative USDC flow net of fees at this bucket.
-          example: '-60054731.852136'
-        price:
-          type: number
-          nullable: true
-          example: 1.23
-      example:
-        bucket: '2026-05-23T12:00:00Z'
-        cumulativeFees: '0'
-        cumulativePnl: '1510462.284030093'
-        cumulativePosition: '61565194.136166093'
-        cumulativeUsdcFlow: '-60054731.852136'
-        price: 1.23
+    PolymarketPositionsSortBy:
+      enum:
+      - trades
+      - shares
+      - value
+      - pnl
+      type: string
+      example: trades
     PolymarketEventResponse:
       required:
       - event
@@ -1305,10 +1318,11 @@ components:
         event:
           $ref: '#/components/schemas/PolymarketEventCardResponse'
         markets:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketEventMarketResponse'
-          nullable: true
           example:
           - active: true
             closed: true
@@ -1420,131 +1434,50 @@ components:
           slug: btc-up-or-down-5m
           title: BTC Up or Down 5m
           underlying: BTC
-    PolymarketEventMarketResponse:
+    PolymarketTopHoldersResponse:
       required:
       - conditionId
-      - question
-      - outcomes
-      - active
-      - closed
-      - restricted
-      - volumeUsdc
-      - resolved
+      - holders
       type: object
       properties:
-        active:
-          type: boolean
-          example: true
-        closed:
-          type: boolean
-          example: true
         conditionId:
           type: string
           description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
-        endDate:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2024-01-01T00:00:00Z'
-        groupItemMeta:
-          $ref: '#/components/schemas/PolymarketOutcomeMetaType2'
-        groupItemTitle:
-          type: string
-          description: Polymarket grouped-market item title.
-          example: France
-        iconUrl:
-          type: string
-          description: Polymarket market icon URL.
-          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
-        imageUrl:
-          type: string
-          description: Polymarket market image URL.
-          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
-        outcomeMeta:
-          type: array
+          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        holders:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/PolymarketOutcomeMetaType2'
+            $ref: '#/components/schemas/PolymarketTopHolderItem'
           example:
-          - primaryColor: '#0000FF'
-            shortName: FR
-        outcomes:
-          type: array
-          items:
-            type: string
-            description: Polymarket outcome token label.
-            example: 'Yes'
-          nullable: true
-          example:
-          - 'Yes'
-          - 'No'
-        question:
-          type: string
-          description: Polymarket market question.
-          example: Will France win the 2026 FIFA World Cup?
-        resolved:
-          type: boolean
-          example: true
-        resolvedAt:
-          type: string
-          description: Timestamp the market was settled on-chain. Set only when resolved.
-          format: date-time
-          nullable: true
-          example: '2024-01-01T00:00:00Z'
-        restricted:
-          type: boolean
-          example: true
-        slug:
-          type: string
-          description: Polymarket market slug.
-          example: will-france-win-the-2026-fifa-world-cup-924
-        tokenAddresses:
-          type: array
-          items:
-            type: string
-            description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-            example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-          example:
-          - '0xef4a0c81fb7b6bc701f41c0da766cd0691e38b5dbf9bb6d096e20d986594942c'
-        volumeUsdc:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '603084.740263'
-        winningOutcome:
-          type: string
-          description: Winning outcome label for resolved markets.
-          example: 'Yes'
-        yesPrice:
-          type: number
-          nullable: true
-          example: 0.1975
+          - netFlowUsdc: '0'
+            netPosition: '800000'
+            positions:
+            - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+              groupItemTitle: Netherlands
+              netFlowUsdc: '0'
+              netPosition: '800000'
+              outcome: 'Yes'
+              question: Will Netherlands win the 2026 FIFA World Cup?
+              tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+            totalTrades: 0
+            userAddress: '0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563'
       example:
-        active: true
-        closed: true
-        conditionId: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
-        endDate: '2024-01-01T00:00:00Z'
-        groupItemMeta:
-          primaryColor: '#0000FF'
-          shortName: FR
-        groupItemTitle: France
-        iconUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
-        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
-        outcomeMeta:
-        - primaryColor: '#0000FF'
-          shortName: FR
-        outcomes:
-        - 'Yes'
-        - 'No'
-        question: Will France win the 2026 FIFA World Cup?
-        resolved: true
-        resolvedAt: '2024-01-01T00:00:00Z'
-        restricted: true
-        slug: will-france-win-the-2026-fifa-world-cup-924
-        tokenAddresses:
-        - '0xef4a0c81fb7b6bc701f41c0da766cd0691e38b5dbf9bb6d096e20d986594942c'
-        volumeUsdc: '603084.740263'
-        winningOutcome: 'Yes'
-        yesPrice: 0.1975
+        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        holders:
+        - netFlowUsdc: '0'
+          netPosition: '800000'
+          positions:
+          - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+            groupItemTitle: Netherlands
+            netFlowUsdc: '0'
+            netPosition: '800000'
+            outcome: 'Yes'
+            question: Will Netherlands win the 2026 FIFA World Cup?
+            tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+          totalTrades: 0
+          userAddress: '0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563'
     PolymarketTopHolderItem:
       required:
       - userAddress
@@ -1563,10 +1496,11 @@ components:
           description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
           example: '800000'
         positions:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketTopHolderPositionItem'
-          nullable: true
           example:
           - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
             groupItemTitle: Netherlands
@@ -1595,112 +1529,133 @@ components:
           tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
         totalTrades: 0
         userAddress: '0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563'
-    PolymarketActivityEventType:
-      enum:
-      - trade
-      - split
-      - merge
-      - convert
-      type: string
-      example: trade
-    PolymarketPnLChartResponse:
+    PolymarketPredictionHistoryResponse:
       required:
       - userAddress
-      - interval
-      - endTime
-      - points
+      - markets
+      - totalCount
+      - totalCountExact
+      - hasMore
       type: object
       properties:
-        conditionId:
-          type: string
-          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        endTime:
-          type: string
-          format: date-time
-          example: '2026-06-22T13:29:45.975416489Z'
-        interval:
-          type: string
-          example: 4h
-        points:
-          type: array
+        hasMore:
+          type: boolean
+          description: True when another page is available.
+          example: true
+        markets:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/PolymarketPnLPoint'
-          description: PnL points ordered by time. Fixed-window responses may include a final as-of-endTime point from the latest live Polymarket state when available.
-          nullable: true
+            $ref: '#/components/schemas/PolymarketPredictionHistoryItem'
           example:
-          - bucket: '2026-05-23T12:00:00Z'
-            cumulativeFees: '0'
-            cumulativePnl: '1510462.284030093'
-            cumulativePosition: '61565194.136166093'
-            cumulativeUsdcFlow: '-60054731.852136'
-            price: 1.23
-        question:
-          type: string
-          description: Polymarket market question.
-          example: Will Netherlands win the 2026 FIFA World Cup?
-        startTime:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2026-05-23T13:29:45.975416489Z'
+          - avgBuyPrice: '0.34098803308944694087'
+            avgSellPrice: '1.00000000000000000000'
+            conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
+            currentPrice: '1.00000000000000000000'
+            eventId: 401638
+            eventTitle: Chelsea FC vs. Nottingham Forest FC
+            groupItemTitle: Chelsea FC
+            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
+            isResolved: true
+            netShares: '0'
+            outcome: 'No'
+            pnl: '643126.136941'
+            question: Will Chelsea FC win on 2026-05-04?
+            resolvedAt: '2026-05-04T20:20:48Z'
+            sharesHeld: '0'
+            tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
+            totalBuyUsdc: '332768.337261'
+            totalSellUsdc: '975894.474202'
+            totalTrades: 71
+            value: '0'
+            volume: '332768.337261'
+        totalCount:
+          type: integer
+          example: 1428
+        totalCountExact:
+          type: boolean
+          description: False when totalCount is capped for broad wallet-history queries.
+          example: true
         userAddress:
           type: string
           description: Polymarket trade address (0x + 40 hex chars).
           example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
       example:
-        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        endTime: '2026-06-22T13:29:45.975416489Z'
-        interval: 4h
-        points:
-        - bucket: '2026-05-23T12:00:00Z'
-          cumulativeFees: '0'
-          cumulativePnl: '1510462.284030093'
-          cumulativePosition: '61565194.136166093'
-          cumulativeUsdcFlow: '-60054731.852136'
-          price: 1.23
-        question: Will Netherlands win the 2026 FIFA World Cup?
-        startTime: '2026-05-23T13:29:45.975416489Z'
+        hasMore: true
+        markets:
+        - avgBuyPrice: '0.34098803308944694087'
+          avgSellPrice: '1.00000000000000000000'
+          conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
+          currentPrice: '1.00000000000000000000'
+          eventId: 401638
+          eventTitle: Chelsea FC vs. Nottingham Forest FC
+          groupItemTitle: Chelsea FC
+          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
+          isResolved: true
+          netShares: '0'
+          outcome: 'No'
+          pnl: '643126.136941'
+          question: Will Chelsea FC win on 2026-05-04?
+          resolvedAt: '2026-05-04T20:20:48Z'
+          sharesHeld: '0'
+          tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
+          totalBuyUsdc: '332768.337261'
+          totalSellUsdc: '975894.474202'
+          totalTrades: 71
+          value: '0'
+          volume: '332768.337261'
+        totalCount: 1428
+        totalCountExact: true
         userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketOutcomeMetaType2:
+    PolymarketActivityResponse:
       required:
-      - shortName
-      - primaryColor
+      - events
+      - totalCount
       type: object
       properties:
-        primaryColor:
-          type: string
-          example: '#0000FF'
-        shortName:
-          type: string
-          example: FR
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketActivityItem'
+          example:
+          - blockTimestamp: '2026-06-22T13:29:41Z'
+            conditionId: '0x38e99171e9124c355447b04ff5cfa38d6c3ebaf9a1daed629cfcdd6fff175878'
+            direction: buy
+            eventId: 618839
+            eventType: trade
+            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/ETH+fullsize.jpg
+            logIndex: 489
+            notional: '10.692'
+            outcome: Up
+            question: Ethereum Up or Down - June 22, 9:30AM-9:35AM ET
+            size: '23.76'
+            tokenAddress: '0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35'
+            transactionHash: '0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad'
+            userAddress: '0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c'
+        totalCount:
+          type: integer
+          description: Pagination count. It may be inexact when fastPagination is enabled and is only guaranteed to determine whether another page exists.
+          example: 10000
       example:
-        primaryColor: '#0000FF'
-        shortName: FR
-    PolymarketWalletSummaryBiggestWinResponse:
-      required:
-      - userAddress
-      - biggestWin
-      type: object
-      properties:
-        biggestWin:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '643126.136941'
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        biggestWin: '643126.136941'
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketEventSortBy:
-      enum:
-      - volume
-      - endDate
-      - createdAt
-      type: string
-      example: volume
+        events:
+        - blockTimestamp: '2026-06-22T13:29:41Z'
+          conditionId: '0x38e99171e9124c355447b04ff5cfa38d6c3ebaf9a1daed629cfcdd6fff175878'
+          direction: buy
+          eventId: 618839
+          eventType: trade
+          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/ETH+fullsize.jpg
+          logIndex: 489
+          notional: '10.692'
+          outcome: Up
+          question: Ethereum Up or Down - June 22, 9:30AM-9:35AM ET
+          size: '23.76'
+          tokenAddress: '0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35'
+          transactionHash: '0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad'
+          userAddress: '0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c'
+        totalCount: 10000
     PolymarketActivityItem:
       required:
       - blockTimestamp
@@ -1725,8 +1680,9 @@ components:
         direction:
           $ref: '#/components/schemas/PolymarketActivityDirection'
         eventId:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 618839
         eventType:
           $ref: '#/components/schemas/PolymarketActivityEventType'
@@ -1780,6 +1736,358 @@ components:
         tokenAddress: '0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35'
         transactionHash: '0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad'
         userAddress: '0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c'
+    PolymarketActivityEventType:
+      enum:
+      - trade
+      - split
+      - merge
+      - convert
+      type: string
+      example: trade
+    PolymarketLeaderboardPeriod:
+      enum:
+      - 1d
+      - 1w
+      - 1m
+      - all
+      type: string
+      example: 1d
+    PolymarketEventPositionsSortBy:
+      enum:
+      - pnl
+      - shares
+      - value
+      type: string
+      example: pnl
+    PolymarketEventTag:
+      required:
+      - tag
+      - label
+      type: object
+      properties:
+        label:
+          type: string
+          description: Human-readable tag label.
+          example: NBA
+        tag:
+          type: string
+          description: Category tag slug.
+          example: nba
+      example:
+        label: NBA
+        tag: nba
+    PolymarketPnLChartResponse:
+      required:
+      - userAddress
+      - interval
+      - endTime
+      - points
+      type: object
+      properties:
+        conditionId:
+          type: string
+          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
+          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        endTime:
+          type: string
+          format: date-time
+          example: '2026-06-22T13:29:45.975416489Z'
+        interval:
+          type: string
+          example: 4h
+        points:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketPnLPoint'
+          description: PnL points ordered by time. Fixed-window responses may include a final as-of-endTime point from the latest live Polymarket state when available.
+          example:
+          - bucket: '2026-05-23T12:00:00Z'
+            cumulativeFees: '0'
+            cumulativePnl: '1510462.284030093'
+            cumulativePosition: '61565194.136166093'
+            cumulativeUsdcFlow: '-60054731.852136'
+            price: 1.23
+        question:
+          type: string
+          description: Polymarket market question.
+          example: Will Netherlands win the 2026 FIFA World Cup?
+        startTime:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2026-05-23T13:29:45.975416489Z'
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        endTime: '2026-06-22T13:29:45.975416489Z'
+        interval: 4h
+        points:
+        - bucket: '2026-05-23T12:00:00Z'
+          cumulativeFees: '0'
+          cumulativePnl: '1510462.284030093'
+          cumulativePosition: '61565194.136166093'
+          cumulativeUsdcFlow: '-60054731.852136'
+          price: 1.23
+        question: Will Netherlands win the 2026 FIFA World Cup?
+        startTime: '2026-05-23T13:29:45.975416489Z'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketPositionsResponse:
+      required:
+      - userAddress
+      - positions
+      - totalCount
+      type: object
+      properties:
+        positions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketPositionItem'
+          example:
+          - conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
+            eventId: 30615
+            groupItemTitle: Scotland
+            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
+            lastPrice: 0.0015
+            netFlowUsdc: '-7203.950016'
+            netPosition: '7328182.072224'
+            outcome: 'Yes'
+            question: Will Scotland win the 2026 FIFA World Cup?
+            tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
+            totalTrades: 11468
+            unrealizedPnl: '3788.323092336'
+        totalCount:
+          type: integer
+          example: 58
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        positions:
+        - conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
+          eventId: 30615
+          groupItemTitle: Scotland
+          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
+          lastPrice: 0.0015
+          netFlowUsdc: '-7203.950016'
+          netPosition: '7328182.072224'
+          outcome: 'Yes'
+          question: Will Scotland win the 2026 FIFA World Cup?
+          tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
+          totalTrades: 11468
+          unrealizedPnl: '3788.323092336'
+        totalCount: 58
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketEventMarketResponse:
+      required:
+      - conditionId
+      - question
+      - outcomes
+      - active
+      - closed
+      - restricted
+      - volumeUsdc
+      - resolved
+      type: object
+      properties:
+        active:
+          type: boolean
+          example: true
+        closed:
+          type: boolean
+          example: true
+        conditionId:
+          type: string
+          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
+          example: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        groupItemMeta:
+          $ref: '#/components/schemas/PolymarketOutcomeMetaType2'
+        groupItemTitle:
+          type: string
+          description: Polymarket grouped-market item title.
+          example: France
+        iconUrl:
+          type: string
+          description: Polymarket market icon URL.
+          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
+        imageUrl:
+          type: string
+          description: Polymarket market image URL.
+          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
+        outcomeMeta:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolymarketOutcomeMetaType2'
+          example:
+          - primaryColor: '#0000FF'
+            shortName: FR
+        outcomes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            description: Polymarket outcome token label.
+            example: 'Yes'
+          example:
+          - 'Yes'
+          - 'No'
+        question:
+          type: string
+          description: Polymarket market question.
+          example: Will France win the 2026 FIFA World Cup?
+        resolved:
+          type: boolean
+          example: true
+        resolvedAt:
+          type:
+          - string
+          - 'null'
+          description: Timestamp the market was settled on-chain. Set only when resolved.
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        restricted:
+          type: boolean
+          example: true
+        slug:
+          type: string
+          description: Polymarket market slug.
+          example: will-france-win-the-2026-fifa-world-cup-924
+        tokenAddresses:
+          type: array
+          items:
+            type: string
+            description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
+            example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+          example:
+          - '0xef4a0c81fb7b6bc701f41c0da766cd0691e38b5dbf9bb6d096e20d986594942c'
+        volumeUsdc:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '603084.740263'
+        winningOutcome:
+          type: string
+          description: Winning outcome label for resolved markets.
+          example: 'Yes'
+        yesPrice:
+          type:
+          - number
+          - 'null'
+          example: 0.1975
+      example:
+        active: true
+        closed: true
+        conditionId: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
+        endDate: '2024-01-01T00:00:00Z'
+        groupItemMeta:
+          primaryColor: '#0000FF'
+          shortName: FR
+        groupItemTitle: France
+        iconUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
+        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-france-flag-20260603-192743.png
+        outcomeMeta:
+        - primaryColor: '#0000FF'
+          shortName: FR
+        outcomes:
+        - 'Yes'
+        - 'No'
+        question: Will France win the 2026 FIFA World Cup?
+        resolved: true
+        resolvedAt: '2024-01-01T00:00:00Z'
+        restricted: true
+        slug: will-france-win-the-2026-fifa-world-cup-924
+        tokenAddresses:
+        - '0xef4a0c81fb7b6bc701f41c0da766cd0691e38b5dbf9bb6d096e20d986594942c'
+        volumeUsdc: '603084.740263'
+        winningOutcome: 'Yes'
+        yesPrice: 0.1975
+    PolymarketPriceInterval:
+      enum:
+      - 1m
+      - 1h
+      - 1d
+      - 5s
+      - 1s
+      - auto
+      type: string
+      example: 1m
+    PolymarketActivitySortBy:
+      enum:
+      - time
+      - size
+      - price
+      - usd
+      type: string
+      example: time
+    PolymarketEventSeriesContext:
+      required:
+      - slug
+      - title
+      type: object
+      properties:
+        cadenceSeconds:
+          type: integer
+          description: Length of this event's round window in seconds; for tiling round series this equals the series cadence.
+          example: 300
+        liveEventId:
+          type:
+          - integer
+          - 'null'
+          description: Round whose window contains now, when one exists.
+          example: 1
+        nextEventId:
+          type:
+          - integer
+          - 'null'
+          description: Next round of the series by end date (may be upcoming).
+          example: 1
+        prevEventId:
+          type:
+          - integer
+          - 'null'
+          description: Previous round of the series by end date.
+          example: 1
+        recurrence:
+          type: string
+          example: 5m
+        resolutionSource:
+          type: string
+          description: Settlement feed identifier; differs per series (5m/15m resolve on Chainlink Data Streams, hourly on Binance candles).
+          example: chainlink-data-streams:BTC/USD
+        slug:
+          type: string
+          example: btc-up-or-down-5m
+        title:
+          type: string
+          example: BTC Up or Down 5m
+        underlying:
+          type: string
+          description: Underlying asset symbol for crypto up/down series.
+          example: BTC
+      example:
+        cadenceSeconds: 300
+        liveEventId: 1
+        nextEventId: 1
+        prevEventId: 1
+        recurrence: 5m
+        resolutionSource: chainlink-data-streams:BTC/USD
+        slug: btc-up-or-down-5m
+        title: BTC Up or Down 5m
+        underlying: BTC
     PolymarketEventCardResponse:
       required:
       - eventId
@@ -1808,9 +2116,10 @@ components:
           description: Polymarket event description.
           example: This market will resolve according to the national team that wins the 2026 FIFA World Cup.
         endDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2024-01-01T00:00:00Z'
         ended:
           type: boolean
@@ -1827,9 +2136,10 @@ components:
           example:
           - 1
         gameId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Gamma game ID shared by all events of the same fixture. Group events by this value.
-          nullable: true
           example: 18432
         iconUrl:
           type: string
@@ -1846,10 +2156,11 @@ components:
           type: integer
           example: 1
         marketPreviews:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketEventMarketPreview'
-          nullable: true
           example:
           - conditionId: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
             groupItemMeta:
@@ -1880,9 +2191,10 @@ components:
           description: Polymarket event slug.
           example: world-cup-winner
         startTime:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2024-01-01T00:00:00Z'
         tags:
           type: array
@@ -1897,8 +2209,9 @@ components:
           description: Polymarket event title.
           example: 'World Cup Winner '
         volume24hChangePct:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           example: 1.23
         volume24hUsdc:
           type: string
@@ -1952,53 +2265,6 @@ components:
         volume24hChangePct: 1.23
         volume24hUsdc: '320'
         volumeUsdc: '4582.1'
-    PolymarketActivityResponse:
-      required:
-      - events
-      - totalCount
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketActivityItem'
-          nullable: true
-          example:
-          - blockTimestamp: '2026-06-22T13:29:41Z'
-            conditionId: '0x38e99171e9124c355447b04ff5cfa38d6c3ebaf9a1daed629cfcdd6fff175878'
-            direction: buy
-            eventId: 618839
-            eventType: trade
-            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/ETH+fullsize.jpg
-            logIndex: 489
-            notional: '10.692'
-            outcome: Up
-            question: Ethereum Up or Down - June 22, 9:30AM-9:35AM ET
-            size: '23.76'
-            tokenAddress: '0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35'
-            transactionHash: '0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad'
-            userAddress: '0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c'
-        totalCount:
-          type: integer
-          description: Pagination count. It may be inexact when fastPagination is enabled and is only guaranteed to determine whether another page exists.
-          example: 10000
-      example:
-        events:
-        - blockTimestamp: '2026-06-22T13:29:41Z'
-          conditionId: '0x38e99171e9124c355447b04ff5cfa38d6c3ebaf9a1daed629cfcdd6fff175878'
-          direction: buy
-          eventId: 618839
-          eventType: trade
-          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/ETH+fullsize.jpg
-          logIndex: 489
-          notional: '10.692'
-          outcome: Up
-          question: Ethereum Up or Down - June 22, 9:30AM-9:35AM ET
-          size: '23.76'
-          tokenAddress: '0x9a1e6e413d83cfafee559d0e9d712c4aa64e93a8ad194d7cba115d9a6d78fc35'
-          transactionHash: '0xbbe268603c723149ee622d7d506ea8ed51bec4f2a230fdf0f31947a7981012ad'
-          userAddress: '0x15cf1841c9A9F9aB5E1065ef7db255DEfcADd12c'
-        totalCount: 10000
     PolymarketLeaderboardEntry:
       required:
       - rank
@@ -2050,43 +2316,6 @@ components:
         tokensWon: 98
         tradeCount: 8328
         userAddress: '0xf0318C32136c2dB7feC88B84869aEE6A1106C80c'
-    PolymarketStatsResponse:
-      required:
-      - totalVolume
-      - volume24h
-      - totalTraders
-      - activeMarkets
-      - resolvedMarkets
-      - totalTrades
-      type: object
-      properties:
-        activeMarkets:
-          type: integer
-          example: 42344
-        resolvedMarkets:
-          type: integer
-          example: 1626032
-        totalTraders:
-          type: integer
-          example: 2955552
-        totalTrades:
-          type: integer
-          example: 1541962785
-        totalVolume:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '74031837587.746668'
-        volume24h:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '320610637.818212'
-      example:
-        activeMarkets: 42344
-        resolvedMarkets: 1626032
-        totalTraders: 2955552
-        totalTrades: 1541962785
-        totalVolume: '74031837587.746668'
-        volume24h: '320610637.818212'
     PolymarketPricesResponse:
       required:
       - tokenAddress
@@ -2107,17 +2336,19 @@ components:
           type: string
           example: 1h
         prices:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketPricePoint'
-          nullable: true
           example:
           - bucketStart: '2026-06-22T12:00:00Z'
             price: 0.0545
         startTime:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2024-01-01T00:00:00Z'
         tokenAddress:
           type: string
@@ -2132,226 +2363,6 @@ components:
           price: 0.0545
         startTime: '2024-01-01T00:00:00Z'
         tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-    PolymarketOrderBookLevel:
-      required:
-      - price
-      - size
-      type: object
-      properties:
-        price:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0.001'
-        size:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '2743420.3'
-      example:
-        price: '0.001'
-        size: '2743420.3'
-    PolymarketLeaderboardPeriod:
-      enum:
-      - 1d
-      - 1w
-      - 1m
-      - all
-      type: string
-      example: 1d
-    PolymarketTopEventBreakdownResponse:
-      required:
-      - eventId
-      - userAddress
-      - markets
-      type: object
-      properties:
-        eventId:
-          type: integer
-          example: 30615
-        eventTitle:
-          type: string
-          description: Polymarket event title.
-          example: World Cup Winner
-        markets:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketTopEventBreakdownMarket'
-          nullable: true
-          example:
-          - conditionId: '0x881a3ffa618b6ae0ab95a5637e310afb1afc2d99c921bfe3235b15eccfce0344'
-            groupItemTitle: Ghana
-            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-ghana-flag-20260603-192743.png
-            periodPnl: '3748.1328272'
-            question: Will Ghana win the 2026 FIFA World Cup?
-            tradeCount: 6
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        eventId: 30615
-        eventTitle: World Cup Winner
-        markets:
-        - conditionId: '0x881a3ffa618b6ae0ab95a5637e310afb1afc2d99c921bfe3235b15eccfce0344'
-          groupItemTitle: Ghana
-          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-ghana-flag-20260603-192743.png
-          periodPnl: '3748.1328272'
-          question: Will Ghana win the 2026 FIFA World Cup?
-          tradeCount: 6
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketOutcomeMeta:
-      required:
-      - shortName
-      - primaryColor
-      type: object
-      properties:
-        primaryColor:
-          type: string
-          example: '#00FF00'
-        shortName:
-          type: string
-          example: 'Yes'
-      example:
-        primaryColor: '#00FF00'
-        shortName: 'Yes'
-    PolymarketPositionsSortBy:
-      enum:
-      - trades
-      - shares
-      - value
-      - pnl
-      type: string
-      example: trades
-    PolymarketPriceRange:
-      enum:
-      - 1d
-      - 1w
-      - 1m
-      - all
-      type: string
-      example: 1d
-    SortDir:
-      enum:
-      - asc
-      - desc
-      type: string
-      example: asc
-    PolymarketWalletTag:
-      required:
-      - tag
-      - label
-      - events
-      - volume
-      type: object
-      properties:
-        events:
-          type: integer
-          example: 1284
-        label:
-          type: string
-          example: Politics
-        tag:
-          type: string
-          example: politics
-        volume:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '45820.12'
-      example:
-        events: 1284
-        label: Politics
-        tag: politics
-        volume: '45820.12'
-    PolymarketWalletPortfolioResponse:
-      required:
-      - userAddress
-      - unrealizedPnl
-      - openPositionValue
-      - openPositions
-      - openMarkets
-      type: object
-      properties:
-        openMarkets:
-          type: integer
-          example: 56
-        openPositionValue:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '503776.5191501625'
-        openPositions:
-          type: integer
-          example: 58
-        unrealizedPnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '-3469.2627198375'
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        openMarkets: 56
-        openPositionValue: '503776.5191501625'
-        openPositions: 58
-        unrealizedPnl: '-3469.2627198375'
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketActivityDirection:
-      enum:
-      - buy
-      - sell
-      type: string
-      example: buy
-    PolymarketWalletSummaryPnLResponse:
-      required:
-      - userAddress
-      - totalPnl
-      - realizedPnl
-      - deployedCapital
-      - uniqueMarkets
-      - marketsWon
-      - marketsTotal
-      type: object
-      properties:
-        deployedCapital:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '1200.5'
-        marketsTotal:
-          type: integer
-          example: 1428
-        marketsWon:
-          type: integer
-          example: 695
-        realizedPnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '1173358.66161'
-        totalPnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '1189259.007401233'
-        uniqueMarkets:
-          type: integer
-          example: 1292
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        deployedCapital: '1200.5'
-        marketsTotal: 1428
-        marketsWon: 695
-        realizedPnl: '1173358.66161'
-        totalPnl: '1189259.007401233'
-        uniqueMarkets: 1292
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketPnLPeriod:
-      enum:
-      - 24h
-      - 7d
-      - 30d
-      - all
-      type: string
-      example: 24h
     PolymarketEventPositionsResponse:
       required:
       - conditionId
@@ -2364,10 +2375,11 @@ components:
           description: Polymarket market condition ID (0x-prefixed bytes32 hex).
           example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
         positions:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketEventPositionItem'
-          nullable: true
           example:
           - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
             imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png
@@ -2398,310 +2410,106 @@ components:
           userAddress: '0xB687f00464E33934f5d591F224E71C3559ecAeE5'
           value: '345.400285204'
         totalCount: 40468
-    PolymarketEventPositionsSortBy:
+    SortDir:
       enum:
-      - pnl
-      - shares
-      - value
+      - asc
+      - desc
       type: string
-      example: pnl
-    PolymarketEventSeriesContext:
-      required:
-      - slug
-      - title
-      type: object
-      properties:
-        cadenceSeconds:
-          type: integer
-          description: Length of this event's round window in seconds; for tiling round series this equals the series cadence.
-          example: 300
-        liveEventId:
-          type: integer
-          description: Round whose window contains now, when one exists.
-          nullable: true
-          example: 1
-        nextEventId:
-          type: integer
-          description: Next round of the series by end date (may be upcoming).
-          nullable: true
-          example: 1
-        prevEventId:
-          type: integer
-          description: Previous round of the series by end date.
-          nullable: true
-          example: 1
-        recurrence:
-          type: string
-          example: 5m
-        resolutionSource:
-          type: string
-          description: Settlement feed identifier; differs per series (5m/15m resolve on Chainlink Data Streams, hourly on Binance candles).
-          example: chainlink-data-streams:BTC/USD
-        slug:
-          type: string
-          example: btc-up-or-down-5m
-        title:
-          type: string
-          example: BTC Up or Down 5m
-        underlying:
-          type: string
-          description: Underlying asset symbol for crypto up/down series.
-          example: BTC
-      example:
-        cadenceSeconds: 300
-        liveEventId: 1
-        nextEventId: 1
-        prevEventId: 1
-        recurrence: 5m
-        resolutionSource: chainlink-data-streams:BTC/USD
-        slug: btc-up-or-down-5m
-        title: BTC Up or Down 5m
-        underlying: BTC
-    PolymarketEventPositionItem:
-      required:
-      - userAddress
-      - tokenAddress
-      - shares
-      - price
-      - value
-      - pnl
-      - totalTrades
-      type: object
-      properties:
-        conditionId:
-          type: string
-          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        imageUrl:
-          type: string
-          description: Polymarket market image URL.
-          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png
-        outcome:
-          type: string
-          description: Polymarket outcome token label (e.g. "Yes", "No").
-          example: 'Yes'
-        pnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '183116.690251204'
-        price:
-          type: number
-          example: 0.0545
-        question:
-          type: string
-          description: Polymarket market question.
-          example: Will Netherlands win the 2026 FIFA World Cup?
-        shares:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '6337.619912'
-        tokenAddress:
-          type: string
-          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-        totalTrades:
-          type: integer
-          example: 5818
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xB687f00464E33934f5d591F224E71C3559ecAeE5'
-        value:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '345.400285204'
-      example:
-        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png
-        outcome: 'Yes'
-        pnl: '183116.690251204'
-        price: 0.0545
-        question: Will Netherlands win the 2026 FIFA World Cup?
-        shares: '6337.619912'
-        tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-        totalTrades: 5818
-        userAddress: '0xB687f00464E33934f5d591F224E71C3559ecAeE5'
-        value: '345.400285204'
-    PolymarketOrderBookSide:
-      required:
-      - tokenId
-      - outcome
-      - bids
-      - asks
-      - lastTradePrice
-      type: object
-      properties:
-        asks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketOrderBookLevel'
-          nullable: true
-          example:
-          - price: '0.001'
-            size: '2743420.3'
-        bids:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketOrderBookLevel'
-          nullable: true
-          example:
-          - price: '0.001'
-            size: '2743420.3'
-        lastTradePrice:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0.055'
-        outcome:
-          type: string
-          description: Polymarket outcome token label (e.g. "Yes", "No").
-          example: 'Yes'
-        tokenId:
-          type: string
-          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-      example:
-        asks:
-        - price: '0.001'
-          size: '2743420.3'
-        bids:
-        - price: '0.001'
-          size: '2743420.3'
-        lastTradePrice: '0.055'
-        outcome: 'Yes'
-        tokenId: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-    PolymarketPredictionHistoryItem:
-      required:
-      - conditionId
-      - tokenAddress
-      - totalTrades
+      example: asc
+    PolymarketEventSortBy:
+      enum:
       - volume
-      - value
-      - currentPrice
-      - totalBuyUsdc
-      - avgBuyPrice
-      - totalSellUsdc
-      - avgSellPrice
-      - pnl
-      - netShares
-      - sharesHeld
-      - isResolved
+      - endDate
+      - createdAt
+      type: string
+      example: volume
+    PolymarketPositionItem:
+      required:
+      - tokenAddress
+      - conditionId
+      - netPosition
+      - netFlowUsdc
+      - totalTrades
+      - unrealizedPnl
       type: object
       properties:
-        avgBuyPrice:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0.34098803308944694087'
-        avgSellPrice:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '1.00000000000000000000'
         conditionId:
           type: string
           description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
-        currentPrice:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '1.00000000000000000000'
+          example: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
         eventId:
-          type: integer
-          nullable: true
-          example: 401638
-        eventTitle:
-          type: string
-          description: Polymarket event title.
-          example: Chelsea FC vs. Nottingham Forest FC
+          type:
+          - integer
+          - 'null'
+          example: 30615
         groupItemTitle:
           type: string
           description: Polymarket grouped-market item title.
-          example: Chelsea FC
+          example: Scotland
         imageUrl:
           type: string
           description: Polymarket market image URL.
-          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
-        isResolved:
-          type: boolean
-          example: true
-        netShares:
+          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
+        lastPrice:
+          type: number
+          example: 0.0015
+        netFlowUsdc:
           type: string
           description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0'
+          example: '-7203.950016'
+        netPosition:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '7328182.072224'
         outcome:
           type: string
           description: Polymarket outcome token label (e.g. "Yes", "No").
-          example: 'No'
-        pnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '643126.136941'
+          example: 'Yes'
         question:
           type: string
           description: Polymarket market question.
-          example: Will Chelsea FC win on 2026-05-04?
-        resolvedAt:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2026-05-04T20:20:48Z'
-        sharesHeld:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0'
+          example: Will Scotland win the 2026 FIFA World Cup?
         tokenAddress:
           type: string
           description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-          example: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
-        totalBuyUsdc:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '332768.337261'
-        totalSellUsdc:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '975894.474202'
+          example: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
         totalTrades:
           type: integer
-          example: 71
-        value:
+          example: 11468
+        unrealizedPnl:
           type: string
           description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0'
-        volume:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '332768.337261'
+          example: '3788.323092336'
       example:
-        avgBuyPrice: '0.34098803308944694087'
-        avgSellPrice: '1.00000000000000000000'
-        conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
-        currentPrice: '1.00000000000000000000'
-        eventId: 401638
-        eventTitle: Chelsea FC vs. Nottingham Forest FC
-        groupItemTitle: Chelsea FC
-        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
-        isResolved: true
-        netShares: '0'
-        outcome: 'No'
-        pnl: '643126.136941'
-        question: Will Chelsea FC win on 2026-05-04?
-        resolvedAt: '2026-05-04T20:20:48Z'
-        sharesHeld: '0'
-        tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
-        totalBuyUsdc: '332768.337261'
-        totalSellUsdc: '975894.474202'
-        totalTrades: 71
-        value: '0'
-        volume: '332768.337261'
-    PolymarketPriceInterval:
-      enum:
-      - 1m
-      - 1h
-      - 1d
-      - 5s
-      - 1s
-      - auto
-      type: string
-      example: 1m
+        conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
+        eventId: 30615
+        groupItemTitle: Scotland
+        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
+        lastPrice: 0.0015
+        netFlowUsdc: '-7203.950016'
+        netPosition: '7328182.072224'
+        outcome: 'Yes'
+        question: Will Scotland win the 2026 FIFA World Cup?
+        tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
+        totalTrades: 11468
+        unrealizedPnl: '3788.323092336'
+    PolymarketWalletSummaryBalanceResponse:
+      required:
+      - userAddress
+      - usdcBalance
+      type: object
+      properties:
+        usdcBalance:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '-15906.549249'
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        usdcBalance: '-15906.549249'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
     PolymarketEventsResponse:
       required:
       - events
@@ -2711,10 +2519,11 @@ components:
       type: object
       properties:
         events:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketEventCardResponse'
-          nullable: true
           example:
           - active: true
             category: crypto
@@ -2816,6 +2625,131 @@ components:
         limit: 2
         offset: 0
         totalCount: 610092
+    PolymarketWalletSummaryStatsResponse:
+      required:
+      - userAddress
+      - totalVolume
+      - totalFees
+      - totalTrades
+      - totalEvents
+      type: object
+      properties:
+        firstActiveAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-11-07T00:00:00Z'
+        totalEvents:
+          type: integer
+          example: 390337
+        totalFees:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '70296.03806'
+        totalTrades:
+          type: integer
+          example: 390337
+        totalVolume:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '89011677.488757'
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        firstActiveAt: '2025-11-07T00:00:00Z'
+        totalEvents: 390337
+        totalFees: '70296.03806'
+        totalTrades: 390337
+        totalVolume: '89011677.488757'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketWalletSummaryPnLResponse:
+      required:
+      - userAddress
+      - totalPnl
+      - realizedPnl
+      - deployedCapital
+      - uniqueMarkets
+      - marketsWon
+      - marketsTotal
+      type: object
+      properties:
+        deployedCapital:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '1200.5'
+        marketsTotal:
+          type: integer
+          example: 1428
+        marketsWon:
+          type: integer
+          example: 695
+        realizedPnl:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '1173358.66161'
+        totalPnl:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '1189259.007401233'
+        uniqueMarkets:
+          type: integer
+          example: 1292
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        deployedCapital: '1200.5'
+        marketsTotal: 1428
+        marketsWon: 695
+        realizedPnl: '1173358.66161'
+        totalPnl: '1189259.007401233'
+        uniqueMarkets: 1292
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketPnLPoint:
+      required:
+      - bucket
+      - cumulativePosition
+      - cumulativeUsdcFlow
+      - cumulativeFees
+      - cumulativePnl
+      type: object
+      properties:
+        bucket:
+          type: string
+          format: date-time
+          example: '2026-05-23T12:00:00Z'
+        cumulativeFees:
+          type: string
+          description: Reserved for compatibility; this endpoint currently returns 0.
+          example: '0'
+        cumulativePnl:
+          type: string
+          description: Total PnL in USDC at this bucket.
+          example: '1510462.284030093'
+        cumulativePosition:
+          type: string
+          description: Current marked position value in USDC at this bucket.
+          example: '61565194.136166093'
+        cumulativeUsdcFlow:
+          type: string
+          description: Cumulative USDC flow net of fees at this bucket.
+          example: '-60054731.852136'
+        price:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+      example:
+        bucket: '2026-05-23T12:00:00Z'
+        cumulativeFees: '0'
+        cumulativePnl: '1510462.284030093'
+        cumulativePosition: '61565194.136166093'
+        cumulativeUsdcFlow: '-60054731.852136'
+        price: 1.23
     PolymarketTopEventEntry:
       required:
       - rank
@@ -2863,225 +2797,162 @@ components:
         rank: 1
         tradeCount: 3311
         userAddress: '0x204f72f35326db932158CBA6AdfF0B9A1DA95e14'
-    PolymarketPricePoint:
+    PolymarketPnLPeriod:
+      enum:
+      - 24h
+      - 7d
+      - 30d
+      - all
+      type: string
+      example: 24h
+    PolymarketOutcomeMetaType2:
       required:
-      - bucketStart
-      - price
+      - shortName
+      - primaryColor
       type: object
       properties:
-        bucketStart:
+        primaryColor:
           type: string
-          format: date-time
-          example: '2026-06-22T12:00:00Z'
-        price:
-          type: number
-          example: 0.0545
+          example: '#0000FF'
+        shortName:
+          type: string
+          example: FR
       example:
-        bucketStart: '2026-06-22T12:00:00Z'
-        price: 0.0545
-    PolymarketTopHolderPositionItem:
-      required:
-      - tokenAddress
-      - netPosition
-      - netFlowUsdc
-      type: object
-      properties:
-        conditionId:
-          type: string
-          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        groupItemTitle:
-          type: string
-          description: Polymarket grouped-market item title.
-          example: Netherlands
-        netFlowUsdc:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '0'
-        netPosition:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '800000'
-        outcome:
-          type: string
-          description: Polymarket outcome token label (e.g. "Yes", "No").
-          example: 'Yes'
-        question:
-          type: string
-          description: Polymarket market question.
-          example: Will Netherlands win the 2026 FIFA World Cup?
-        tokenAddress:
-          type: string
-          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-      example:
-        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        groupItemTitle: Netherlands
-        netFlowUsdc: '0'
-        netPosition: '800000'
-        outcome: 'Yes'
-        question: Will Netherlands win the 2026 FIFA World Cup?
-        tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-    PolymarketWalletSummaryBalanceResponse:
+        primaryColor: '#0000FF'
+        shortName: FR
+    PolymarketWalletTagsResponse:
       required:
       - userAddress
-      - usdcBalance
+      - tags
       type: object
       properties:
-        usdcBalance:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '-15906.549249'
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        usdcBalance: '-15906.549249'
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketWalletSummaryStatsResponse:
-      required:
-      - userAddress
-      - totalVolume
-      - totalFees
-      - totalTrades
-      - totalEvents
-      type: object
-      properties:
-        firstActiveAt:
-          type: string
-          format: date-time
-          nullable: true
-          example: '2025-11-07T00:00:00Z'
-        totalEvents:
-          type: integer
-          example: 390337
-        totalFees:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '70296.03806'
-        totalTrades:
-          type: integer
-          example: 390337
-        totalVolume:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '89011677.488757'
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        firstActiveAt: '2025-11-07T00:00:00Z'
-        totalEvents: 390337
-        totalFees: '70296.03806'
-        totalTrades: 390337
-        totalVolume: '89011677.488757'
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketPositionsResponse:
-      required:
-      - userAddress
-      - positions
-      - totalCount
-      type: object
-      properties:
-        positions:
-          type: array
+        tags:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/PolymarketPositionItem'
-          nullable: true
+            $ref: '#/components/schemas/PolymarketWalletTag'
           example:
-          - conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
-            eventId: 30615
-            groupItemTitle: Scotland
-            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
-            lastPrice: 0.0015
-            netFlowUsdc: '-7203.950016'
-            netPosition: '7328182.072224'
-            outcome: 'Yes'
-            question: Will Scotland win the 2026 FIFA World Cup?
-            tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
-            totalTrades: 11468
-            unrealizedPnl: '3788.323092336'
-        totalCount:
-          type: integer
-          example: 58
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        positions:
-        - conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
-          eventId: 30615
-          groupItemTitle: Scotland
-          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
-          lastPrice: 0.0015
-          netFlowUsdc: '-7203.950016'
-          netPosition: '7328182.072224'
-          outcome: 'Yes'
-          question: Will Scotland win the 2026 FIFA World Cup?
-          tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
-          totalTrades: 11468
-          unrealizedPnl: '3788.323092336'
-        totalCount: 58
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketLeaderboardResponse:
-      required:
-      - period
-      - sort
-      - entries
-      type: object
-      properties:
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketLeaderboardEntry'
-          nullable: true
-          example:
-          - periodPnl: '1977499.5723378485'
-            rank: 1
-            tags:
-            - events: 1284
-              label: Politics
-              tag: politics
-              volume: '45820.12'
-            tokensTotal: 216
-            tokensWon: 98
-            tradeCount: 8328
-            userAddress: '0xf0318C32136c2dB7feC88B84869aEE6A1106C80c'
-        period:
-          $ref: '#/components/schemas/PolymarketLeaderboardPeriod'
-        sort:
-          $ref: '#/components/schemas/SortDir'
-        userRank:
-          type: integer
-          nullable: true
-          example: 1
-      example:
-        entries:
-        - periodPnl: '1977499.5723378485'
-          rank: 1
-          tags:
           - events: 1284
             label: Politics
             tag: politics
             volume: '45820.12'
-          tokensTotal: 216
-          tokensWon: 98
-          tradeCount: 8328
-          userAddress: '0xf0318C32136c2dB7feC88B84869aEE6A1106C80c'
-        period: 1d
-        sort: asc
-        userRank: 1
-    PolymarketActivitySortBy:
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        tags:
+        - events: 1284
+          label: Politics
+          tag: politics
+          volume: '45820.12'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketWalletSummaryBiggestWinResponse:
+      required:
+      - userAddress
+      - biggestWin
+      type: object
+      properties:
+        biggestWin:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '643126.136941'
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        biggestWin: '643126.136941'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketActivityDirection:
       enum:
-      - time
-      - size
-      - price
-      - usd
+      - buy
+      - sell
       type: string
-      example: time
+      example: buy
+    PolymarketWalletPortfolioResponse:
+      required:
+      - userAddress
+      - unrealizedPnl
+      - openPositionValue
+      - openPositions
+      - openMarkets
+      type: object
+      properties:
+        openMarkets:
+          type: integer
+          example: 56
+        openPositionValue:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '503776.5191501625'
+        openPositions:
+          type: integer
+          example: 58
+        unrealizedPnl:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '-3469.2627198375'
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        openMarkets: 56
+        openPositionValue: '503776.5191501625'
+        openPositions: 58
+        unrealizedPnl: '-3469.2627198375'
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketOrderBookSide:
+      required:
+      - tokenId
+      - outcome
+      - bids
+      - asks
+      - lastTradePrice
+      type: object
+      properties:
+        asks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketOrderBookLevel'
+          example:
+          - price: '0.001'
+            size: '2743420.3'
+        bids:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketOrderBookLevel'
+          example:
+          - price: '0.001'
+            size: '2743420.3'
+        lastTradePrice:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0.055'
+        outcome:
+          type: string
+          description: Polymarket outcome token label (e.g. "Yes", "No").
+          example: 'Yes'
+        tokenId:
+          type: string
+          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
+          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+      example:
+        asks:
+        - price: '0.001'
+          size: '2743420.3'
+        bids:
+        - price: '0.001'
+          size: '2743420.3'
+        lastTradePrice: '0.055'
+        outcome: 'Yes'
+        tokenId: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
     PolymarketTopEventBreakdownMarket:
       required:
       - conditionId
@@ -3119,85 +2990,6 @@ components:
         periodPnl: '3748.1328272'
         question: Will Ghana win the 2026 FIFA World Cup?
         tradeCount: 6
-    PolymarketWalletTagsResponse:
-      required:
-      - userAddress
-      - tags
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketWalletTag'
-          nullable: true
-          example:
-          - events: 1284
-            label: Politics
-            tag: politics
-            volume: '45820.12'
-        userAddress:
-          type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        tags:
-        - events: 1284
-          label: Politics
-          tag: politics
-          volume: '45820.12'
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketTopHoldersResponse:
-      required:
-      - conditionId
-      - holders
-      type: object
-      properties:
-        conditionId:
-          type: string
-          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        holders:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketTopHolderItem'
-          nullable: true
-          example:
-          - netFlowUsdc: '0'
-            netPosition: '800000'
-            positions:
-            - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-              groupItemTitle: Netherlands
-              netFlowUsdc: '0'
-              netPosition: '800000'
-              outcome: 'Yes'
-              question: Will Netherlands win the 2026 FIFA World Cup?
-              tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-            totalTrades: 0
-            userAddress: '0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563'
-      example:
-        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-        holders:
-        - netFlowUsdc: '0'
-          netPosition: '800000'
-          positions:
-          - conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
-            groupItemTitle: Netherlands
-            netFlowUsdc: '0'
-            netPosition: '800000'
-            outcome: 'Yes'
-            question: Will Netherlands win the 2026 FIFA World Cup?
-            tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-          totalTrades: 0
-          userAddress: '0x2c335066FE58fe9237c3d3Dc7b275C2a034a0563'
-    PolymarketActivityAction:
-      enum:
-      - buy
-      - sell
-      - split
-      - merge
-      - convert
-      type: string
-      example: buy
     PolymarketOrderBookResponse:
       required:
       - conditionId
@@ -3209,10 +3001,11 @@ components:
           description: Polymarket market condition ID (0x-prefixed bytes32 hex).
           example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
         sides:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PolymarketOrderBookSide'
-          nullable: true
           example:
           - asks:
             - price: '0.001'
@@ -3235,170 +3028,31 @@ components:
           lastTradePrice: '0.055'
           outcome: 'Yes'
           tokenId: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
-    PolymarketPredictionHistoryResponse:
+    PolymarketPricePoint:
       required:
-      - userAddress
-      - markets
-      - totalCount
-      - totalCountExact
-      - hasMore
+      - bucketStart
+      - price
       type: object
       properties:
-        hasMore:
-          type: boolean
-          description: True when another page is available.
-          example: true
-        markets:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolymarketPredictionHistoryItem'
-          nullable: true
-          example:
-          - avgBuyPrice: '0.34098803308944694087'
-            avgSellPrice: '1.00000000000000000000'
-            conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
-            currentPrice: '1.00000000000000000000'
-            eventId: 401638
-            eventTitle: Chelsea FC vs. Nottingham Forest FC
-            groupItemTitle: Chelsea FC
-            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
-            isResolved: true
-            netShares: '0'
-            outcome: 'No'
-            pnl: '643126.136941'
-            question: Will Chelsea FC win on 2026-05-04?
-            resolvedAt: '2026-05-04T20:20:48Z'
-            sharesHeld: '0'
-            tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
-            totalBuyUsdc: '332768.337261'
-            totalSellUsdc: '975894.474202'
-            totalTrades: 71
-            value: '0'
-            volume: '332768.337261'
-        totalCount:
-          type: integer
-          example: 1428
-        totalCountExact:
-          type: boolean
-          description: False when totalCount is capped for broad wallet-history queries.
-          example: true
-        userAddress:
+        bucketStart:
           type: string
-          description: Polymarket trade address (0x + 40 hex chars).
-          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-      example:
-        hasMore: true
-        markets:
-        - avgBuyPrice: '0.34098803308944694087'
-          avgSellPrice: '1.00000000000000000000'
-          conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
-          currentPrice: '1.00000000000000000000'
-          eventId: 401638
-          eventTitle: Chelsea FC vs. Nottingham Forest FC
-          groupItemTitle: Chelsea FC
-          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
-          isResolved: true
-          netShares: '0'
-          outcome: 'No'
-          pnl: '643126.136941'
-          question: Will Chelsea FC win on 2026-05-04?
-          resolvedAt: '2026-05-04T20:20:48Z'
-          sharesHeld: '0'
-          tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
-          totalBuyUsdc: '332768.337261'
-          totalSellUsdc: '975894.474202'
-          totalTrades: 71
-          value: '0'
-          volume: '332768.337261'
-        totalCount: 1428
-        totalCountExact: true
-        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
-    PolymarketEventTag:
-      required:
-      - tag
-      - label
-      type: object
-      properties:
-        label:
-          type: string
-          description: Human-readable tag label.
-          example: NBA
-        tag:
-          type: string
-          description: Category tag slug.
-          example: nba
-      example:
-        label: NBA
-        tag: nba
-    PolymarketPositionItem:
-      required:
-      - tokenAddress
-      - conditionId
-      - netPosition
-      - netFlowUsdc
-      - totalTrades
-      - unrealizedPnl
-      type: object
-      properties:
-        conditionId:
-          type: string
-          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
-          example: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
-        eventId:
-          type: integer
-          nullable: true
-          example: 30615
-        groupItemTitle:
-          type: string
-          description: Polymarket grouped-market item title.
-          example: Scotland
-        imageUrl:
-          type: string
-          description: Polymarket market image URL.
-          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
-        lastPrice:
+          format: date-time
+          example: '2026-06-22T12:00:00Z'
+        price:
           type: number
-          example: 0.0015
-        netFlowUsdc:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '-7203.950016'
-        netPosition:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '7328182.072224'
-        outcome:
-          type: string
-          description: Polymarket outcome token label (e.g. "Yes", "No").
-          example: 'Yes'
-        question:
-          type: string
-          description: Polymarket market question.
-          example: Will Scotland win the 2026 FIFA World Cup?
-        tokenAddress:
-          type: string
-          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
-          example: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
-        totalTrades:
-          type: integer
-          example: 11468
-        unrealizedPnl:
-          type: string
-          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
-          example: '3788.323092336'
+          example: 0.0545
       example:
-        conditionId: '0xf950740bc71136155d6525cc0528a582c81f88812bff227803190c32ca25f54d'
-        eventId: 30615
-        groupItemTitle: Scotland
-        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-scotland-flag-20260603-192743.png
-        lastPrice: 0.0015
-        netFlowUsdc: '-7203.950016'
-        netPosition: '7328182.072224'
-        outcome: 'Yes'
-        question: Will Scotland win the 2026 FIFA World Cup?
-        tokenAddress: '0xe8b2a357b32729bae06a8a3ac122d8202412f84a849a447a6afff7e75fd3d636'
-        totalTrades: 11468
-        unrealizedPnl: '3788.323092336'
+        bucketStart: '2026-06-22T12:00:00Z'
+        price: 0.0545
+    PolymarketActivityAction:
+      enum:
+      - buy
+      - sell
+      - split
+      - merge
+      - convert
+      type: string
+      example: buy
     PolymarketEventMarketPreview:
       required:
       - conditionId
@@ -3448,12 +3102,14 @@ components:
           description: Winning outcome label for resolved markets.
           example: 'Yes'
         yesPrice:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           example: 0.1975
         yesPriceChange24h:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           example: 1.23
       example:
         conditionId: '0x9b6fef249040fd17e9c107955b37ac2c3e923509b6b0ff01cc463a331ddeb894'
@@ -3473,3 +3129,431 @@ components:
         winningOutcome: 'Yes'
         yesPrice: 0.1975
         yesPriceChange24h: 1.23
+    PolymarketLeaderboardResponse:
+      required:
+      - period
+      - sort
+      - entries
+      type: object
+      properties:
+        entries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketLeaderboardEntry'
+          example:
+          - periodPnl: '1977499.5723378485'
+            rank: 1
+            tags:
+            - events: 1284
+              label: Politics
+              tag: politics
+              volume: '45820.12'
+            tokensTotal: 216
+            tokensWon: 98
+            tradeCount: 8328
+            userAddress: '0xf0318C32136c2dB7feC88B84869aEE6A1106C80c'
+        period:
+          $ref: '#/components/schemas/PolymarketLeaderboardPeriod'
+        sort:
+          $ref: '#/components/schemas/SortDir'
+        userRank:
+          type:
+          - integer
+          - 'null'
+          example: 1
+      example:
+        entries:
+        - periodPnl: '1977499.5723378485'
+          rank: 1
+          tags:
+          - events: 1284
+            label: Politics
+            tag: politics
+            volume: '45820.12'
+          tokensTotal: 216
+          tokensWon: 98
+          tradeCount: 8328
+          userAddress: '0xf0318C32136c2dB7feC88B84869aEE6A1106C80c'
+        period: 1d
+        sort: asc
+        userRank: 1
+    PolymarketOrderBookLevel:
+      required:
+      - price
+      - size
+      type: object
+      properties:
+        price:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0.001'
+        size:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '2743420.3'
+      example:
+        price: '0.001'
+        size: '2743420.3'
+    PolymarketTopHolderPositionItem:
+      required:
+      - tokenAddress
+      - netPosition
+      - netFlowUsdc
+      type: object
+      properties:
+        conditionId:
+          type: string
+          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
+          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        groupItemTitle:
+          type: string
+          description: Polymarket grouped-market item title.
+          example: Netherlands
+        netFlowUsdc:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0'
+        netPosition:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '800000'
+        outcome:
+          type: string
+          description: Polymarket outcome token label (e.g. "Yes", "No").
+          example: 'Yes'
+        question:
+          type: string
+          description: Polymarket market question.
+          example: Will Netherlands win the 2026 FIFA World Cup?
+        tokenAddress:
+          type: string
+          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
+          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+      example:
+        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        groupItemTitle: Netherlands
+        netFlowUsdc: '0'
+        netPosition: '800000'
+        outcome: 'Yes'
+        question: Will Netherlands win the 2026 FIFA World Cup?
+        tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+    PolymarketPredictionHistoryItem:
+      required:
+      - conditionId
+      - tokenAddress
+      - totalTrades
+      - volume
+      - value
+      - currentPrice
+      - totalBuyUsdc
+      - avgBuyPrice
+      - totalSellUsdc
+      - avgSellPrice
+      - pnl
+      - netShares
+      - sharesHeld
+      - isResolved
+      type: object
+      properties:
+        avgBuyPrice:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0.34098803308944694087'
+        avgSellPrice:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '1.00000000000000000000'
+        conditionId:
+          type: string
+          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
+          example: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
+        currentPrice:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '1.00000000000000000000'
+        eventId:
+          type:
+          - integer
+          - 'null'
+          example: 401638
+        eventTitle:
+          type: string
+          description: Polymarket event title.
+          example: Chelsea FC vs. Nottingham Forest FC
+        groupItemTitle:
+          type: string
+          description: Polymarket grouped-market item title.
+          example: Chelsea FC
+        imageUrl:
+          type: string
+          description: Polymarket market image URL.
+          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
+        isResolved:
+          type: boolean
+          example: true
+        netShares:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0'
+        outcome:
+          type: string
+          description: Polymarket outcome token label (e.g. "Yes", "No").
+          example: 'No'
+        pnl:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '643126.136941'
+        question:
+          type: string
+          description: Polymarket market question.
+          example: Will Chelsea FC win on 2026-05-04?
+        resolvedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2026-05-04T20:20:48Z'
+        sharesHeld:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0'
+        tokenAddress:
+          type: string
+          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
+          example: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
+        totalBuyUsdc:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '332768.337261'
+        totalSellUsdc:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '975894.474202'
+        totalTrades:
+          type: integer
+          example: 71
+        value:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '0'
+        volume:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '332768.337261'
+      example:
+        avgBuyPrice: '0.34098803308944694087'
+        avgSellPrice: '1.00000000000000000000'
+        conditionId: '0x0433839be2e0889423ff0a0efae939272899d09c284d309b346d3991d003c4c0'
+        currentPrice: '1.00000000000000000000'
+        eventId: 401638
+        eventTitle: Chelsea FC vs. Nottingham Forest FC
+        groupItemTitle: Chelsea FC
+        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/Repetitive-markets/premier+league.jpg
+        isResolved: true
+        netShares: '0'
+        outcome: 'No'
+        pnl: '643126.136941'
+        question: Will Chelsea FC win on 2026-05-04?
+        resolvedAt: '2026-05-04T20:20:48Z'
+        sharesHeld: '0'
+        tokenAddress: '0x5f10f068a11aa7c2f4244d8d71bcfd1ad3f2ed337d916960eb2a660ad380f892'
+        totalBuyUsdc: '332768.337261'
+        totalSellUsdc: '975894.474202'
+        totalTrades: 71
+        value: '0'
+        volume: '332768.337261'
+    PolymarketEventPositionItem:
+      required:
+      - userAddress
+      - tokenAddress
+      - shares
+      - price
+      - value
+      - pnl
+      - totalTrades
+      type: object
+      properties:
+        conditionId:
+          type: string
+          description: Polymarket market condition ID (0x-prefixed bytes32 hex).
+          example: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        imageUrl:
+          type: string
+          description: Polymarket market image URL.
+          example: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png
+        outcome:
+          type: string
+          description: Polymarket outcome token label (e.g. "Yes", "No").
+          example: 'Yes'
+        pnl:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '183116.690251204'
+        price:
+          type: number
+          example: 0.0545
+        question:
+          type: string
+          description: Polymarket market question.
+          example: Will Netherlands win the 2026 FIFA World Cup?
+        shares:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '6337.619912'
+        tokenAddress:
+          type: string
+          description: Polymarket outcome token ID encoded as 0x-prefixed uint256 hex.
+          example: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+        totalTrades:
+          type: integer
+          example: 5818
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xB687f00464E33934f5d591F224E71C3559ecAeE5'
+        value:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '345.400285204'
+      example:
+        conditionId: '0x9be56371f6a29d12769b2f196847ee825b9585ebb8bfa042136be031b081eba1'
+        imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-netherlands-flag-20260603-192743.png
+        outcome: 'Yes'
+        pnl: '183116.690251204'
+        price: 0.0545
+        question: Will Netherlands win the 2026 FIFA World Cup?
+        shares: '6337.619912'
+        tokenAddress: '0x7baa312d6393ea83c631fb77b47061651a2a9992c40fcac017009611d6a03df4'
+        totalTrades: 5818
+        userAddress: '0xB687f00464E33934f5d591F224E71C3559ecAeE5'
+        value: '345.400285204'
+    PolymarketWalletTag:
+      required:
+      - tag
+      - label
+      - events
+      - volume
+      type: object
+      properties:
+        events:
+          type: integer
+          example: 1284
+        label:
+          type: string
+          example: Politics
+        tag:
+          type: string
+          example: politics
+        volume:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '45820.12'
+      example:
+        events: 1284
+        label: Politics
+        tag: politics
+        volume: '45820.12'
+    PolymarketOutcomeMeta:
+      required:
+      - shortName
+      - primaryColor
+      type: object
+      properties:
+        primaryColor:
+          type: string
+          example: '#00FF00'
+        shortName:
+          type: string
+          example: 'Yes'
+      example:
+        primaryColor: '#00FF00'
+        shortName: 'Yes'
+    PolymarketPriceRange:
+      enum:
+      - 1d
+      - 1w
+      - 1m
+      - all
+      type: string
+      example: 1d
+    PolymarketTopEventBreakdownResponse:
+      required:
+      - eventId
+      - userAddress
+      - markets
+      type: object
+      properties:
+        eventId:
+          type: integer
+          example: 30615
+        eventTitle:
+          type: string
+          description: Polymarket event title.
+          example: World Cup Winner
+        markets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolymarketTopEventBreakdownMarket'
+          example:
+          - conditionId: '0x881a3ffa618b6ae0ab95a5637e310afb1afc2d99c921bfe3235b15eccfce0344'
+            groupItemTitle: Ghana
+            imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-ghana-flag-20260603-192743.png
+            periodPnl: '3748.1328272'
+            question: Will Ghana win the 2026 FIFA World Cup?
+            tradeCount: 6
+        userAddress:
+          type: string
+          description: Polymarket trade address (0x + 40 hex chars).
+          example: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+      example:
+        eventId: 30615
+        eventTitle: World Cup Winner
+        markets:
+        - conditionId: '0x881a3ffa618b6ae0ab95a5637e310afb1afc2d99c921bfe3235b15eccfce0344'
+          groupItemTitle: Ghana
+          imageUrl: https://polymarket-upload.s3.us-east-2.amazonaws.com/world-cup-winner-ghana-flag-20260603-192743.png
+          periodPnl: '3748.1328272'
+          question: Will Ghana win the 2026 FIFA World Cup?
+          tradeCount: 6
+        userAddress: '0xBDDF61Af533fF524D27154e589d2D7A81510C684'
+    PolymarketStatsResponse:
+      required:
+      - totalVolume
+      - volume24h
+      - totalTraders
+      - activeMarkets
+      - resolvedMarkets
+      - totalTrades
+      type: object
+      properties:
+        activeMarkets:
+          type: integer
+          example: 42344
+        resolvedMarkets:
+          type: integer
+          example: 1626032
+        totalTraders:
+          type: integer
+          example: 2955552
+        totalTrades:
+          type: integer
+          example: 1541962785
+        totalVolume:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '74031837587.746668'
+        volume24h:
+          type: string
+          description: Numeric value serialized as a decimal string. Used for USDC amounts, outcome-token share counts, and per-share prices; the field name disambiguates the unit.
+          example: '320610637.818212'
+      example:
+        activeMarkets: 42344
+        resolvedMarkets: 1626032
+        totalTraders: 2955552
+        totalTrades: 1541962785
+        totalVolume: '74031837587.746668'
+        volume24h: '320610637.818212'

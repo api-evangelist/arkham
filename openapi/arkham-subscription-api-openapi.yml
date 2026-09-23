@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Subscription API
+  title: Arkham Intel Subscription API
   version: 1.1.0
 tags:
 - name: Subscription
@@ -29,6 +29,15 @@ paths:
       - Subscription
 components:
   schemas:
+    AdminIntelUsageChainResult:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Intel data points consumed on this chain during the current billing period.
+          example: 1284
     IntelUsageResponse:
       required:
       - totalCount
@@ -38,11 +47,12 @@ components:
       type: object
       properties:
         chainUsage:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             $ref: '#/components/schemas/AdminIntelUsageChainResult'
           description: Per-chain-type breakdown of intel data points consumed. Keys are chain types; all EVM chains are grouped under "evm".
-          nullable: true
           example:
             bitcoin:
               count: 86
@@ -57,10 +67,11 @@ components:
             zcash:
               count: 0
         periodStart:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Start of the current billing period (UTC). Null if no period is active.
           format: date-time
-          nullable: true
           example: '2026-06-01T00:00:00Z'
         totalCount:
           type: integer
@@ -87,12 +98,3 @@ components:
         periodStart: '2026-06-01T00:00:00Z'
         totalCount: 12373
         totalLimit: 1000000
-    AdminIntelUsageChainResult:
-      required:
-      - count
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Intel data points consumed on this chain during the current billing period.
-          example: 1284

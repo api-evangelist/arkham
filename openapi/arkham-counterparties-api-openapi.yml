@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Counterparties API
+  title: Arkham Intel Counterparties API
   version: 1.1.0
 tags:
 - name: Counterparties
@@ -42,17 +42,19 @@ paths:
         in: query
         description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          nullable: true
           example: '2024-01-01T00:00:00Z'
       - name: timeLte
         in: query
         description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          nullable: true
           example: '2024-06-01T00:00:00Z'
       - name: timeLast
         in: query
@@ -67,9 +69,10 @@ paths:
         style: deepObject
         explode: true
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to counterparties whose aggregated USD volume is at least this value.
-          nullable: true
           example: '100.23'
       - name: limit
         in: query
@@ -343,17 +346,19 @@ paths:
         in: query
         description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          nullable: true
           example: '2024-01-01T00:00:00Z'
       - name: timeLte
         in: query
         description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          nullable: true
           example: '2024-06-01T00:00:00Z'
       - name: timeLast
         in: query
@@ -368,9 +373,10 @@ paths:
         style: deepObject
         explode: true
         schema:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Filter to counterparties whose aggregated USD volume is at least this value.
-          nullable: true
           example: '100.23'
       - name: limit
         in: query
@@ -571,25 +577,6 @@ paths:
       - Counterparties
 components:
   schemas:
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
     Label:
       required:
       - name
@@ -614,20 +601,31 @@ components:
         chainType: evm
         name: Cold Wallet
         note: ''
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     CounterpartyFlow:
       enum:
       - in
       - out
       type: string
       example: in
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
     Counterparty:
       required:
       - address
@@ -640,11 +638,12 @@ components:
         address:
           $ref: '#/components/schemas/Address'
         chains:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Chain'
           description: Chains on which this counterparty interacted with the queried subject.
-          nullable: true
           example:
           - ethereum
         flow:
@@ -764,6 +763,14 @@ components:
         flow: in
         transactionCount: 223156
         usd: 331013556816.85
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
     Entity:
       required:
       - name
@@ -786,31 +793,37 @@ components:
             abc123:
             - abc123
         crunchbase:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://www.crunchbase.com/organization/binance
         customImageSlug:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: binance
         customized:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         id:
           type: string
           example: binance
         instagram:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://www.instagram.com/binance
         linkShareable:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         linkedin:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://www.linkedin.com/company/binance
         name:
           type: string
@@ -834,20 +847,24 @@ components:
             rank: 20
             tagParams: Binance
         service:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         twitter:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://twitter.com/binance
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: cex
         website:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: https://binance.com
       example:
         addresses:
@@ -875,50 +892,6 @@ components:
         twitter: https://twitter.com/binance
         type: cex
         website: https://binance.com
-    PopulatedTag:
-      required:
-      - id
-      - label
-      - rank
-      - excludeEntities
-      - disablePage
-      type: object
-      properties:
-        chain:
-          $ref: '#/components/schemas/Chain'
-        disablePage:
-          type: boolean
-          description: Whether the dedicated page for this tag is disabled.
-          example: false
-        excludeEntities:
-          type: boolean
-          description: Whether entities are excluded from this tag.
-          example: false
-        id:
-          type: string
-          description: The tag identifier.
-          example: proof-of-reserves
-        label:
-          type: string
-          description: Human-readable label for this tag parameter combination.
-          example: Binance Proof of Reserves
-        rank:
-          type: integer
-          description: Display rank of the tag.
-          example: 20
-        tagParams:
-          type: string
-          description: The specific parameter value for this tag instance.
-          nullable: true
-          example: Binance
-      example:
-        chain: ethereum
-        disablePage: false
-        excludeEntities: false
-        id: proof-of-reserves
-        label: Binance Proof of Reserves
-        rank: 20
-        tagParams: Binance
     Address:
       required:
       - address
@@ -935,32 +908,38 @@ components:
         chain:
           $ref: '#/components/schemas/Chain'
         contract:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: false
         depositServiceID:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: binance
         isShielded:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         isUserAddress:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: false
         ownerAddress:
           $ref: '#/components/schemas/Address'
         predictedEntity:
           $ref: '#/components/schemas/Entity'
         program:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         service:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           example: true
         userEntity:
           $ref: '#/components/schemas/Entity'
@@ -1064,3 +1043,48 @@ components:
           chainType: evm
           name: Cold Wallet
           note: ''
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type:
+          - string
+          - 'null'
+          description: The specific parameter value for this tag instance.
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance

@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Arkham Intel Analytics API
   version: 1.1.0
@@ -88,6 +88,108 @@ paths:
       - Analytics
 components:
   schemas:
+    EndpointInfo:
+      required:
+      - pattern
+      - color
+      - weight
+      - unitType
+      type: object
+      properties:
+        color:
+          type: string
+          description: Color used to render this endpoint in stacked-bar visualizations.
+          example: '#4f46e5'
+        pattern:
+          type: string
+          description: Endpoint path pattern.
+          example: /transfers
+        unitType:
+          type: string
+          description: 'Billing unit type: "call" (charged per request) or "row" (charged per returned row).'
+          example: call
+        weight:
+          type: integer
+          description: Credit weight per call for this endpoint.
+          example: 5
+      example:
+        color: '#4f46e5'
+        pattern: /transfers
+        unitType: call
+        weight: 5
+    AnalyticsResponse:
+      required:
+      - period
+      - startTime
+      - endTime
+      - dataPoints
+      - endpointInfos
+      type: object
+      properties:
+        dataPoints:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AnalyticsDataPoint'
+          description: Hourly data points covering the window.
+          example:
+          - callBreakdown:
+              /intelligence/address/{address}: 864
+              /transfers: 420
+            creditBreakdown:
+              /intelligence/address/{address}: 5220
+              /transfers: 2100
+            hour: '2026-05-26T14:00:00Z'
+            totalCalls: 1284
+            totalCostUnits: 7320
+            totalCredits: 7320
+        endTime:
+          type: string
+          description: End of the returned window (UTC).
+          format: date-time
+          example: '2026-05-26T00:00:00Z'
+        endpointInfos:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EndpointInfo'
+          description: Metadata for each endpoint referenced in the breakdowns (display color, credit weight, billing unit).
+          example:
+          - color: '#4f46e5'
+            pattern: /transfers
+            unitType: call
+            weight: 5
+        period:
+          type: string
+          description: Time window the response covers. One of "24h", "7d", or "30d".
+          example: 7d
+        startTime:
+          type: string
+          description: Start of the returned window (UTC).
+          format: date-time
+          example: '2026-05-19T00:00:00Z'
+      example:
+        dataPoints:
+        - callBreakdown:
+            /intelligence/address/{address}: 864
+            /transfers: 420
+          creditBreakdown:
+            /intelligence/address/{address}: 5220
+            /transfers: 2100
+          hour: '2026-05-26T14:00:00Z'
+          totalCalls: 1284
+          totalCostUnits: 7320
+          totalCredits: 7320
+        endTime: '2026-05-26T00:00:00Z'
+        endpointInfos:
+        - color: '#4f46e5'
+          pattern: /transfers
+          unitType: call
+          weight: 5
+        period: 7d
+        startTime: '2026-05-19T00:00:00Z'
     CreditUsagePeriod:
       required:
       - entityType
@@ -150,106 +252,6 @@ components:
         periodEnd: '2026-05-01T00:00:00Z'
         periodStart: '2026-04-01T00:00:00Z'
         status: closed
-    EndpointInfo:
-      required:
-      - pattern
-      - color
-      - weight
-      - unitType
-      type: object
-      properties:
-        color:
-          type: string
-          description: Color used to render this endpoint in stacked-bar visualizations.
-          example: '#4f46e5'
-        pattern:
-          type: string
-          description: Endpoint path pattern.
-          example: /transfers
-        unitType:
-          type: string
-          description: 'Billing unit type: "call" (charged per request) or "row" (charged per returned row).'
-          example: call
-        weight:
-          type: integer
-          description: Credit weight per call for this endpoint.
-          example: 5
-      example:
-        color: '#4f46e5'
-        pattern: /transfers
-        unitType: call
-        weight: 5
-    AnalyticsResponse:
-      required:
-      - period
-      - startTime
-      - endTime
-      - dataPoints
-      - endpointInfos
-      type: object
-      properties:
-        dataPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsDataPoint'
-          description: Hourly data points covering the window.
-          nullable: true
-          example:
-          - callBreakdown:
-              /intelligence/address/{address}: 864
-              /transfers: 420
-            creditBreakdown:
-              /intelligence/address/{address}: 5220
-              /transfers: 2100
-            hour: '2026-05-26T14:00:00Z'
-            totalCalls: 1284
-            totalCostUnits: 7320
-            totalCredits: 7320
-        endTime:
-          type: string
-          description: End of the returned window (UTC).
-          format: date-time
-          example: '2026-05-26T00:00:00Z'
-        endpointInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/EndpointInfo'
-          description: Metadata for each endpoint referenced in the breakdowns (display color, credit weight, billing unit).
-          nullable: true
-          example:
-          - color: '#4f46e5'
-            pattern: /transfers
-            unitType: call
-            weight: 5
-        period:
-          type: string
-          description: Time window the response covers. One of "24h", "7d", or "30d".
-          example: 7d
-        startTime:
-          type: string
-          description: Start of the returned window (UTC).
-          format: date-time
-          example: '2026-05-19T00:00:00Z'
-      example:
-        dataPoints:
-        - callBreakdown:
-            /intelligence/address/{address}: 864
-            /transfers: 420
-          creditBreakdown:
-            /intelligence/address/{address}: 5220
-            /transfers: 2100
-          hour: '2026-05-26T14:00:00Z'
-          totalCalls: 1284
-          totalCostUnits: 7320
-          totalCredits: 7320
-        endTime: '2026-05-26T00:00:00Z'
-        endpointInfos:
-        - color: '#4f46e5'
-          pattern: /transfers
-          unitType: call
-          weight: 5
-        period: 7d
-        startTime: '2026-05-19T00:00:00Z'
     AnalyticsDataPoint:
       required:
       - hour
@@ -261,20 +263,22 @@ components:
       type: object
       properties:
         callBreakdown:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: integer
           description: Per-endpoint call counts for this hour.
-          nullable: true
           example:
             /intelligence/address/{address}: 864
             /transfers: 420
         creditBreakdown:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: integer
           description: Per-endpoint credits consumed for this hour.
-          nullable: true
           example:
             /intelligence/address/{address}: 5220
             /transfers: 2100

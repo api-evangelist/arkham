@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Volume API
+  title: Arkham Intel Volume API
   version: 1.1.0
 tags:
 - name: Volume
@@ -109,6 +109,39 @@ paths:
       - Volume
 components:
   schemas:
+    Volume:
+      required:
+      - exchangeID
+      - exchangeName
+      - withdrawnUSD
+      - depositedUSD
+      type: object
+      properties:
+        depositedUSD:
+          type: number
+          example: 1.23
+        exchangeID:
+          type: string
+          example: binance
+        exchangeName:
+          type: string
+          example: binance
+        withdrawnUSD:
+          type: number
+          example: 1.23
+      example:
+        depositedUSD: 1.23
+        exchangeID: binance
+        exchangeName: binance
+        withdrawnUSD: 1.23
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
     VolumeSnapshot:
       required:
       - time
@@ -120,10 +153,11 @@ components:
           format: date-time
           example: '2024-01-01T00:00:00Z'
         volumes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Volume'
-          nullable: true
           example:
           - depositedUSD: 1.23
             exchangeID: binance
@@ -155,36 +189,3 @@ components:
       - hypercore
       type: string
       example: ethereum
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
-    Volume:
-      required:
-      - exchangeID
-      - exchangeName
-      - withdrawnUSD
-      - depositedUSD
-      type: object
-      properties:
-        depositedUSD:
-          type: number
-          example: 1.23
-        exchangeID:
-          type: string
-          example: binance
-        exchangeName:
-          type: string
-          example: binance
-        withdrawnUSD:
-          type: number
-          example: 1.23
-      example:
-        depositedUSD: 1.23
-        exchangeID: binance
-        exchangeName: binance
-        withdrawnUSD: 1.23

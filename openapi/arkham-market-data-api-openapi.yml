@@ -1,9 +1,9 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Marketdata API
+  title: Arkham Intel Marketdata API
   version: 1.1.0
 tags:
-- name: Marketdata
+- name: Market Data
 paths:
   /marketdata/altcoin_index:
     get:
@@ -20,7 +20,7 @@ paths:
         '500':
           description: Internal Server Error
       tags:
-      - Marketdata
+      - Market Data
 components:
   schemas:
     GetAltcoinIndexResponse:

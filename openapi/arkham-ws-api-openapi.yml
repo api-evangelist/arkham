@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Ws API
+  title: Arkham Intel Ws API
   version: 1.1.0
 tags:
 - name: Ws
@@ -78,7 +78,7 @@ paths:
         Creates a new WebSocket session for real-time transfer streaming.
 
 
-        You must create a session before connecting to the WebSocket stream. The returned sessionId should be passed as a query parameter when connecting: wss://api.arkm.com/ws/transfers?session_id=<sessionId>
+        You must create a session before connecting to the WebSocket stream. The returned sessionId should be passed as a query parameter when connecting: wss://api.arkm.com/ws/transfers?session_id=
 
 
         **Billing:** Session creation costs API credits. Check GET /ws/session-info for current pricing.'
@@ -171,7 +171,7 @@ paths:
 
         1. Create a session by calling POST /ws/sessions - this returns a sessionId
 
-        2. Connect to wss://api.arkm.com/ws/transfers?session_id=<your-session-id> with your API-Key header
+        2. Connect to wss://api.arkm.com/ws/transfers?session_id= with your API-Key header
 
         3. Send a subscribe message with your transfer filters to start receiving data
 
@@ -226,7 +226,7 @@ paths:
 
         1. **Create** a stream with your transfer filter via POST /ws/v2/streams — the filter uses the same fields as GET /transfers, sent as a JSON request body
 
-        2. **Connect** via WebSocket: wss://api.arkm.com/ws/v2/transfers?stream_id=<streamId> with your API-Key header
+        2. **Connect** via WebSocket: wss://api.arkm.com/ws/v2/transfers?stream_id= with your API-Key header
 
         3. **Receive** transfers automatically — no subscribe/unsubscribe messages needed
 
@@ -376,124 +376,6 @@ paths:
       - Ws
 components:
   schemas:
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
-    GetActiveWebSocketConnectionsResponse:
-      required:
-      - activeConnections
-      type: object
-      properties:
-        activeConnections:
-          type: integer
-          description: Number of currently active WebSocket connections
-          example: 1
-      example:
-        activeConnections: 1
-    WebSocketSessionResponse:
-      required:
-      - sessionId
-      - transfersUsed
-      - createdAt
-      - isActive
-      - isConnected
-      type: object
-      properties:
-        createdAt:
-          type: string
-          description: When the session was created
-          format: date-time
-          example: '2026-07-14T09:12:43Z'
-        isActive:
-          type: boolean
-          description: Whether the session is active
-          example: true
-        isConnected:
-          type: boolean
-          description: Whether a WebSocket client is currently connected to this session
-          example: true
-        sessionId:
-          type: string
-          description: Unique session identifier
-          example: ws_Ab3xK9pQ_1782149114960780310
-        transfersUsed:
-          type: integer
-          description: Number of transfers received in this session
-          example: 1
-      example:
-        createdAt: '2026-07-14T09:12:43Z'
-        isActive: true
-        isConnected: true
-        sessionId: ws_Ab3xK9pQ_1782149114960780310
-        transfersUsed: 1
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
-    StreamV2Response:
-      required:
-      - streamId
-      - id
-      - createdAt
-      - lastActive
-      - transfersUsed
-      - isConnected
-      type: object
-      properties:
-        createdAt:
-          type: string
-          description: Timestamp when the stream was created.
-          format: date-time
-          example: '2026-07-14T09:12:43Z'
-        id:
-          type: integer
-          description: Internal database identifier for the stream. No endpoint accepts it — use streamId to connect to the WebSocket or to delete the stream.
-          example: 173943
-        isConnected:
-          type: boolean
-          description: Whether a client is currently connected to the stream.
-          example: true
-        lastActive:
-          type: string
-          description: Timestamp of the last activity on the stream, or null if it has never been connected.
-          format: date-time
-          nullable: true
-          example: '2026-07-15T10:16:35Z'
-        streamId:
-          type: string
-          description: Identifier for the stream. Pass it as the stream_id query parameter on wss://api.arkm.com/ws/v2/transfers to connect, and as the path parameter on DELETE /ws/v2/streams/{id} to delete.
-          example: e561dd5b-a24d-4669-bbba-9e5cf37d5125
-        transfersUsed:
-          type: integer
-          description: Number of transfers delivered on this stream so far.
-          example: 1
-      example:
-        createdAt: '2026-07-14T09:12:43Z'
-        id: 173943
-        isConnected: true
-        lastActive: '2026-07-15T10:16:35Z'
-        streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
-        transfersUsed: 1
     CreateWebSocketSessionResponse:
       required:
       - sessionId
@@ -524,6 +406,70 @@ components:
         isActive: true
         sessionId: ws_Ab3xK9pQ_1782149114960780310
         transfersUsed: 1
+    StreamV2Response:
+      required:
+      - streamId
+      - id
+      - createdAt
+      - lastActive
+      - transfersUsed
+      - isConnected
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Timestamp when the stream was created.
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        id:
+          type: integer
+          description: Internal database identifier for the stream. No endpoint accepts it — use streamId to connect to the WebSocket or to delete the stream.
+          example: 173943
+        isConnected:
+          type: boolean
+          description: Whether a client is currently connected to the stream.
+          example: true
+        lastActive:
+          type:
+          - string
+          - 'null'
+          description: Timestamp of the last activity on the stream, or null if it has never been connected.
+          format: date-time
+          example: '2026-07-15T10:16:35Z'
+        streamId:
+          type: string
+          description: Identifier for the stream. Pass it as the stream_id query parameter on wss://api.arkm.com/ws/v2/transfers to connect, and as the path parameter on DELETE /ws/v2/streams/{id} to delete.
+          example: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+        transfersUsed:
+          type: integer
+          description: Number of transfers delivered on this stream so far.
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        id: 173943
+        isConnected: true
+        lastActive: '2026-07-15T10:16:35Z'
+        streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+        transfersUsed: 1
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
     CreateStreamV2Response:
       required:
       - streamId
@@ -548,6 +494,28 @@ components:
         createdAt: '2026-07-14T09:12:43Z'
         id: 173943
         streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+    GetActiveWebSocketConnectionsResponse:
+      required:
+      - activeConnections
+      type: object
+      properties:
+        activeConnections:
+          type: integer
+          description: Number of currently active WebSocket connections
+          example: 1
+      example:
+        activeConnections: 1
+    DeleteStreamV2Response:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: Confirmation message indicating the stream was deleted.
+          example: stream deleted
+      example:
+        message: stream deleted
     WebSocketSessionInfoResponse:
       required:
       - creditPerTransfer
@@ -563,26 +531,24 @@ components:
           description: API credits consumed per transfer received
           example: 2
         nextRenewalDate:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Next monthly session renewal charge date
           format: date-time
-          nullable: true
           example: '2026-08-14T00:00:00Z'
       example:
         creditPerSession: 500
         creditPerTransfer: 2
         nextRenewalDate: '2026-08-14T00:00:00Z'
-    DeleteStreamV2Response:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: Confirmation message indicating the stream was deleted.
-          example: stream deleted
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
       example:
-        message: stream deleted
+      - ethereum
+      - bsc
+      - polygon
     TransferFilter:
       type: object
       properties:
@@ -673,6 +639,42 @@ components:
         usdLte: '1000000'
         valueGte: '100'
         valueLte: '10000'
+    WebSocketSessionResponse:
+      required:
+      - sessionId
+      - transfersUsed
+      - createdAt
+      - isActive
+      - isConnected
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the session was created
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        isActive:
+          type: boolean
+          description: Whether the session is active
+          example: true
+        isConnected:
+          type: boolean
+          description: Whether a WebSocket client is currently connected to this session
+          example: true
+        sessionId:
+          type: string
+          description: Unique session identifier
+          example: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed:
+          type: integer
+          description: Number of transfers received in this session
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        isActive: true
+        isConnected: true
+        sessionId: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed: 1
     TransferFlow:
       enum:
       - in

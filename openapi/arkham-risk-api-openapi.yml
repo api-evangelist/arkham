@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Risk API
+  title: Arkham Intel Risk API
   version: 1.1.0
 tags:
 - name: Risk
@@ -220,142 +220,6 @@ paths:
       - Risk
 components:
   schemas:
-    RiskScorePathNodeAPIType:
-      required:
-      - address
-      - hop_distance
-      type: object
-      properties:
-        address:
-          type: string
-          description: Address at this position in the path.
-          example: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-        hop_distance:
-          type: integer
-          description: Hop distance from the seed for this node (0 = seed itself).
-          example: 0
-      example:
-        address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-        hop_distance: 0
-    RiskScoreEntitySourceAPIType:
-      required:
-      - seed_address
-      - risk_category
-      - direction
-      - contribution_usd
-      - hop_distance
-      type: object
-      properties:
-        contribution_usd:
-          type: number
-          description: Risk-weighted USD attributed to this seed, summed across the entity's addresses.
-          example: 1.23
-        direction:
-          type: string
-          description: '''forward'' = seed sent into entity addresses; ''backward'' = entity addresses funded the seed.'
-          example: forward
-        hop_distance:
-          type: integer
-          description: Shortest hop distance from this seed to any of the entity's addresses.
-          example: 1
-        risk_category:
-          type: string
-          description: Risk category of the seed.
-          example: hacker
-        seed_address:
-          type: string
-          description: External risk seed address.
-          example: abc123
-      example:
-        contribution_usd: 1.23
-        direction: forward
-        hop_distance: 1
-        risk_category: hacker
-        seed_address: abc123
-    RiskScoreEntitySeedAddressAPIType:
-      required:
-      - chain_type
-      - address
-      - risk_category
-      - seed_score
-      type: object
-      properties:
-        address:
-          type: string
-          example: abc123
-        chain_type:
-          type: string
-          example: evm
-        risk_category:
-          type: string
-          description: The category that made this address a seed.
-          example: mixed-kyc-service
-        seed_score:
-          type: integer
-          description: Raw seed score assigned by the upstream tag/entity-type rule.
-          example: 30
-      example:
-        address: abc123
-        chain_type: evm
-        risk_category: mixed-kyc-service
-        seed_score: 30
-    GetRiskScoreAddressPathsResponse:
-      required:
-      - address
-      - paths
-      type: object
-      properties:
-        address:
-          type: string
-          description: The queried address.
-          example: '0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB'
-        paths:
-          type: array
-          items:
-            $ref: '#/components/schemas/RiskScorePathAPIType'
-          description: Top-contributing seed paths to this address, ordered by contribution USD.
-          nullable: true
-          example:
-          - chain_type: evm
-            contribution_usd: 1.23
-            direction: forward
-            hop_distance: 1
-            path_nodes:
-            - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-              hop_distance: 0
-            risk_category: hacker
-            score: 1
-            seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-      example:
-        address: '0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB'
-        paths:
-        - chain_type: evm
-          contribution_usd: 1.23
-          direction: forward
-          hop_distance: 1
-          path_nodes:
-          - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-            hop_distance: 0
-          risk_category: hacker
-          score: 1
-          seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-    GetRiskScoreAddressBatchRequest:
-      required:
-      - addresses
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            type: string
-            example: abc123
-          description: List of blockchain addresses to fetch risk scores for (max 200).
-          nullable: true
-          example:
-          - abc123
-      example:
-        addresses:
-        - abc123
     RiskScoreResponse:
       required:
       - chain_type
@@ -373,127 +237,150 @@ components:
           description: Blockchain type for the address. May be empty if the address has no risk data.
           example: evm
         darkweb_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for darkweb-related exposure (0-100).
-          nullable: true
           example: 0
         gambling_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for gambling-related exposure (0-100).
-          nullable: true
           example: 0
         greatest_risk_category:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The category with the highest risk score.
-          nullable: true
           example: hacker
         greatest_risk_category_backward:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Category with the highest backward propagation score.
-          nullable: true
           example: abc123
         greatest_risk_category_forward:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Category with the highest forward propagation score.
-          nullable: true
           example: hacker
         hacker_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for hacker-related exposure (0-100).
-          nullable: true
           example: 66
         hop_distance:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Number of transaction hops to the nearest risky source.
-          nullable: true
           example: 1
         is_seed:
           type: boolean
           description: True if this address is a direct risk source (seed), not scored via propagation.
           example: false
         max_hop_reached:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Maximum hop distance analyzed in the risk computation.
-          nullable: true
           example: 1
         max_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: The highest individual category score, used to derive risk_level.
-          nullable: true
           example: 66
         max_score_backward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Highest risk score from backward propagation (funds sent to risky sources).
-          nullable: true
           example: 0
         max_score_forward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Highest risk score from forward propagation (funds received from risky sources).
-          nullable: true
           example: 66
         mixed_kyc_service_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for mixed-KYC service exposure (0-100).
-          nullable: true
           example: 0
         mixer_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for mixer-related exposure (0-100).
-          nullable: true
           example: 0
         non_kyc_service_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for non-KYC service exposure (0-100).
-          nullable: true
           example: 0
         ponzi_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for ponzi-related exposure (0-100).
-          nullable: true
           example: 0
         privacy_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for privacy-protocol-related exposure (0-100).
-          nullable: true
           example: 0
         ransomware_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for ransomware-related exposure (0-100).
-          nullable: true
           example: 0
         risk_level:
           type: string
           description: 'Overall risk level: NONE, LOW, MEDIUM, HIGH, or SEVERE.'
           example: HIGH
         risk_weighted_incoming_usd:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Total risk-weighted USD that reached this address from upstream risky sources (forward propagation).
-          nullable: true
           example: 1503.02
         risk_weighted_outgoing_usd:
-          type: number
+          type:
+          - number
+          - 'null'
           description: Total risk-weighted USD this address sent toward downstream risky sources (backward propagation).
-          nullable: true
           example: 0
         sanctioned_1hop_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for direct (1-hop) high-risk entity exposure (0-100).
-          nullable: true
           example: 0
         sanctions_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for sanctions-related exposure (0-100).
-          nullable: true
           example: 0
         scam_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for scam-related exposure (0-100).
-          nullable: true
           example: 0
         token_blacklist_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Risk score for blacklisted-token-related exposure (0-100).
-          nullable: true
           example: 0
         top_sources:
           type: array
@@ -510,9 +397,10 @@ components:
             risk_category: hacker
             seed_address: '0x851d8fe098341d5592DbBC7bCd4388F73c16291b'
         updated_at:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Timestamp of the most recent risk score update (RFC3339).
-          nullable: true
           example: '2025-12-16T03:06:14Z'
       example:
         address: '0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB'
@@ -552,66 +440,82 @@ components:
           risk_category: hacker
           seed_address: '0x851d8fe098341d5592DbBC7bCd4388F73c16291b'
         updated_at: '2025-12-16T03:06:14Z'
-    RiskScorePathAPIType:
+    GetRiskScoreEntityBatchRequest:
       required:
-      - chain_type
-      - seed_address
-      - risk_category
-      - direction
-      - path_nodes
+      - entity_ids
       type: object
       properties:
-        chain_type:
-          type: string
-          description: Chain type (EVM chains collapse to 'evm').
-          example: evm
-        contribution_usd:
-          type: number
-          description: USD value traced along this path.
-          nullable: true
-          example: 1.23
-        direction:
-          type: string
-          description: '''forward'' = seed sent to target; ''backward'' = target sent to seed.'
-          example: forward
-        hop_distance:
-          type: integer
-          description: Number of hops from seed to target.
-          nullable: true
-          example: 1
-        path_nodes:
-          type: array
+        entity_ids:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/RiskScorePathNodeAPIType'
-          description: Dominant address chain from seed to target.
-          nullable: true
+            type: string
+            example: abc123
+          description: List of entity IDs to fetch risk scores for (max 200).
           example:
+          - abc123
+      example:
+        entity_ids:
+        - abc123
+    GetRiskScoreAddressPathsResponse:
+      required:
+      - address
+      - paths
+      type: object
+      properties:
+        address:
+          type: string
+          description: The queried address.
+          example: '0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB'
+        paths:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RiskScorePathAPIType'
+          description: Top-contributing seed paths to this address, ordered by contribution USD.
+          example:
+          - chain_type: evm
+            contribution_usd: 1.23
+            direction: forward
+            hop_distance: 1
+            path_nodes:
+            - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+              hop_distance: 0
+            risk_category: hacker
+            score: 1
+            seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+      example:
+        address: '0x6068A806a62DBb6a42E1A83e17E249bF4f8dB3aB'
+        paths:
+        - chain_type: evm
+          contribution_usd: 1.23
+          direction: forward
+          hop_distance: 1
+          path_nodes:
           - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
             hop_distance: 0
-        risk_category:
+          risk_category: hacker
+          score: 1
+          seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+    RiskScorePathNodeAPIType:
+      required:
+      - address
+      - hop_distance
+      type: object
+      properties:
+        address:
           type: string
-          description: Risk category of the seed.
-          example: hacker
-        score:
-          type: integer
-          description: Risk score contributed by this path at the target (0-100).
-          nullable: true
-          example: 1
-        seed_address:
-          type: string
-          description: Risky source address this path traces back to.
+          description: Address at this position in the path.
           example: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+        hop_distance:
+          type: integer
+          description: Hop distance from the seed for this node (0 = seed itself).
+          example: 0
       example:
-        chain_type: evm
-        contribution_usd: 1.23
-        direction: forward
-        hop_distance: 1
-        path_nodes:
-        - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
-          hop_distance: 0
-        risk_category: hacker
-        score: 1
-        seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+        address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+        hop_distance: 0
     RiskScoreEntityResponse:
       required:
       - entity_id
@@ -619,137 +523,162 @@ components:
       type: object
       properties:
         darkweb_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level darkweb score (0-100).
-          nullable: true
           example: 1
         entity_id:
           type: string
           description: The entity identifier.
           example: binance
         entity_name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Human-readable entity name.
-          nullable: true
           example: Binance
         entity_type:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Entity classification type.
-          nullable: true
           example: exchange
         gambling_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level gambling score (0-100).
-          nullable: true
           example: 1
         greatest_risk_category:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Category with the highest risk score.
-          nullable: true
           example: hacker
         greatest_risk_category_backward:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Category with the highest backward propagation score.
-          nullable: true
           example: abc123
         greatest_risk_category_forward:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Category with the highest forward propagation score.
-          nullable: true
           example: abc123
         hacker_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level hacker score (0-100).
-          nullable: true
           example: 1
         highest_risk_address:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Address with the highest risk score in this entity.
-          nullable: true
           example: abc123
         max_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Highest weighted entity-level score across all categories.
-          nullable: true
           example: 66
         max_score_backward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Highest backward propagation score across entity addresses.
-          nullable: true
           example: 1
         max_score_forward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Highest forward propagation score across entity addresses.
-          nullable: true
           example: 1
         mixed_kyc_service_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level mixed-KYC service score (0-100).
-          nullable: true
           example: 1
         mixer_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level mixer score (0-100).
-          nullable: true
           example: 1
         non_kyc_service_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level non-KYC service score (0-100).
-          nullable: true
           example: 1
         ponzi_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level ponzi score (0-100).
-          nullable: true
           example: 1
         privacy_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level privacy score (0-100).
-          nullable: true
           example: 1
         ransomware_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level ransomware score (0-100).
-          nullable: true
           example: 1
         risk_level:
           type: string
           description: 'Overall risk level: NONE, LOW, MEDIUM, HIGH, or SEVERE.'
           example: HIGH
         risky_addresses:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Number of entity addresses with a risk score >= 10.
-          nullable: true
           example: 3
         risky_addresses_backward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity addresses with backward risk score >= 10.
-          nullable: true
           example: 1
         risky_addresses_forward:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity addresses with forward risk score >= 10.
-          nullable: true
           example: 1
         sanctions_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level sanctions score (0-100).
-          nullable: true
           example: 1
         scam_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level scam score (0-100).
-          nullable: true
           example: 1
         seed_addresses:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Number of entity addresses that are direct risk sources (seeds from tags/entity type).
-          nullable: true
           example: 1
         token_blacklist_score:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Entity-level token-blacklist score (0-100).
-          nullable: true
           example: 1
         top_seed_addresses:
           type: array
@@ -773,9 +702,10 @@ components:
             risk_category: hacker
             seed_address: abc123
         updated_at:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Timestamp of the most recent update (RFC3339).
-          nullable: true
           example: abc123
       example:
         darkweb_score: 1
@@ -817,6 +747,123 @@ components:
           risk_category: hacker
           seed_address: abc123
         updated_at: abc123
+    RiskScoreEntitySourceAPIType:
+      required:
+      - seed_address
+      - risk_category
+      - direction
+      - contribution_usd
+      - hop_distance
+      type: object
+      properties:
+        contribution_usd:
+          type: number
+          description: Risk-weighted USD attributed to this seed, summed across the entity's addresses.
+          example: 1.23
+        direction:
+          type: string
+          description: '''forward'' = seed sent into entity addresses; ''backward'' = entity addresses funded the seed.'
+          example: forward
+        hop_distance:
+          type: integer
+          description: Shortest hop distance from this seed to any of the entity's addresses.
+          example: 1
+        risk_category:
+          type: string
+          description: Risk category of the seed.
+          example: hacker
+        seed_address:
+          type: string
+          description: External risk seed address.
+          example: abc123
+      example:
+        contribution_usd: 1.23
+        direction: forward
+        hop_distance: 1
+        risk_category: hacker
+        seed_address: abc123
+    GetRiskScoreAddressBatchRequest:
+      required:
+      - addresses
+      type: object
+      properties:
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            example: abc123
+          description: List of blockchain addresses to fetch risk scores for (max 200).
+          example:
+          - abc123
+      example:
+        addresses:
+        - abc123
+    RiskScorePathAPIType:
+      required:
+      - chain_type
+      - seed_address
+      - risk_category
+      - direction
+      - path_nodes
+      type: object
+      properties:
+        chain_type:
+          type: string
+          description: Chain type (EVM chains collapse to 'evm').
+          example: evm
+        contribution_usd:
+          type:
+          - number
+          - 'null'
+          description: USD value traced along this path.
+          example: 1.23
+        direction:
+          type: string
+          description: '''forward'' = seed sent to target; ''backward'' = target sent to seed.'
+          example: forward
+        hop_distance:
+          type:
+          - integer
+          - 'null'
+          description: Number of hops from seed to target.
+          example: 1
+        path_nodes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RiskScorePathNodeAPIType'
+          description: Dominant address chain from seed to target.
+          example:
+          - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+            hop_distance: 0
+        risk_category:
+          type: string
+          description: Risk category of the seed.
+          example: hacker
+        score:
+          type:
+          - integer
+          - 'null'
+          description: Risk score contributed by this path at the target (0-100).
+          example: 1
+        seed_address:
+          type: string
+          description: Risky source address this path traces back to.
+          example: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+      example:
+        chain_type: evm
+        contribution_usd: 1.23
+        direction: forward
+        hop_distance: 1
+        path_nodes:
+        - address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
+          hop_distance: 0
+        risk_category: hacker
+        score: 1
+        seed_address: '0x40B9b889A21Ff1534d018D71Dc406122EBcf3F5A'
     RiskScoreSourceAPIType:
       required:
       - seed_address
@@ -840,18 +887,20 @@ components:
           description: 'Direction of risk flow: ''forward'' (seed sent to this address) or ''backward'' (this address funded the seed).'
           example: forward
         first_ts:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Timestamp of the first transaction linking to this source (RFC3339).
-          nullable: true
           example: '2019-11-14T00:00:00Z'
         hop_distance:
           type: integer
           description: Number of transaction hops from the queried address to this source.
           example: 1
         last_ts:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Timestamp of the last transaction linking to this source (RFC3339).
-          nullable: true
           example: '2019-12-13T00:00:00Z'
         risk_category:
           type: string
@@ -870,20 +919,30 @@ components:
         last_ts: '2019-12-13T00:00:00Z'
         risk_category: hacker
         seed_address: '0x851d8fe098341d5592DbBC7bCd4388F73c16291b'
-    GetRiskScoreEntityBatchRequest:
+    RiskScoreEntitySeedAddressAPIType:
       required:
-      - entity_ids
+      - chain_type
+      - address
+      - risk_category
+      - seed_score
       type: object
       properties:
-        entity_ids:
-          type: array
-          items:
-            type: string
-            example: abc123
-          description: List of entity IDs to fetch risk scores for (max 200).
-          nullable: true
-          example:
-          - abc123
+        address:
+          type: string
+          example: abc123
+        chain_type:
+          type: string
+          example: evm
+        risk_category:
+          type: string
+          description: The category that made this address a seed.
+          example: mixed-kyc-service
+        seed_score:
+          type: integer
+          description: Raw seed score assigned by the upstream tag/entity-type rule.
+          example: 30
       example:
-        entity_ids:
-        - abc123
+        address: abc123
+        chain_type: evm
+        risk_category: mixed-kyc-service
+        seed_score: 30

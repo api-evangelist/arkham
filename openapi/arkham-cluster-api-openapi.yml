@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Arkham Intel Analytics Cluster API
+  title: Arkham Intel Cluster API
   version: 1.1.0
 tags:
 - name: Cluster
@@ -65,14 +65,16 @@ components:
           type: string
           example: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
         firstTx:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2018-11-12T14:22:37Z'
         lastTx:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2026-06-19T00:58:41Z'
         numAddresses:
           type: integer
