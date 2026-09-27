@@ -1142,6 +1142,146 @@ paths:
       - Token
 components:
   schemas:
+    TopToken:
+      required:
+      - token
+      - current
+      - previous
+      type: object
+      properties:
+        current:
+          $ref: '#/components/schemas/TopTokenInterval'
+        previous:
+          $ref: '#/components/schemas/TopTokenInterval'
+        token:
+          required:
+          - id
+          - symbol
+          - marketCap
+          type: object
+          properties:
+            id:
+              type: string
+              example: usd-coin
+            marketCap:
+              type:
+              - number
+              - 'null'
+              example: 1.23
+            symbol:
+              type: string
+              example: USDC
+          example:
+            id: usd-coin
+            marketCap: 1.23
+            symbol: USDC
+      example:
+        current:
+          inflowCexVolume: 1.23
+          inflowDexVolume: 1.23
+          outflowCexVolume: 1.23
+          outflowDexVolume: 1.23
+          price: 1.23
+        previous:
+          inflowCexVolume: 1.23
+          inflowDexVolume: 1.23
+          outflowCexVolume: 1.23
+          outflowDexVolume: 1.23
+          price: 1.23
+        token:
+          id: usd-coin
+          marketCap: 1.23
+          symbol: USDC
+    TopTokenTimeFrame:
+      enum:
+      - 1h
+      - 6h
+      - 12h
+      - 24h
+      - 7d
+      type: string
+      example: 1h
+    TopTokenInterval:
+      required:
+      - price
+      - inflowDexVolume
+      - inflowCexVolume
+      - outflowDexVolume
+      - outflowCexVolume
+      type: object
+      properties:
+        inflowCexVolume:
+          type: number
+          example: 1.23
+        inflowDexVolume:
+          type: number
+          example: 1.23
+        outflowCexVolume:
+          type: number
+          example: 1.23
+        outflowDexVolume:
+          type: number
+          example: 1.23
+        price:
+          type: number
+          example: 1.23
+      example:
+        inflowCexVolume: 1.23
+        inflowDexVolume: 1.23
+        outflowCexVolume: 1.23
+        outflowDexVolume: 1.23
+        price: 1.23
+    GetTopTokensResponse:
+      required:
+      - tokens
+      - total
+      type: object
+      properties:
+        tokens:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TopToken'
+          example:
+          - current:
+              inflowCexVolume: 1.23
+              inflowDexVolume: 1.23
+              outflowCexVolume: 1.23
+              outflowDexVolume: 1.23
+              price: 1.23
+            previous:
+              inflowCexVolume: 1.23
+              inflowDexVolume: 1.23
+              outflowCexVolume: 1.23
+              outflowDexVolume: 1.23
+              price: 1.23
+            token:
+              id: usd-coin
+              marketCap: 1.23
+              symbol: USDC
+        total:
+          type: integer
+          example: 1
+      example:
+        tokens:
+        - current:
+            inflowCexVolume: 1.23
+            inflowDexVolume: 1.23
+            outflowCexVolume: 1.23
+            outflowDexVolume: 1.23
+            price: 1.23
+          previous:
+            inflowCexVolume: 1.23
+            inflowDexVolume: 1.23
+            outflowCexVolume: 1.23
+            outflowDexVolume: 1.23
+            price: 1.23
+          token:
+            id: usd-coin
+            marketCap: 1.23
+            symbol: USDC
+        total: 1
     TokenMarketData:
       required:
       - price
@@ -1680,133 +1820,14 @@ components:
           tvTicker: USDC
         totalSupply:
           abc123: 1.23
-    ArkhamTokensResponse:
-      required:
-      - spotTokens
-      - perpTokens
-      type: object
-      properties:
-        perpTokens:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Token'
-          example:
-          - deployments:
-            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-              chain: ethereum
-              decimals: 6
-            identifier:
-              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-              chain: ethereum
-              pricingID: usd-coin
-            name: USDC
-            price: 0.9998
-            price24hAgo: 0.9997
-            symbol: usdc
-            tvTicker: USDC
-        spotTokens:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Token'
-          example:
-          - deployments:
-            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-              chain: ethereum
-              decimals: 6
-            identifier:
-              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-              chain: ethereum
-              pricingID: usd-coin
-            name: USDC
-            price: 0.9998
-            price24hAgo: 0.9997
-            symbol: usdc
-            tvTicker: USDC
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
       example:
-        perpTokens:
-        - deployments:
-          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-            chain: ethereum
-            decimals: 6
-          identifier:
-            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-            chain: ethereum
-            pricingID: usd-coin
-          name: USDC
-          price: 0.9998
-          price24hAgo: 0.9997
-          symbol: usdc
-          tvTicker: USDC
-        spotTokens:
-        - deployments:
-          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-            chain: ethereum
-            decimals: 6
-          identifier:
-            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-            chain: ethereum
-            pricingID: usd-coin
-          name: USDC
-          price: 0.9998
-          price24hAgo: 0.9997
-          symbol: usdc
-          tvTicker: USDC
-    Token:
-      type: object
-      properties:
-        deployments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenDeployment'
-          example:
-          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-            chain: ethereum
-            decimals: 6
-        identifier:
-          $ref: '#/components/schemas/Identifier'
-        name:
-          type:
-          - string
-          - 'null'
-          example: USDC
-        price:
-          type:
-          - number
-          - 'null'
-          example: 0.9998
-        price24hAgo:
-          type:
-          - number
-          - 'null'
-          example: 0.9997
-        symbol:
-          type:
-          - string
-          - 'null'
-          example: usdc
-        tvTicker:
-          type:
-          - string
-          - 'null'
-          example: USDC
-      example:
-        deployments:
-        - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-          chain: ethereum
-          decimals: 6
-        identifier:
-          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-          chain: ethereum
-          pricingID: usd-coin
-        name: USDC
-        price: 0.9998
-        price24hAgo: 0.9997
-        symbol: usdc
-        tvTicker: USDC
+      - ethereum
+      - bsc
+      - polygon
     TopTokensOrderByAgg:
       enum:
       - volume
@@ -1827,157 +1848,30 @@ components:
       - price
       type: string
       example: volume
-    TrendingToken:
+    AddressTopHolder:
       required:
-      - pricingID
-      - price
-      - price24hAgo
-      - volume24h
-      - allTimeHigh
-      - allTimeLow
-      type: object
-      properties:
-        allTimeHigh:
-          type: number
-          description: All-time high price in USD.
-          example: 1.043
-        allTimeLow:
-          type: number
-          description: All-time low price in USD.
-          example: 0.877647
-        circulatingSupply:
-          type:
-          - number
-          - 'null'
-          description: Circulating supply in whole token units.
-          example: 73354602419.50252
-        name:
-          type:
-          - string
-          - 'null'
-          example: USD Coin
-        price:
-          type: number
-          description: Current price in USD.
-          example: 0.999831
-        price24hAgo:
-          type: number
-          description: Price in USD 24 hours ago.
-          example: 0.999825
-        pricingID:
-          type: string
-          example: usd-coin
-        symbol:
-          type:
-          - string
-          - 'null'
-          example: USDC
-        totalSupply:
-          type:
-          - number
-          - 'null'
-          description: Total supply in whole token units.
-          example: 73355068862.08713
-        volume24h:
-          type: number
-          description: 24-hour trading volume in USD.
-          example: 7539296441
-      example:
-        allTimeHigh: 1.043
-        allTimeLow: 0.877647
-        circulatingSupply: 73354602419.50252
-        name: USD Coin
-        price: 0.999831
-        price24hAgo: 0.999825
-        pricingID: usd-coin
-        symbol: USDC
-        totalSupply: 73355068862.08713
-        volume24h: 7539296441
-    Label:
-      required:
-      - name
-      - address
-      - chainType
-      type: object
-      properties:
-        address:
-          type: string
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType:
-          type: string
-          example: evm
-        name:
-          type: string
-          example: Cold Wallet
-        note:
-          type: string
-          example: ''
-      example:
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType: evm
-        name: Cold Wallet
-        note: ''
-    Identifier:
-      type: object
-      properties:
-        address:
-          type:
-          - string
-          - 'null'
-          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-        chain:
-          $ref: '#/components/schemas/Chain'
-        pricingID:
-          type:
-          - string
-          - 'null'
-          example: usd-coin
-      example:
-        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-        chain: ethereum
-        pricingID: usd-coin
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
-    TopFlow:
-      required:
-      - address
-      - inUSD
-      - outUSD
-      - inValue
-      - outValue
+      - balance
+      - usd
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
-        inUSD:
+        balance:
           type: number
-          example: 1.23
-        inValue:
+          example: 1500000000.5
+        pctOfCap:
+          type:
+          - number
+          - 'null'
+          example: 0.025
+        unrealizedPnlUsd:
+          type:
+          - number
+          - 'null'
+          example: 12345.67
+        usd:
           type: number
-          example: 1.23
-        outUSD:
-          type: number
-          example: 1.23
-        outValue:
-          type: number
-          example: 1.23
+          example: 1500000000.5
       example:
         address:
           address: '0x28C6c06298d514Db089934071355E5743bf21d60'
@@ -2077,77 +1971,10 @@ components:
             chainType: evm
             name: Cold Wallet
             note: ''
-        inUSD: 1.23
-        inValue: 1.23
-        outUSD: 1.23
-        outValue: 1.23
-    TokenPriceChange:
-      required:
-      - pricingID
-      - currentPrice
-      - historicalPrice
-      type: object
-      properties:
-        currentPrice:
-          type: number
-          description: Current price in USD.
-          example: 0.999831
-        historicalPrice:
-          type: number
-          description: Price in USD at the requested past timestamp.
-          example: 0.999357
-        pricingID:
-          type: string
-          description: The CoinGecko pricing ID of the token.
-          example: usd-coin
-      example:
-        currentPrice: 0.999831
-        historicalPrice: 0.999357
-        pricingID: usd-coin
-    TokenBalance:
-      required:
-      - pricingID
-      - name
-      - symbol
-      - balance
-      - price
-      - usd
-      type: object
-      properties:
-        balance:
-          type: number
-          description: Token balance in whole units.
-          example: 2128574.671908
-        name:
-          type:
-          - string
-          - 'null'
-          example: USD Coin
-        price:
-          type: number
-          description: Price in USD per token.
-          example: 0.99985
-        pricingID:
-          type:
-          - string
-          - 'null'
-          example: usd-coin
-        symbol:
-          type:
-          - string
-          - 'null'
-          example: USDC
-        usd:
-          type: number
-          description: USD value of the balance.
-          example: 2128254.36
-      example:
-        balance: 2128574.671908
-        name: USD Coin
-        price: 0.99985
-        pricingID: usd-coin
-        symbol: USDC
-        usd: 2128254.36
+        balance: 1500000000.5
+        pctOfCap: 0.025
+        unrealizedPnlUsd: 12345.67
+        usd: 1500000000.5
     Entity:
       required:
       - name
@@ -2269,215 +2096,37 @@ components:
         twitter: https://twitter.com/binance
         type: cex
         website: https://binance.com
-    GetTopTokensResponse:
+    TokenHistogramSnapshot:
       required:
-      - tokens
-      - total
-      type: object
-      properties:
-        tokens:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TopToken'
-          example:
-          - current:
-              inflowCexVolume: 1.23
-              inflowDexVolume: 1.23
-              outflowCexVolume: 1.23
-              outflowDexVolume: 1.23
-              price: 1.23
-            previous:
-              inflowCexVolume: 1.23
-              inflowDexVolume: 1.23
-              outflowCexVolume: 1.23
-              outflowDexVolume: 1.23
-              price: 1.23
-            token:
-              id: usd-coin
-              marketCap: 1.23
-              symbol: USDC
-        total:
-          type: integer
-          example: 1
-      example:
-        tokens:
-        - current:
-            inflowCexVolume: 1.23
-            inflowDexVolume: 1.23
-            outflowCexVolume: 1.23
-            outflowDexVolume: 1.23
-            price: 1.23
-          previous:
-            inflowCexVolume: 1.23
-            inflowDexVolume: 1.23
-            outflowCexVolume: 1.23
-            outflowDexVolume: 1.23
-            price: 1.23
-          token:
-            id: usd-coin
-            marketCap: 1.23
-            symbol: USDC
-        total: 1
-    TopToken:
-      required:
-      - token
-      - current
-      - previous
-      type: object
-      properties:
-        current:
-          $ref: '#/components/schemas/TopTokenInterval'
-        previous:
-          $ref: '#/components/schemas/TopTokenInterval'
-        token:
-          required:
-          - id
-          - symbol
-          - marketCap
-          type: object
-          properties:
-            id:
-              type: string
-              example: usd-coin
-            marketCap:
-              type:
-              - number
-              - 'null'
-              example: 1.23
-            symbol:
-              type: string
-              example: USDC
-          example:
-            id: usd-coin
-            marketCap: 1.23
-            symbol: USDC
-      example:
-        current:
-          inflowCexVolume: 1.23
-          inflowDexVolume: 1.23
-          outflowCexVolume: 1.23
-          outflowDexVolume: 1.23
-          price: 1.23
-        previous:
-          inflowCexVolume: 1.23
-          inflowDexVolume: 1.23
-          outflowCexVolume: 1.23
-          outflowDexVolume: 1.23
-          price: 1.23
-        token:
-          id: usd-coin
-          marketCap: 1.23
-          symbol: USDC
-    EntityTopHolder:
-      required:
-      - entity
-      - balance
-      - usd
-      type: object
-      properties:
-        balance:
-          type: number
-          example: 1500000000.5
-        entity:
-          $ref: '#/components/schemas/Entity'
-        pctOfCap:
-          type:
-          - number
-          - 'null'
-          example: 0.025
-        usd:
-          type: number
-          example: 1500000000.5
-      example:
-        balance: 1500000000.5
-        entity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        pctOfCap: 0.025
-        usd: 1500000000.5
-    TokenHistoricalQuote:
-      required:
+      - inUSD
+      - outUSD
+      - inValue
+      - outValue
       - time
-      - usd
-      - volume24h
-      - marketCap
       type: object
       properties:
-        marketCap:
+        inUSD:
           type: number
-          description: Market capitalization in USD.
-          example: 75000000.5
+          example: 1.23
+        inValue:
+          type: number
+          example: 1.23
+        outUSD:
+          type: number
+          example: 1.23
+        outValue:
+          type: number
+          example: 1.23
         time:
           type: string
-          description: Snapshot timestamp.
           format: date-time
           example: '2024-01-01T00:00:00Z'
-        usd:
-          type: number
-          description: Price in USD.
-          example: 1.05
-        volume24h:
-          type: number
-          description: 24-hour trading volume in USD.
-          example: 1250000.5
       example:
-        marketCap: 75000000.5
+        inUSD: 1.23
+        inValue: 1.23
+        outUSD: 1.23
+        outValue: 1.23
         time: '2024-01-01T00:00:00Z'
-        usd: 1.05
-        volume24h: 1250000.5
-    TokenDeployment:
-      required:
-      - chain
-      - address
-      type: object
-      properties:
-        address:
-          type: string
-          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-        chain:
-          $ref: '#/components/schemas/Chain'
-        decimals:
-          type:
-          - integer
-          - 'null'
-          example: 6
-      example:
-        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-        chain: ethereum
-        decimals: 6
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     Address:
       required:
       - address
@@ -2629,60 +2278,73 @@ components:
           chainType: evm
           name: Cold Wallet
           note: ''
-    TopTokenInterval:
+    TokenBalance:
       required:
+      - pricingID
+      - name
+      - symbol
+      - balance
       - price
-      - inflowDexVolume
-      - inflowCexVolume
-      - outflowDexVolume
-      - outflowCexVolume
+      - usd
       type: object
       properties:
-        inflowCexVolume:
+        balance:
           type: number
-          example: 1.23
-        inflowDexVolume:
-          type: number
-          example: 1.23
-        outflowCexVolume:
-          type: number
-          example: 1.23
-        outflowDexVolume:
-          type: number
-          example: 1.23
+          description: Token balance in whole units.
+          example: 2128574.671908
+        name:
+          type:
+          - string
+          - 'null'
+          example: USD Coin
         price:
           type: number
-          example: 1.23
+          description: Price in USD per token.
+          example: 0.99985
+        pricingID:
+          type:
+          - string
+          - 'null'
+          example: usd-coin
+        symbol:
+          type:
+          - string
+          - 'null'
+          example: USDC
+        usd:
+          type: number
+          description: USD value of the balance.
+          example: 2128254.36
       example:
-        inflowCexVolume: 1.23
-        inflowDexVolume: 1.23
-        outflowCexVolume: 1.23
-        outflowDexVolume: 1.23
-        price: 1.23
-    AddressTopHolder:
+        balance: 2128574.671908
+        name: USD Coin
+        price: 0.99985
+        pricingID: usd-coin
+        symbol: USDC
+        usd: 2128254.36
+    TopFlow:
       required:
-      - balance
-      - usd
+      - address
+      - inUSD
+      - outUSD
+      - inValue
+      - outValue
       type: object
       properties:
         address:
           $ref: '#/components/schemas/Address'
-        balance:
+        inUSD:
           type: number
-          example: 1500000000.5
-        pctOfCap:
-          type:
-          - number
-          - 'null'
-          example: 0.025
-        unrealizedPnlUsd:
-          type:
-          - number
-          - 'null'
-          example: 12345.67
-        usd:
+          example: 1.23
+        inValue:
           type: number
-          example: 1500000000.5
+          example: 1.23
+        outUSD:
+          type: number
+          example: 1.23
+        outValue:
+          type: number
+          example: 1.23
       example:
         address:
           address: '0x28C6c06298d514Db089934071355E5743bf21d60'
@@ -2782,50 +2444,125 @@ components:
             chainType: evm
             name: Cold Wallet
             note: ''
-        balance: 1500000000.5
-        pctOfCap: 0.025
-        unrealizedPnlUsd: 12345.67
-        usd: 1500000000.5
-    TopTokenTimeFrame:
-      enum:
-      - 1h
-      - 6h
-      - 12h
-      - 24h
-      - 7d
-      type: string
-      example: 1h
-    TokenHistogramSnapshot:
-      required:
-      - inUSD
-      - outUSD
-      - inValue
-      - outValue
-      - time
-      type: object
-      properties:
-        inUSD:
-          type: number
-          example: 1.23
-        inValue:
-          type: number
-          example: 1.23
-        outUSD:
-          type: number
-          example: 1.23
-        outValue:
-          type: number
-          example: 1.23
-        time:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-      example:
         inUSD: 1.23
         inValue: 1.23
         outUSD: 1.23
         outValue: 1.23
+    TrendingToken:
+      required:
+      - pricingID
+      - price
+      - price24hAgo
+      - volume24h
+      - allTimeHigh
+      - allTimeLow
+      type: object
+      properties:
+        allTimeHigh:
+          type: number
+          description: All-time high price in USD.
+          example: 1.043
+        allTimeLow:
+          type: number
+          description: All-time low price in USD.
+          example: 0.877647
+        circulatingSupply:
+          type:
+          - number
+          - 'null'
+          description: Circulating supply in whole token units.
+          example: 73354602419.50252
+        name:
+          type:
+          - string
+          - 'null'
+          example: USD Coin
+        price:
+          type: number
+          description: Current price in USD.
+          example: 0.999831
+        price24hAgo:
+          type: number
+          description: Price in USD 24 hours ago.
+          example: 0.999825
+        pricingID:
+          type: string
+          example: usd-coin
+        symbol:
+          type:
+          - string
+          - 'null'
+          example: USDC
+        totalSupply:
+          type:
+          - number
+          - 'null'
+          description: Total supply in whole token units.
+          example: 73355068862.08713
+        volume24h:
+          type: number
+          description: 24-hour trading volume in USD.
+          example: 7539296441
+      example:
+        allTimeHigh: 1.043
+        allTimeLow: 0.877647
+        circulatingSupply: 73354602419.50252
+        name: USD Coin
+        price: 0.999831
+        price24hAgo: 0.999825
+        pricingID: usd-coin
+        symbol: USDC
+        totalSupply: 73355068862.08713
+        volume24h: 7539296441
+    TokenHistoricalQuote:
+      required:
+      - time
+      - usd
+      - volume24h
+      - marketCap
+      type: object
+      properties:
+        marketCap:
+          type: number
+          description: Market capitalization in USD.
+          example: 75000000.5
+        time:
+          type: string
+          description: Snapshot timestamp.
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        usd:
+          type: number
+          description: Price in USD.
+          example: 1.05
+        volume24h:
+          type: number
+          description: 24-hour trading volume in USD.
+          example: 1250000.5
+      example:
+        marketCap: 75000000.5
         time: '2024-01-01T00:00:00Z'
+        usd: 1.05
+        volume24h: 1250000.5
+    Identifier:
+      type: object
+      properties:
+        address:
+          type:
+          - string
+          - 'null'
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        pricingID:
+          type:
+          - string
+          - 'null'
+          example: usd-coin
+      example:
+        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain: ethereum
+        pricingID: usd-coin
     PopulatedTag:
       required:
       - id
@@ -2871,3 +2608,266 @@ components:
         label: Binance Proof of Reserves
         rank: 20
         tagParams: Binance
+    ArkhamTokensResponse:
+      required:
+      - spotTokens
+      - perpTokens
+      type: object
+      properties:
+        perpTokens:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Token'
+          example:
+          - deployments:
+            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              decimals: 6
+            identifier:
+              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              pricingID: usd-coin
+            name: USDC
+            price: 0.9998
+            price24hAgo: 0.9997
+            symbol: usdc
+            tvTicker: USDC
+        spotTokens:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Token'
+          example:
+          - deployments:
+            - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              decimals: 6
+            identifier:
+              address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+              chain: ethereum
+              pricingID: usd-coin
+            name: USDC
+            price: 0.9998
+            price24hAgo: 0.9997
+            symbol: usdc
+            tvTicker: USDC
+      example:
+        perpTokens:
+        - deployments:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+          identifier:
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            pricingID: usd-coin
+          name: USDC
+          price: 0.9998
+          price24hAgo: 0.9997
+          symbol: usdc
+          tvTicker: USDC
+        spotTokens:
+        - deployments:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+          identifier:
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            pricingID: usd-coin
+          name: USDC
+          price: 0.9998
+          price24hAgo: 0.9997
+          symbol: usdc
+          tvTicker: USDC
+    Token:
+      type: object
+      properties:
+        deployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenDeployment'
+          example:
+          - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+            chain: ethereum
+            decimals: 6
+        identifier:
+          $ref: '#/components/schemas/Identifier'
+        name:
+          type:
+          - string
+          - 'null'
+          example: USDC
+        price:
+          type:
+          - number
+          - 'null'
+          example: 0.9998
+        price24hAgo:
+          type:
+          - number
+          - 'null'
+          example: 0.9997
+        symbol:
+          type:
+          - string
+          - 'null'
+          example: usdc
+        tvTicker:
+          type:
+          - string
+          - 'null'
+          example: USDC
+      example:
+        deployments:
+        - address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+          chain: ethereum
+          decimals: 6
+        identifier:
+          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+          chain: ethereum
+          pricingID: usd-coin
+        name: USDC
+        price: 0.9998
+        price24hAgo: 0.9997
+        symbol: usdc
+        tvTicker: USDC
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    Label:
+      required:
+      - name
+      - address
+      - chainType
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
+          type: string
+          example: evm
+        name:
+          type: string
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    TokenDeployment:
+      required:
+      - chain
+      - address
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        decimals:
+          type:
+          - integer
+          - 'null'
+          example: 6
+      example:
+        address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+        chain: ethereum
+        decimals: 6
+    TokenPriceChange:
+      required:
+      - pricingID
+      - currentPrice
+      - historicalPrice
+      type: object
+      properties:
+        currentPrice:
+          type: number
+          description: Current price in USD.
+          example: 0.999831
+        historicalPrice:
+          type: number
+          description: Price in USD at the requested past timestamp.
+          example: 0.999357
+        pricingID:
+          type: string
+          description: The CoinGecko pricing ID of the token.
+          example: usd-coin
+      example:
+        currentPrice: 0.999831
+        historicalPrice: 0.999357
+        pricingID: usd-coin
+    EntityTopHolder:
+      required:
+      - entity
+      - balance
+      - usd
+      type: object
+      properties:
+        balance:
+          type: number
+          example: 1500000000.5
+        entity:
+          $ref: '#/components/schemas/Entity'
+        pctOfCap:
+          type:
+          - number
+          - 'null'
+          example: 0.025
+        usd:
+          type: number
+          example: 1500000000.5
+      example:
+        balance: 1500000000.5
+        entity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        pctOfCap: 0.025
+        usd: 1500000000.5

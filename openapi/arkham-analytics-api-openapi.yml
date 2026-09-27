@@ -117,6 +117,64 @@ components:
         pattern: /transfers
         unitType: call
         weight: 5
+    AnalyticsDataPoint:
+      required:
+      - hour
+      - totalCalls
+      - totalCredits
+      - totalCostUnits
+      - callBreakdown
+      - creditBreakdown
+      type: object
+      properties:
+        callBreakdown:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: integer
+          description: Per-endpoint call counts for this hour.
+          example:
+            /intelligence/address/{address}: 864
+            /transfers: 420
+        creditBreakdown:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: integer
+          description: Per-endpoint credits consumed for this hour.
+          example:
+            /intelligence/address/{address}: 5220
+            /transfers: 2100
+        hour:
+          type: string
+          description: Bucket start time (UTC, truncated to the hour).
+          format: date-time
+          example: '2026-05-26T14:00:00Z'
+        totalCalls:
+          type: integer
+          description: Total API calls made in this hour.
+          example: 1284
+        totalCostUnits:
+          type: integer
+          description: Total cost units in this hour (calls + row-billed units).
+          example: 7320
+        totalCredits:
+          type: integer
+          description: Total credits consumed in this hour.
+          example: 7320
+      example:
+        callBreakdown:
+          /intelligence/address/{address}: 864
+          /transfers: 420
+        creditBreakdown:
+          /intelligence/address/{address}: 5220
+          /transfers: 2100
+        hour: '2026-05-26T14:00:00Z'
+        totalCalls: 1284
+        totalCostUnits: 7320
+        totalCredits: 7320
     AnalyticsResponse:
       required:
       - period
@@ -252,61 +310,3 @@ components:
         periodEnd: '2026-05-01T00:00:00Z'
         periodStart: '2026-04-01T00:00:00Z'
         status: closed
-    AnalyticsDataPoint:
-      required:
-      - hour
-      - totalCalls
-      - totalCredits
-      - totalCostUnits
-      - callBreakdown
-      - creditBreakdown
-      type: object
-      properties:
-        callBreakdown:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: integer
-          description: Per-endpoint call counts for this hour.
-          example:
-            /intelligence/address/{address}: 864
-            /transfers: 420
-        creditBreakdown:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: integer
-          description: Per-endpoint credits consumed for this hour.
-          example:
-            /intelligence/address/{address}: 5220
-            /transfers: 2100
-        hour:
-          type: string
-          description: Bucket start time (UTC, truncated to the hour).
-          format: date-time
-          example: '2026-05-26T14:00:00Z'
-        totalCalls:
-          type: integer
-          description: Total API calls made in this hour.
-          example: 1284
-        totalCostUnits:
-          type: integer
-          description: Total cost units in this hour (calls + row-billed units).
-          example: 7320
-        totalCredits:
-          type: integer
-          description: Total credits consumed in this hour.
-          example: 7320
-      example:
-        callBreakdown:
-          /intelligence/address/{address}: 864
-          /transfers: 420
-        creditBreakdown:
-          /intelligence/address/{address}: 5220
-          /transfers: 2100
-        hour: '2026-05-26T14:00:00Z'
-        totalCalls: 1284
-        totalCostUnits: 7320
-        totalCredits: 7320

@@ -378,6 +378,8 @@ apis:
   humanURL: https://arkm.com/api/docs
   baseURL: https://api.arkm.com
   tags:
+  - Risk Management
+  tags_raw:
   - Risk
   properties:
   - type: OpenAPI

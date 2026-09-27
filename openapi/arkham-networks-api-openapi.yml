@@ -102,36 +102,6 @@ paths:
       - Networks
 components:
   schemas:
-    NetworkStatusAsOf:
-      required:
-      - price
-      - tip
-      - transfers
-      type: object
-      properties:
-        fee:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        price:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        tip:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        transfers:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-      example:
-        fee: '2024-01-01T00:00:00Z'
-        price: '2024-01-01T00:00:00Z'
-        tip: '2024-01-01T00:00:00Z'
-        transfers: '2024-01-01T00:00:00Z'
     NetworkStatus:
       required:
       - chain
@@ -211,25 +181,36 @@ components:
         tps: 0
         transfers: 5988140415
         volume: 11859071343
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
+    NetworkStatusAsOf:
+      required:
+      - price
+      - tip
+      - transfers
+      type: object
+      properties:
+        fee:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        price:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        tip:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        transfers:
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+      example:
+        fee: '2024-01-01T00:00:00Z'
+        price: '2024-01-01T00:00:00Z'
+        tip: '2024-01-01T00:00:00Z'
+        transfers: '2024-01-01T00:00:00Z'
     TokenHistoricalQuote:
       required:
       - time
@@ -260,3 +241,22 @@ components:
         time: '2024-01-01T00:00:00Z'
         usd: 1.05
         volume24h: 1250000.5
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum

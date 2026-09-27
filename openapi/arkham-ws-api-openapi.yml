@@ -376,36 +376,6 @@ paths:
       - Ws
 components:
   schemas:
-    CreateWebSocketSessionResponse:
-      required:
-      - sessionId
-      - transfersUsed
-      - createdAt
-      - isActive
-      type: object
-      properties:
-        createdAt:
-          type: string
-          description: When the session was created
-          format: date-time
-          example: '2026-07-14T09:12:43Z'
-        isActive:
-          type: boolean
-          description: Whether the session is active
-          example: true
-        sessionId:
-          type: string
-          description: Unique session identifier to use with the WebSocket connection
-          example: ws_Ab3xK9pQ_1782149114960780310
-        transfersUsed:
-          type: integer
-          description: Number of transfers received in this session
-          example: 1
-      example:
-        createdAt: '2026-07-14T09:12:43Z'
-        isActive: true
-        sessionId: ws_Ab3xK9pQ_1782149114960780310
-        transfersUsed: 1
     StreamV2Response:
       required:
       - streamId
@@ -451,25 +421,14 @@ components:
         lastActive: '2026-07-15T10:16:35Z'
         streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
         transfersUsed: 1
-    Chain:
-      enum:
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
       - ethereum
-      - polygon
       - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
+      - polygon
     CreateStreamV2Response:
       required:
       - streamId
@@ -494,6 +453,14 @@ components:
         createdAt: '2026-07-14T09:12:43Z'
         id: 173943
         streamId: e561dd5b-a24d-4669-bbba-9e5cf37d5125
+    TransferFlow:
+      enum:
+      - in
+      - out
+      - self
+      - all
+      type: string
+      example: in
     GetActiveWebSocketConnectionsResponse:
       required:
       - activeConnections
@@ -505,6 +472,36 @@ components:
           example: 1
       example:
         activeConnections: 1
+    CreateWebSocketSessionResponse:
+      required:
+      - sessionId
+      - transfersUsed
+      - createdAt
+      - isActive
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: When the session was created
+          format: date-time
+          example: '2026-07-14T09:12:43Z'
+        isActive:
+          type: boolean
+          description: Whether the session is active
+          example: true
+        sessionId:
+          type: string
+          description: Unique session identifier to use with the WebSocket connection
+          example: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed:
+          type: integer
+          description: Number of transfers received in this session
+          example: 1
+      example:
+        createdAt: '2026-07-14T09:12:43Z'
+        isActive: true
+        sessionId: ws_Ab3xK9pQ_1782149114960780310
+        transfersUsed: 1
     DeleteStreamV2Response:
       required:
       - message
@@ -541,14 +538,6 @@ components:
         creditPerSession: 500
         creditPerTransfer: 2
         nextRenewalDate: '2026-08-14T00:00:00Z'
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     TransferFilter:
       type: object
       properties:
@@ -675,11 +664,22 @@ components:
         isConnected: true
         sessionId: ws_Ab3xK9pQ_1782149114960780310
         transfersUsed: 1
-    TransferFlow:
+    Chain:
       enum:
-      - in
-      - out
-      - self
-      - all
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
       type: string
-      example: in
+      example: ethereum

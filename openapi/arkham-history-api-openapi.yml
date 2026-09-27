@@ -107,6 +107,14 @@ paths:
       - History
 components:
   schemas:
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
     HistorySnapshot:
       required:
       - time
@@ -123,14 +131,6 @@ components:
       example:
         time: '2024-01-01T00:00:00Z'
         usd: 1.23
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     Chain:
       enum:
       - ethereum
