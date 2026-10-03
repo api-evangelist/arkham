@@ -88,6 +88,68 @@ paths:
       - Analytics
 components:
   schemas:
+    CreditUsagePeriod:
+      required:
+      - entityType
+      - entityId
+      - periodStart
+      - periodEnd
+      - creditsUsed
+      - creditsIncluded
+      - extraCredits
+      - status
+      - computedAt
+      type: object
+      properties:
+        computedAt:
+          type: string
+          description: When this usage snapshot was computed.
+          format: date-time
+          example: '2026-05-01T00:05:12Z'
+        creditsIncluded:
+          type: integer
+          description: Plan credits included in the period.
+          example: 500000
+        creditsUsed:
+          type: integer
+          description: Total credits consumed during the period.
+          example: 482350
+        entityId:
+          type: string
+          description: Identifier of the billing entity (org ID or Firebase UID).
+          example: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
+        entityType:
+          type: string
+          description: 'Billing entity type: "org" or "individual".'
+          example: org
+        extraCredits:
+          type: integer
+          description: Overage credits purchased or accrued during the period.
+          example: 0
+        periodEnd:
+          type: string
+          description: Exclusive end of the billing period.
+          format: date-time
+          example: '2026-05-01T00:00:00Z'
+        periodStart:
+          type: string
+          description: Inclusive start of the billing period.
+          format: date-time
+          example: '2026-04-01T00:00:00Z'
+        status:
+          type: string
+          description: 'Period status: "current" or "closed".'
+          example: closed
+      example:
+        computedAt: '2026-05-01T00:05:12Z'
+        creditsIncluded: 500000
+        creditsUsed: 482350
+        entityId: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
+        entityType: org
+        extraCredits: 0
+        periodEnd: '2026-05-01T00:00:00Z'
+        periodStart: '2026-04-01T00:00:00Z'
+        status: closed
     EndpointInfo:
       required:
       - pattern
@@ -248,65 +310,3 @@ components:
           weight: 5
         period: 7d
         startTime: '2026-05-19T00:00:00Z'
-    CreditUsagePeriod:
-      required:
-      - entityType
-      - entityId
-      - periodStart
-      - periodEnd
-      - creditsUsed
-      - creditsIncluded
-      - extraCredits
-      - status
-      - computedAt
-      type: object
-      properties:
-        computedAt:
-          type: string
-          description: When this usage snapshot was computed.
-          format: date-time
-          example: '2026-05-01T00:05:12Z'
-        creditsIncluded:
-          type: integer
-          description: Plan credits included in the period.
-          example: 500000
-        creditsUsed:
-          type: integer
-          description: Total credits consumed during the period.
-          example: 482350
-        entityId:
-          type: string
-          description: Identifier of the billing entity (org ID or Firebase UID).
-          example: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
-        entityType:
-          type: string
-          description: 'Billing entity type: "org" or "individual".'
-          example: org
-        extraCredits:
-          type: integer
-          description: Overage credits purchased or accrued during the period.
-          example: 0
-        periodEnd:
-          type: string
-          description: Exclusive end of the billing period.
-          format: date-time
-          example: '2026-05-01T00:00:00Z'
-        periodStart:
-          type: string
-          description: Inclusive start of the billing period.
-          format: date-time
-          example: '2026-04-01T00:00:00Z'
-        status:
-          type: string
-          description: 'Period status: "current" or "closed".'
-          example: closed
-      example:
-        computedAt: '2026-05-01T00:05:12Z'
-        creditsIncluded: 500000
-        creditsUsed: 482350
-        entityId: org_01HF8X3J0KQZ2N7T6P9YV4WB5R
-        entityType: org
-        extraCredits: 0
-        periodEnd: '2026-05-01T00:00:00Z'
-        periodStart: '2026-04-01T00:00:00Z'
-        status: closed

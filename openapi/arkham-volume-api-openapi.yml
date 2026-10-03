@@ -109,6 +109,31 @@ paths:
       - Volume
 components:
   schemas:
+    Volume:
+      required:
+      - exchangeID
+      - exchangeName
+      - withdrawnUSD
+      - depositedUSD
+      type: object
+      properties:
+        depositedUSD:
+          type: number
+          example: 1.23
+        exchangeID:
+          type: string
+          example: binance
+        exchangeName:
+          type: string
+          example: binance
+        withdrawnUSD:
+          type: number
+          example: 1.23
+      example:
+        depositedUSD: 1.23
+        exchangeID: binance
+        exchangeName: binance
+        withdrawnUSD: 1.23
     VolumeSnapshot:
       required:
       - time
@@ -137,39 +162,6 @@ components:
           exchangeID: binance
           exchangeName: binance
           withdrawnUSD: 1.23
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
-    Volume:
-      required:
-      - exchangeID
-      - exchangeName
-      - withdrawnUSD
-      - depositedUSD
-      type: object
-      properties:
-        depositedUSD:
-          type: number
-          example: 1.23
-        exchangeID:
-          type: string
-          example: binance
-        exchangeName:
-          type: string
-          example: binance
-        withdrawnUSD:
-          type: number
-          example: 1.23
-      example:
-        depositedUSD: 1.23
-        exchangeID: binance
-        exchangeName: binance
-        withdrawnUSD: 1.23
     Chain:
       enum:
       - ethereum
@@ -189,3 +181,11 @@ components:
       - hypercore
       type: string
       example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon

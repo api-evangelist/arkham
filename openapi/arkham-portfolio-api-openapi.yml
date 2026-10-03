@@ -335,14 +335,6 @@ paths:
       - Portfolio
 components:
   schemas:
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     PortfolioEntry:
       required:
       - id
@@ -400,3 +392,11 @@ components:
       - hypercore
       type: string
       example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon

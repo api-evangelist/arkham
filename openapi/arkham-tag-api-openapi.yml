@@ -84,35 +84,6 @@ paths:
       - Tag
 components:
   schemas:
-    TagSummary:
-      required:
-      - tagId
-      - numAddresses
-      - numEntities
-      - numUniqueTagParams
-      type: object
-      properties:
-        numAddresses:
-          type: integer
-          description: Total number of addresses carrying this tag.
-          example: 1436136
-        numEntities:
-          type: integer
-          description: Total number of entities carrying this tag.
-          example: 41
-        numUniqueTagParams:
-          type: integer
-          description: Number of unique tag parameter combinations for this tag.
-          example: 38
-        tagId:
-          type: string
-          description: The tag identifier these statistics describe.
-          example: proof-of-reserves
-      example:
-        numAddresses: 1436136
-        numEntities: 41
-        numUniqueTagParams: 38
-        tagId: proof-of-reserves
     PopulatedTag:
       required:
       - id
@@ -158,6 +129,35 @@ components:
         label: Binance Proof of Reserves
         rank: 20
         tagParams: Binance
+    TagSummary:
+      required:
+      - tagId
+      - numAddresses
+      - numEntities
+      - numUniqueTagParams
+      type: object
+      properties:
+        numAddresses:
+          type: integer
+          description: Total number of addresses carrying this tag.
+          example: 1436136
+        numEntities:
+          type: integer
+          description: Total number of entities carrying this tag.
+          example: 41
+        numUniqueTagParams:
+          type: integer
+          description: Number of unique tag parameter combinations for this tag.
+          example: 38
+        tagId:
+          type: string
+          description: The tag identifier these statistics describe.
+          example: proof-of-reserves
+      example:
+        numAddresses: 1436136
+        numEntities: 41
+        numUniqueTagParams: 38
+        tagId: proof-of-reserves
     Chain:
       enum:
       - ethereum

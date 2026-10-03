@@ -137,14 +137,6 @@ paths:
       - Flow
 components:
   schemas:
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
     FlowSnapshot:
       required:
       - time
@@ -195,3 +187,11 @@ components:
       - hypercore
       type: string
       example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
+      example:
+      - ethereum
+      - bsc
+      - polygon
