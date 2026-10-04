@@ -621,6 +621,9 @@ apis:
   - type: Webhooks
     url: asyncapi/arkham-websocket-webhooks.yml
 common:
+- type: CapabilityMap
+  url: capabilities/arkham-capability-edges.yml
+  name: Arkham Business Capability Map
 - type: Overlay
   url: overlays/arkham-overlay.yaml
 - type: DeveloperPortal

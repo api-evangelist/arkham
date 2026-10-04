@@ -1,0 +1,25 @@
+slug: arkham
+provider: Arkham
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Analytics
+  spec_file: arkham-analytics-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.72
+  evidence: GET /analytics/credit-periods  Get historical credit usage by billing period; GET /analytics/endpoint-calls  Get
+    API endpoint call analytics
+  reason: These report API call volumes and credit consumption per billing period, matching API consumption
+    governance (usage analytics and quota/plan mapping) rather than any blockchain analytics capability.
