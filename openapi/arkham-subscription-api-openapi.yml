@@ -29,15 +29,6 @@ paths:
       - Subscription
 components:
   schemas:
-    AdminIntelUsageChainResult:
-      required:
-      - count
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Intel data points consumed on this chain during the current billing period.
-          example: 1284
     IntelUsageResponse:
       required:
       - totalCount
@@ -98,3 +89,12 @@ components:
         periodStart: '2026-06-01T00:00:00Z'
         totalCount: 12373
         totalLimit: 1000000
+    AdminIntelUsageChainResult:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Intel data points consumed on this chain during the current billing period.
+          example: 1284

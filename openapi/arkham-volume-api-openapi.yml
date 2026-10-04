@@ -109,31 +109,33 @@ paths:
       - Volume
 components:
   schemas:
-    Volume:
-      required:
-      - exchangeID
-      - exchangeName
-      - withdrawnUSD
-      - depositedUSD
-      type: object
-      properties:
-        depositedUSD:
-          type: number
-          example: 1.23
-        exchangeID:
-          type: string
-          example: binance
-        exchangeName:
-          type: string
-          example: binance
-        withdrawnUSD:
-          type: number
-          example: 1.23
+    Chain:
+      enum:
+      - ethereum
+      - polygon
+      - bsc
+      - optimism
+      - avalanche
+      - arbitrum_one
+      - base
+      - bitcoin
+      - tron
+      - flare
+      - solana
+      - dogecoin
+      - zcash
+      - hyperevm
+      - hypercore
+      type: string
+      example: ethereum
+    Chains:
+      type: array
+      items:
+        $ref: '#/components/schemas/Chain'
       example:
-        depositedUSD: 1.23
-        exchangeID: binance
-        exchangeName: binance
-        withdrawnUSD: 1.23
+      - ethereum
+      - bsc
+      - polygon
     VolumeSnapshot:
       required:
       - time
@@ -162,30 +164,28 @@ components:
           exchangeID: binance
           exchangeName: binance
           withdrawnUSD: 1.23
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
+    Volume:
+      required:
+      - exchangeID
+      - exchangeName
+      - withdrawnUSD
+      - depositedUSD
+      type: object
+      properties:
+        depositedUSD:
+          type: number
+          example: 1.23
+        exchangeID:
+          type: string
+          example: binance
+        exchangeName:
+          type: string
+          example: binance
+        withdrawnUSD:
+          type: number
+          example: 1.23
       example:
-      - ethereum
-      - bsc
-      - polygon
+        depositedUSD: 1.23
+        exchangeID: binance
+        exchangeName: binance
+        withdrawnUSD: 1.23
