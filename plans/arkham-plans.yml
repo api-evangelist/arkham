@@ -53,3 +53,35 @@ plans:
   - {label: Per-row endpoints, value: credits x limit x $0.20}
   - {label: Free discovery, value: 'chains, networks/status, arkm/circulating (sign-in-with-x, no payment)'}
 contact: api@arkm.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  units: []
+  plans:
+  - name: Individual Trial
+    access: trial
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Organization Trial
+    access: trial
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Paid Subscription
+    access: other
+    model: metered
+    model_how: stated
+    units: []
+    periods: []
+  - name: x402 Pay-per-Request
+    access: other
+    model: metered
+    model_how: stated
+    units: []
+    periods: []
