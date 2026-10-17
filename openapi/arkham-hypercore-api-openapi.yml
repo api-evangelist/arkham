@@ -1189,50 +1189,292 @@ paths:
       - Hypercore
 components:
   schemas:
-    HypercoreCumFundingDTO:
+    HypercorePerpPositionDTO:
       required:
-      - allTime
-      - sinceOpen
-      - sinceChange
-      type: object
-      properties:
-        allTime:
-          type: number
-          example: 1.23
-        sinceChange:
-          type: number
-          example: 1.23
-        sinceOpen:
-          type: number
-          example: 1.23
-      example:
-        allTime: 1.23
-        sinceChange: 1.23
-        sinceOpen: 1.23
-    Label:
-      required:
-      - name
       - address
-      - chainType
+      - coin
+      - szi
+      - direction
       type: object
       properties:
         address:
           type: string
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType:
+          example: abc123
+        coin:
           type: string
-          example: evm
-        name:
+          example: abc123
+        cumFunding:
+          $ref: '#/components/schemas/HypercoreCumFundingDTO'
+        direction:
           type: string
-          example: Cold Wallet
-        note:
+          example: abc123
+        entryPx:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        leverageType:
           type: string
-          example: ''
+          example: abc123
+        leverageValue:
+          type: integer
+          example: 1
+        markPx:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        marketLabel:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        marketUrl:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        maxLeverage:
+          type: integer
+          example: 1
+        positionValue:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        szi:
+          type: number
+          example: 1.23
+        underlyingPricingId:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        underlyingSymbol:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        unrealizedPnl:
+          type:
+          - number
+          - 'null'
+          example: 1.23
       example:
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType: evm
-        name: Cold Wallet
-        note: ''
+        address: abc123
+        coin: abc123
+        cumFunding:
+          allTime: 1.23
+          sinceChange: 1.23
+          sinceOpen: 1.23
+        direction: abc123
+        entryPx: 1.23
+        leverageType: abc123
+        leverageValue: 1
+        markPx: 1.23
+        marketLabel: abc123
+        marketUrl: abc123
+        maxLeverage: 1
+        positionValue: 1.23
+        szi: 1.23
+        underlyingPricingId: abc123
+        underlyingSymbol: abc123
+        unrealizedPnl: 1.23
+    HypercoreTokenPositionDTO:
+      required:
+      - coin
+      - direction
+      - szi
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        addressCount:
+          type: integer
+          example: 1
+        coin:
+          type: string
+          example: abc123
+        cumFundingSinceOpen:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        direction:
+          type: string
+          example: abc123
+        entity:
+          $ref: '#/components/schemas/ArkhamEntity'
+        entryPx:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        leverageType:
+          type: string
+          example: abc123
+        leverageValue:
+          type: integer
+          example: 1
+        markPx:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        maxLeverage:
+          type: integer
+          example: 1
+        positionValue:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        szi:
+          type: number
+          example: 1.23
+        unrealizedPnl:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+      example:
+        address:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          arkhamEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          arkhamLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+          chain: ethereum
+          contract: false
+          depositServiceID: binance
+          isShielded: true
+          isUserAddress: false
+          ownerAddress: {}
+          predictedEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          program: true
+          service: true
+          userEntity:
+            addresses:
+              abc123:
+              - abc123
+            crunchbase: https://www.crunchbase.com/organization/binance
+            customImageSlug: binance
+            customized: true
+            id: binance
+            instagram: https://www.instagram.com/binance
+            linkShareable: true
+            linkedin: https://www.linkedin.com/company/binance
+            name: Binance
+            note: ''
+            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+            populatedTags:
+            - chain: ethereum
+              disablePage: false
+              excludeEntities: false
+              id: proof-of-reserves
+              label: Binance Proof of Reserves
+              rank: 20
+              tagParams: Binance
+            service: true
+            twitter: https://twitter.com/binance
+            type: cex
+            website: https://binance.com
+          userLabel:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            chainType: evm
+            name: Cold Wallet
+            note: ''
+        addressCount: 1
+        coin: abc123
+        cumFundingSinceOpen: 1.23
+        direction: abc123
+        entity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          description: Binance is a global cryptocurrency exchange.
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        entryPx: 1.23
+        leverageType: abc123
+        leverageValue: 1
+        markPx: 1.23
+        maxLeverage: 1
+        positionValue: 1.23
+        szi: 1.23
+        unrealizedPnl: 1.23
     ArkhamEntity:
       required:
       - name
@@ -1359,192 +1601,6 @@ components:
         twitter: https://twitter.com/binance
         type: cex
         website: https://binance.com
-    HypercoreEntitySummaryResponse:
-      required:
-      - entity
-      - addressCount
-      - subAccountCount
-      - spotUsdValue
-      - perpUsdValue
-      - perpUsdcBalance
-      - perpUnrealizedPnl
-      - stakedUsdValue
-      - totalUsdValue
-      - spotBalanceCount
-      - perpPositionCount
-      - pricingAvailable
-      type: object
-      properties:
-        addressCount:
-          type: integer
-          example: 1
-        entity:
-          type: string
-          example: abc123
-        perpPositionCount:
-          type: integer
-          example: 1
-        perpUnrealizedPnl:
-          type: number
-          example: 1.23
-        perpUsdValue:
-          type: number
-          example: 1.23
-        perpUsdcBalance:
-          type: number
-          example: 1.23
-        pricingAvailable:
-          type: boolean
-          example: true
-        spotBalanceCount:
-          type: integer
-          example: 1
-        spotUsdValue:
-          type: number
-          example: 1.23
-        stakedUsdValue:
-          type: number
-          example: 1.23
-        subAccountCount:
-          type: integer
-          example: 1
-        totalUsdValue:
-          type: number
-          example: 1.23
-      example:
-        addressCount: 1
-        entity: abc123
-        perpPositionCount: 1
-        perpUnrealizedPnl: 1.23
-        perpUsdValue: 1.23
-        perpUsdcBalance: 1.23
-        pricingAvailable: true
-        spotBalanceCount: 1
-        spotUsdValue: 1.23
-        stakedUsdValue: 1.23
-        subAccountCount: 1
-        totalUsdValue: 1.23
-    Entity:
-      required:
-      - name
-      - note
-      - id
-      - type
-      - service
-      type: object
-      properties:
-        addresses:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-              example: abc123
-            example:
-            - abc123
-          example:
-            abc123:
-            - abc123
-        crunchbase:
-          type:
-          - string
-          - 'null'
-          example: https://www.crunchbase.com/organization/binance
-        customImageSlug:
-          type:
-          - string
-          - 'null'
-          example: binance
-        customized:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        id:
-          type: string
-          example: binance
-        instagram:
-          type:
-          - string
-          - 'null'
-          example: https://www.instagram.com/binance
-        linkShareable:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        linkedin:
-          type:
-          - string
-          - 'null'
-          example: https://www.linkedin.com/company/binance
-        name:
-          type: string
-          example: Binance
-        note:
-          type: string
-          example: ''
-        ownerUID:
-          type: string
-          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
-        populatedTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/PopulatedTag'
-          example:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-        service:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        twitter:
-          type:
-          - string
-          - 'null'
-          example: https://twitter.com/binance
-        type:
-          type:
-          - string
-          - 'null'
-          example: cex
-        website:
-          type:
-          - string
-          - 'null'
-          example: https://binance.com
-      example:
-        addresses:
-          abc123:
-          - abc123
-        crunchbase: https://www.crunchbase.com/organization/binance
-        customImageSlug: binance
-        customized: true
-        id: binance
-        instagram: https://www.instagram.com/binance
-        linkShareable: true
-        linkedin: https://www.linkedin.com/company/binance
-        name: Binance
-        note: ''
-        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-        populatedTags:
-        - chain: ethereum
-          disablePage: false
-          excludeEntities: false
-          id: proof-of-reserves
-          label: Binance Proof of Reserves
-          rank: 20
-          tagParams: Binance
-        service: true
-        twitter: https://twitter.com/binance
-        type: cex
-        website: https://binance.com
     Chain:
       enum:
       - ethereum
@@ -1564,663 +1620,261 @@ components:
       - hypercore
       type: string
       example: ethereum
-    HypercorePerpPositionsResponse:
+    HypercoreMarketsResponse:
       required:
-      - addresses
-      - positions
-      - dexBalances
-      - usdcBalance
-      - unrealizedPnl
-      - accountUsdValue
+      - markets
       type: object
       properties:
-        accountUsdValue:
-          type: number
-          example: 1.23
-        addresses:
+        markets:
           type:
           - array
           - 'null'
           items:
-            type: string
-            example: abc123
+            $ref: '#/components/schemas/HypercoreMarketDTO'
           example:
-          - abc123
-        dexBalances:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HypercorePerpDexBalanceDTO'
-          example:
-          - dex: abc123
-            usdcBalance: 1.23
-        positions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HypercorePerpPositionDTO'
-          example:
-          - address: abc123
-            coin: abc123
-            cumFunding:
-              allTime: 1.23
-              sinceChange: 1.23
-              sinceOpen: 1.23
-            direction: abc123
-            entryPx: 1.23
-            leverageType: abc123
-            leverageValue: 1
-            markPx: 1.23
-            marketLabel: abc123
-            marketUrl: abc123
-            maxLeverage: 1
-            positionValue: 1.23
-            szi: 1.23
-            underlyingPricingId: abc123
-            underlyingSymbol: abc123
-            unrealizedPnl: 1.23
-        unrealizedPnl:
-          type: number
-          example: 1.23
-        usdcBalance:
-          type: number
-          example: 1.23
+          - name: abc123
+            pricingId: abc123
+            symbol: abc123
       example:
-        accountUsdValue: 1.23
-        addresses:
-        - abc123
-        dexBalances:
-        - dex: abc123
-          usdcBalance: 1.23
-        positions:
-        - address: abc123
-          coin: abc123
-          cumFunding:
-            allTime: 1.23
-            sinceChange: 1.23
-            sinceOpen: 1.23
-          direction: abc123
-          entryPx: 1.23
-          leverageType: abc123
-          leverageValue: 1
-          markPx: 1.23
-          marketLabel: abc123
-          marketUrl: abc123
-          maxLeverage: 1
-          positionValue: 1.23
-          szi: 1.23
-          underlyingPricingId: abc123
-          underlyingSymbol: abc123
-          unrealizedPnl: 1.23
-        unrealizedPnl: 1.23
-        usdcBalance: 1.23
-    HypercorePortfolioHistoryResponse:
+        markets:
+        - name: abc123
+          pricingId: abc123
+          symbol: abc123
+    Address:
       required:
       - address
-      - periods
+      - chain
       type: object
       properties:
         address:
           type: string
-          example: abc123
-        periods:
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          $ref: '#/components/schemas/Entity'
+        arkhamLabel:
+          $ref: '#/components/schemas/Label'
+        chain:
+          $ref: '#/components/schemas/Chain'
+        contract:
           type:
-          - array
+          - boolean
           - 'null'
-          items:
-            $ref: '#/components/schemas/HypercorePortfolioPeriodDTO'
-          example:
-          - accountValue:
-            - time: 1
-              value: 1.23
-            period: abc123
-            pnl:
-            - time: 1
-              value: 1.23
-      example:
-        address: abc123
-        periods:
-        - accountValue:
-          - time: 1
-            value: 1.23
-          period: abc123
-          pnl:
-          - time: 1
-            value: 1.23
-    HypercorePerpDexBalanceDTO:
-      required:
-      - dex
-      - usdcBalance
-      type: object
-      properties:
-        dex:
-          type: string
-          example: abc123
-        usdcBalance:
-          type: number
-          example: 1.23
-      example:
-        dex: abc123
-        usdcBalance: 1.23
-    HypercoreTradesFeedResponse:
-      required:
-      - trades
-      - count
-      - limit
-      - offset
-      - hasMore
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 1
-        hasMore:
-          type: boolean
+          example: false
+        depositServiceID:
+          type:
+          - string
+          - 'null'
+          example: binance
+        isShielded:
+          type:
+          - boolean
+          - 'null'
           example: true
-        limit:
-          type: integer
-          example: 1
-        offset:
-          type: integer
-          example: 1
-        trades:
+        isUserAddress:
           type:
-          - array
+          - boolean
           - 'null'
-          items:
-            $ref: '#/components/schemas/HypercoreTradeFeedDTO'
-          example:
-          - addressTags:
+          example: false
+        ownerAddress:
+          $ref: '#/components/schemas/Address'
+        predictedEntity:
+          $ref: '#/components/schemas/Entity'
+        program:
+          type:
+          - boolean
+          - 'null'
+          example: true
+        service:
+          type:
+          - boolean
+          - 'null'
+          example: true
+        userEntity:
+          $ref: '#/components/schemas/Entity'
+        userLabel:
+          $ref: '#/components/schemas/Label'
+      example:
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        arkhamEntity:
+          addresses:
+            abc123:
             - abc123
-            blockNumber: 1
-            closedPnl: 1.23
-            coin: abc123
-            crossed: true
-            direction: abc123
-            eventIndex: 1
-            hash: abc123
-            kind: abc123
-            marketLabel: abc123
-            marketUrl: abc123
-            price: 1.23
-            side: abc123
-            size: 1.23
-            startPosition: 1.23
-            time: '2024-01-01T00:00:00Z'
-            trader:
-              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-              arkhamEntity:
-                addresses:
-                  abc123:
-                  - abc123
-                crunchbase: https://www.crunchbase.com/organization/binance
-                customImageSlug: binance
-                customized: true
-                id: binance
-                instagram: https://www.instagram.com/binance
-                linkShareable: true
-                linkedin: https://www.linkedin.com/company/binance
-                name: Binance
-                note: ''
-                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                populatedTags:
-                - chain: ethereum
-                  disablePage: false
-                  excludeEntities: false
-                  id: proof-of-reserves
-                  label: Binance Proof of Reserves
-                  rank: 20
-                  tagParams: Binance
-                service: true
-                twitter: https://twitter.com/binance
-                type: cex
-                website: https://binance.com
-              arkhamLabel:
-                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                chainType: evm
-                name: Cold Wallet
-                note: ''
-              chain: ethereum
-              contract: false
-              depositServiceID: binance
-              isShielded: true
-              isUserAddress: false
-              ownerAddress: {}
-              predictedEntity:
-                addresses:
-                  abc123:
-                  - abc123
-                crunchbase: https://www.crunchbase.com/organization/binance
-                customImageSlug: binance
-                customized: true
-                id: binance
-                instagram: https://www.instagram.com/binance
-                linkShareable: true
-                linkedin: https://www.linkedin.com/company/binance
-                name: Binance
-                note: ''
-                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                populatedTags:
-                - chain: ethereum
-                  disablePage: false
-                  excludeEntities: false
-                  id: proof-of-reserves
-                  label: Binance Proof of Reserves
-                  rank: 20
-                  tagParams: Binance
-                service: true
-                twitter: https://twitter.com/binance
-                type: cex
-                website: https://binance.com
-              program: true
-              service: true
-              userEntity:
-                addresses:
-                  abc123:
-                  - abc123
-                crunchbase: https://www.crunchbase.com/organization/binance
-                customImageSlug: binance
-                customized: true
-                id: binance
-                instagram: https://www.instagram.com/binance
-                linkShareable: true
-                linkedin: https://www.linkedin.com/company/binance
-                name: Binance
-                note: ''
-                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                populatedTags:
-                - chain: ethereum
-                  disablePage: false
-                  excludeEntities: false
-                  id: proof-of-reserves
-                  label: Binance Proof of Reserves
-                  rank: 20
-                  tagParams: Binance
-                service: true
-                twitter: https://twitter.com/binance
-                type: cex
-                website: https://binance.com
-              userLabel:
-                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                chainType: evm
-                name: Cold Wallet
-                note: ''
-            underlyingPricingId: abc123
-            underlyingSymbol: abc123
-            userAddress: abc123
-            value: 1.23
-      example:
-        count: 1
-        hasMore: true
-        limit: 1
-        offset: 1
-        trades:
-        - addressTags:
-          - abc123
-          blockNumber: 1
-          closedPnl: 1.23
-          coin: abc123
-          crossed: true
-          direction: abc123
-          eventIndex: 1
-          hash: abc123
-          kind: abc123
-          marketLabel: abc123
-          marketUrl: abc123
-          price: 1.23
-          side: abc123
-          size: 1.23
-          startPosition: 1.23
-          time: '2024-01-01T00:00:00Z'
-          trader:
-            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-            arkhamEntity:
-              addresses:
-                abc123:
-                - abc123
-              crunchbase: https://www.crunchbase.com/organization/binance
-              customImageSlug: binance
-              customized: true
-              id: binance
-              instagram: https://www.instagram.com/binance
-              linkShareable: true
-              linkedin: https://www.linkedin.com/company/binance
-              name: Binance
-              note: ''
-              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-              populatedTags:
-              - chain: ethereum
-                disablePage: false
-                excludeEntities: false
-                id: proof-of-reserves
-                label: Binance Proof of Reserves
-                rank: 20
-                tagParams: Binance
-              service: true
-              twitter: https://twitter.com/binance
-              type: cex
-              website: https://binance.com
-            arkhamLabel:
-              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-              chainType: evm
-              name: Cold Wallet
-              note: ''
-            chain: ethereum
-            contract: false
-            depositServiceID: binance
-            isShielded: true
-            isUserAddress: false
-            ownerAddress: {}
-            predictedEntity:
-              addresses:
-                abc123:
-                - abc123
-              crunchbase: https://www.crunchbase.com/organization/binance
-              customImageSlug: binance
-              customized: true
-              id: binance
-              instagram: https://www.instagram.com/binance
-              linkShareable: true
-              linkedin: https://www.linkedin.com/company/binance
-              name: Binance
-              note: ''
-              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-              populatedTags:
-              - chain: ethereum
-                disablePage: false
-                excludeEntities: false
-                id: proof-of-reserves
-                label: Binance Proof of Reserves
-                rank: 20
-                tagParams: Binance
-              service: true
-              twitter: https://twitter.com/binance
-              type: cex
-              website: https://binance.com
-            program: true
-            service: true
-            userEntity:
-              addresses:
-                abc123:
-                - abc123
-              crunchbase: https://www.crunchbase.com/organization/binance
-              customImageSlug: binance
-              customized: true
-              id: binance
-              instagram: https://www.instagram.com/binance
-              linkShareable: true
-              linkedin: https://www.linkedin.com/company/binance
-              name: Binance
-              note: ''
-              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-              populatedTags:
-              - chain: ethereum
-                disablePage: false
-                excludeEntities: false
-                id: proof-of-reserves
-                label: Binance Proof of Reserves
-                rank: 20
-                tagParams: Binance
-              service: true
-              twitter: https://twitter.com/binance
-              type: cex
-              website: https://binance.com
-            userLabel:
-              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-              chainType: evm
-              name: Cold Wallet
-              note: ''
-          underlyingPricingId: abc123
-          underlyingSymbol: abc123
-          userAddress: abc123
-          value: 1.23
-    HypercorePerpPositionDTO:
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        arkhamLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+        chain: ethereum
+        contract: false
+        depositServiceID: binance
+        isShielded: true
+        isUserAddress: false
+        ownerAddress: {}
+        predictedEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        program: true
+        service: true
+        userEntity:
+          addresses:
+            abc123:
+            - abc123
+          crunchbase: https://www.crunchbase.com/organization/binance
+          customImageSlug: binance
+          customized: true
+          id: binance
+          instagram: https://www.instagram.com/binance
+          linkShareable: true
+          linkedin: https://www.linkedin.com/company/binance
+          name: Binance
+          note: ''
+          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+          populatedTags:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+          service: true
+          twitter: https://twitter.com/binance
+          type: cex
+          website: https://binance.com
+        userLabel:
+          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+          chainType: evm
+          name: Cold Wallet
+          note: ''
+    HypercoreEntityActiveResponse:
       required:
-      - address
-      - coin
-      - szi
-      - direction
+      - entity
+      - active
       type: object
       properties:
-        address:
-          type: string
-          example: abc123
-        coin:
-          type: string
-          example: abc123
-        cumFunding:
-          $ref: '#/components/schemas/HypercoreCumFundingDTO'
-        direction:
-          type: string
-          example: abc123
-        entryPx:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        leverageType:
-          type: string
-          example: abc123
-        leverageValue:
-          type: integer
-          example: 1
-        markPx:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        marketLabel:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        marketUrl:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        maxLeverage:
-          type: integer
-          example: 1
-        positionValue:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        szi:
-          type: number
-          example: 1.23
-        underlyingPricingId:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        underlyingSymbol:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        unrealizedPnl:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-      example:
-        address: abc123
-        coin: abc123
-        cumFunding:
-          allTime: 1.23
-          sinceChange: 1.23
-          sinceOpen: 1.23
-        direction: abc123
-        entryPx: 1.23
-        leverageType: abc123
-        leverageValue: 1
-        markPx: 1.23
-        marketLabel: abc123
-        marketUrl: abc123
-        maxLeverage: 1
-        positionValue: 1.23
-        szi: 1.23
-        underlyingPricingId: abc123
-        underlyingSymbol: abc123
-        unrealizedPnl: 1.23
-    HypercoreSpotBalancesResponse:
-      required:
-      - addresses
-      - balances
-      - totalUsdValue
-      type: object
-      properties:
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            example: abc123
-          example:
-          - abc123
-        balances:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HypercoreSpotBalanceDTO'
-          example:
-          - address: abc123
-            coin: abc123
-            entryPx: 1.23
-            hold: 1.23
-            marketLabel: abc123
-            marketUrl: abc123
-            token: 1
-            total: 1.23
-            underlyingPricingId: abc123
-            underlyingSymbol: abc123
-            unrealizedPnl: 1.23
-            usdPrice: 1.23
-            usdValue: 1.23
-        totalUsdValue:
-          type: number
-          example: 1.23
-      example:
-        addresses:
-        - abc123
-        balances:
-        - address: abc123
-          coin: abc123
-          entryPx: 1.23
-          hold: 1.23
-          marketLabel: abc123
-          marketUrl: abc123
-          token: 1
-          total: 1.23
-          underlyingPricingId: abc123
-          underlyingSymbol: abc123
-          unrealizedPnl: 1.23
-          usdPrice: 1.23
-          usdValue: 1.23
-        totalUsdValue: 1.23
-    HypercoreAccountSummaryResponse:
-      required:
-      - address
-      - addresses
-      - subAccountCount
-      - spotUsdValue
-      - perpUsdValue
-      - perpUsdcBalance
-      - perpUnrealizedPnl
-      - stakedUsdValue
-      - totalUsdValue
-      - spotBalanceCount
-      - perpPositionCount
-      - pricingAvailable
-      type: object
-      properties:
-        address:
-          type: string
-          example: abc123
-        addresses:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            example: abc123
-          example:
-          - abc123
-        perpPositionCount:
-          type: integer
-          example: 1
-        perpUnrealizedPnl:
-          type: number
-          example: 1.23
-        perpUsdValue:
-          type: number
-          example: 1.23
-        perpUsdcBalance:
-          type: number
-          example: 1.23
-        pricingAvailable:
+        active:
           type: boolean
           example: true
-        spotBalanceCount:
-          type: integer
-          example: 1
-        spotUsdValue:
-          type: number
-          example: 1.23
-        stakedUsdValue:
-          type: number
-          example: 1.23
-        subAccountCount:
-          type: integer
-          example: 1
-        totalUsdValue:
-          type: number
-          example: 1.23
+        entity:
+          type: string
+          example: abc123
       example:
-        address: abc123
-        addresses:
-        - abc123
-        perpPositionCount: 1
-        perpUnrealizedPnl: 1.23
-        perpUsdValue: 1.23
-        perpUsdcBalance: 1.23
-        pricingAvailable: true
-        spotBalanceCount: 1
-        spotUsdValue: 1.23
-        stakedUsdValue: 1.23
-        subAccountCount: 1
-        totalUsdValue: 1.23
-    HypercoreSubAccountDTO:
+        active: true
+        entity: abc123
+    Label:
       required:
       - name
       - address
-      - master
-      - isVault
+      - chainType
       type: object
       properties:
         address:
           type: string
-          example: abc123
-        isVault:
-          type: boolean
-          example: true
-        master:
+          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType:
           type: string
-          example: abc123
+          example: evm
         name:
           type: string
-          example: abc123
+          example: Cold Wallet
+        note:
+          type: string
+          example: ''
       example:
-        address: abc123
-        isVault: true
-        master: abc123
-        name: abc123
+        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+        chainType: evm
+        name: Cold Wallet
+        note: ''
+    PopulatedTag:
+      required:
+      - id
+      - label
+      - rank
+      - excludeEntities
+      - disablePage
+      type: object
+      properties:
+        chain:
+          $ref: '#/components/schemas/Chain'
+        disablePage:
+          type: boolean
+          description: Whether the dedicated page for this tag is disabled.
+          example: false
+        excludeEntities:
+          type: boolean
+          description: Whether entities are excluded from this tag.
+          example: false
+        id:
+          type: string
+          description: The tag identifier.
+          example: proof-of-reserves
+        label:
+          type: string
+          description: Human-readable label for this tag parameter combination.
+          example: Binance Proof of Reserves
+        rank:
+          type: integer
+          description: Display rank of the tag.
+          example: 20
+        tagParams:
+          type:
+          - string
+          - 'null'
+          description: The specific parameter value for this tag instance.
+          example: Binance
+      example:
+        chain: ethereum
+        disablePage: false
+        excludeEntities: false
+        id: proof-of-reserves
+        label: Binance Proof of Reserves
+        rank: 20
+        tagParams: Binance
     HypercoreTokenPositionsResponse:
       required:
       - hasPerp
@@ -2519,67 +2173,78 @@ components:
           szi: 1.23
           unrealizedPnl: 1.23
         total: 1
-    HypercoreSubAccountsResponse:
+    HypercoreAccountSummaryResponse:
       required:
       - address
-      - subAccounts
+      - addresses
+      - subAccountCount
+      - spotUsdValue
+      - perpUsdValue
+      - perpUsdcBalance
+      - perpUnrealizedPnl
+      - stakedUsdValue
+      - totalUsdValue
+      - spotBalanceCount
+      - perpPositionCount
+      - pricingAvailable
       type: object
       properties:
         address:
           type: string
           example: abc123
-        subAccounts:
+        addresses:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/HypercoreSubAccountDTO'
+            type: string
+            example: abc123
           example:
-          - address: abc123
-            isVault: true
-            master: abc123
-            name: abc123
-      example:
-        address: abc123
-        subAccounts:
-        - address: abc123
-          isVault: true
-          master: abc123
-          name: abc123
-    HypercorePortfolioPointDTO:
-      required:
-      - time
-      - value
-      type: object
-      properties:
-        time:
+          - abc123
+        perpPositionCount:
           type: integer
           example: 1
-        value:
+        perpUnrealizedPnl:
+          type: number
+          example: 1.23
+        perpUsdValue:
+          type: number
+          example: 1.23
+        perpUsdcBalance:
+          type: number
+          example: 1.23
+        pricingAvailable:
+          type: boolean
+          example: true
+        spotBalanceCount:
+          type: integer
+          example: 1
+        spotUsdValue:
+          type: number
+          example: 1.23
+        stakedUsdValue:
+          type: number
+          example: 1.23
+        subAccountCount:
+          type: integer
+          example: 1
+        totalUsdValue:
           type: number
           example: 1.23
       example:
-        time: 1
-        value: 1.23
-    HypercoreMarketDTO:
-      required:
-      - pricingId
-      - symbol
-      type: object
-      properties:
-        name:
-          type: string
-          example: abc123
-        pricingId:
-          type: string
-          example: abc123
-        symbol:
-          type: string
-          example: abc123
-      example:
-        name: abc123
-        pricingId: abc123
-        symbol: abc123
+        address: abc123
+        addresses:
+        - abc123
+        perpPositionCount: 1
+        perpUnrealizedPnl: 1.23
+        perpUsdValue: 1.23
+        perpUsdcBalance: 1.23
+        pricingAvailable: true
+        spotBalanceCount: 1
+        spotUsdValue: 1.23
+        stakedUsdValue: 1.23
+        subAccountCount: 1
+        totalUsdValue: 1.23
     HypercoreEntityPortfolioHistoryResponse:
       required:
       - entity
@@ -2613,85 +2278,680 @@ components:
           pnl:
           - time: 1
             value: 1.23
-    HypercoreSpotBalanceDTO:
+    HypercoreSpotBalancesResponse:
+      required:
+      - addresses
+      - balances
+      - totalUsdValue
+      type: object
+      properties:
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        balances:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercoreSpotBalanceDTO'
+          example:
+          - address: abc123
+            coin: abc123
+            entryPx: 1.23
+            hold: 1.23
+            marketLabel: abc123
+            marketUrl: abc123
+            token: 1
+            total: 1.23
+            underlyingPricingId: abc123
+            underlyingSymbol: abc123
+            unrealizedPnl: 1.23
+            usdPrice: 1.23
+            usdValue: 1.23
+        totalUsdValue:
+          type: number
+          example: 1.23
+      example:
+        addresses:
+        - abc123
+        balances:
+        - address: abc123
+          coin: abc123
+          entryPx: 1.23
+          hold: 1.23
+          marketLabel: abc123
+          marketUrl: abc123
+          token: 1
+          total: 1.23
+          underlyingPricingId: abc123
+          underlyingSymbol: abc123
+          unrealizedPnl: 1.23
+          usdPrice: 1.23
+          usdValue: 1.23
+        totalUsdValue: 1.23
+    HypercorePerpPositionsResponse:
+      required:
+      - addresses
+      - positions
+      - dexBalances
+      - usdcBalance
+      - unrealizedPnl
+      - accountUsdValue
+      type: object
+      properties:
+        accountUsdValue:
+          type: number
+          example: 1.23
+        addresses:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            example: abc123
+          example:
+          - abc123
+        dexBalances:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercorePerpDexBalanceDTO'
+          example:
+          - dex: abc123
+            usdcBalance: 1.23
+        positions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercorePerpPositionDTO'
+          example:
+          - address: abc123
+            coin: abc123
+            cumFunding:
+              allTime: 1.23
+              sinceChange: 1.23
+              sinceOpen: 1.23
+            direction: abc123
+            entryPx: 1.23
+            leverageType: abc123
+            leverageValue: 1
+            markPx: 1.23
+            marketLabel: abc123
+            marketUrl: abc123
+            maxLeverage: 1
+            positionValue: 1.23
+            szi: 1.23
+            underlyingPricingId: abc123
+            underlyingSymbol: abc123
+            unrealizedPnl: 1.23
+        unrealizedPnl:
+          type: number
+          example: 1.23
+        usdcBalance:
+          type: number
+          example: 1.23
+      example:
+        accountUsdValue: 1.23
+        addresses:
+        - abc123
+        dexBalances:
+        - dex: abc123
+          usdcBalance: 1.23
+        positions:
+        - address: abc123
+          coin: abc123
+          cumFunding:
+            allTime: 1.23
+            sinceChange: 1.23
+            sinceOpen: 1.23
+          direction: abc123
+          entryPx: 1.23
+          leverageType: abc123
+          leverageValue: 1
+          markPx: 1.23
+          marketLabel: abc123
+          marketUrl: abc123
+          maxLeverage: 1
+          positionValue: 1.23
+          szi: 1.23
+          underlyingPricingId: abc123
+          underlyingSymbol: abc123
+          unrealizedPnl: 1.23
+        unrealizedPnl: 1.23
+        usdcBalance: 1.23
+    HypercoreEntitySummaryResponse:
+      required:
+      - entity
+      - addressCount
+      - subAccountCount
+      - spotUsdValue
+      - perpUsdValue
+      - perpUsdcBalance
+      - perpUnrealizedPnl
+      - stakedUsdValue
+      - totalUsdValue
+      - spotBalanceCount
+      - perpPositionCount
+      - pricingAvailable
+      type: object
+      properties:
+        addressCount:
+          type: integer
+          example: 1
+        entity:
+          type: string
+          example: abc123
+        perpPositionCount:
+          type: integer
+          example: 1
+        perpUnrealizedPnl:
+          type: number
+          example: 1.23
+        perpUsdValue:
+          type: number
+          example: 1.23
+        perpUsdcBalance:
+          type: number
+          example: 1.23
+        pricingAvailable:
+          type: boolean
+          example: true
+        spotBalanceCount:
+          type: integer
+          example: 1
+        spotUsdValue:
+          type: number
+          example: 1.23
+        stakedUsdValue:
+          type: number
+          example: 1.23
+        subAccountCount:
+          type: integer
+          example: 1
+        totalUsdValue:
+          type: number
+          example: 1.23
+      example:
+        addressCount: 1
+        entity: abc123
+        perpPositionCount: 1
+        perpUnrealizedPnl: 1.23
+        perpUsdValue: 1.23
+        perpUsdcBalance: 1.23
+        pricingAvailable: true
+        spotBalanceCount: 1
+        spotUsdValue: 1.23
+        stakedUsdValue: 1.23
+        subAccountCount: 1
+        totalUsdValue: 1.23
+    HypercorePerpDexBalanceDTO:
+      required:
+      - dex
+      - usdcBalance
+      type: object
+      properties:
+        dex:
+          type: string
+          example: abc123
+        usdcBalance:
+          type: number
+          example: 1.23
+      example:
+        dex: abc123
+        usdcBalance: 1.23
+    HypercoreMarketDTO:
+      required:
+      - pricingId
+      - symbol
+      type: object
+      properties:
+        name:
+          type: string
+          example: abc123
+        pricingId:
+          type: string
+          example: abc123
+        symbol:
+          type: string
+          example: abc123
+      example:
+        name: abc123
+        pricingId: abc123
+        symbol: abc123
+    Entity:
+      required:
+      - name
+      - note
+      - id
+      - type
+      - service
+      type: object
+      properties:
+        addresses:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              example: abc123
+            example:
+            - abc123
+          example:
+            abc123:
+            - abc123
+        crunchbase:
+          type:
+          - string
+          - 'null'
+          example: https://www.crunchbase.com/organization/binance
+        customImageSlug:
+          type:
+          - string
+          - 'null'
+          example: binance
+        customized:
+          type:
+          - boolean
+          - 'null'
+          example: true
+        id:
+          type: string
+          example: binance
+        instagram:
+          type:
+          - string
+          - 'null'
+          example: https://www.instagram.com/binance
+        linkShareable:
+          type:
+          - boolean
+          - 'null'
+          example: true
+        linkedin:
+          type:
+          - string
+          - 'null'
+          example: https://www.linkedin.com/company/binance
+        name:
+          type: string
+          example: Binance
+        note:
+          type: string
+          example: ''
+        ownerUID:
+          type: string
+          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+          type: array
+          items:
+            $ref: '#/components/schemas/PopulatedTag'
+          example:
+          - chain: ethereum
+            disablePage: false
+            excludeEntities: false
+            id: proof-of-reserves
+            label: Binance Proof of Reserves
+            rank: 20
+            tagParams: Binance
+        service:
+          type:
+          - boolean
+          - 'null'
+          example: true
+        twitter:
+          type:
+          - string
+          - 'null'
+          example: https://twitter.com/binance
+        type:
+          type:
+          - string
+          - 'null'
+          example: cex
+        website:
+          type:
+          - string
+          - 'null'
+          example: https://binance.com
+      example:
+        addresses:
+          abc123:
+          - abc123
+        crunchbase: https://www.crunchbase.com/organization/binance
+        customImageSlug: binance
+        customized: true
+        id: binance
+        instagram: https://www.instagram.com/binance
+        linkShareable: true
+        linkedin: https://www.linkedin.com/company/binance
+        name: Binance
+        note: ''
+        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+        populatedTags:
+        - chain: ethereum
+          disablePage: false
+          excludeEntities: false
+          id: proof-of-reserves
+          label: Binance Proof of Reserves
+          rank: 20
+          tagParams: Binance
+        service: true
+        twitter: https://twitter.com/binance
+        type: cex
+        website: https://binance.com
+    HypercoreTradesFeedResponse:
+      required:
+      - trades
+      - count
+      - limit
+      - offset
+      - hasMore
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 1
+        hasMore:
+          type: boolean
+          example: true
+        limit:
+          type: integer
+          example: 1
+        offset:
+          type: integer
+          example: 1
+        trades:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercoreTradeFeedDTO'
+          example:
+          - addressTags:
+            - abc123
+            blockNumber: 1
+            closedPnl: 1.23
+            coin: abc123
+            crossed: true
+            direction: abc123
+            eventIndex: 1
+            hash: abc123
+            kind: abc123
+            marketLabel: abc123
+            marketUrl: abc123
+            price: 1.23
+            side: abc123
+            size: 1.23
+            startPosition: 1.23
+            time: '2024-01-01T00:00:00Z'
+            trader:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              arkhamEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              arkhamLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+              chain: ethereum
+              contract: false
+              depositServiceID: binance
+              isShielded: true
+              isUserAddress: false
+              ownerAddress: {}
+              predictedEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              program: true
+              service: true
+              userEntity:
+                addresses:
+                  abc123:
+                  - abc123
+                crunchbase: https://www.crunchbase.com/organization/binance
+                customImageSlug: binance
+                customized: true
+                id: binance
+                instagram: https://www.instagram.com/binance
+                linkShareable: true
+                linkedin: https://www.linkedin.com/company/binance
+                name: Binance
+                note: ''
+                ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+                populatedTags:
+                - chain: ethereum
+                  disablePage: false
+                  excludeEntities: false
+                  id: proof-of-reserves
+                  label: Binance Proof of Reserves
+                  rank: 20
+                  tagParams: Binance
+                service: true
+                twitter: https://twitter.com/binance
+                type: cex
+                website: https://binance.com
+              userLabel:
+                address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+                chainType: evm
+                name: Cold Wallet
+                note: ''
+            underlyingPricingId: abc123
+            underlyingSymbol: abc123
+            userAddress: abc123
+            value: 1.23
+      example:
+        count: 1
+        hasMore: true
+        limit: 1
+        offset: 1
+        trades:
+        - addressTags:
+          - abc123
+          blockNumber: 1
+          closedPnl: 1.23
+          coin: abc123
+          crossed: true
+          direction: abc123
+          eventIndex: 1
+          hash: abc123
+          kind: abc123
+          marketLabel: abc123
+          marketUrl: abc123
+          price: 1.23
+          side: abc123
+          size: 1.23
+          startPosition: 1.23
+          time: '2024-01-01T00:00:00Z'
+          trader:
+            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+            arkhamEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            arkhamLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+            chain: ethereum
+            contract: false
+            depositServiceID: binance
+            isShielded: true
+            isUserAddress: false
+            ownerAddress: {}
+            predictedEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            program: true
+            service: true
+            userEntity:
+              addresses:
+                abc123:
+                - abc123
+              crunchbase: https://www.crunchbase.com/organization/binance
+              customImageSlug: binance
+              customized: true
+              id: binance
+              instagram: https://www.instagram.com/binance
+              linkShareable: true
+              linkedin: https://www.linkedin.com/company/binance
+              name: Binance
+              note: ''
+              ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
+              populatedTags:
+              - chain: ethereum
+                disablePage: false
+                excludeEntities: false
+                id: proof-of-reserves
+                label: Binance Proof of Reserves
+                rank: 20
+                tagParams: Binance
+              service: true
+              twitter: https://twitter.com/binance
+              type: cex
+              website: https://binance.com
+            userLabel:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              chainType: evm
+              name: Cold Wallet
+              note: ''
+          underlyingPricingId: abc123
+          underlyingSymbol: abc123
+          userAddress: abc123
+          value: 1.23
+    HypercorePortfolioHistoryResponse:
       required:
       - address
-      - coin
-      - total
-      - hold
+      - periods
       type: object
       properties:
         address:
           type: string
           example: abc123
-        coin:
-          type: string
-          example: abc123
-        entryPx:
+        periods:
           type:
-          - number
+          - array
           - 'null'
-          example: 1.23
-        hold:
-          type: number
-          example: 1.23
-        marketLabel:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        marketUrl:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        token:
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          type: number
-          example: 1.23
-        underlyingPricingId:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        underlyingSymbol:
-          type:
-          - string
-          - 'null'
-          example: abc123
-        unrealizedPnl:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        usdPrice:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        usdValue:
-          type:
-          - number
-          - 'null'
-          example: 1.23
+          items:
+            $ref: '#/components/schemas/HypercorePortfolioPeriodDTO'
+          example:
+          - accountValue:
+            - time: 1
+              value: 1.23
+            period: abc123
+            pnl:
+            - time: 1
+              value: 1.23
       example:
         address: abc123
-        coin: abc123
-        entryPx: 1.23
-        hold: 1.23
-        marketLabel: abc123
-        marketUrl: abc123
-        token: 1
-        total: 1.23
-        underlyingPricingId: abc123
-        underlyingSymbol: abc123
-        unrealizedPnl: 1.23
-        usdPrice: 1.23
-        usdValue: 1.23
+        periods:
+        - accountValue:
+          - time: 1
+            value: 1.23
+          period: abc123
+          pnl:
+          - time: 1
+            value: 1.23
     HypercoreTradeFeedDTO:
       required:
       - kind
@@ -2910,21 +3170,46 @@ components:
         underlyingSymbol: abc123
         userAddress: abc123
         value: 1.23
-    HypercoreAccountActiveResponse:
+    HypercorePortfolioPointDTO:
       required:
-      - address
-      - active
+      - time
+      - value
       type: object
       properties:
-        active:
-          type: boolean
-          example: true
+        time:
+          type: integer
+          example: 1
+        value:
+          type: number
+          example: 1.23
+      example:
+        time: 1
+        value: 1.23
+    HypercoreSubAccountDTO:
+      required:
+      - name
+      - address
+      - master
+      - isVault
+      type: object
+      properties:
         address:
           type: string
           example: abc123
+        isVault:
+          type: boolean
+          example: true
+        master:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: abc123
       example:
-        active: true
         address: abc123
+        isVault: true
+        master: abc123
+        name: abc123
     HypercoreTradeDTO:
       required:
       - kind
@@ -2995,87 +3280,41 @@ components:
         side: abc123
         size: 1.23
         time: '2024-01-01T00:00:00Z'
-    HypercorePortfolioPeriodDTO:
+    HypercoreCumFundingDTO:
       required:
-      - period
-      - accountValue
-      - pnl
+      - allTime
+      - sinceOpen
+      - sinceChange
       type: object
       properties:
-        accountValue:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HypercorePortfolioPointDTO'
-          example:
-          - time: 1
-            value: 1.23
-        period:
+        allTime:
+          type: number
+          example: 1.23
+        sinceChange:
+          type: number
+          example: 1.23
+        sinceOpen:
+          type: number
+          example: 1.23
+      example:
+        allTime: 1.23
+        sinceChange: 1.23
+        sinceOpen: 1.23
+    HypercoreAccountActiveResponse:
+      required:
+      - address
+      - active
+      type: object
+      properties:
+        active:
+          type: boolean
+          example: true
+        address:
           type: string
           example: abc123
-        pnl:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HypercorePortfolioPointDTO'
-          example:
-          - time: 1
-            value: 1.23
       example:
-        accountValue:
-        - time: 1
-          value: 1.23
-        period: abc123
-        pnl:
-        - time: 1
-          value: 1.23
-    PopulatedTag:
-      required:
-      - id
-      - label
-      - rank
-      - excludeEntities
-      - disablePage
-      type: object
-      properties:
-        chain:
-          $ref: '#/components/schemas/Chain'
-        disablePage:
-          type: boolean
-          description: Whether the dedicated page for this tag is disabled.
-          example: false
-        excludeEntities:
-          type: boolean
-          description: Whether entities are excluded from this tag.
-          example: false
-        id:
-          type: string
-          description: The tag identifier.
-          example: proof-of-reserves
-        label:
-          type: string
-          description: Human-readable label for this tag parameter combination.
-          example: Binance Proof of Reserves
-        rank:
-          type: integer
-          description: Display rank of the tag.
-          example: 20
-        tagParams:
-          type:
-          - string
-          - 'null'
-          description: The specific parameter value for this tag instance.
-          example: Binance
-      example:
-        chain: ethereum
-        disablePage: false
-        excludeEntities: false
-        id: proof-of-reserves
-        label: Binance Proof of Reserves
-        rank: 20
-        tagParams: Binance
+        active: true
+        address: abc123
     HypercoreTradesResponse:
       required:
       - addresses
@@ -3141,384 +3380,145 @@ components:
           side: abc123
           size: 1.23
           time: '2024-01-01T00:00:00Z'
-    HypercoreTokenPositionDTO:
+    HypercorePortfolioPeriodDTO:
       required:
+      - period
+      - accountValue
+      - pnl
+      type: object
+      properties:
+        accountValue:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercorePortfolioPointDTO'
+          example:
+          - time: 1
+            value: 1.23
+        period:
+          type: string
+          example: abc123
+        pnl:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HypercorePortfolioPointDTO'
+          example:
+          - time: 1
+            value: 1.23
+      example:
+        accountValue:
+        - time: 1
+          value: 1.23
+        period: abc123
+        pnl:
+        - time: 1
+          value: 1.23
+    HypercoreSpotBalanceDTO:
+      required:
+      - address
       - coin
-      - direction
-      - szi
+      - total
+      - hold
       type: object
       properties:
         address:
-          $ref: '#/components/schemas/Address'
-        addressCount:
-          type: integer
-          example: 1
+          type: string
+          example: abc123
         coin:
           type: string
           example: abc123
-        cumFundingSinceOpen:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        direction:
-          type: string
-          example: abc123
-        entity:
-          $ref: '#/components/schemas/ArkhamEntity'
         entryPx:
           type:
           - number
           - 'null'
           example: 1.23
-        leverageType:
-          type: string
-          example: abc123
-        leverageValue:
-          type: integer
-          example: 1
-        markPx:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        maxLeverage:
-          type: integer
-          example: 1
-        positionValue:
-          type:
-          - number
-          - 'null'
-          example: 1.23
-        szi:
+        hold:
           type: number
           example: 1.23
+        marketLabel:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        marketUrl:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        token:
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          type: number
+          example: 1.23
+        underlyingPricingId:
+          type:
+          - string
+          - 'null'
+          example: abc123
+        underlyingSymbol:
+          type:
+          - string
+          - 'null'
+          example: abc123
         unrealizedPnl:
           type:
           - number
           - 'null'
           example: 1.23
+        usdPrice:
+          type:
+          - number
+          - 'null'
+          example: 1.23
+        usdValue:
+          type:
+          - number
+          - 'null'
+          example: 1.23
       example:
-        address:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          arkhamEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          arkhamLabel:
-            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-            chainType: evm
-            name: Cold Wallet
-            note: ''
-          chain: ethereum
-          contract: false
-          depositServiceID: binance
-          isShielded: true
-          isUserAddress: false
-          ownerAddress: {}
-          predictedEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          program: true
-          service: true
-          userEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          userLabel:
-            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-            chainType: evm
-            name: Cold Wallet
-            note: ''
-        addressCount: 1
+        address: abc123
         coin: abc123
-        cumFundingSinceOpen: 1.23
-        direction: abc123
-        entity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          description: Binance is a global cryptocurrency exchange.
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
         entryPx: 1.23
-        leverageType: abc123
-        leverageValue: 1
-        markPx: 1.23
-        maxLeverage: 1
-        positionValue: 1.23
-        szi: 1.23
+        hold: 1.23
+        marketLabel: abc123
+        marketUrl: abc123
+        token: 1
+        total: 1.23
+        underlyingPricingId: abc123
+        underlyingSymbol: abc123
         unrealizedPnl: 1.23
-    HypercoreEntityActiveResponse:
+        usdPrice: 1.23
+        usdValue: 1.23
+    HypercoreSubAccountsResponse:
       required:
-      - entity
-      - active
+      - address
+      - subAccounts
       type: object
       properties:
-        active:
-          type: boolean
-          example: true
-        entity:
+        address:
           type: string
           example: abc123
-      example:
-        active: true
-        entity: abc123
-    HypercoreMarketsResponse:
-      required:
-      - markets
-      type: object
-      properties:
-        markets:
+        subAccounts:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/HypercoreMarketDTO'
+            $ref: '#/components/schemas/HypercoreSubAccountDTO'
           example:
-          - name: abc123
-            pricingId: abc123
-            symbol: abc123
+          - address: abc123
+            isVault: true
+            master: abc123
+            name: abc123
       example:
-        markets:
-        - name: abc123
-          pricingId: abc123
-          symbol: abc123
-    Address:
-      required:
-      - address
-      - chain
-      type: object
-      properties:
-        address:
-          type: string
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        arkhamEntity:
-          $ref: '#/components/schemas/Entity'
-        arkhamLabel:
-          $ref: '#/components/schemas/Label'
-        chain:
-          $ref: '#/components/schemas/Chain'
-        contract:
-          type:
-          - boolean
-          - 'null'
-          example: false
-        depositServiceID:
-          type:
-          - string
-          - 'null'
-          example: binance
-        isShielded:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        isUserAddress:
-          type:
-          - boolean
-          - 'null'
-          example: false
-        ownerAddress:
-          $ref: '#/components/schemas/Address'
-        predictedEntity:
-          $ref: '#/components/schemas/Entity'
-        program:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        service:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        userEntity:
-          $ref: '#/components/schemas/Entity'
-        userLabel:
-          $ref: '#/components/schemas/Label'
-      example:
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        arkhamEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        arkhamLabel:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          chainType: evm
-          name: Cold Wallet
-          note: ''
-        chain: ethereum
-        contract: false
-        depositServiceID: binance
-        isShielded: true
-        isUserAddress: false
-        ownerAddress: {}
-        predictedEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        program: true
-        service: true
-        userEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        userLabel:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          chainType: evm
-          name: Cold Wallet
-          note: ''
+        address: abc123
+        subAccounts:
+        - address: abc123
+          isVault: true
+          master: abc123
+          name: abc123
