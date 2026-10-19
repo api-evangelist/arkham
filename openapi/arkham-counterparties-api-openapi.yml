@@ -1,1090 +1,507 @@
 openapi: 3.2.0
 info:
-  title: Arkham Intel Counterparties API
-  version: 1.1.0
+  title: Arkham x402 Counterparties API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
 tags:
 - name: Counterparties
 paths:
-  /counterparties/address/{address}:
-    get:
-      summary: Get top counterparties for an address
-      description: 'Returns aggregated counterparty activity by volume for the specified address.
-
-
-        Supports filtering by transfer direction, chain, token, time range, and minimum USD volume.
-
-
-        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
-      operationId: GetAddressCounterParty
-      parameters:
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: flow
-        in: query
-        description: Transfer direction. Only "in" or "out" are accepted (omit for both directions).
-        schema:
-          $ref: '#/components/schemas/CounterpartyFlow'
-      - name: tokens
-        in: query
-        description: Comma-separated list of token addresses or token IDs; matches counterparties involving any of them.
-        schema:
-          type: array
-          items:
-            type: string
-          description: Comma-separated list of token addresses or token IDs; matches counterparties involving any of them.
-          example:
-          - ethereum
-          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-      - name: timeGte
-        in: query
-        description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          example: '2024-01-01T00:00:00Z'
-      - name: timeLte
-        in: query
-        description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          example: '2024-06-01T00:00:00Z'
-      - name: timeLast
-        in: query
-        description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
-        schema:
-          type: string
-          description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
-          example: 24h
-      - name: usdGte
-        in: query
-        description: Filter to counterparties whose aggregated USD volume is at least this value.
-        style: deepObject
-        explode: true
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to counterparties whose aggregated USD volume is at least this value.
-          example: '100.23'
-      - name: limit
-        in: query
-        description: 'Maximum number of results to return. Default: 20. Max: 1000.'
-        schema:
-          type: integer
-          description: 'Maximum number of results to return. Default: 20. Max: 1000.'
-          example: 10
-      - name: tags
-        in: query
-        description: List of counterparty tags to filter by.
-        schema:
-          type: array
-          items:
-            type: string
-          description: List of counterparty tags to filter by.
-          example:
-          - whale
-          - kol
-      - name: address
-        in: path
-        description: The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses).
-        required: true
-        schema:
-          type: string
-          description: The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated (per-counterparty volume summed across the listed addresses).
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Counterparty'
-                  example:
-                  - address:
-                      address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                      arkhamEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      arkhamLabel:
-                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                        chainType: evm
-                        name: Cold Wallet
-                        note: ''
-                      chain: ethereum
-                      contract: false
-                      depositServiceID: binance
-                      isShielded: true
-                      isUserAddress: false
-                      ownerAddress: {}
-                      predictedEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      program: true
-                      service: true
-                      userEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      userLabel:
-                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                        chainType: evm
-                        name: Cold Wallet
-                        note: ''
-                    chains:
-                    - ethereum
-                    flow: in
-                    transactionCount: 223156
-                    usd: 331013556816.85
-                example:
-                  base:
-                  - address:
-                      address: '0x31beec3942E4Faf3F253c86b51537387d16Ada34'
-                      arkhamLabel:
-                        address: '0x31beec3942E4Faf3F253c86b51537387d16Ada34'
-                        chainType: evm
-                        name: Binance Deposit
-                      chain: base
-                      contract: false
-                      depositServiceID: binance
-                      isUserAddress: false
-                    chains:
-                    - base
-                    flow: out
-                    transactionCount: 1
-                    usd: 5252.65185546875
-                  - address:
-                      address: '0x6dcBCe46a8B494c885D0e7b6817d2b519dF64467'
-                      arkhamEntity:
-                        crunchbase: https://www.crunchbase.com/organization/coinbase
-                        id: coinbase
-                        linkedin: https://www.linkedin.com/company/coinbase
-                        name: Coinbase
-                        note: ''
-                        service: null
-                        twitter: https://twitter.com/coinbase
-                        type: cex
-                        website: https://coinbase.com
-                      arkhamLabel:
-                        address: '0x6dcBCe46a8B494c885D0e7b6817d2b519dF64467'
-                        chainType: evm
-                        name: Hot Wallet
-                      chain: base
-                      contract: false
-                      isUserAddress: false
-                    chains:
-                    - base
-                    flow: in
-                    transactionCount: 1
-                    usd: 2028.17822265625
-                  bsc:
-                  - address:
-                      address: '0xF977814e90dA44bFA03b6295A0616a897441aceC'
-                      arkhamEntity:
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        id: binance
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        service: null
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      arkhamLabel:
-                        address: '0xF977814e90dA44bFA03b6295A0616a897441aceC'
-                        chainType: evm
-                        name: Cold Wallet
-                      chain: bsc
-                      contract: false
-                      isUserAddress: false
-                    chains:
-                    - bsc
-                    flow: all
-                    transactionCount: 78
-                    usd: 1014571199.420227
-                  - address:
-                      address: '0xD65448affe1475F101378A744a62C00F04CF50D6'
-                      arkhamEntity:
-                        id: kanga-exchange
-                        name: Kanga Exchange
-                        note: ''
-                        service: null
-                        twitter: https://twitter.com/KangaExchange
-                        type: cex
-                        website: https://kanga.exchange/
-                      arkhamLabel:
-                        address: '0xD65448affe1475F101378A744a62C00F04CF50D6'
-                        chainType: evm
-                        name: Hot Wallet
-                      chain: bsc
-                      contract: false
-                      isUserAddress: false
-                    chains:
-                    - bsc
-                    flow: in
-                    transactionCount: 1
-                    usd: 3163.48583984375
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
+  /counterparties/address:
+    post:
+      operationId: counterparties_address
+      summary: Get top Arkham counterparties for an address
       tags:
       - Counterparties
-  /counterparties/entity/{entity}:
-    get:
-      summary: Get top counterparties for an entity
-      description: 'Returns aggregated counterparty activity by volume for the specified entity.
-
-
-        Supports filtering by transfer direction, chain, token, time range, and minimum USD volume.
-
-
-        **Rate Limit**: This endpoint has a stricter rate limit of 1 request per second.'
-      operationId: GetEntityCounterParty
-      parameters:
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: flow
-        in: query
-        description: Transfer direction. Only "in" or "out" are accepted (omit for both directions).
-        schema:
-          $ref: '#/components/schemas/CounterpartyFlow'
-      - name: tokens
-        in: query
-        description: Comma-separated list of token addresses or token IDs; matches counterparties involving any of them.
-        schema:
-          type: array
-          items:
-            type: string
-          description: Comma-separated list of token addresses or token IDs; matches counterparties involving any of them.
-          example:
-          - ethereum
-          - '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
-      - name: timeGte
-        in: query
-        description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          example: '2024-01-01T00:00:00Z'
-      - name: timeLte
-        in: query
-        description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
-          example: '2024-06-01T00:00:00Z'
-      - name: timeLast
-        in: query
-        description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
-        schema:
-          type: string
-          description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
-          example: 24h
-      - name: usdGte
-        in: query
-        description: Filter to counterparties whose aggregated USD volume is at least this value.
-        style: deepObject
-        explode: true
-        schema:
-          type:
-          - string
-          - 'null'
-          description: Filter to counterparties whose aggregated USD volume is at least this value.
-          example: '100.23'
-      - name: limit
-        in: query
-        description: 'Maximum number of results to return. Default: 20. Max: 1000.'
-        schema:
-          type: integer
-          description: 'Maximum number of results to return. Default: 20. Max: 1000.'
-          example: 10
-      - name: tags
-        in: query
-        description: List of counterparty tags to filter by.
-        schema:
-          type: array
-          items:
-            type: string
-          description: List of counterparty tags to filter by.
-          example:
-          - whale
-          - kol
-      - name: entity
-        in: path
-        description: The entity ID to query counterparties for.
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '10.00'
+        protocols:
+        - x402: {}
+      requestBody:
         required: true
-        schema:
-          type: string
-          description: The entity ID to query counterparties for.
-          example: vitalik-buterin
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: array
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The address to query counterparties for. A comma-separated list is also accepted — their counterparties are aggregated…
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                flow:
+                  description: Transfer direction. Only "in" or "out" are accepted (omit for both directions).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                limit:
+                  description: 'Maximum number of results to return. Default: 20. Max: 1000.'
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tags:
+                  description: List of counterparty tags to filter by. Pass several as a single comma-separated value (e.g. 'whale,kol').
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeGte:
+                  description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeLast:
+                  description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeLte:
+                  description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tokens:
+                  description: Matches counterparties involving any of these token addresses or token IDs. Pass several as a single comma-separated va…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                usdGte:
+                  description: Filter to counterparties whose aggregated USD volume is at least this value.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+              required:
+              - address
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
                   items:
-                    $ref: '#/components/schemas/Counterparty'
-                  example:
-                  - address:
-                      address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                      arkhamEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      arkhamLabel:
-                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                        chainType: evm
-                        name: Cold Wallet
-                        note: ''
-                      chain: ethereum
-                      contract: false
-                      depositServiceID: binance
-                      isShielded: true
-                      isUserAddress: false
-                      ownerAddress: {}
-                      predictedEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      program: true
-                      service: true
-                      userEntity:
-                        addresses:
-                          abc123:
-                          - abc123
-                        crunchbase: https://www.crunchbase.com/organization/binance
-                        customImageSlug: binance
-                        customized: true
-                        id: binance
-                        instagram: https://www.instagram.com/binance
-                        linkShareable: true
-                        linkedin: https://www.linkedin.com/company/binance
-                        name: Binance
-                        note: ''
-                        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-                        populatedTags:
-                        - chain: ethereum
-                          disablePage: false
-                          excludeEntities: false
-                          id: proof-of-reserves
-                          label: Binance Proof of Reserves
-                          rank: 20
-                          tagParams: Binance
-                        service: true
-                        twitter: https://twitter.com/binance
-                        type: cex
-                        website: https://binance.com
-                      userLabel:
-                        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-                        chainType: evm
-                        name: Cold Wallet
-                        note: ''
-                    chains:
-                    - ethereum
-                    flow: in
-                    transactionCount: 223156
-                    usd: 331013556816.85
-                example:
-                  base:
-                  - address:
-                      address: '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'
-                      arkhamEntity:
-                        id: cowswap
-                        name: CoW Protocol
-                        note: ''
-                        service: null
-                        twitter: https://twitter.com/CoWSwap
-                        type: dex-aggregator
-                        website: https://cow.fi
-                      arkhamLabel:
-                        address: '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'
-                        chainType: evm
-                        name: GPv2Settlement
-                      chain: base
-                      contract: true
-                      isUserAddress: false
-                    chains:
-                    - base
-                    - ethereum
-                    flow: all
-                    transactionCount: 1224
-                    usd: 107909121.9766097
-                  - address:
-                      address: '0x33929958868F2a7C5bd8123243dDe6D23C5A6c58'
-                      chain: base
-                      contract: false
-                      isUserAddress: false
-                    chains:
-                    - base
-                    flow: in
-                    transactionCount: 1
-                    usd: 1280000000
-                  bsc:
-                  - address:
-                      address: '0xE081d4E19D18029Acb1250cDF29Bfd671040f5c7'
-                      arkhamLabel:
-                        address: '0xE081d4E19D18029Acb1250cDF29Bfd671040f5c7'
-                        chainType: evm
-                        name: '"kyawaung" on Galxe'
-                      chain: bsc
-                      contract: false
-                      isUserAddress: false
-                    chains:
-                    - bsc
-                    flow: in
-                    transactionCount: 1
-                    usd: 1240000000
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-      tags:
-      - Counterparties
-components:
-  schemas:
-    CounterpartyFlow:
-      enum:
-      - in
-      - out
-      type: string
-      example: in
-    Address:
-      required:
-      - address
-      - chain
-      type: object
-      properties:
-        address:
-          type: string
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        arkhamEntity:
-          $ref: '#/components/schemas/Entity'
-        arkhamLabel:
-          $ref: '#/components/schemas/Label'
-        chain:
-          $ref: '#/components/schemas/Chain'
-        contract:
-          type:
-          - boolean
-          - 'null'
-          example: false
-        depositServiceID:
-          type:
-          - string
-          - 'null'
-          example: binance
-        isShielded:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        isUserAddress:
-          type:
-          - boolean
-          - 'null'
-          example: false
-        ownerAddress:
-          $ref: '#/components/schemas/Address'
-        predictedEntity:
-          $ref: '#/components/schemas/Entity'
-        program:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        service:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        userEntity:
-          $ref: '#/components/schemas/Entity'
-        userLabel:
-          $ref: '#/components/schemas/Label'
-      example:
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        arkhamEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        arkhamLabel:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          chainType: evm
-          name: Cold Wallet
-          note: ''
-        chain: ethereum
-        contract: false
-        depositServiceID: binance
-        isShielded: true
-        isUserAddress: false
-        ownerAddress: {}
-        predictedEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        program: true
-        service: true
-        userEntity:
-          addresses:
-            abc123:
-            - abc123
-          crunchbase: https://www.crunchbase.com/organization/binance
-          customImageSlug: binance
-          customized: true
-          id: binance
-          instagram: https://www.instagram.com/binance
-          linkShareable: true
-          linkedin: https://www.linkedin.com/company/binance
-          name: Binance
-          note: ''
-          ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-          populatedTags:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-          service: true
-          twitter: https://twitter.com/binance
-          type: cex
-          website: https://binance.com
-        userLabel:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          chainType: evm
-          name: Cold Wallet
-          note: ''
-    Counterparty:
-      required:
-      - address
-      - usd
-      - transactionCount
-      - flow
-      - chains
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        chains:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Chain'
-          description: Chains on which this counterparty interacted with the queried subject.
-          example:
-          - ethereum
-        flow:
-          type: string
-          description: Direction of value flow relative to the queried address, e.g. in or out.
-          example: in
-        transactionCount:
-          minimum: 0
-          type: integer
-          description: Number of transfers between the queried subject and this counterparty.
-          example: 223156
-        usd:
-          type: number
-          description: Aggregated USD value of transfers between the queried subject and this counterparty.
-          example: 331013556816.85
-      example:
-        address:
-          address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-          arkhamEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          arkhamLabel:
-            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-            chainType: evm
-            name: Cold Wallet
-            note: ''
-          chain: ethereum
-          contract: false
-          depositServiceID: binance
-          isShielded: true
-          isUserAddress: false
-          ownerAddress: {}
-          predictedEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          program: true
-          service: true
-          userEntity:
-            addresses:
-              abc123:
-              - abc123
-            crunchbase: https://www.crunchbase.com/organization/binance
-            customImageSlug: binance
-            customized: true
-            id: binance
-            instagram: https://www.instagram.com/binance
-            linkShareable: true
-            linkedin: https://www.linkedin.com/company/binance
-            name: Binance
-            note: ''
-            ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-            populatedTags:
-            - chain: ethereum
-              disablePage: false
-              excludeEntities: false
-              id: proof-of-reserves
-              label: Binance Proof of Reserves
-              rank: 20
-              tagParams: Binance
-            service: true
-            twitter: https://twitter.com/binance
-            type: cex
-            website: https://binance.com
-          userLabel:
-            address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-            chainType: evm
-            name: Cold Wallet
-            note: ''
-        chains:
-        - ethereum
-        flow: in
-        transactionCount: 223156
-        usd: 331013556816.85
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
-    Label:
-      required:
-      - name
-      - address
-      - chainType
-      type: object
-      properties:
-        address:
-          type: string
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType:
-          type: string
-          example: evm
-        name:
-          type: string
-          example: Cold Wallet
-        note:
-          type: string
-          example: ''
-      example:
-        address: '0x28C6c06298d514Db089934071355E5743bf21d60'
-        chainType: evm
-        name: Cold Wallet
-        note: ''
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
-    PopulatedTag:
-      required:
-      - id
-      - label
-      - rank
-      - excludeEntities
-      - disablePage
-      type: object
-      properties:
-        chain:
-          $ref: '#/components/schemas/Chain'
-        disablePage:
-          type: boolean
-          description: Whether the dedicated page for this tag is disabled.
-          example: false
-        excludeEntities:
-          type: boolean
-          description: Whether entities are excluded from this tag.
-          example: false
-        id:
-          type: string
-          description: The tag identifier.
-          example: proof-of-reserves
-        label:
-          type: string
-          description: Human-readable label for this tag parameter combination.
-          example: Binance Proof of Reserves
-        rank:
-          type: integer
-          description: Display rank of the tag.
-          example: 20
-        tagParams:
-          type:
-          - string
-          - 'null'
-          description: The specific parameter value for this tag instance.
-          example: Binance
-      example:
-        chain: ethereum
-        disablePage: false
-        excludeEntities: false
-        id: proof-of-reserves
-        label: Binance Proof of Reserves
-        rank: 20
-        tagParams: Binance
-    Entity:
-      required:
-      - name
-      - note
-      - id
-      - type
-      - service
-      type: object
-      properties:
-        addresses:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-              example: abc123
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
             example:
-            - abc123
-          example:
-            abc123:
-            - abc123
-        crunchbase:
-          type:
-          - string
-          - 'null'
-          example: https://www.crunchbase.com/organization/binance
-        customImageSlug:
-          type:
-          - string
-          - 'null'
-          example: binance
-        customized:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        id:
-          type: string
-          example: binance
-        instagram:
-          type:
-          - string
-          - 'null'
-          example: https://www.instagram.com/binance
-        linkShareable:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        linkedin:
-          type:
-          - string
-          - 'null'
-          example: https://www.linkedin.com/company/binance
-        name:
-          type: string
-          example: Binance
-        note:
-          type: string
-          example: ''
-        ownerUID:
-          type: string
-          example: a1b2c3d4-5678-90ab-cdef-1234567890ab
-        populatedTags:
-          type: array
-          items:
-            $ref: '#/components/schemas/PopulatedTag'
-          example:
-          - chain: ethereum
-            disablePage: false
-            excludeEntities: false
-            id: proof-of-reserves
-            label: Binance Proof of Reserves
-            rank: 20
-            tagParams: Binance
-        service:
-          type:
-          - boolean
-          - 'null'
-          example: true
-        twitter:
-          type:
-          - string
-          - 'null'
-          example: https://twitter.com/binance
-        type:
-          type:
-          - string
-          - 'null'
-          example: cex
-        website:
-          type:
-          - string
-          - 'null'
-          example: https://binance.com
-      example:
-        addresses:
-          abc123:
-          - abc123
-        crunchbase: https://www.crunchbase.com/organization/binance
-        customImageSlug: binance
-        customized: true
-        id: binance
-        instagram: https://www.instagram.com/binance
-        linkShareable: true
-        linkedin: https://www.linkedin.com/company/binance
-        name: Binance
-        note: ''
-        ownerUID: a1b2c3d4-5678-90ab-cdef-1234567890ab
-        populatedTags:
-        - chain: ethereum
-          disablePage: false
-          excludeEntities: false
-          id: proof-of-reserves
-          label: Binance Proof of Reserves
-          rank: 20
-          tagParams: Binance
-        service: true
-        twitter: https://twitter.com/binance
-        type: cex
-        website: https://binance.com
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get top Arkham counterparties for an address. $10.00 per call.
+  /counterparties/entity:
+    post:
+      operationId: counterparties_entity
+      summary: Get top Arkham counterparties for an entity
+      tags:
+      - Counterparties
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '10.00'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The entity ID to query counterparties for. IDs are case-sensitive; look one up with GET /intelligence/search.
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'base,bsc'). If omitted, returns counterparties across all…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                flow:
+                  description: Transfer direction. Only "in" or "out" are accepted (omit for both directions).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                limit:
+                  description: 'Maximum number of results to return. Default: 20. Max: 1000.'
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tags:
+                  description: List of counterparty tags to filter by. Pass several as a single comma-separated value (e.g. 'whale,kol').
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeGte:
+                  description: Filter to activity after this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeLast:
+                  description: Filter to activity within this duration before now (e.g. 24h, 7d). Cannot be combined with timeGte/timeLte.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                timeLte:
+                  description: Filter to activity before this time. Accepts RFC 3339, Unix seconds/ms, or YYYY-MM-DD.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tokens:
+                  description: Matches counterparties involving any of these token addresses or token IDs. Pass several as a single comma-separated va…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                usdGte:
+                  description: Filter to counterparties whose aggregated USD volume is at least this value.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+              required:
+              - entity
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              entity: vitalik-buterin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get top Arkham counterparties for an entity. $10.00 per call.
+components:
+  responses:
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    PaymentRequired402:
+      description: 'Payment challenge, not an application error. Read the base64 x402 v2 challenge from PAYMENT-REQUIRED, sign it, and retry the same request with PAYMENT-SIGNATURE. If a post-payment 402 omits PAYMENT-REQUIRED, verification failed: read the new challenge, re-sign, and retry once.'
+      headers:
+        PAYMENT-REQUIRED:
+          description: Base64-encoded x402 v2 payment requirements. Its accepts array contains the scheme, network, asset, atomic amount, and payTo address.
+          schema:
+            type: string
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X

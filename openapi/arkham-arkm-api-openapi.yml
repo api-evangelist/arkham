@@ -1,36 +1,197 @@
 openapi: 3.2.0
 info:
-  title: Arkham Intel Arkm API
-  version: 1.1.0
+  title: Arkham x402 Arkm API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
 tags:
 - name: Arkm
 paths:
   /arkm/circulating:
-    get:
+    post:
+      operationId: arkm_circulating
       summary: Get ARKM circulating supply
-      description: Returns the current circulating supply of ARKM tokens.
-      operationId: GetARKMCirculating
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetARKMCirculatingResponse'
-        '500':
-          description: Internal Server Error
       tags:
       - Arkm
+      security:
+      - siwx: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          description: Authentication Required
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      description: Get ARKM circulating supply. Free with SIWX sign-in.
 components:
-  schemas:
-    GetARKMCirculatingResponse:
-      required:
-      - amount
-      type: object
-      properties:
-        amount:
-          type: integer
-          description: Circulating supply, in whole ARKM tokens.
-          example: 658912429
-      example:
-        amount: 658912429
+  responses:
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X

@@ -1,402 +1,525 @@
 openapi: 3.2.0
 info:
-  title: Arkham Intel Portfolio API
-  version: 1.1.0
+  title: Arkham x402 Portfolio API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
 tags:
 - name: Portfolio
 paths:
-  /portfolio/address/{address}:
-    get:
-      summary: Get address portfolio history
-      description: Retrieves historical portfolio snapshots for the specified address across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.
-      operationId: GetAddressPortfolioHistory
-      parameters:
-      - name: time
-        in: query
-        description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
-        required: true
-        schema:
-          type: string
-          description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
-          example: '1704067200000'
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: address
-        in: path
-        description: The blockchain address to query portfolio history for.
-        required: true
-        schema:
-          type: string
-          description: The blockchain address to query portfolio history for.
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/PortfolioEntry'
-                  example:
-                    abc123:
-                      balance: 1500.5
-                      id: usd-coin
-                      name: USD Coin
-                      price: 1
-                      symbol: USDC
-                      usd: 1500.5
-                example:
-                  bsc:
-                    1inch:
-                      balance: 1112.6200000000001
-                      id: 1inch
-                      name: 1INCH
-                      price: 0.45496
-                      symbol: 1inch
-                      usd: 506.1975952
-                    alchemy-pay:
-                      balance: 10
-                      id: alchemy-pay
-                      name: Alchemy Pay
-                      price: 0.02132812
-                      symbol: ach
-                      usd: 0.2132812
-                  ethereum:
-                    0x:
-                      balance: 10032515.845947504
-                      id: 0x
-                      name: 0x Protocol
-                      price: 0.369874
-                      symbol: zrx
-                      usd: 3710766.766003987
-                    1inch:
-                      balance: 6065867.718795477
-                      id: 1inch
-                      name: 1INCH
-                      price: 0.45496
-                      symbol: 1inch
-                      usd: 2759727.17734319
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
+  /portfolio/address:
+    post:
+      operationId: portfolio_address
+      summary: Get Arkham portfolio history for an address
       tags:
       - Portfolio
-  /portfolio/entity/{entity}:
-    get:
-      summary: Get entity portfolio history
-      description: Retrieves historical portfolio snapshots for the specified entity across chains, for the UTC day containing the given time. The response is keyed by chain, then by token pricing ID.
-      operationId: GetEntityPortfolioHistory
-      parameters:
-      - name: time
-        in: query
-        description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
-        required: true
-        schema:
-          type: string
-          description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
-          example: '1704067200000'
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: entity
-        in: path
-        description: The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID.
-        required: true
-        schema:
-          type: string
-          description: The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID.
-          example: binance
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-                  additionalProperties:
-                    $ref: '#/components/schemas/PortfolioEntry'
-                  example:
-                    abc123:
-                      balance: 1500.5
-                      id: usd-coin
-                      name: USD Coin
-                      price: 1
-                      symbol: USDC
-                      usd: 1500.5
-                example:
-                  bsc:
-                    '2049':
-                      balance: 120000
-                      id: '2049'
-                      name: '2049'
-                      price: 0.01338244
-                      symbol: '2049'
-                      usd: 1605.8928
-                    aave:
-                      balance: 311773.5865450922
-                      id: aave
-                      name: Aave
-                      price: 109.13
-                      symbol: aave
-                      usd: 34023851.499665916
-                  ethereum:
-                    0x:
-                      balance: 72450011.27241233
-                      id: 0x
-                      name: 0x Protocol
-                      price: 0.369874
-                      symbol: zrx
-                      usd: 26797375.469372235
-                    1inch:
-                      balance: 134991020.98849133
-                      id: 1inch
-                      name: 1INCH
-                      price: 0.45496
-                      symbol: 1inch
-                      usd: 61415514.90892401
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-      tags:
-      - Portfolio
-  /portfolio/timeSeries/address/{address}:
-    get:
-      summary: Get daily time series data for an address's token
-      description: Returns daily snapshots (in UTC) of the specified address's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.
-      operationId: GetAddressPortfolioHistoryTimeSeries
-      parameters:
-      - name: pricingId
-        in: query
-        description: The CoinGecko pricing ID of the token to track.
-        required: true
-        schema:
-          type: string
-          description: The CoinGecko pricing ID of the token to track.
-          example: ethereum
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: address
-        in: path
-        description: The blockchain address to query time series data for.
-        required: true
-        schema:
-          type: string
-          description: The blockchain address to query time series data for.
-          example: '0x28C6c06298d514Db089934071355E5743bf21d60'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-                  additionalProperties:
-                    type: object
-                    additionalProperties:
-                      $ref: '#/components/schemas/PortfolioEntry'
-                    example:
-                      abc123:
-                        balance: 1500.5
-                        id: usd-coin
-                        name: USD Coin
-                        price: 1
-                        symbol: USDC
-                        usd: 1500.5
-                  example:
-                    abc123:
-                      abc123:
-                        balance: 1500.5
-                        id: usd-coin
-                        name: USD Coin
-                        price: 1
-                        symbol: USDC
-                        usd: 1500.5
-                example:
-                  '2024-11-06T00:00:00Z':
-                    arbitrum_one:
-                      ethereum:
-                        balance: 0.157982385858176
-                        id: ethereum
-                        name: Ethereum
-                        price: 2423.42
-                        symbol: eth
-                        usd: 382.8576735364209
-                    ethereum:
-                      ethereum:
-                        balance: 75113.401952444
-                        id: ethereum
-                        name: Ethereum
-                        price: 2423.42
-                        symbol: eth
-                        usd: 182031320.55959183
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-      tags:
-      - Portfolio
-  /portfolio/timeSeries/entity/{entity}:
-    get:
-      summary: Get daily time series data for an entity's token
-      description: Returns daily snapshots (in UTC) of the specified entity's holdings of a given token. The response is keyed by day (UTC timestamp), then by chain, then by token pricing ID.
-      operationId: GetEntityPortfolioHistoryTimeSeries
-      parameters:
-      - name: pricingId
-        in: query
-        description: The CoinGecko pricing ID of the token to track.
-        required: true
-        schema:
-          type: string
-          description: The CoinGecko pricing ID of the token to track.
-          example: ethereum
-      - name: chains
-        in: query
-        description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across all supported chains.
-        schema:
-          $ref: '#/components/schemas/Chains'
-      - name: entity
-        in: path
-        description: The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID.
-        required: true
-        schema:
-          type: string
-          description: The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID.
-          example: binance
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-                  additionalProperties:
-                    type: object
-                    additionalProperties:
-                      $ref: '#/components/schemas/PortfolioEntry'
-                    example:
-                      abc123:
-                        balance: 1500.5
-                        id: usd-coin
-                        name: USD Coin
-                        price: 1
-                        symbol: USDC
-                        usd: 1500.5
-                  example:
-                    abc123:
-                      abc123:
-                        balance: 1500.5
-                        id: usd-coin
-                        name: USD Coin
-                        price: 1
-                        symbol: USDC
-                        usd: 1500.5
-                example:
-                  '2023-07-19T00:00:00Z':
-                    arbitrum_one:
-                      ethereum:
-                        balance: 111662.52500999894
-                        id: ethereum
-                        name: Ethereum
-                        price: 1897.72
-                        symbol: eth
-                        usd: 211904206.9619752
-                    ethereum:
-                      ethereum:
-                        balance: 3974214.8732396006
-                        id: ethereum
-                        name: Ethereum
-                        price: 1897.72
-                        symbol: eth
-                        usd: 7541947049.244255
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-      tags:
-      - Portfolio
-components:
-  schemas:
-    Chains:
-      type: array
-      items:
-        $ref: '#/components/schemas/Chain'
-      example:
-      - ethereum
-      - bsc
-      - polygon
-    PortfolioEntry:
-      required:
-      - id
-      - name
-      - symbol
-      - balance
-      - price
-      - usd
-      type: object
-      properties:
-        balance:
-          type: number
-          description: Token balance in whole units.
-          example: 1500.5
-        id:
-          type: string
-          example: usd-coin
-        name:
-          type: string
-          example: USD Coin
+      x-payment-info:
         price:
-          type: number
-          description: Token price in USD.
-          example: 1
-        symbol:
-          type: string
-          example: USDC
-        usd:
-          type: number
-          description: Balance value in USD.
-          example: 1500.5
-      example:
-        balance: 1500.5
-        id: usd-coin
-        name: USD Coin
-        price: 1
-        symbol: USDC
-        usd: 1500.5
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
+          mode: fixed
+          currency: USD
+          amount: '0.20'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The blockchain address to query portfolio history for.
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all suppo…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                time:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+              required:
+              - address
+              - time
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              time: '1704067200000'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham portfolio history for an address. $0.20 per call.
+  /portfolio/entity:
+    post:
+      operationId: portfolio_entity
+      summary: Get Arkham portfolio history for an entity
+      tags:
+      - Portfolio
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.40'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The entity ID to query portfolio history for. Accepts an Arkham entity ID or a user entity ID. IDs are case-sensitive;…
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,bsc'). If omitted, returns data across all suppo…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                time:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: Unix timestamp in milliseconds for the historical snapshot. The time is truncated to the start of the UTC day.
+              required:
+              - entity
+              - time
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              entity: binance
+              time: '1704067200000'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham portfolio history for an entity. $0.40 per call.
+  /portfolio/time-series/address:
+    post:
+      operationId: portfolio_time-series_address
+      summary: Get Arkham daily portfolio time series for an address token
+      tags:
+      - Portfolio
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.40'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The blockchain address to query time series data for.
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                pricingId:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The CoinGecko pricing ID of the token to track.
+              required:
+              - address
+              - pricingId
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              address: '0x28C6c06298d514Db089934071355E5743bf21d60'
+              pricingId: ethereum
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham daily portfolio time series for an address token. $0.40 per call.
+  /portfolio/time-series/entity:
+    post:
+      operationId: portfolio_time-series_entity
+      summary: Get Arkham daily portfolio time series for an entity token
+      tags:
+      - Portfolio
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.60'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The entity ID to query time series data for. Accepts an Arkham entity ID or a user entity ID. IDs are case-sensitive; l…
+                chains:
+                  description: Chains to filter by, as a single comma-separated value (e.g. 'ethereum,arbitrum_one'). If omitted, returns data across…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                pricingId:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The CoinGecko pricing ID of the token to track.
+              required:
+              - entity
+              - pricingId
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              entity: binance
+              pricingId: ethereum
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham daily portfolio time series for an entity token. $0.60 per call.
+components:
+  responses:
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    PaymentRequired402:
+      description: 'Payment challenge, not an application error. Read the base64 x402 v2 challenge from PAYMENT-REQUIRED, sign it, and retry the same request with PAYMENT-SIGNATURE. If a post-payment 402 omits PAYMENT-REQUIRED, verification failed: read the new challenge, re-sign, and retry once.'
+      headers:
+        PAYMENT-REQUIRED:
+          description: Base64-encoded x402 v2 payment requirements. Its accepts array contains the scheme, network, asset, atomic amount, and payTo address.
+          schema:
+            type: string
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X

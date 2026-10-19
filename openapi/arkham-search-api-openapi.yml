@@ -1,0 +1,594 @@
+openapi: 3.2.0
+info:
+  title: Arkham x402 Search API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
+tags:
+- name: Search
+paths:
+  /search:
+    post:
+      operationId: search
+      summary: Search Arkham addresses, entities, tokens, pools, and names
+      tags:
+      - Search
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '6.00'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                arkhamAddresses:
+                  description: Max Arkham-curated addresses with labels to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                arkhamAddressesOffset:
+                  description: Skip the first N Arkham addresses with labels (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                arkhamEntities:
+                  description: Max Arkham-curated entities to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                arkhamEntitiesOffset:
+                  description: Skip the first N Arkham entities (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                ens:
+                  description: Max ENS primary names to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                ensOffset:
+                  description: Skip the first N ENS names (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                filterLimits:
+                  description: (Legacy. Prefer flat parameters such as arkhamAddresses=50.) URL-encoded JSON object specifying maximum results per cat…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                filterOffsets:
+                  description: (Legacy. Prefer flat parameters such as arkhamAddressesOffset=10.) URL-encoded JSON object specifying pagination offset…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                fomo:
+                  description: Max Fomo usernames to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                fomoOffset:
+                  description: Skip the first N Fomo usernames (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                opensea:
+                  description: Max OpenSea usernames to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                openseaOffset:
+                  description: Skip the first N OpenSea usernames (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                polymarketEvents:
+                  description: Max Polymarket prediction events to return (0–50, default 0). Also enables the predictions-wallet match for address que…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                pools:
+                  description: Max Solana pools to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                poolsOffset:
+                  description: Skip the first N pools (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                pumpfun:
+                  description: Max pump.fun usernames to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                pumpfunOffset:
+                  description: Skip the first N pump.fun usernames (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                query:
+                  description: Search query string to match against entities, addresses, tokens, pools, ENS names, and more. An empty query returns no…
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                services:
+                  description: Max CEX/VASP entities to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                servicesOffset:
+                  description: Skip the first N CEX/VASP entities (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tags:
+                  description: Max tag matches to return (0–50, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tagsOffset:
+                  description: Skip the first N tag matches (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tokens:
+                  description: Max tokens to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                tokensOffset:
+                  description: Skip the first N tokens (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                twitter:
+                  description: Max Twitter-handle matches to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                twitterOffset:
+                  description: Skip the first N Twitter matches (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                types:
+                  description: Max entity-type matches to return (0–50, default 5).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                typesOffset:
+                  description: Skip the first N entity-type matches (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                userAddresses:
+                  description: Max user-defined addresses with labels to return (0–50, default 5). Requires authentication.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                userAddressesOffset:
+                  description: Skip the first N user addresses with labels (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                userEntities:
+                  description: Max user-defined entities to return (0–50, default 5). Requires authentication.
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                userEntitiesOffset:
+                  description: Skip the first N user entities (0–500, default 0).
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Search Arkham addresses, entities, tokens, pools, and names. $6.00 per call.
+components:
+  responses:
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    PaymentRequired402:
+      description: 'Payment challenge, not an application error. Read the base64 x402 v2 challenge from PAYMENT-REQUIRED, sign it, and retry the same request with PAYMENT-SIGNATURE. If a post-payment 402 omits PAYMENT-REQUIRED, verification failed: read the new challenge, re-sign, and retry once.'
+      headers:
+        PAYMENT-REQUIRED:
+          description: Base64-encoded x402 v2 payment requirements. Its accepts array contains the scheme, network, asset, atomic amount, and payTo address.
+          schema:
+            type: string
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X

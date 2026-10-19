@@ -1,91 +1,226 @@
 openapi: 3.2.0
 info:
-  title: Arkham Intel Cluster API
-  version: 1.1.0
+  title: Arkham x402 Cluster API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
 tags:
 - name: Cluster
 paths:
-  /cluster/{id}/summary:
-    get:
-      summary: Get cluster summary statistics
-      description: 'Returns summary statistics for the specified cluster, including:
-
-        - Total number of unique addresses in the cluster
-
-        - Total balance in USD
-
-        - Total transaction volume in USD
-
-        - First and last transaction timestamps
-
-
-        Clusters are groups of addresses that have been linked together through on-chain heuristics (e.g., Bitcoin input clustering).
-
-
-        To find a cluster ID, look up an address with GET /intelligence/address_enriched/{address} and read its clusterIds field.'
-      operationId: GetClusterSummary
-      parameters:
-      - name: id
-        in: path
-        description: The ID of the cluster to summarize.
-        required: true
-        schema:
-          type: string
-          description: The ID of the cluster to summarize.
-          example: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClusterSummary'
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
+  /cluster/summary:
+    post:
+      operationId: cluster_summary
+      summary: Get Arkham cluster summary statistics
       tags:
       - Cluster
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.20'
+        protocols:
+        - x402: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The ID of the cluster to summarize.
+              required:
+              - id
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              id: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham cluster summary statistics. $0.20 per call.
 components:
-  schemas:
-    ClusterSummary:
-      required:
-      - clusterId
-      - numAddresses
-      - volumeUsd
-      - balanceUsd
-      - firstTx
-      - lastTx
-      type: object
-      properties:
-        balanceUsd:
-          type: number
-          example: 270448104.02
-        clusterId:
-          type: string
-          example: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
-        firstTx:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2018-11-12T14:22:37Z'
-        lastTx:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2026-06-19T00:58:41Z'
-        numAddresses:
-          type: integer
-          example: 1894908
-        volumeUsd:
-          type: number
-          example: 1782634995673.44
-      example:
-        balanceUsd: 270448104.02
-        clusterId: 00000002aae817c1a0d2ec3c91ede74c64c92c83658decdad52b591451948d75a9ca
-        firstTx: '2018-11-12T14:22:37Z'
-        lastTx: '2026-06-19T00:58:41Z'
-        numAddresses: 1894908
-        volumeUsd: 1782634995673.44
+  responses:
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    PaymentRequired402:
+      description: 'Payment challenge, not an application error. Read the base64 x402 v2 challenge from PAYMENT-REQUIRED, sign it, and retry the same request with PAYMENT-SIGNATURE. If a post-payment 402 omits PAYMENT-REQUIRED, verification failed: read the new challenge, re-sign, and retry once.'
+      headers:
+        PAYMENT-REQUIRED:
+          description: Base64-encoded x402 v2 payment requirements. Its accepts array contains the scheme, network, asset, atomic amount, and payTo address.
+          schema:
+            type: string
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X

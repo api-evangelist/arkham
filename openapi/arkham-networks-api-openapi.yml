@@ -1,262 +1,271 @@
 openapi: 3.2.0
 info:
-  title: Arkham Intel Networks API
-  version: 1.1.0
+  title: Arkham x402 Networks API
+  description: Pay-per-request Arkham wallet intelligence and market data API protected by x402.
+  version: 1.0.0
+  x-guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  guidance: '# Arkham x402 API
+
+
+    Arkham x402 exposes stateless Arkham wallet intelligence endpoints at the service root. All paid routes use x402 payments.
+
+
+    When to use:
+
+    - Pre-trade wallet due diligence before copy-trading or taking counterparty exposure.
+
+    - Counterparty and smart-money analysis, including token flow monitoring.
+
+    - Balance, portfolio, and historical portfolio tracking.
+
+    - Token and broader market intelligence for trading decisions.
+
+    - Polymarket market, wallet, position, and activity intelligence.
+
+
+    Use POST requests with JSON bodies. Path parameters from Arkham are supplied as body fields. Extra fields become Arkham query parameters. Address fields are canonicalized at ingress: EVM addresses are lowercased, Solana addresses are preserved.
+
+
+    Pricing is $0.20 per Arkham credit. The free chains, networks/status, and arkm/circulating endpoints use SIWX sign-in instead of payment. Per-row endpoints such as transfers and swaps price from request limit, defaulting to the upstream page size of 20 when omitted, so agents should pass the smallest useful limit. Failed upstream Arkham requests are not charged.
+
+
+    Rate limits are per payer wallet and endpoint. Most endpoints allow 100 requests/sec. Heavy endpoints allow 5 requests/sec: transfers, transfers/unenriched, transfers/histogram, swaps, token/top, token/top_flow, token/volume, intelligence/search, counterparties, and flow.
+
+
+    ## Error handling
+
+
+    - 402 with PAYMENT-REQUIRED: this is the payment challenge, not an application error. Pay and retry the identical request with PAYMENT-SIGNATURE.
+
+    - 402 without PAYMENT-REQUIRED after payment: verification failed. Read the new challenge and re-sign; retry once.
+
+    - 400: validation failed or required body fields are missing. Fatal for the request as written; fix it before retrying. Not charged.
+
+    - 404: the upstream Arkham resource does not exist. Fatal for the same input. Not charged.
+
+    - 429: the payer wallet exceeded its endpoint rate limit. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests/second.
+
+    - 5xx, including 502 and 504: Arkham failed or timed out. Retry with backoff. x402 payments are not settled for failed requests.
+
+
+    Examples:
+
+    - POST /search { "query": "Coinbase", "arkhamEntities": 3, "tokens": 2 }
+
+    - POST /intelligence/entity-summary { "entity": "coinbase" }
+
+    - POST /balances/address { "chains": "ethereum", "address": "0x..." }
+
+
+    Stateful Arkham account mutation routes such as alerts, private labels/entities, and WebSocket session lifecycle are intentionally not exposed.'
+  contact:
+    name: Arkham Intelligence
+    email: api@arkm.com
+    url: https://api.arkm.com/x402
+servers:
+- url: https://api.arkm.com/x402
 tags:
 - name: Networks
 paths:
-  /networks/history/{chain}:
-    get:
-      summary: Get historical data for a blockchain network
-      description: Retrieves the full daily price, volume, and market-cap history of a blockchain network's native token, from the token's launch to the latest available snapshot.
-      operationId: GetNetworkHistory
-      parameters:
-      - name: chain
-        in: path
-        description: The blockchain network identifier.
+  /networks/history:
+    post:
+      operationId: networks_history
+      summary: Get Arkham historical data for a blockchain network
+      tags:
+      - Networks
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.20'
+        protocols:
+        - x402: {}
+      requestBody:
         required: true
-        schema:
-          $ref: '#/components/schemas/Chain'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chain:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  - type: boolean
+                  - type: array
+                    items:
+                      anyOf:
+                      - type: string
+                      - type: number
+                      - type: boolean
+                  description: The blockchain network identifier.
+              required:
+              - chain
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+            example:
+              chain: ethereum
       responses:
         '200':
-          description: OK
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/TokenHistoricalQuote'
-                example:
-                - marketCap: 15091573435.25
-                  time: '2019-03-30T00:00:00Z'
-                  usd: 143.15
-                  volume24h: 6309182468.75
-                - marketCap: 146718573462
-                  time: '2022-11-17T00:04:43.16Z'
-                  usd: 1217.98
-                  volume24h: 8857864433
-                - marketCap: 215157394830
-                  time: '2026-07-06T00:00:30.587Z'
-                  usd: 1783.55
-                  volume24h: 10802375225
+                items: {}
         '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          $ref: '#/components/responses/PaymentRequired402'
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      security: []
+      description: Get Arkham historical data for a blockchain network. $0.20 per call.
+  /networks/status:
+    post:
+      operationId: networks_status
+      summary: Get Arkham current status for all blockchain networks
       tags:
       - Networks
-  /networks/status:
-    get:
-      summary: Get current status for all blockchain networks
-      description: Retrieves the current status for all supported blockchain networks, including price, 24h price change, volume, market cap, latest block (tip), total transfers, and gas/fee information. Each network includes an "asOf" object giving the time each piece of data was last read; values are served from a cache refreshed about once per minute.
-      operationId: GetAllNetworkStatus
+      security:
+      - siwx: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              additionalProperties:
+                anyOf:
+                - type: string
+                - type: number
+                - type: boolean
+                - type: array
+                  items:
+                    anyOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
       responses:
         '200':
-          description: OK
+          description: Successful response
           content:
             application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/NetworkStatus'
-                example:
-                  bitcoin:
-                    active: true
-                    asOf:
-                      fee: '2026-07-06T14:00:37.216437394Z'
-                      price: '2026-07-06T14:00:37.212573416Z'
-                      tip: '2026-07-06T14:00:37.214465232Z'
-                      transfers: '2026-07-06T14:00:37.239063539Z'
-                    chain: bitcoin
-                    gasFee: null
-                    marketCap: 1239738051993
-                    price: 61828
-                    priceChange24h: -910
-                    priceChange24hPercent: -1.45
-                    satFee: 506
-                    tip: 956923
-                    tps: 0
-                    transfers: 7215875738
-                    volume: 27395894777
-                  ethereum:
-                    active: true
-                    asOf:
-                      fee: '2026-07-06T14:00:37.214666903Z'
-                      price: '2026-07-06T14:00:37.212834121Z'
-                      tip: '2026-07-06T14:00:37.214097043Z'
-                      transfers: '2026-07-06T14:00:37.241411754Z'
-                    chain: ethereum
-                    gasFee: 1.13
-                    marketCap: 210742916805
-                    price: 1745.84
-                    priceChange24h: -18.71
-                    priceChange24hPercent: -1.06
-                    satFee: null
-                    tip: 25473954
-                    tps: 0
-                    transfers: 6082358603
-                    volume: 10129176757
-        '500':
-          description: Internal Server Error
-      tags:
-      - Networks
+              schema: {}
+        '400':
+          $ref: '#/components/responses/BadRequest400'
+        '402':
+          description: Authentication Required
+        '404':
+          $ref: '#/components/responses/NotFound404'
+        '429':
+          $ref: '#/components/responses/RateLimited429'
+        5XX:
+          $ref: '#/components/responses/UpstreamError5xx'
+      description: Get Arkham current status for all blockchain networks. Free with SIWX sign-in.
 components:
-  schemas:
-    TokenHistoricalQuote:
-      required:
-      - time
-      - usd
-      - volume24h
-      - marketCap
-      type: object
-      properties:
-        marketCap:
-          type: number
-          description: Market capitalization in USD.
-          example: 75000000.5
-        time:
-          type: string
-          description: Snapshot timestamp.
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        usd:
-          type: number
-          description: Price in USD.
-          example: 1.05
-        volume24h:
-          type: number
-          description: 24-hour trading volume in USD.
-          example: 1250000.5
-      example:
-        marketCap: 75000000.5
-        time: '2024-01-01T00:00:00Z'
-        usd: 1.05
-        volume24h: 1250000.5
-    NetworkStatus:
-      required:
-      - chain
-      - active
-      - price
-      - priceChange24h
-      - priceChange24hPercent
-      - volume
-      - marketCap
-      - tip
-      - tps
-      - transfers
-      - gasFee
-      - satFee
-      - asOf
-      type: object
-      properties:
-        active:
-          type: boolean
-          example: true
-        asOf:
-          $ref: '#/components/schemas/NetworkStatusAsOf'
-        chain:
-          $ref: '#/components/schemas/Chain'
-        gasFee:
-          type:
-          - number
-          - 'null'
-          description: Current gas fee. Populated for EVM chains only; null for non-EVM chains.
-          example: 0.79
-        marketCap:
-          type: number
-          example: 203611334984
-        price:
-          type: number
-          example: 1686.97
-        priceChange24h:
-          type: number
-          example: -52.71
-        priceChange24hPercent:
-          type: number
-          example: -3.03
-        satFee:
-          type:
-          - integer
-          - 'null'
-          description: Current fee rate in satoshis per byte. Populated only for Bitcoin-family (UTXO) chains — Bitcoin, Dogecoin, and Zcash; null for all other chains.
-          example: 1
-        tip:
-          minimum: 0
-          type: integer
-          example: 25351093
-        tps:
-          type: number
-          example: 0
-        transfers:
-          type: integer
-          example: 5988140415
-        volume:
-          type: number
-          example: 11859071343
-      example:
-        active: true
-        asOf:
-          fee: '2024-01-01T00:00:00Z'
-          price: '2024-01-01T00:00:00Z'
-          tip: '2024-01-01T00:00:00Z'
-          transfers: '2024-01-01T00:00:00Z'
-        chain: ethereum
-        gasFee: 0.79
-        marketCap: 203611334984
-        price: 1686.97
-        priceChange24h: -52.71
-        priceChange24hPercent: -3.03
-        satFee: 1
-        tip: 25351093
-        tps: 0
-        transfers: 5988140415
-        volume: 11859071343
-    NetworkStatusAsOf:
-      required:
-      - price
-      - tip
-      - transfers
-      type: object
-      properties:
-        fee:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        price:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        tip:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        transfers:
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-      example:
-        fee: '2024-01-01T00:00:00Z'
-        price: '2024-01-01T00:00:00Z'
-        tip: '2024-01-01T00:00:00Z'
-        transfers: '2024-01-01T00:00:00Z'
-    Chain:
-      enum:
-      - ethereum
-      - polygon
-      - bsc
-      - optimism
-      - avalanche
-      - arbitrum_one
-      - base
-      - bitcoin
-      - tron
-      - flare
-      - solana
-      - dogecoin
-      - zcash
-      - hyperevm
-      - hypercore
-      type: string
-      example: ethereum
+  responses:
+    RateLimited429:
+      description: Per-wallet endpoint rate limit exceeded. Retry with at least 1 second of backoff; keep heavy endpoints at no more than 5 requests per second.
+    PaymentRequired402:
+      description: 'Payment challenge, not an application error. Read the base64 x402 v2 challenge from PAYMENT-REQUIRED, sign it, and retry the same request with PAYMENT-SIGNATURE. If a post-payment 402 omits PAYMENT-REQUIRED, verification failed: read the new challenge, re-sign, and retry once.'
+      headers:
+        PAYMENT-REQUIRED:
+          description: Base64-encoded x402 v2 payment requirements. Its accepts array contains the scheme, network, asset, atomic amount, and payTo address.
+          schema:
+            type: string
+    NotFound404:
+      description: The upstream Arkham resource does not exist. Fatal for the same input. Payment is not settled.
+    UpstreamError5xx:
+      description: Arkham failed or timed out, including 502 and 504 responses. Retry with backoff. x402 payments and MPP transaction credentials are not settled for failed requests; MPP hash credits are redeemed at admission and are not refunded automatically.
+    BadRequest400:
+      description: 'Fatal for the request as written: validation failed or required JSON body fields are missing. Fix the request; do not retry it unchanged. Payment is not settled.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - success
+            - error
+            properties:
+              success:
+                type: boolean
+                enum:
+                - false
+              error:
+                type: string
+              issues:
+                type: array
+                description: Per-field validation issues, present when schema validation produced them.
+  securitySchemes:
+    siwx:
+      type: apiKey
+      in: header
+      name: SIGN-IN-WITH-X
