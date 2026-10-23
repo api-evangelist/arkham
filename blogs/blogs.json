@@ -5,10 +5,17 @@
       "source": "https://info.arkm.com/research",
       "feed_url": "https://info.arkm.com/research/rss.xml",
       "title": "",
-      "saved": 11,
+      "saved": 0,
       "method": "discovered"
+    },
+    {
+      "source": "https://info.arkm.com/research/rss.xml",
+      "feed_url": "https://info.arkm.com/research/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     }
   ],
-  "post_count": 11,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 50,
+  "fetched": "2026-10-17T14:53:57Z"
 }
